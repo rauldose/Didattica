@@ -71,6 +71,19 @@ def eg_parse_dat(path):
     return params
 
 
+LEGGIBILI = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+                "àèéìòùÀÈÉÌÒÙ.,;:'\"!?()-=+*/\\%°<>[]{}_\t")
+
+
+def spazzatura(riga):
+    """True for a line of scrambled bytes (a leftover password line)."""
+    r = riga.strip()
+    if len(r) < 10:
+        return False
+    strani = sum(1 for c in r if c not in LEGGIBILI)
+    return strani / len(r) > 0.3
+
+
 def build_eg(src):
     folder = os.path.join(src, "egarc")
     files = {f.upper(): os.path.join(folder, f) for f in os.listdir(folder)}
@@ -90,7 +103,12 @@ def build_eg(src):
             lines = open(files[fn], "rb").read().split(b"\r\n")
             if n == 1:
                 lines = lines[2:]
-            levels.append("\n".join(eg_decode(l) for l in lines).rstrip() + "\n")
+            righe = [eg_decode(l) for l in lines]
+            # the 1995 files (VERBI) also carry the scrambled password line at
+            # the top of every level, not only in .L1: it is not exercise text
+            if righe and spazzatura(righe[0]):
+                righe = righe[1:]
+            levels.append("\n".join(righe).rstrip() + "\n")
         dat = base + ".DAT"
         params = eg_parse_dat(files[dat]) if dat in files else json.loads(json.dumps(EG_DEFAULTS))
         out.append({"id": base, "titolo": title, "parametri": params, "livelli": levels})
@@ -102,7 +120,11 @@ EM_SHIFT = [-2, 1, -1, 2]
 
 def em_decode_line(b):
     b = b[::-1]
-    return bytes((c + EM_SHIFT[i % 4]) & 255 for i, c in enumerate(b)).decode("cp1252")
+    raw = bytes((c + EM_SHIFT[i % 4]) & 255 for i, c in enumerate(b))
+    # Some sets were typed in a DOS editor: their accented letters use code
+    # page 850 (0x85 à, 0x8A è, 0x97 ù, ...), which in Windows-1252 are
+    # punctuation. Bytes 0x80-0x9F are therefore read as code page 850.
+    return "".join(bytes([c]).decode("cp850") if 0x80 <= c <= 0x9F else bytes([c]).decode("cp1252") for c in raw)
 
 
 def build_em(src):
@@ -123,6 +145,53 @@ def build_em(src):
 
 
 
+def applica_correzioni(eg, em, path):
+    """Apply the reviewed corrections (strumenti/correzioni.json): exact line replacements."""
+    if not os.path.exists(path):
+        return []
+    corr = json.load(open(path, encoding="utf-8"))
+    per_id = {e["id"]: e for e in eg}
+    per_dir = {e["cartella"]: e for e in em}
+    for c in corr:
+        tipo, nome = c["set"].split(":", 1)
+        if tipo == "EG":
+            es, n = per_id[nome], c["livello"] - 1
+            righe = es["livelli"][n].split("\n")
+        else:
+            es = per_dir[nome]
+            righe = es["testo"].split("\n")
+        trovate = [i for i, r in enumerate(righe) if r.rstrip() == c["prima"].rstrip()]
+        if not trovate:
+            raise SystemExit("Correzione non applicabile (%s, riga %s): %r" % (c["set"], c.get("riga"), c["prima"]))
+        for i in trovate:
+            righe[i] = c["dopo"]
+        if tipo == "EG":
+            es["livelli"][n] = "\n".join(righe)
+        else:
+            es["testo"] = "\n".join(righe)
+    return corr
+
+
+def scrivi_elenco(corr, path, eg):
+    titoli = {e["id"]: e["titolo"] for e in eg}
+    out = ["# Correzioni alle esercitazioni originali", "",
+           "Il Prof. Muscolino scriveva sul suo sito che gli esercizi di esempio \"possono contenere",
+           "degli errori in quanto sono quelli prodotti dai ragazzi\" e chiedeva aiuto per sistemarli.",
+           "Queste sono le correzioni applicate alle versioni giocabili (`dati/`). I file originali",
+           "restano invariati in `archivio/` e le correzioni sono in `strumenti/correzioni.json`.", ""]
+    corrente = None
+    for c in corr:
+        tipo, nome = c["set"].split(":", 1)
+        intest = ("E.G. – %s" % titoli.get(nome, nome)) if tipo == "EG" else ("EM – %s" % nome)
+        if c.get("livello"):
+            intest += ", livello %d" % c["livello"]
+        if intest != corrente:
+            out += ["", "## " + intest, ""]
+            corrente = intest
+        out.append("- `%s` → `%s` — %s" % (c["prima"].strip(), c["dopo"].strip(), c["motivo"]))
+    open(path, "w", encoding="utf-8").write("\n".join(out) + "\n")
+
+
 def write_js(path, var, data):
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("// Generato da strumenti/costruisci_dati.py - dati originali di Carmelo Muscolino\n")
@@ -135,8 +204,13 @@ def main():
         sys.exit(1)
     src = sys.argv[1]
     root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-    write_js(os.path.join(root, "dati/eg/eg-dati.js"), "EG_DATI", build_eg(src))
-    write_js(os.path.join(root, "dati/em/em-dati.js"), "EM_DATI", build_em(src))
+    eg, em = build_eg(src), build_em(src)
+    corr = applica_correzioni(eg, em, os.path.join(root, "strumenti/correzioni.json"))
+    if corr:
+        scrivi_elenco(corr, os.path.join(root, "docs/CORREZIONI.md"), eg)
+    write_js(os.path.join(root, "dati/eg/eg-dati.js"), "EG_DATI", eg)
+    write_js(os.path.join(root, "dati/em/em-dati.js"), "EM_DATI", em)
+    print("correzioni applicate:", len(corr))
     print("ok")
 
 
