@@ -145,7 +145,8 @@
   function mostraPasso() {
     var p = passo(), ui = S.ui;
     S.buffer = ""; S.errori = 0; S.sceltaFatta = !p.scelta; S.erroriScelta = 0;
-    ui.consegna.textContent = p.consegna || S.es.consegna || (def.aTempo ? "Veloce!" : "Quanto fa?");
+    ui.consegna.textContent = p.consegna || S.es.consegna || (S.es.problema ? "" : def.aTempo ? "Veloce!" : "Quanto fa?");
+    ui.consegna.hidden = !ui.consegna.textContent;
     ui.lavagna.innerHTML = p.lavagna || "";
     ui.lavagna.classList.toggle("testo-lungo", /quaderno|colonna/.test(p.lavagna || ""));
     ui.lavagna.classList.remove("entra"); void ui.lavagna.offsetWidth; ui.lavagna.classList.add("entra");
@@ -374,11 +375,12 @@
   }
   function cambiaLivello() {
     var lista = N.el("ul", { class: "livelli-dialogo" }, def.livelli.map(function (t, i) { return N.el("li", { html: "<b>" + (i + 1) + "</b> – " + t }); }));
-    var nodo = N.el("div", {}, [N.el("p", { text: "Il giro ricomincia dal livello che scegli." }), lista]);
-    N.dialogo({
-      titolo: "Scegli il livello", nodo: nodo,
-      pulsanti: [1, 2, 3, 4, 5].map(function (l) { return { testo: String(l), valore: l, secondario: l !== livello }; }).concat([{ testo: "Annulla", valore: null, secondario: true }])
-    }).then(function (l) {
+    var opz = { titolo: "Scegli il livello", pulsanti: [{ testo: "Annulla", valore: null, secondario: true }] };
+    var griglia = N.el("div", { class: "livelli", role: "group", "aria-label": "Livello" }, [1, 2, 3, 4, 5].map(function (l) {
+      return N.el("button", { type: "button", text: String(l), "aria-label": "Livello " + l, "aria-pressed": String(l === livello), onclick: function () { if (opz._chiudi) opz._chiudi(l); } });
+    }));
+    opz.nodo = N.el("div", {}, [N.el("p", { text: "Il giro ricomincia dal livello che scegli." }), lista, griglia]);
+    N.dialogo(opz).then(function (l) {
       if (!l || l === livello) return;
       livello = l; N.suono.livello();
       N.esito("info", "Livello " + l + "!", 1200);

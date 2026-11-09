@@ -58,7 +58,7 @@ button.chip { cursor: pointer; }
 .slot:empty::after { content: "?"; color: #d8c9b3; }
 .slot.ok { color: var(--ok); border-color: var(--ok); }
 .slot.ko { color: var(--ko); border-color: var(--ko); text-decoration: line-through; }
-.sup-slot { font-size: .55em; vertical-align: super; }
+.sup-slot { font-size: .7em; vertical-align: super; line-height: 0; }
 .sup-slot .slot { border-bottom-width: 3px; min-width: 1.4em; }
 
 /* column additions */
@@ -67,7 +67,7 @@ button.chip { cursor: pointer; }
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: .06em;
 }
 .colonna .segno { color: var(--colore); }
-.colonna .linea { height: 4px; background: var(--testo); border-radius: 2px; margin: 4px 0 6px; }
+.colonna .linea { grid-column: 1 / -1; height: 4px; background: var(--testo); border-radius: 2px; margin: 4px 0 6px; }
 .colonna .slot { text-align: right; min-width: 4.5ch; }
 
 /* expressions, notebook style */
@@ -83,7 +83,7 @@ button.chip { cursor: pointer; }
 .sottocalcolo { margin-top: 10px; font-size: clamp(28px, 8vw, 40px); }
 
 /* word problems */
-.problema { background: var(--carta); border-radius: var(--r); box-shadow: var(--ombra); padding: 14px 16px; margin: 10px 0; font-size: 18px; font-weight: 700; }
+.problema { background: var(--carta); border-radius: var(--r); box-shadow: var(--ombra); padding: 12px 14px; margin: 8px 0; font-size: 17px; font-weight: 700; line-height: 1.35; }
 .problema .figura { display: block; width: 100%; max-width: 340px; max-height: 190px; margin: 8px auto 0; }
 .fig-forma { fill: var(--colore-chiaro); stroke: var(--testo); stroke-width: 3; stroke-linejoin: round; }
 .fig-angolo { fill: none; stroke: var(--testo); stroke-width: 2; }
@@ -106,15 +106,20 @@ body.app-gioco > .pagina { flex: 1; min-height: 0; width: 100%; overflow-y: auto
 .dock {
   flex: none; border-top: 2px solid var(--bordo); padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
 }
-.riga-risposta { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; font-size: 20px; flex-wrap: wrap; }
-.riga-risposta .risposta { margin: 0; min-width: 120px; }
+.riga-risposta { display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 18px; }
+.riga-risposta > span:first-child { min-width: 0; text-align: right; line-height: 1.15; }
+.riga-risposta > span:last-child { flex: none; }
+.riga-risposta .risposta { margin: 0; min-width: 104px; min-height: 56px; flex: none; }
 .riga-risposta .risposta.ok { border-style: solid; border-color: var(--ok); background: var(--ok-chiaro); }
 .riga-risposta .risposta.ko { border-style: solid; border-color: var(--ko); background: var(--ko-chiaro); text-decoration: line-through; }
 .dock .tastierino { gap: 7px; margin-top: 6px; }
 .dock .tastierino button { min-height: 56px; }
+/* OK as a tall key on the right: one row less, more room for the exercise */
+.dock .tastierino { grid-template-columns: repeat(3, 1fr) 1.15fr; grid-auto-flow: row dense; }
+.dock .tastierino .ok { grid-column: 4 !important; grid-row: 1 / span 4; font-size: 24px; }
 .dock .scelte { grid-template-columns: 1fr 1fr; gap: 8px; }
-.dock .scelta { min-height: 56px; font-size: 17px; padding: 6px 10px; }
-.dock .domanda-scelta { text-align: center; font-weight: 800; font-size: 20px; margin: 0 0 8px; }
+.dock .scelta { min-height: 56px; font-size: 16px; padding: 4px 8px; line-height: 1.15; }
+.dock .domanda-scelta { text-align: center; font-weight: 800; font-size: 19px; margin: 0 0 6px; }
 .dock .btn.avanti { width: 100%; margin-top: 4px; min-height: 64px; font-size: 22px; }
 .scossa { animation: scossa .35s; }
 
@@ -136,7 +141,7 @@ body.app-gioco > .pagina { flex: 1; min-height: 0; width: 100%; overflow-y: auto
 @keyframes pop { 50% { transform: scale(1.2); } }
 
 @media (max-height: 700px) {
-  .dock .tastierino button { min-height: 56px; font-size: 24px; }
+  .dock .tastierino button { font-size: 24px; }
   .lavagna.mat { padding: 12px 10px; }
 }
 
@@ -148,3 +153,9 @@ body.app-gioco > .pagina { flex: 1; min-height: 0; width: 100%; overflow-y: auto
   transform: translateX(-50%) translateY(-260%);
 }
 .esito.visibile { transform: translateX(-50%) translateY(0); }
+
+/* fade at the bottom of the scrolling area: there is more to see (e.g. the figure) */
+.area::after {
+  content: ""; position: sticky; bottom: -8px; display: block; height: 26px; margin-top: -26px; pointer-events: none;
+  background: linear-gradient(rgba(255, 248, 236, 0), var(--sfondo));
+}

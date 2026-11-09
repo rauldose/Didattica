@@ -77,7 +77,7 @@
   function colonna(a, b, s) {
     return '<div class="colonna" aria-label="' + a + " " + (s === "+" ? "più" : "meno") + " " + b + '">' +
       '<span></span><span>' + a + '</span><span class="segno">' + s + '</span><span>' + b + '</span>' +
-      '<span class="linea"></span><span class="linea"></span><span></span><span>' + SLOT + "</span></div>";
+      '<span class="linea"></span><span></span><span>' + SLOT + "</span></div>";
   }
   function addizioni(liv) {
     var piu = R(0, 1) === 1, a, b;
@@ -193,7 +193,7 @@
       passi.push({
         lavagna: '<div class="quaderno">' + storia + riga((k ? "= " : "") + mostra(x.tk, x.r)) + "</div>" +
           '<div class="sottocalcolo">' + calc + " = " + SLOT + "</div>",
-        consegna: ultimo ? "Ultimo calcolo!" : k === 0 ? "Da dove si comincia? Quanto fa il calcolo colorato?" : "Riscrivi e continua: quanto fa il calcolo colorato?",
+        consegna: ultimo ? "Ultimo calcolo!" : k === 0 ? "Da dove si comincia? Calcola la parte colorata." : "Quanto fa il calcolo colorato?",
         risposta: v,
         spiega: calc + " = " + v,
         aiuto: x.tk[x.r[1]].o === "²" ? "La potenza: " + x.tk[x.r[0]].n + sup(2) + " = " + x.tk[x.r[0]].n + " " + X + " " + x.tk[x.r[0]].n + "."
