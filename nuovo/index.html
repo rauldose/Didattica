@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fff8ec">
 <title>Impara giocando</title>
-<meta name="description" content="Matematica, italiano, scienze e laboratori per ragazzi da 8 a 13 anni, ispirati ai programmi del Prof. Carmelo Muscolino.">
+<meta name="description" content="Matematica, italiano, scienze e laboratori per ragazzi da 8 a 13 anni.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icone/icona.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icone/icona-192.png">
@@ -46,8 +46,6 @@
   .profilo-riga .dati { flex: 1; min-width: 0; }
   .profilo-riga .dati b { display: block; }
   .profilo-riga .dati span { color: var(--testo-2); font-size: 14px; }
-  .ricordo { margin-top: 34px; padding: 16px; border-radius: 20px; background: var(--sfondo-2); font-size: 15px; color: var(--testo-2); }
-  .ricordo a { color: var(--testo); font-weight: 800; }
   .interruttore { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--carta); border-radius: 18px; padding: 12px 14px; box-shadow: var(--ombra-piccola); margin: 10px 0; font-weight: 800; }
   .interruttore input { width: 28px; height: 28px; }
 </style>
@@ -78,7 +76,7 @@
     "Ogni giro sono 10 domande: con tante risposte giuste vinci fino a 3 stelle.",
     "Con le stelle si sbloccano i giochi. Prima si lavora, poi si gioca!",
     "Sbagliare non è un problema: si impara anche dagli errori.",
-    "Lavora con calma e con ordine, come diceva il Prof. Muscolino.",
+    "Lavora con calma e con ordine.",
     "Nei laboratori puoi fare esperimenti come Archimede e Talete.",
     "Prova la sfida dei 60 secondi in Matematica!"
   ];
@@ -162,16 +160,8 @@
       el("a", { href: "laboratori/archimede.html", text: "🛁 Archimede" })
     ]));
     if (!N.profilo()) app.appendChild(el("p", null, [el("a", { class: "btn piccolo", href: "#profilo", text: "Crea il tuo profilo per raccogliere le stelle" })]));
-    app.appendChild(ricordo());
   }
 
-  function ricordo() {
-    return el("aside", { class: "ricordo" }, [
-      el("strong", { text: "In ricordo del Prof. Carmelo Muscolino. " }),
-      document.createTextNode("Questi giochi sono nati dai programmi che scrisse per i suoi alunni della Scuola Media di Gonars tra il 1995 e il 2000. "),
-      el("a", { href: "../index.html", text: "Vedi i programmi originali" }), document.createTextNode(".")
-    ]);
-  }
 
   /* ---------- profile page ---------- */
   function profilo() {
@@ -213,7 +203,6 @@
     app.appendChild(lista);
     app.appendChild(el("p", null, [el("button", { class: "btn", type: "button", text: "➕ Nuovo giocatore", onclick: function () { benvenuto(true); } })]));
     app.appendChild(el("p", { class: "consegna", text: "I profili e le stelle restano solo su questo dispositivo." }));
-    app.appendChild(ricordo());
   }
 
   function mostra() {

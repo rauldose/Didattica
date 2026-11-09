@@ -376,7 +376,7 @@
         return Promise.all(sets.map(INS.daEM)).then(function (r) { r.forEach(function (l) { quiz.push.apply(quiz, l); }); });
       }));
       return Promise.all(p);
-    }).catch(function (e) { avvisi.push("Errore nella lettura degli esercizi originali: " + e.message); }));
+    }).catch(function (e) { avvisi.push("Errore nella lettura dei file E.G./EM: " + e.message); }));
     return Promise.all(lavori).then(function () { return { quiz: quiz, avvisi: avvisi }; });
   };
 })();

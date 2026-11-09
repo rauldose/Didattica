@@ -4,7 +4,7 @@
   var el = N.el;
   N.testata({ titolo: "Per gli insegnanti", tema: "t-ins" });
 
-  N.$("#intro").appendChild(N.gufoDice("Come nel «Programmatore» del Prof. Muscolino: qui scrivi tu gli esercizi per la tua classe!", "felice"));
+  N.$("#intro").appendChild(N.gufoDice("Qui scrivi tu gli esercizi per la tua classe!", "felice"));
 
   function disegna() {
     var l = INS.lista(), box = N.$("#lista");
@@ -66,8 +66,8 @@
       el("p", { text: "Puoi importare:" }),
       el("ul", { class: "nota", style: "margin-top:0" }, [
         el("li", { text: "un quiz scaricato da qui (file .json);" }),
-        el("li", { text: "gli esercizi originali di E.G.: i file .L1 … .L5 e .DAT con lo stesso nome;" }),
-        el("li", { text: "gli esercizi originali di EM: il file .ESE con le sue immagini (.bmp)." })
+        el("li", { text: "esercizi di E.G.: i file .L1 … .L5 e .DAT con lo stesso nome;" }),
+        el("li", { text: "esercizi di EM: il file .ESE con le sue immagini (.bmp)." })
       ]),
       el("div", { class: "scelte-import" }, [
         el("button", { class: "btn", type: "button", text: "📄 Scegli i file", onclick: vai(function () { fileIn.click(); }) }),

@@ -69,11 +69,11 @@
     ui.serie = N.el("span", { class: "chip serie", "aria-label": "Risposte giuste di fila" });
     ui.punti = N.el("span", { class: "chip", "aria-live": "off" });
     ui.liv = N.el("button", { type: "button", class: "chip", "aria-label": "Cambia livello", onclick: cambiaLivello });
+    ui.aiuto = N.el("button", { type: "button", class: "chip", text: "💡", "aria-label": "Aiuto del gufo", title: "Aiuto del gufo", onclick: mostraAiuto });
     ui.consegna = N.el("p", { class: "consegna" });
     ui.problema = N.el("div", { class: "problema", hidden: true });
     ui.lavagna = N.el("div", { class: "lavagna mat", "aria-live": "polite" });
     ui.gufo = N.el("div", { class: "gufo-zona", "aria-live": "polite" });
-    ui.aiuto = N.el("button", { type: "button", class: "btn secondario piccolo btn-aiuto", text: "💡 Aiuto del gufo", onclick: mostraAiuto });
     ui.domScelta = N.el("p", { class: "domanda-scelta" });
     ui.scelte = N.el("div", { class: "scelte" });
     ui.etichetta = N.el("span");
@@ -83,10 +83,11 @@
     ui.tasti = N.el("div");
     ui.avanti = N.el("button", { type: "button", class: "btn avanti", text: "Avanti ▶", onclick: function () { if (S.fase === "avanti") prossimoPasso(); } });
     ui.dock = N.el("div", { class: "dock" }, [ui.domScelta, ui.scelte, ui.rigaRisp, ui.tasti, ui.avanti]);
-    main.appendChild(N.el("div", { class: "gioco-wrap" }, [
-      N.el("div", { class: "stato-gioco" }, [ui.avanz, ui.conta]),
-      N.el("div", { class: "stato-gioco" }, [ui.serie, ui.punti, N.el("span", { style: "flex:1" }), ui.liv]),
-      ui.consegna, ui.problema, ui.lavagna, ui.aiuto, ui.gufo, ui.dock
+    ui.area = N.el("div", { class: "area" }, [ui.consegna, ui.problema, ui.lavagna, ui.gufo]);
+    main.appendChild(N.el("div", { class: "gioco-wrap app" }, [
+      ui.avanz,
+      N.el("div", { class: "stato-gioco" }, [ui.conta, ui.serie, ui.punti, N.el("span", { style: "flex:1" }), ui.aiuto, ui.liv]),
+      ui.area, ui.dock
     ]));
     tastiera = N.tastierino(ui.tasti, { onTasto: tasto, virgola: !!(def.virgola && def.virgola(livello)) });
     aggiornaStato();
@@ -97,8 +98,6 @@
         if (S.tempo <= 0) fineTempo();
       }, 1000);
       ui.aiuto.hidden = true;
-    } else {
-      gufo(def.intro, "");
     }
     nuovoEsercizio();
   }
@@ -119,8 +118,9 @@
     }
     ui.serie.textContent = "🔥 " + S.serie;
     ui.serie.classList.toggle("calda", S.serie >= 3);
-    ui.punti.textContent = "🏅 " + S.punti + " punti";
-    ui.liv.textContent = "Livello " + livello + " ▾";
+    ui.punti.textContent = "🏅 " + S.punti;
+    ui.punti.setAttribute("aria-label", S.punti + " punti");
+    ui.liv.textContent = "Liv. " + livello + " ▾";
   }
 
   function nuovoEsercizio() {
@@ -136,6 +136,7 @@
       ui.figura = N.el("div", { html: es.figura ? es.figura(0) : "" });
       ui.problema.appendChild(ui.figura);
     } else ui.problema.hidden = true;
+    ui.area.scrollTop = 0;
     mostraPasso();
   }
 
@@ -149,7 +150,7 @@
     ui.lavagna.classList.toggle("testo-lungo", /quaderno|colonna/.test(p.lavagna || ""));
     ui.lavagna.classList.remove("entra"); void ui.lavagna.offsetWidth; ui.lavagna.classList.add("entra");
     if (S.es.figura && ui.figura) ui.figura.innerHTML = S.es.figura(S.k);
-    if (!def.aTempo && S.k > 0 || S.indice > 0) ui.gufo.innerHTML = "";
+    ui.gufo.innerHTML = "";
     ui.aiuto.hidden = def.aTempo || !p.aiuto;
     if (!S.sceltaFatta) faseScelta(); else faseNumero();
     aggiornaStato();
@@ -191,6 +192,7 @@
     ui.domScelta.hidden = true; ui.scelte.hidden = true; ui.avanti.hidden = true; ui.tasti.hidden = false;
     var slot = N.$$(".slot", ui.lavagna);
     ui.rigaRisp.hidden = slot.length > 0;
+    if (slot.length) vedi(slot[slot.length - 1]);
     ui.etichetta.textContent = p.etichetta || "";
     ui.unita.textContent = p.unita || "";
     ui.risposta.className = "risposta vuota";
@@ -353,7 +355,15 @@
     N.$(".fumetto", g).innerHTML = html;
     N.$(".gufo", g).classList.add("piccolo");
     S.ui.gufo.innerHTML = ""; S.ui.gufo.appendChild(g);
-    if (S.fase === "avanti" || S.errori) setTimeout(function () { try { g.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) { /* */ } }, 50);
+    vedi(g);
+  }
+  // scroll the middle area (only) so that the element is visible
+  function vedi(el) {
+    setTimeout(function () {
+      var a = S.ui.area, r = el.getBoundingClientRect(), ra = a.getBoundingClientRect();
+      if (r.bottom > ra.bottom) a.scrollTop += r.bottom - ra.bottom + 8;
+      else if (r.top < ra.top) a.scrollTop -= ra.top - r.top + 8;
+    }, 30);
   }
   function mostraAiuto() {
     var p = S.es && passo();

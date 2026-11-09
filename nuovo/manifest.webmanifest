@@ -1,7 +1,7 @@
 {
   "name": "Impara giocando",
   "short_name": "Impara",
-  "description": "Matematica, italiano, scienze e laboratori per ragazzi da 8 a 13 anni, ispirati ai programmi del Prof. Carmelo Muscolino.",
+  "description": "Matematica, italiano, scienze e laboratori per ragazzi da 8 a 13 anni.",
   "lang": "it",
   "start_url": "./index.html",
   "scope": "./",

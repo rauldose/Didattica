@@ -93,7 +93,7 @@
     materie.forEach(function (k) {
       var lista = window.QUIZ_CATALOGO.filter(function (c) { return c.materia === k; });
       if (!lista.length) return;
-      pannello.appendChild(el("h2", { class: "sezione" }, [el("span", { "aria-hidden": "true", text: M[k].emoji }), "Gli esercizi del Prof. · " + M[k].nome]));
+      pannello.appendChild(el("h2", { class: "sezione" }, [el("span", { "aria-hidden": "true", text: M[k].emoji }), "Esercizi di " + M[k].nome]));
       var g = el("div", { class: "griglia" });
       lista.forEach(function (c) { g.appendChild(scheda(c)); });
       pannello.appendChild(g);
