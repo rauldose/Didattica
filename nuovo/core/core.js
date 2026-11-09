@@ -209,7 +209,8 @@
       if (o.chiudibile !== false) velo.addEventListener("click", function (e) { if (e.target === velo) chiudi(null); });
       velo.appendChild(f); document.body.appendChild(velo);
       var b = N.$("button, input, select, textarea", f); if (b) setTimeout(function () { b.focus(); }, 30);
-      o._chiudi = chiudi;
+      o._chiudi = chiudi;               // kept for existing callers
+      N.chiudiDialogo = chiudi;          // close the topmost dialog from buttons inside `nodo`
     });
   };
 

@@ -148,7 +148,7 @@ h2.sezione { font-size: 22px; margin: 26px 0 12px; display: flex; align-items: c
 
 /* feedback banner */
 .esito {
-  position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(140%);
+  position: fixed; left: 50%; top: calc(12px + env(safe-area-inset-top)); transform: translateX(-50%) translateY(-160%); pointer-events: none;
   z-index: 60; min-width: min(420px, calc(100vw - 32px)); padding: 14px 18px; border-radius: 18px; font-weight: 800; font-size: 19px;
   display: flex; align-items: center; gap: 12px; box-shadow: var(--ombra); transition: transform .25s;
 }
