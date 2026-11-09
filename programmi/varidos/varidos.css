@@ -32,3 +32,4 @@
   .vd-bottoni { flex-direction: row; grid-column: 1 / -1; }
   .vd-lcd { font-size: 0.85em; }
 }
+.vd-espr::placeholder { color: var(--c8); }

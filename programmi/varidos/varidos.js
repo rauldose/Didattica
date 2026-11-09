@@ -10,6 +10,7 @@
 (function () {
   "use strict";
   var el = D.el;
+  window.VariDOS = {};
 
   /* =========================================================
      Shared form ("shell") common to all the Vari DOS programs
@@ -131,6 +132,7 @@
   function ProgrammaRisposta(def) {
     var sh = new Shell({ titolo: def.titolo, velocita: true, extra: def.extra });
     var stato = { livello: -1, svolto: true, risposta: "", precedenti: [] };
+    window.VariDOS.stato = function () { return stato; };   // for automated tests
     var domanda = el("div", { class: "vd-domanda" });
     var info = el("div", { class: "vd-infoliv" });
     var etiTesto = el("span", { class: "vd-etitesto" });
@@ -354,7 +356,11 @@
     var Q = "²"; // CHR$(253) in code page 437
     var stato = { svolto: true, esp: [], index: 0 };
     var righe = [];
-    var box = el("div", { class: "vd-esercizio" }, [el("div", { class: "dos-label", text: "ESERCIZIO:" })]);
+    window.VariDOS.statoEspressioni = function () { return stato; };   // for automated tests
+    var box = el("div", { class: "vd-esercizio" }, [
+      el("div", { class: "dos-label", text: "ESERCIZIO:" }),
+      el("div", { class: "vd-infoliv", text: "Scrivi un passaggio per riga, iniziando con  =   (es.  =7+3=  poi  =10 )" })
+    ]);
     for (var i = 0; i < 7; i++) {
       var r = el("input", { class: "dos-input vd-espr", type: "text", autocomplete: "off", spellcheck: "false", "aria-label": "passaggio " + i });
       righe.push(r);
@@ -401,7 +407,10 @@
     }
     function prepara(esp) {
       stato.esp = esp; stato.svolto = false; stato.index = 1;
-      righe.forEach(function (r, k) { r.value = ""; r.disabled = k > 1; r.hidden = k >= esp.length; });
+      righe.forEach(function (r, k) {
+        r.value = ""; r.disabled = k > 1; r.hidden = k >= esp.length;
+        r.placeholder = k === 0 ? "" : k === esp.length - 1 ? "= risultato" : "= ... =";
+      });
       righe[0].value = esp[0];
       righe[0].disabled = false;
       righe[1].focus();
@@ -428,47 +437,56 @@
       if (sh.etiLivello.textContent !== t && sh.suono.checked) D.play(D.ALLARME);
       sh.etiLivello.textContent = t;
     }
+    // The pupil's line is compared with the expected step character by
+    // character, as in the original. To be kinder than 1997 we ignore spaces,
+    // accept x or × for * and : or ÷ for /, and on Enter accept a step that
+    // only lacks its final "=".
+    function normalizza(t) { return t.replace(/\s+/g, "").replace(/[x×X·]/g, "*").replace(/[:÷]/g, "/"); }
+    function controlla(k, invio) {
+      var r = righe[k];
+      if (k === 0 || k !== stato.index) return;
+      var t = normalizza(r.value), atteso = stato.esp[k].trim();
+      if (invio && t + "=" === atteso) t = atteso;
+      for (var j = 0; j < t.length; j++) {
+        if (t[j] !== atteso[j]) {
+          sh.aggiungi(-5);
+          sh.errore(atteso[j] === "=" ?
+            ["", "  ATTENZIONE !!     ERRORE    ", "  Si inizia con il simbolo di ", "  uguaglianza ( = )           ", "  Correggi con  il tasto   <--"] :
+            ["", "   ATTENZIONE !!    ERRORE   ", "", "   Correggi con il tasto <-- ", ""]);
+          if (sh.suono.checked) D.sound(2000, 5);
+          return;
+        }
+      }
+      sh.okRiga();
+      if (t.length !== atteso.length) return;
+      r.value = atteso;
+      r.disabled = true;
+      if (k === stato.esp.length - 1) {
+        clearInterval(sh.timer);
+        if (sh.suono.checked) D.play(D.ALLARME);
+        stato.svolto = true;
+        D.msg(" Bravo !! \nHai finito l'esercizio.\nTi meriti 60 punti.").then(function () {
+          sh.aggiungi(60);
+          esercizio();
+        });
+        return;
+      }
+      stato.index = k + 1;
+      righe[k + 1].disabled = false;
+      righe[k + 1].focus();
+      sh.campo = righe[k + 1];
+      sh.aggiungi(10);
+    }
     righe.forEach(function (r, k) {
-      r.addEventListener("input", function () {
-        if (k === 0 || k !== stato.index) return;
-        var t = r.value.trim(), atteso = stato.esp[k];
-        for (var j = 0; j < t.length; j++) {
-          if (t[j] !== atteso[j]) {
-            sh.aggiungi(-5);
-            sh.errore(atteso[j] === "=" ?
-              ["", "  ATTENZIONE !!     ERRORE    ", "  Si inizia con il simbolo di ", "  uguaglianza ( = )           ", "  Correggi con  il tasto   <--"] :
-              ["", "   ATTENZIONE !!    ERRORE   ", "", "   Correggi con il tasto <-- ", ""]);
-            if (sh.suono.checked) D.sound(2000, 5);
-            return;
-          }
-        }
-        sh.okRiga();
-        if (t.length === atteso.length) {
-          r.disabled = true;
-          if (k === stato.esp.length - 1) {
-            clearInterval(sh.timer);
-            if (sh.suono.checked) D.play(D.ALLARME);
-            stato.svolto = true;
-            D.msg(" Bravo !! \nHai finito l'esercizio.\nTi meriti 60 punti.").then(function () {
-              sh.aggiungi(60);
-              esercizio();
-            });
-            return;
-          }
-          stato.index = k + 1;
-          righe[k + 1].disabled = false;
-          righe[k + 1].focus();
-          sh.campo = righe[k + 1];
-          sh.aggiungi(10);
-        }
-      });
+      r.addEventListener("input", function () { controlla(k, false); });
+      r.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); controlla(k, true); } });
     });
     sh.btnEs.addEventListener("click", esercizio);
     D.msg("Programma per migliorare la capacita' di calcolo e \n\nla correttezza formale.\n\nScrivi con le stesse regole che usi sul quaderno.\n\nL'espressioni sono generate casualmente.\n\nUsa il mouse oppure il tasto alt+lettera evidenziata. \n\nQuando arrivi all'ultimo livello puoi giocare. \n\nAnche la velocita' e' importante : ogni 10 secondi ti toglie 5 punto.", "ESPRESSIONI")
       .then(esercizio);
   };
 
-  window.VariDOS = { Shell: Shell, PROGRAMMI: PROGRAMMI };
+  window.VariDOS.Shell = Shell; window.VariDOS.PROGRAMMI = PROGRAMMI;
   document.addEventListener("DOMContentLoaded", function () {
     var p = document.body.getAttribute("data-programma");
     if (p && PROGRAMMI[p]) PROGRAMMI[p]();

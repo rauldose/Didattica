@@ -142,7 +142,11 @@
       testo.split(/(\s+)/).forEach(function (w) {
         if (!w.trim()) { lavTesto.appendChild(document.createTextNode(w)); return; }
         var s = el("span", { class: "em-parola", text: w, tabindex: "0", role: "button" });
-        s.addEventListener("click", function () { verifica(w.replace(/^[^\wÀ-ÿ]+|[^\wÀ-ÿ]+$/g, "")); });
+        s.addEventListener("click", function () {
+          // compare the word as written ("+") and without surrounding punctuation ("5," -> "5")
+          var pulita = w.replace(/^[^\wÀ-ÿ]+|[^\wÀ-ÿ]+$/g, "");
+          verifica(p.risposte.indexOf(w) >= 0 || !pulita ? w : pulita);
+        });
         s.addEventListener("keydown", function (e) { if (e.key === "Enter") s.click(); });
         lavTesto.appendChild(s);
       });
