@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E.G. – Esercizi e Giochi</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<link rel="stylesheet" href="eg.css">
+</head>
+<body class="dos eg">
+<nav class="topbar"><a href="../../index.html">← Programmi</a><span>E.G. – Esercizi e Giochi</span><span class="spacer"></span><span>Prof. Carmelo Muscolino</span></nav>
+
+<!-- ============ MENU (form "menu") ============ -->
+<main id="menu" class="dos-screen eg-menu">
+  <div class="dos-title">E.G.  Ver. 2</div>
+  <div class="dos-body eg-menu-corpo">
+    <div class="eg-sx">
+      <pre class="eg-logo" aria-label="E G giochi esercizi">
+        ╔═══╗
+        ║ ══╗
+  ╔═══  ╚═══╝ giochi
+  ╠═══
+  ╚═══  esercizi
+.................. Ver. 2</pre>
+      <pre class="dos-panel eg-licenza"> Licenza d'uso a:
+
+ SCUOLA MEDIA di GONARS</pre>
+      <div class="eg-pulsanti">
+        <button id="eg-programmatore" class="dos-btn" type="button"><u>P</u>rogrammatore</button>
+        <button id="eg-esci" class="dos-btn" type="button">E<u>s</u>ci</button>
+      </div>
+    </div>
+    <div class="eg-dx">
+      <ul id="eg-lista" class="dos-list eg-lista" role="listbox" tabindex="0" aria-label="Esercitazioni"></ul>
+      <p class="eg-aiuto">Scegli l'esercitazione con i tasti ↑ ↓ e premi Invio (o doppio clic).<br>Le esercitazioni con * sono state create da te.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ============ LAVORO (form "ita") ============ -->
+<main id="lavoro" class="dos-screen eg-lavoro" hidden>
+  <div class="eg-menubar" role="menubar">
+    <button id="eg-mnu-menu" type="button" role="menuitem"><u>M</u>enu</button>
+    <button id="eg-mnu-soluzione" type="button" role="menuitem"><u>S</u>oluzione</button>
+    <button id="eg-mnu-info" type="button" role="menuitem">?</button>
+    <button id="eg-mnu-esci" type="button" role="menuitem"><u>E</u>sci</button>
+    <span class="spacer"></span>
+    <button id="eg-scuola" type="button" class="eg-scuola" title="Clic: autore">SCUOLA MEDIA GONARS (UD)</button>
+  </div>
+  <div class="eg-lav-corpo">
+    <div class="eg-testa">
+      <pre id="eg-lcd" class="dos-lcd" aria-label="punti"></pre>
+      <div class="eg-etichette">
+        <div id="eg-titolo" class="eg-titolo"></div>
+        <div id="eg-livello" class="eg-livello"></div>
+        <div id="eg-info1"></div>
+        <div id="eg-info2"></div>
+        <div id="eg-errori"></div>
+      </div>
+    </div>
+    <pre id="eg-lavagna" class="eg-lavagna" aria-live="polite"></pre>
+    <div id="eg-consegna" class="eg-consegna"></div>
+    <input id="eg-risposta" class="dos-input eg-risposta" type="text" autocomplete="off" spellcheck="false" aria-label="risposta">
+    <ul id="eg-scelta" class="dos-list eg-scelta" role="listbox" tabindex="0" aria-label="scegli la risposta" hidden></ul>
+    <pre id="eg-msg" class="eg-msg" hidden></pre>
+  </div>
+</main>
+
+<script src="../../js/common.js"></script>
+<script src="../../dati/eg/eg-dati.js"></script>
+<script src="eg-core.js"></script>
+<script src="eg.js"></script>
+</body>
+</html>

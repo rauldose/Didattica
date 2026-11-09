@@ -1,0 +1,64 @@
+Esempi di risposta con click  su immagine  pass 123
+5123123456789Esempi di risposta con click  su immagine  pass 123
+<pl1>    200 <pl2>    400 <pl3>    600 <pl4>    800 <pl5>   1000 
+<sg1>     10 <sg2>     20 <sg3>     30 <sg4>     40 <sg5>     50 
+<p+1>     20 <p+2>     20 <p+3>     20 <p+4>     20 <p+5>     20 
+<p-1>      5 <p-2>      5 <p-3>      5 <p-4>      5 <p-5>      5 
+<ti1>     50 <ti2>     50 <ti3>     50 <ti4>     50 <ti5>     50 
+<pt1>      2 <pt2>      2 <pt3>      2 <pt4>      2 <pt5>      2 
+<ac1>  0 <ac2>  0 <ac3>  0 <ac4>  0 <ac5>  0 
+<oe1>  0 <oe2>  0 <oe3>  0 <oe4>  0 <oe5>  0 
+<tv1>     -- <tv2>     -- <tv3>     -- <tv4>     -- <tv5>     -- 
+
+
+
+
+
+
+
+
+<lv1>1229510
+
+ 
+  ESEMPIO CON RISPOSTA CLICK
+
+
+
+<ese>
+  Indica la corda nel disegno
+  geometrico
+  disegno1.bmp
+\|113 65 117 18\
+<ese>
+
+  Dove è il diametro ?
+
+disegno1.bmp
+\|82 125 174 29\
+
+
+
+<lv2>3434810
+
+     ESEMPIO CON RISPOSTA CLICK
+
+
+
+<ese>
+  Indica l'angolo al centro
+ 
+  disegno2.bmp
+\|115 160 36 31\108 70 36 31\191 185 36 31\37 178 36 31\
+
+<ese>
+
+ Indica l'angolo alla circonferenza
+
+ disegno2.bmp
+\|109 71 36 31\189 185 36 31\116 158 36 31\37 179 36 31\
+
+
+
+<lv3>5629310
+<lv4>7829510
+<lv5>9 28910

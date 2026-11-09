@@ -1,0 +1,498 @@
+{
+  "eg/egarc.exe": {
+    "url": "https://web.archive.org/web/20040430223438id_/http://web.tiscali.it/muscolino/eg/egarc.exe",
+    "bytes": 255887,
+    "sha256": "4564443a698db2db9f093db903afc1d2b8b81026381e15e0f78b5398456f4fb9"
+  },
+  "em/opscve.exe": {
+    "url": "https://web.archive.org/web/20040430215525id_/http://web.tiscali.it/muscolino/em/opscve.exe",
+    "bytes": 335217,
+    "sha256": "7cecf14d676ba14a2c050b0dae3824f9a8166a56bd29506682eb5888ba720899"
+  },
+  "matdos/geo.exe": {
+    "url": "https://web.archive.org/web/20040501081312id_/http://web.tiscali.it/muscolino/matdos/geo.exe",
+    "bytes": 242274,
+    "sha256": "20a8c6c7302efed289ab9e778b8fe17bfd3f5a232a9fb753c62a4ce4ea6f81be"
+  },
+  "em/em.exe": {
+    "url": "https://web.archive.org/web/20030622222544id_/http://web.tiscali.it/muscolino/em/em.exe",
+    "bytes": 1031393,
+    "sha256": "f55d5264b02dab7ad15c12ffe538f9041de19ca0cad4ce6277ed979f1fb33286"
+  },
+  "matdos/matdos.htm": {
+    "url": "https://web.archive.org/web/20040729022859id_/http://web.tiscali.it/muscolino/matdos/matdos.htm",
+    "bytes": 6716,
+    "sha256": "61067c1a2aaf18e8484f5f323f7f479f925cf58a585a533e97f80b70cd9af1cc"
+  },
+  "em/em.htm": {
+    "url": "https://web.archive.org/web/20040821005321id_/http://web.tiscali.it/muscolino/em/em.htm",
+    "bytes": 4349,
+    "sha256": "94442b5cd5f80b1d4c16fb33e08e8874f04d909946c77bd049770099159afdbc"
+  },
+  "profedit/profe2.exe": {
+    "url": "https://web.archive.org/web/20040501025454id_/http://web.tiscali.it/muscolino/profedit/profe2.exe",
+    "bytes": 631529,
+    "sha256": "c4aa137ab79fabce423c532993dc338a1637342a91de00f9ad404313cf942c39"
+  },
+  "eg/eg.txt": {
+    "url": "https://web.archive.org/web/20041113152421id_/http://web.tiscali.it/muscolino/eg/eg.txt",
+    "bytes": 72503,
+    "sha256": "962f6ee90eda131a984d678b46ce8876126cc1682db72098a01dee990e8647c1"
+  },
+  "eg/eg.htm": {
+    "url": "https://web.archive.org/web/20040821005306id_/http://web.tiscali.it/muscolino/eg/eg.htm",
+    "bytes": 6368,
+    "sha256": "cba4a2725d78ea21b37df956d90ece9afe15cb2745708b6e176388d2d9e81d1d"
+  },
+  "home.htm": {
+    "url": "https://web.archive.org/web/20040821004858id_/http://web.tiscali.it/muscolino/home.htm",
+    "bytes": 4670,
+    "sha256": "0642616d84d5f12b4b8c7551b4141413a8e0cce0b428a5286166bd568cd25475"
+  },
+  "profedit/prof.exe": {
+    "url": "https://web.archive.org/web/20040501023457id_/http://web.tiscali.it/muscolino/profedit/prof.exe",
+    "bytes": 242058,
+    "sha256": "3a4584791b0aac727df43b76cb515836c099931ca964c2f6edab9d2167966525"
+  },
+  "matdos/varidos.exe": {
+    "url": "https://web.archive.org/web/20040501085041id_/http://web.tiscali.it/muscolino/matdos/varidos.exe",
+    "bytes": 249581,
+    "sha256": "6c567b58858693eebd2c659074f36b68e5d7c6d6d95d9a4be0b95617139825c4"
+  },
+  "index.htm": {
+    "url": "https://web.archive.org/web/20040731085729id_/http://web.tiscali.it/muscolino/index.htm",
+    "bytes": 8657,
+    "sha256": "4f23f92b6b37642e0f127c1bdf5361dc3c6c27770fc74e2d514ada318784240b"
+  },
+  "profedit/profe0.txt": {
+    "url": "https://web.archive.org/web/20040923034956id_/http://web.tiscali.it/muscolino/profedit/profe0.txt",
+    "bytes": 73120,
+    "sha256": "4d85c305181cfb850c38b423ec32be3c992cc3747372af45cf17862917394047"
+  },
+  "simulaz/archime.exe": {
+    "url": "https://web.archive.org/web/20040731125117id_/http://web.tiscali.it/muscolino/simulaz/archime.exe",
+    "bytes": 231412,
+    "sha256": "39b3d9b9ef1efc8f3b05b7cc9ef14cb157b3552b1a385e3c657b087611d77929"
+  },
+  "simulaz/matrar.exe": {
+    "url": "https://web.archive.org/web/20040501045006id_/http://web.tiscali.it/muscolino/simulaz/matrar.exe",
+    "bytes": 219518,
+    "sha256": "d240d5b54695242b6f9ff1f30ca4549cdcae264efed70b0093447072e9c8a7af"
+  },
+  "segnala/segnala.htm": {
+    "url": "https://web.archive.org/web/20040731234342id_/http://web.tiscali.it/muscolino/segnala/segnala.htm",
+    "bytes": 7237,
+    "sha256": "1387b360fdc502399a1f68b8fd5690e1c7cfd15ba2a282642947138b9d688355"
+  },
+  "simulaz/simulazi.htm": {
+    "url": "https://web.archive.org/web/20040821011226id_/http://web.tiscali.it/muscolino/simulaz/simulazi.htm",
+    "bytes": 5624,
+    "sha256": "a5e6408bb27290e545d007c565104be7d862d30a7e1b8d5092157eb8d6910a8e"
+  },
+  "profedit/profedit.htm": {
+    "url": "https://web.archive.org/web/20040726015655id_/http://web.tiscali.it/muscolino/profedit/profedit.htm",
+    "bytes": 6178,
+    "sha256": "4e093a4f9f864976d64618a400360d211dae7b5f58adb1a80d456226ab3b0603"
+  },
+  "eg/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/eg/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "eg/home.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/eg/home.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/ITALIA.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/ITALIA.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/home.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/home.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "america.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/america.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/em3.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/em3.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "girasole.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/girasole.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "francia.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/francia.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "italia.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/italia.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "eg/eg.gif": {
+    "url": "https://web.archive.org/web/20020327005506id_/http://web.tiscali.it/muscolino/eg/eg.gif",
+    "bytes": 20622,
+    "sha256": "41b9a5f813629302598a55525718acc4e84e73da24732802879b27e3a8a39f24"
+  },
+  "em/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "germania.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/germania.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/AMERICA.gif": {
+    "url": "https://web.archive.org/web/20020327025039id_/http://web.tiscali.it/muscolino/em/AMERICA.gif",
+    "bytes": 465,
+    "sha256": "e1de057909472a0be6eeaa4be98406aed084452a5d24583b8e45660c1cf408a6"
+  },
+  "em/emhelp.htm": {
+    "url": "https://web.archive.org/web/20040830055907id_/http://web.tiscali.it/muscolino/em/emhelp.htm",
+    "bytes": 37712,
+    "sha256": "cabe807ceba9bf8d1f32fa561d84906b92cbb78b59dd6a95adf2178fb7e5d59a"
+  },
+  "em/eng/index.htm": {
+    "url": "https://web.archive.org/web/20040830061926id_/http://web.tiscali.it/muscolino/em/eng/index.htm",
+    "bytes": 3499,
+    "sha256": "fdc8e62abcf92f49d46407a6df287a1d53488db6ad2cb96223165752112ffd55"
+  },
+  "indexa.htm": {
+    "url": "https://web.archive.org/web/20040821005501id_/http://web.tiscali.it/muscolino/indexa.htm",
+    "bytes": 6761,
+    "sha256": "21713ab3bd53401a14246fbb8b94134bd85d0d4dbe829d95c67f03396b884412"
+  },
+  "matdos/radice.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/matdos/radice.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "matdos/home.gif": {
+    "url": "https://web.archive.org/web/20020630195528id_/http://web.tiscali.it/muscolino/matdos/home.gif",
+    "bytes": 3237,
+    "sha256": "a59fddfc8904feb12e3c566e4428d6c72e1f2634edc108046c8c1524ebefd26f"
+  },
+  "matdos/geo.txt": {
+    "url": "https://web.archive.org/web/20040923143711id_/http://web.tiscali.it/muscolino/matdos/geo.txt",
+    "bytes": 26123,
+    "sha256": "d52775a06e3ec5812b84db1c2680249ecef9bc0f06e13cfa82d0817b9dd1a470"
+  },
+  "matdos/pit1.gif": {
+    "url": "https://web.archive.org/web/20020610140033id_/http://web.tiscali.it/muscolino/matdos/pit1.gif",
+    "bytes": 7129,
+    "sha256": "2ddc6b342771368e5c4a3f6d938bbb5603932c0b4e7ba90f6bead13a6d0f1d74"
+  },
+  "matdos/gorillas.txt": {
+    "url": "https://web.archive.org/web/20040925132555id_/http://web.tiscali.it/muscolino/matdos/gorillas.txt",
+    "bytes": 27414,
+    "sha256": "d921f833970c9bf87e570115192b0b9a1ab51f1fdf00fe7c1a4d921476b92c5d"
+  },
+  "matdos/espres.txt": {
+    "url": "https://web.archive.org/web/20040925022006id_/http://web.tiscali.it/muscolino/matdos/espres.txt",
+    "bytes": 13941,
+    "sha256": "e076603e4b6fbd314829bd2628178e9fa8cfaae366543e35d39e8c3d853352f9"
+  },
+  "matdos/gioco.gif": {
+    "url": "https://web.archive.org/web/20020610134952id_/http://web.tiscali.it/muscolino/matdos/gioco.gif",
+    "bytes": 6143,
+    "sha256": "9f5330ab1d0777f97a7e63d33b5a67fae22c43db6e1960d65a16342dee40b7ae"
+  },
+  "matdos/geo.gif": {
+    "url": "https://web.archive.org/web/20020610153114id_/http://web.tiscali.it/muscolino/matdos/geo.gif",
+    "bytes": 7490,
+    "sha256": "2db53e23d03a9e23746365f18fde28667a01b363a2a522d1045945df86518453"
+  },
+  "matdos/espres.gif": {
+    "url": "https://web.archive.org/web/20020610133938id_/http://web.tiscali.it/muscolino/matdos/espres.gif",
+    "bytes": 7848,
+    "sha256": "a6f4537f0dae01678a5ac1178619e2f35c45a8fd8c21e916fd230018f50530a5"
+  },
+  "matdos/pitagora.txt": {
+    "url": "https://web.archive.org/web/20040925145107id_/http://web.tiscali.it/muscolino/matdos/pitagora.txt",
+    "bytes": 17716,
+    "sha256": "5d76b9f61edf18f839f743a336a8399bec57c98f889470f9b1a6739a9e83521c"
+  },
+  "matdos/tabel.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/matdos/tabel.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "matdos/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/matdos/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "matdos/tabel.txt": {
+    "url": "https://web.archive.org/web/20040925011940id_/http://web.tiscali.it/muscolino/matdos/tabel.txt",
+    "bytes": 14314,
+    "sha256": "3e1d5496ac8443cc9e4a820207c7c8fdfa7a3c420270b772f8bc995ff95f7a0c"
+  },
+  "matdos/radice.txt": {
+    "url": "https://web.archive.org/web/20040930194909id_/http://web.tiscali.it/muscolino/matdos/radice.txt",
+    "bytes": 15167,
+    "sha256": "643e8badfadae289e101d5486895f180dafe185c9347d926d63c608649d9f785"
+  },
+  "profedit/pf2help.htm": {
+    "url": "https://web.archive.org/web/20041122144529id_/http://web.tiscali.it/muscolino/profedit/pf2help.htm",
+    "bytes": 4385,
+    "sha256": "b0c5bd3c9b45c1cb5f3479353edee750c5cc494cb7402aa3f6eb12ae20409a4b"
+  },
+  "profedit/pf1aiuto.htm": {
+    "url": "https://web.archive.org/web/20040917174053id_/http://web.tiscali.it/muscolino/profedit/pf1aiuto.htm",
+    "bytes": 5462,
+    "sha256": "a3e7f633f49aca9c48efe727c6f1e4fa4afb2adc64d382e6344f6796359d1f4a"
+  },
+  "profedit/ITALIA.gif": {
+    "url": "https://web.archive.org/web/20020324155846id_/http://web.tiscali.it/muscolino/profedit/ITALIA.gif",
+    "bytes": 415,
+    "sha256": "fe39bf0d6f66742798e01042a4ba92a58e4c2ed9f3c9ca27d897026b47f15d10"
+  },
+  "profedit/pf2aiuto.htm": {
+    "url": "https://web.archive.org/web/20040925084408id_/http://web.tiscali.it/muscolino/profedit/pf2aiuto.htm",
+    "bytes": 4272,
+    "sha256": "08289ddbfef124557c8c6d2db3c94ab6c56f38d4504a3308d6cda7b0e3c10dd0"
+  },
+  "profedit/home.gif": {
+    "url": "https://web.archive.org/web/20040728112253id_/http://web.tiscali.it/muscolino/profedit/home.gif",
+    "bytes": 3237,
+    "sha256": "a59fddfc8904feb12e3c566e4428d6c72e1f2634edc108046c8c1524ebefd26f"
+  },
+  "profedit/AMERICA.gif": {
+    "url": "https://web.archive.org/web/20040728110115id_/http://web.tiscali.it/muscolino/profedit/AMERICA.gif",
+    "bytes": 465,
+    "sha256": "e1de057909472a0be6eeaa4be98406aed084452a5d24583b8e45660c1cf408a6"
+  },
+  "segnala/didattic.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/didattic.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "profedit/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/profedit/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/home.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/home.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/liceo.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/liceo.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/eva.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/eva.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "profedit/prof1.gif": {
+    "url": "https://web.archive.org/web/20040728114237id_/http://web.tiscali.it/muscolino/profedit/prof1.gif",
+    "bytes": 11455,
+    "sha256": "efd4e08edfa84593d17630b5febeb4cd2e713e24d5e3dc986848ae5008c6f579"
+  },
+  "segnala/lagirand.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/lagirand.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/gira.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/gira.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "profedit/prof2.gif": {
+    "url": "https://web.archive.org/web/20040728115201id_/http://web.tiscali.it/muscolino/profedit/prof2.gif",
+    "bytes": 15257,
+    "sha256": "c8d637506858a1e9376d8bdea6d63a510f0d976f03c31e2ccaf01e6dc794b8d5"
+  },
+  "sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "simulaz/archimede.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/simulaz/archimede.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "simulaz/home.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/simulaz/home.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/virg.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/virg.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/torino.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/torino.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/perotto.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/perotto.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/terriscu.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/terriscu.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "segnala/nss_g.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/segnala/nss_g.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "scimmia.gif": {
+    "url": "https://web.archive.org/web/20020307144718id_/http://web.tiscali.it/muscolino/scimmia.gif",
+    "bytes": 21962,
+    "sha256": "248ff27fbb070e8bd8ec0c7bf8bf66b6c8afa1dbf530ce52f4054396691f691c"
+  },
+  "softdida.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/softdida.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "tbttrfly.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/tbttrfly.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "simulaz/mano.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/simulaz/mano.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "simulaz/sfondi15.jpg": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/simulaz/sfondi15.jpg",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "simulaz/talete.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/simulaz/talete.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/EM2.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/EM2.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/cl.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/cl.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/t2.htm": {
+    "url": "https://web.archive.org/web/20040919001314id_/http://web.tiscali.it/muscolino/em/eng/t2.htm",
+    "bytes": 5004,
+    "sha256": "857a8aaedcac5f6217cf2894b85b0f9cb94dba98a3b7e1ff7f5124a14bc1f836"
+  },
+  "em/eng/em.gif": {
+    "url": "https://web.archive.org/web/20020324145942id_/http://web.tiscali.it/muscolino/em/eng/em.gif",
+    "bytes": 2837,
+    "sha256": "436390f42b255a64788ab63ff28501ea1bcdb40d510d64f35c6e1b28bad27dfd"
+  },
+  "em/eng/t4.htm": {
+    "url": "https://web.archive.org/web/20040911022253id_/http://web.tiscali.it/muscolino/em/eng/t4.htm",
+    "bytes": 7474,
+    "sha256": "7523bf048f0a538f26907e11ccd0798f768c5b5283dc1db915ffc8b4f6b5b4d6"
+  },
+  "em/PESCE.gif": {
+    "url": "https://web.archive.org/web/20020316155158id_/http://web.tiscali.it/muscolino/em/PESCE.gif",
+    "bytes": 1601,
+    "sha256": "ccf7b05303920b44b7fd13cf8745e02227f56eadbd70e8fa4075a1801c1f47d1"
+  },
+  "em/eng/t6.htm": {
+    "url": "https://web.archive.org/web/20040910212819id_/http://web.tiscali.it/muscolino/em/eng/t6.htm",
+    "bytes": 3623,
+    "sha256": "acc2a37e4e65e761ab5e5fb7db74b1a93443b79b7d10190818bf168098319700"
+  },
+  "em/eng/t5.htm": {
+    "url": "https://web.archive.org/web/20040913173040id_/http://web.tiscali.it/muscolino/em/eng/t5.htm",
+    "bytes": 7120,
+    "sha256": "942f1194dea02994475f2bb96b4b9e37b85789da2800a7f6db89d7cd6b397eb9"
+  },
+  "em/aa.gif": {
+    "url": "https://web.archive.org/web/20020316162003id_/http://web.tiscali.it/muscolino/em/aa.gif",
+    "bytes": 1186,
+    "sha256": "1befae5371ef42d174cf329c157f5dd141760082f12b5f921edf94743272ca47"
+  },
+  "em/eng/t3.htm": {
+    "url": "https://web.archive.org/web/20040516103546id_/http://web.tiscali.it/muscolino/em/eng/t3.htm",
+    "bytes": 3036,
+    "sha256": "971c3ee649f34a4d461cd6d9e881e44adbc39aaf6c3742f44452a01b537a4551"
+  },
+  "em/lett2.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/lett2.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/t7.htm": {
+    "url": "https://web.archive.org/web/20040928184744id_/http://web.tiscali.it/muscolino/em/eng/t7.htm",
+    "bytes": 3397,
+    "sha256": "7db7ecca95026888c575f361835088e09352fa21b4516fee7d74ad17697dbd00"
+  },
+  "em/pn.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/pn.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/t8.htm": {
+    "url": "https://web.archive.org/web/20040918050912id_/http://web.tiscali.it/muscolino/em/eng/t8.htm",
+    "bytes": 2128,
+    "sha256": "1b8c37b0259c457c4d8444159464e3b3bd73caadad44ae3ce636f57c6550a068"
+  },
+  "profedit/s1.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/profedit/s1.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "homea.htm": {
+    "url": "https://web.archive.org/web/20040916024854id_/http://web.tiscali.it/muscolino/homea.htm",
+    "bytes": 4666,
+    "sha256": "7527328e7d1bc64927a016f8ae602c4ca78ba9309358bcf84fb42a14c7b52f3e"
+  },
+  "profedit/nprofedit.htm": {
+    "url": "https://web.archive.org/web/20040830064640id_/http://web.tiscali.it/muscolino/profedit/nprofedit.htm",
+    "bytes": 6468,
+    "sha256": "308ac75f042e688c911e329f5c7a415cb6e21508cd6ecf9b1d01f0d735528e3e"
+  },
+  "em/lett1.gif": {
+    "url": "https://web.archive.org/web/20020307110849id_/http://web.tiscali.it/muscolino/em/lett1.gif",
+    "bytes": 2760,
+    "sha256": "2a251db7daaeb73c662e434e99795d59fdbeeee9e6e62587031de83b0bd4c098"
+  },
+  "em/prvel.gif": {
+    "url": "https://web.archive.org/web/20020307135051id_/http://web.tiscali.it/muscolino/em/prvel.gif",
+    "bytes": 1817,
+    "sha256": "26f18a62aa735932a56dcce2496a16c3d107056b4be036dc5fd6c5f2d3144cbe"
+  },
+  "em/eng/t9.htm": {
+    "url": "https://web.archive.org/web/20021104204616id_/http://web.tiscali.it/muscolino/em/eng/t9.htm",
+    "bytes": 3021,
+    "sha256": "b02b7af2843461eeffcadc97b140c79733d950da8e008689f2bd383e6779b26b"
+  },
+  "em/ese.gif": {
+    "url": "https://web.archive.org/web/20020307101949id_/http://web.tiscali.it/muscolino/em/ese.gif",
+    "bytes": 9404,
+    "sha256": "abdc5b1d3764d819cef009849893f4d12748c1e4de852ab740116252c4a11ae6"
+  },
+  "em/eng/cl.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/cl.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/ese167~1.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/ese167~1.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/prvel.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/prvel.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/descr6.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/descr6.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/pn.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/pn.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/aa.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/aa.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "profedit/neobook.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/profedit/neobook.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/lett2.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/lett2.gif",
+    "error": "HTTP Error 404: Not Found"
+  },
+  "em/eng/lett167.gif": {
+    "url": "https://web.archive.org/web/20040811212210id_/http://web.tiscali.it/muscolino/em/eng/lett167.gif",
+    "error": "HTTP Error 404: Not Found"
+  }
+}

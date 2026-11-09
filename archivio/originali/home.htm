@@ -1,0 +1,137 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Home </title>
+</head>
+
+<body background="em/sfondi15.jpg" bgcolor="#FFFFFF"
+text="#800000">
+
+<h1><font color="#800000" size="4" face="Comic Sans MS"><img
+src="scimmia.gif" width="320" height="53"></font><a
+href="index.htm"><font color="#800000" size="4"
+face="Comic Sans MS"><img src="softdida.gif" border="0"
+width="74" height="70"></font></a></h1>
+
+<h1><font color="#800000" size="4" face="Comic Sans MS">Prof.</font><font
+color="#800000" size="4"> </font><font color="#800000" size="5"
+face="Comic Sans MS"><em><strong>Carmelo Muscolino </strong></em></font></h1>
+
+<table border="0">
+    <tr>
+        <td><font color="#800000" size="3" face="Comic Sans MS"><strong>Professione</strong></font><font
+        color="#800000" size="4" face="Comic Sans MS"><strong> </strong></font></td>
+        <td>&nbsp;</td>
+        <td><font color="#004000" size="1" face="Comic Sans MS"><strong>INSEGNANTE</strong></font><font
+        color="#004000" size="2" face="Comic Sans MS"><strong> </strong></font><font
+        color="#004000" size="1" face="Comic Sans MS"><strong>DI</strong></font><font
+        color="#004000" size="2" face="Comic Sans MS"><strong> </strong></font><font
+        color="#004000" size="1" face="Comic Sans MS"><strong>SCIENZE
+        MATEMATICHE</strong></font></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><font color="#800000" size="3" face="Comic Sans MS"><strong>Sede
+        lavoro</strong></font></td>
+        <td>&nbsp;</td>
+        <td><font color="#004000" size="3" face="Comic Sans MS">Istituto
+        Comprensivo di </font><a
+        href="http://space.tin.it/scuola/lanardin"><font
+        color="#804000" size="3" face="Comic Sans MS"><strong>Gonars</strong></font><font
+        color="#004000" size="3" face="Comic Sans MS"><strong> </strong></font></a></td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<p align="left"><font color="#800000" size="4"
+face="Comic Sans MS"><strong>email: </strong></font><a
+href="mailto:muscolino@tin.it"><font color="#800000" size="4"
+face="Comic Sans MS"><strong>muscolino@tin.it</strong></font></a><font
+color="#800000" size="4" face="Comic Sans MS"><strong> </strong></font></p>
+
+<p align="left"><a name="interessi"><font size="4"
+face="Comic Sans MS"><strong>Interessi e hobby personali</strong></font></a></p>
+
+<ul>
+    <li><font face="Comic Sans MS">COMPUTER</font> </li>
+    <li><font face="Comic Sans MS">ELETTRONICA </font></li>
+    <li><font face="Comic Sans MS">RADIO</font> :<font
+        color="#800000" face="Comic Sans MS"> Radioamatore IV3MSU
+        (ex IT9MSU).</font></li>
+    <li><font color="#800000" face="Comic Sans MS">QTH inizio :
+        Lavinaio (CT) con ricetrans autocostruito SSB 150W (2*6146
+        ) per tutte le bande.</font></li>
+    <li><font color="#800000" face="Comic Sans MS">QTH attuale:
+        Palmanova (prov. Ud) con TS140 Kenwod (100 W). Antenne :
+        dipolo .</font></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

@@ -1,0 +1,169 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>profedit</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#C0C0C0">
+
+<dl>
+    <dd><table border="0" cellspacing="1" bordercolor="#800000">
+            <tr>
+                <td><font color="#800000" size="5"
+                face="Comic Sans MS"><strong>ProfEdit V2</strong></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="right"><a href="../indexa.htm"><font
+                color="#800000" size="2" face="Comic Sans MS"><img
+                src="home.gif" border="0" width="76" height="68"></font></a></td>
+            </tr>
+            <tr>
+                <td><dl>
+                    <dt>&nbsp;</dt>
+                    <dd>&nbsp;</dd>
+                    <dt><font color="#800000" size="3"
+                        face="Comic Sans MS">(617 KB)</font><font
+                        color="#0000FF" size="3"
+                        face="Comic Sans MS"><br>
+                        </font><a href="profe2.exe"><font
+                        color="#0000FF" size="3"
+                        face="Comic Sans MS">Download</font></a><font
+                        color="#0000FF" size="3"
+                        face="Comic Sans MS"><br>
+                        </font><a href="pf2help.htm"><font
+                        color="#800000" size="4"
+                        face="Comic Sans MS"><img
+                        src="AMERICA.gif" border="0" width="32"
+                        height="32"></font></a></dt>
+                </dl>
+                </td>
+                <td valign="top"><font color="#800000"
+                face="Comic Sans MS"><img src="prof2.gif"
+                width="188" height="181"></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td valign="bottom"><font color="#800080"
+                size="3">Made with :<br>
+                </font><a href="http://www.neosoftware.com"><font
+                color="#FF0080" size="2"><img src="neobook.gif"
+                border="0" width="133" height="50"></font></a><font
+                color="#FF0080" size="2"><br>
+                </font><b><u>Copyright ©</u></b> <font size="1"><br>
+                NeoBook is a registered trademark of<br>
+                </font><a href="http://www.neosoftware.com"><font
+                size="2">NeoSoftCorp.</font></a></td>
+            </tr>
+        </table>
+    </dd>
+</dl>
+
+<p><font face="Comic Sans MS">WHY USE IT?<br>
+This soft helps for compose quickly texts which use repetitive
+sentences (for example judgments for pupils.)<br>
+<br>
+HOW DOES IT FUNCTION?<br>
+It allows to send to the preferred editor a select sentence from
+a menù At the start you have the acquisition of the sentences
+memorizes in the in single file Frasario.dat text. In succession
+the program rustler the editor and it is prearranged for show by
+menù the sentences memorizes. The sentences are organized in
+blocks. The different blocks presents in sequence.<br>
+<br>
+HOW MANY SENTENCES COULD BE INTRODUCED?<br>
+The light version works with 126 sentences (18 sentences x 7
+blocks.) That completes works with 450 sentences (18 sentences x25
+blocks.)<br>
+<br>
+HOW DO THE BLOCKS BE IDENTIFIED?<br>
+An empty line marks the end of a block.<br>
+<br>
+HOW DO YOU CREATE OR CHANGE A VOCABULARY?<br>
+Could be read/ change/ save more vocabularies. These are lines
+text (click on change vocabulary or use<br>
+the preferred editor.)<br>
+<br>
+WHAT ARE THE RULES OF PROFEDIT?<br>
+The fundamental rule is: <br>
+- an empty line separates the different blocks of sentences;<br>
+The other rules, useful but not fundamental, are:<br>
+- a line which have the first character the . (point) it comes<br>
+unknown<br>
+it serves for introduce eventual comments in the vocabulary:<br>
+- a line which have the first character the * (symbol of the
+multiplication) will be show like title of the block;<br>
+- a line which have the last character the &lt; sends to the
+editor a sign to go to the next line. (the symbol will be
+eliminated from the sentence);<br>
+- a line which have the first character &lt; will have inserted
+after the cancellation of the first 5 characters (useful function
+for identify the line with three characters chosen to pleasure;<br>
+<br>
+HOW DO YOU SECT THE CURRENT VOCABULARY?<br>
+When a vocabulary is recalled (from the page changes vocabulary),
+clicking on continue the content is saved in frasario.dat and it
+becomes the vocabulary of current use that is that readed at the
+start of the program.<br>
+</font></p>
+
+<p><font face="Comic Sans MS">WHICH EDITOR DIALOGUE WITH
+PROFEDIT?<br>
+Whatever editor could be used. For change that which is in use
+you must click on Change Editor of the initial page and open the
+soft desired.</font></p>
+
+<p>&nbsp;</p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

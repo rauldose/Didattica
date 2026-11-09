@@ -1,0 +1,2413 @@
+'CODICE DEL MENU
+
+'$FORM Testo
+'$FORM ita
+DECLARE SUB Rplmenu_DblClick ()
+DECLARE SUB LeggiMenu ()
+DIM SHARED nomifile$(50)
+DIM SHARED presenta$
+COMMON SHARED provenienza$
+COMMON SHARED modificato AS INTEGER
+COMMON SHARED filenome$
+COMMON SHARED sec%
+COMMON SHARED codice$
+COMMON SHARED cod1$
+
+SUB Form_Load ()
+ON LOCAL ERROR GOTO errorLoadFormMenu
+'IF provenienza$ = "" THEN : rplmenu.Height = 8: timer1.interval = 10: timer2.interval = 100
+'imgp.left = 80
+rplmenu.Height = 8: timer1.interval = 10: timer2.interval = 100: imgp.left = 80
+provenienza$ = "Menu"
+CALL LeggiMenu
+cl$ = COMMAND$
+cl$ = RTRIM$(LTRIM$(cl$))
+cl$ = UCASE$(cl$)
+IF LEN(cl$) > 0 THEN
+    IF LEN(cl$) > 4 THEN : MSGBOX "Codice >4. Memorizzo " + RIGHT$(cl$, 4): cl$ = RIGHT$(cl$, 4)
+    IF LEN(cl$) < 4 THEN : MSGBOX "Codice <4. Non valido. Attivo 1234"
+    OPEN "cs.bin" FOR OUTPUT AS 1
+    FOR I% = 1 TO 4
+       b% = ASC(MID$(cl$, I%, 1))
+        hh$ = hh$ + CHR$(b% + I% * 2)
+    NEXT
+    PRINT #1, hh$
+   CLOSE 1
+END IF
+
+IF DIR$("CS.BIN") = "CS.BIN" THEN
+   codice$ = ""
+   OPEN "cs.bin" FOR INPUT AS 1
+     LINE INPUT #1, ii$
+     FOR I% = 1 TO 4
+      b% = ASC(MID$(ii$, I%, 1))
+      codice$ = codice$ + CHR$(b% - I% * 2)
+     NEXT
+   CLOSE 1
+END IF
+IF LEN(codice$) < 3 THEN codice$ = "1234"
+SCREEN.ControlPanel(0) = 15  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 11  'bordo di mgbox
+SCREEN.ControlPanel(2) = 4
+SCREEN.ControlPanel(3) = VERO
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo  176
+SCREEN.ControlPanel(8) = 8    'elementi disattivati
+SCREEN.ControlPanel(9) = 7   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 0   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 11   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+abc$ = abc$ + "#X}hhzéf#p;zv{4f=,4%#,4%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "4%#,4%#,4%#,4%#,4%#,4%#,4" + CHR$(13) + CHR$(10)
+abc$ = abc$ + ",gHX[`F#YYILM4il,[TQMfX#" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%#,4%#,4%#,4%#,4%#,4%#,4%#," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "#,4%#,4%#,4%#,4%#,4%#,4%#" + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+inizi2:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO fin2
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ presenta$ = presenta$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizi2
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF (t% AND 3) = 0 THEN a% = a% - 5
+ IF (t% AND 3) = 1 THEN a% = a% - 3
+ IF (t% AND 3) = 2 THEN a% = a% - 12
+ IF (t% AND 3) = 3 THEN a% = a% - 20
+ presenta$ = presenta$ + CHR$(a%)
+ GOTO inizi2
+fin2:
+EXIT SUB
+errorLoadFormMenu:
+IF ERR = 75 THEN MSGBOX "Disco protetto dalla scrittura.": CLOSE #1
+RESUME NEXT
+END SUB
+
+SUB ImgP_GotFocus ()
+rplmenu.SETFOCUS
+END SUB
+
+SUB LeggiMenu ()
+ON LOCAL ERROR GOTO errorePreapri
+file.pattern = "*.L1?"  ' imposta il filtro dei file
+file.REFRESH
+DO WHILE rplmenu.listcount
+  rplmenu.REMOVEITEM 0
+LOOP
+FOR t% = 0 TO file.listcount - 1
+         OPEN file.list(t%) FOR INPUT AS #1
+           LINE INPUT #1, ii$
+           rplmenu.ADDITEM LTRIM$(RTRIM$(ii$))
+           nomifile$(t%) = file.list(t%)
+          CLOSE #1
+ NEXT
+rplmenu.ADDITEM "INFORMAZIONI"
+rplmenu.ADDITEM "ESCI "
+nomifile$(file.listcount) = ""
+nomifile$(file.listcount + 1) = ""
+rplmenu.listIndex = 0
+EXIT SUB
+errorePreapri:
+MSGBOX "Errore in leggi menu n'  " + STR$(ERR)
+RESUME NEXT
+END SUB
+
+SUB Peditore_Click ()
+peditore.caption = "digita la password"
+timedit.interval = 700
+END SUB
+
+SUB Peditore_KeyPress (keyascii AS INTEGER)
+'MSGBOX UCASE$(CHR$(keyascii))
+timedit.interval = 100
+cod1$ = cod1$ + UCASE$(CHR$(keyascii))
+IF LEN(cod1$) = 1 THEN EXIT SUB
+IF LEN(cod1$) = 2 THEN EXIT SUB
+IF LEN(cod1$) = 3 THEN EXIT SUB
+IF LEN(cod1$) = 4 THEN peditore.caption = "digita di nuovo": timedit.interval = 1000: EXIT SUB
+IF LEN(cod1$) = 5 THEN EXIT SUB
+IF LEN(cod1$) = 6 THEN EXIT SUB
+IF LEN(cod1$) = 7 THEN EXIT SUB
+IF LEFT$(cod1$, 4) <> MID$(cod1$, 5) THEN
+MSGBOX "Ripeti correttamente"
+cod1$ = ""
+EXIT SUB
+END IF
+timedit.interval = 0
+cod1$ = LEFT$(cod1$, 4)
+provenienza$ = "Menu"
+UNLOAD menu
+Testo.SHOW 1
+END SUB
+
+SUB Pesci_Click ()
+END
+END SUB
+
+SUB Rplmenu_DblClick ()
+IF rplmenu.listIndex = rplmenu.listcount - 1 THEN END
+IF rplmenu.listIndex = rplmenu.listcount - 2 THEN
+a$ = a$ + "Soft programmabile per esercitazioni o test multidisciplinari." + CHR$(13) + CHR$(10)
+a$ = a$ + "Gli esercizi sono strutturati in livelli (Max 5 )." + CHR$(13) + CHR$(10)
+a$ = a$ + "Per ogni livello si possono programmare :" + CHR$(13) + CHR$(10)
+a$ = a$ + "- i punti acquisiti per svolgimento corretto;" + CHR$(13) + CHR$(10)
+a$ = a$ + "- i punti persi per errore;" + CHR$(13) + CHR$(10)
+a$ = a$ + "- i punti necessari per superare il livello;" + CHR$(13) + CHR$(10)
+a$ = a$ + "- i punti da perdere al passare del tempo;" + CHR$(13) + CHR$(10)
+a$ = a$ + "- la cadenza del tempo in secondi;" + CHR$(13) + CHR$(10)
+a$ = a$ + "- l'eventuale tempo da dedicare al gioco; " + CHR$(13) + CHR$(10)
+a$ = a$ + "I giochi disponibili sono due (gorillas e puzzle). Entrambi sono" + CHR$(13) + CHR$(10)
+a$ = a$ + "studiati per permettere il gioco di due alunni." + CHR$(13) + CHR$(10)
+a$ = a$ + "Gorillas e' disponibile  nei livelli intermedi mentre puzzle 'gira'" + CHR$(13) + CHR$(10)
+a$ = a$ + "nell'ultimo livello."
+a$ = a$ + "Gli esercizi all'interno di un livello sono proposti " + CHR$(13) + CHR$(10)
+a$ = a$ + "casualmente."
+abc$ = abc$ + "DÅàtuqN%s~Ék1,Wfuyyqr,azvoÉqlzÉ%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "dfoyusrÇu%Xp}sh," + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+inizio2:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO fine2
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ presenta$ = presenta$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizio2
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF (t% AND 3) = 0 THEN a% = a% - 5
+ IF (t% AND 3) = 1 THEN a% = a% - 3
+ IF (t% AND 3) = 2 THEN a% = a% - 12
+ IF (t% AND 3) = 3 THEN a% = a% - 20
+ ww$ = ww$ + CHR$(a%)
+ GOTO inizio2
+fine2:
+MSGBOX a$ + CHR$(13) + CHR$(10) + ww$
+I$ = I$ + sp$ + "                                " + CHR$(13)
+I$ = I$ + sp$ + "   …ÕÕÕ     …ÕÕÕª               " + CHR$(13)
+I$ = I$ + sp$ + "   ÃÕÕÕ     ∫ ÕÕª              " + CHR$(13)
+I$ = I$ + sp$ + "   »ÕÕÕ     »ÕÕÕº   Ver 2   " + CHR$(13)
+I$ = I$ + sp$ + "                            " + CHR$(13)
+imgp.CLS
+imgp.PRINT I$
+EXIT SUB
+END IF
+filenome$ = nomifile$(rplmenu.listIndex)
+modificato = falso
+UNLOAD menu
+menu.HIDE
+'LOAD ita
+ita.SHOW 1
+END SUB
+
+SUB Rplmenu_GotFocus ()
+I$ = I$ + sp$ + "        …ÕÕÕª         " + CHR$(13)
+I$ = I$ + sp$ + "        ∫ ÕÕª         " + CHR$(13)
+I$ = I$ + sp$ + "  …ÕÕÕ  »ÕÕÕº giochi " + CHR$(13)
+I$ = I$ + sp$ + "  ÃÕÕÕ                " + CHR$(13)
+I$ = I$ + sp$ + "  »ÕÕÕ  esercizi     " + CHR$(13)
+I$ = I$ + sp$ + ".................. "
+imgp.CLS
+imgp.PRINT I$ + "Ver. 2"
+
+    FOR I% = 1 TO LEN(I$) STEP 5
+    IF MID$(I$, I%, 1) <> " " THEN : q1% = ASC(MID$(I$, I%, 1)): tot% = tot% + q1%
+    NEXT
+    'MSGBOX STR$(tot%)
+    IF tot% <> 1866 THEN :  END
+    tot% = 0
+    FOR I% = 2 TO LEN(I$) STEP 5
+    IF MID$(I$, I%, 1) <> " " THEN : q1% = ASC(MID$(I$, I%, 1)): tot% = tot% + q1%
+    NEXT
+    'MSGBOX STR$(tot%)
+    IF tot% <> 1660 THEN :  END
+   tot% = 0
+   FOR I% = 3 TO LEN(I$) STEP 5
+   IF MID$(I$, I%, 1) <> " " THEN : q1% = ASC(MID$(I$, I%, 1)): tot% = tot% + q1%
+   NEXT
+   'MSGBOX STR$(tot%)
+   IF tot% <> 999 THEN :  END
+   tot% = 0
+   FOR I% = 4 TO LEN(I$) STEP 5
+   IF MID$(I$, I%, 1) <> " " THEN : q1% = ASC(MID$(I$, I%, 1)): tot% = tot% + q1%
+   NEXT
+   'MSGBOX STR$(tot%)
+   IF tot% <> 1582 THEN :  END
+END SUB
+
+SUB Rplmenu_KeyPress (keyascii AS INTEGER)
+IF keyascii = 13 THEN  ' return
+   CALL Rplmenu_DblClick
+END IF
+cod$ = ""
+END SUB
+
+SUB Timedit_Timer ()
+STATIC k
+k = k + 1
+IF LEN(cod1$) = 0 AND (k AND 2) = 0 THEN peditore.caption = "XXXX"
+IF LEN(cod1$) = 0 AND (k AND 2) = 2 THEN peditore.caption = "_XXX"
+IF LEN(cod1$) = 1 AND (k AND 2) = 0 THEN peditore.caption = "_XXX"
+IF LEN(cod1$) = 1 AND (k AND 2) = 2 THEN peditore.caption = "__XX"
+IF LEN(cod1$) = 2 AND (k AND 2) = 0 THEN peditore.caption = "__XX"
+IF LEN(cod1$) = 2 AND (k AND 2) = 2 THEN peditore.caption = "___X"
+IF LEN(cod1$) = 3 AND (k AND 2) = 0 THEN peditore.caption = "___X"
+IF LEN(cod1$) = 3 AND (k AND 2) = 2 THEN peditore.caption = "____"
+IF LEN(cod1$) = 4 AND (k AND 2) = 0 THEN peditore.caption = "XXXX"
+IF LEN(cod1$) = 4 AND (k AND 2) = 2 THEN peditore.caption = "_XXX"
+IF LEN(cod1$) = 5 AND (k AND 2) = 0 THEN peditore.caption = "_XXX"
+IF LEN(cod1$) = 5 AND (k AND 2) = 2 THEN peditore.caption = "__XX"
+IF LEN(cod1$) = 6 AND (k AND 2) = 0 THEN peditore.caption = "__XX"
+IF LEN(cod1$) = 6 AND (k AND 2) = 2 THEN peditore.caption = "___X"
+IF LEN(cod1$) = 7 AND (k AND 2) = 0 THEN peditore.caption = "___X"
+IF LEN(cod1$) = 7 AND (k AND 2) = 2 THEN peditore.caption = "____"
+END SUB
+
+SUB Timer1_Timer ()
+  imgp.left = imgp.left - 4
+ IF imgp.left < 5 THEN
+  IMGlicenza.visible = -1
+  IMGlicenza.CLS
+  IMGlicenza.PRINT presenta$
+  IMGlicenza.left = imgp.left
+  pesci.visible = -1
+  peditore.visible = -1
+  timer1.interval = 0
+END IF
+END SUB
+
+SUB Timer2_Timer ()
+rplmenu.Height = rplmenu.Height + 1
+IF rplmenu.Height > 20 THEN : timer2.interval = 0
+END SUB
+
+' CODICE ELABORA TESTO
+DECLARE SUB NuovoNome ()
+DECLARE SUB rpl2_dblclick ()
+DECLARE SUB mnuimporta_click ()
+DECLARE SUB avviso ()
+DECLARE SUB decode (ii$)
+DECLARE SUB mnuapri_click ()
+DECLARE SUB nuovo ()
+DECLARE SUB Salva ()
+'$FORM Menu
+DECLARE SUB calcolaSpazio ()
+DECLARE SUB mnuSalva_click ()
+DECLARE SUB mnuimpagina_click ()
+DECLARE SUB rpl1_dblclick ()
+DECLARE SUB dimensiona_Finestra ()
+DECLARE SUB impagina ()
+DECLARE SUB file_dblclick ()
+DECLARE SUB cmdEsci_click ()
+DECLARE SUB protez ()
+DECLARE SUB aprifile ()
+DECLARE SUB salvafile ()
+DECLARE SUB elaboraz_nomefile ()
+DECLARE SUB cmdSalva_click ()
+CONST falso = 0
+CONST vero = -1
+DIM SHARED nl AS STRING
+DIM SHARED nomecompleto$
+DIM SHARED a$  'per la protezione
+DIM SHARED marginesinistro
+DIM SHARED marginedestro
+DIM SHARED ncar%
+DIM SHARED righepagina%
+DIM SHARED lpagina%
+DIM SHARED interlinea%
+DIM SHARED esperto%
+DIM SHARED posizcursore%
+DIM SHARED spaziolibero
+DIM SHARED nomifile$(50)
+DIM SHARED nomepercorso$
+DIM SHARED vecchiopercorso$
+COMMON SHARED provenienza$
+COMMON SHARED modificato AS INTEGER
+COMMON SHARED filenome$
+COMMON SHARED sec%
+COMMON SHARED codice$
+COMMON SHARED cod1$
+
+SUB aprifile ()
+ STATIC jh$
+ nomefile$ = nomepercorso$ + filenome$
+ ON LOCAL ERROR GOTO ErroreApriFile
+IF DIR$(nomefile$) <> filenome$ THEN
+   j$ = "Il file " + filenome$ + " non e' in archivio." + CHR$(13) + CHR$(10)
+   j$ = j$ + "Lo vuoi scrivere adesso ??" + CHR$(13) + CHR$(10)
+   j$ = j$ + CHR$(13) + CHR$(10)
+   r = MSGBOX(j$, 4 + 0, " INFORMAZIONE: ")
+   IF r = 6 THEN t1.text = ""
+   EXIT SUB
+END IF
+MOUSEPOINTER = 11
+IF INSTR(nomefile$, ".TXT") = 0 THEN
+   OPEN nomefile$ FOR INPUT AS #1
+     IF INSTR(nomefile$, ".L1") > 0 THEN
+        LINE INPUT #1, ii$                  'titolo
+        titolo.text = LTRIM$(RTRIM$(ii$))
+        LINE INPUT #1, ii$                  'password
+        ii$ = LEFT$(ii$, 4)
+        jh$ = ""
+        FOR i% = 1 TO LEN(ii$)
+          z1$ = MID$(ii$, i%, 1)
+          z1$ = CHR$(ASC(z1$) + 10)
+          jh$ = jh$ + z1$
+        NEXT
+     END IF
+   DO WHILE NOT EOF(1)
+     LINE INPUT #1, ii$
+     decode ii$
+     t5$ = t5$ + ii$ + CHR$(13) + CHR$(10)
+   LOOP
+ELSE   'caso di testo TXT
+OPEN nomefile$ FOR INPUT AS #1
+    DO WHILE NOT EOF(1)
+      LINE INPUT #1, ii$
+      t5$ = t5$ + ii$ + CHR$(13) + CHR$(10)
+   LOOP
+END IF
+CLOSE 1
+IF jh$ = cod1$ OR cod1$ = codice$ OR jh$ = "0000" THEN
+     t1.text = t1.text + t5$
+     modificato = falso
+      IF mnuimporta.Checked = vero THEN
+         mnuimporta.Checked = falso
+         t1.selstart = LEN(t1.text)
+       END IF
+ELSE
+MSGBOX "Password non corretta"
+END IF
+MOUSEPOINTER = 1
+EXIT SUB
+ErroreApriFile:
+MOUSEPOINTER = 1
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato": CLOSE #1: EXIT SUB
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile": CLOSE #1: EXIT SUB
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'.": CLOSE #1: EXIT SUB
+IF ERR = 57 THEN MSGBOX "Errore disco interno.": CLOSE #1: EXIT SUB
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno.": CLOSE #1: EXIT SUB
+IF ERR = 64 THEN MSGBOX "Nome non valido 64.": CLOSE #1: EXIT SUB
+IF ERR = 52 THEN MSGBOX "Nome o numero di file non valido 52.": CLOSE #1: EXIT SUB
+IF ERR = 75 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR = 53 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR > 0 THEN MSGBOX "Errore nella lettura o scrittura. N' " + STR$(ERR): CLOSE #1: EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB avviso ()
+    IF LEN(t1.text) > 2 AND modificato = vero THEN
+       m$ = "  ATTENZIONE:" + CHR$(13) + CHR$(10)
+       m$ = m$ + CHR$(13) + CHR$(10)
+       m$ = m$ + "  Non hai salvato il file !! " + CHR$(13)
+       m$ = m$ + CHR$(13) + CHR$(10)
+       m$ = m$ + "  vuoi SALVARLO ?? " + CHR$(13)
+       r = MSGBOX(m$, 3 + 0, " INFORMAZIONE: ")
+       IF r = 6 THEN CALL Salva
+     END IF
+END SUB
+
+SUB decode (ii$)
+    ON LOCAL ERROR GOTO erroredecode
+    hh$ = ""
+    lk% = LEN(ii$)
+    FOR i% = 1 TO lk%
+       b% = ASC(MID$(ii$, i%, 1))
+        hh$ = hh$ + CHR$(b% + 10)
+    NEXT
+    ii$ = hh$
+EXIT SUB
+erroredecode:
+RESUME NEXT
+END SUB
+
+SUB Etimarchio_Click ()
+END SUB
+
+SUB Form_Load ()
+vecchiopercorso$ = file.path
+etidir.caption = file.path
+a$ = "Soft prof. C. Muscolino - Palmanova "
+IF provenienza$ = "Testo" THEN EXIT SUB
+provenienza$ = "Testo"
+nl = CHR$(13) + CHR$(10)
+' settaggio -----
+SCREEN.ControlPanel(0) = 15  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 8    'elementi disattivati
+SCREEN.ControlPanel(9) = 3   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 0   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+END SUB
+
+SUB mnuapri_click ()
+ON LOCAL ERROR GOTO errorepercorso
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+t1.text = ""
+posizcursore% = 1
+file.pattern = "*.L1?"  ' imposta il filtro dei file
+file.REFRESH
+DO WHILE rpl1.listcount
+  rpl1.REMOVEITEM 0
+LOOP
+FOR t% = 0 TO file.listcount - 1
+           OPEN file.List(t%) FOR INPUT AS #1
+           LINE INPUT #1, ii$
+           aa% = INSTR(file.List(t%), ".")
+           b$ = LEFT$(file.List(t%), aa% - 1)
+           rpl1.ADDITEM b$ + SPACE$(10 - LEN(b$)) + LTRIM$(RTRIM$(ii$))
+           nomifile$(t%) = file.List(t%)
+          CLOSE #1
+ NEXT
+IF rpl1.listcount > 0 THEN rpl1.listIndex = 0
+rpl1.visible = vero
+rpl1.SETFOCUS
+modificato = falso
+EXIT SUB
+errorepercorso:
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato": CLOSE #1: EXIT SUB
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile": CLOSE #1: EXIT SUB
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'.": CLOSE #1: EXIT SUB
+IF ERR = 57 THEN MSGBOX "Errore disco interno.": CLOSE #1: EXIT SUB
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno.": CLOSE #1: EXIT SUB
+IF ERR = 64 THEN MSGBOX "Nome non valido 64.": CLOSE #1: EXIT SUB
+IF ERR = 52 THEN MSGBOX "Nome o numero di file non valido 52.": CLOSE #1: EXIT SUB
+IF ERR = 75 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR = 53 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR > 0 THEN MSGBOX "Errore nella lettura o scrittura. N' " + STR$(ERR): CLOSE #1: EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB mnudati_Click ()
+ON LOCAL ERROR GOTO mnudatiErr
+file.path = vecchiopercorso$
+etidir.caption = file.path
+CALL avviso
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "DAT"
+testo2.text = filenome$
+IF DIR$(filenome$) <> filenome$ THEN
+   j$ = "I dati non sono stati mai creati. Visualizzo i dati preimpostati. " + CHR$(13) + CHR$(10)
+   j$ = j$ + CHR$(13) + CHR$(10)
+   MSGBOX j$
+ OPEN filenome$ FOR OUTPUT AS 1
+j$ = "B'B(B)B*B+"
+PRINT #1, j$
+j$ = "'&'&---e]d_gkWdj_i[YedZ_Z[l[je]b_[h[fkdj_"
+PRINT #1, j$
+j$ = "+++++fkdj_jebj_WbfWiWh[Z[bj[cfejf"
+PRINT #1, j$
+j$ = ",&,&,&,&,&fkdj_Yehh[jje"
+PRINT #1, j$
+j$ = ")&*&*&+&,&fkdj_[hhWje"
+PRINT #1, j$
+j$ = ")&&,&&.&&'&&&'(&&fkdj_eYYeh[dj_f[hikf[hWh[b_l[bbeef[h]_eYWh[j]4&"
+PRINT #1, j$
+j$ = "&)&&&/&'(&j[cfeZ_]_eYei[&i_]_eYWWbb_l[bbeikYY[ii_le"
+PRINT #1, j$
+CLOSE #1
+END IF
+t1.text = ""
+CALL aprifile
+EXIT SUB
+mnudatiErr:
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato": CLOSE #1
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile": CLOSE #1
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'.": CLOSE #1
+IF ERR = 57 THEN MSGBOX "Errore disco interno.": CLOSE #1
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno.": CLOSE #1
+IF ERR = 64 THEN MSGBOX "Nome non valido.": CLOSE #1
+IF ERR = 52 THEN MSGBOX "Nome non valido.": CLOSE #1
+IF ERR = 75 THEN MSGBOX "Disco protetto dalla scrittura !!": CLOSE #1
+IF ERR = 53 THEN MSGBOX "File non trovato.": CLOSE #1
+RESUME NEXT
+'-----------
+END SUB
+
+SUB MNUESCI_Click ()
+    IF LEN(t1.text) > 2 AND modificato = vero THEN
+       m$ = "  ATTENZIONE:" + CHR$(13) + CHR$(10)
+       m$ = m$ + CHR$(13) + CHR$(10)
+       m$ = m$ + "  Non hai salvato il file !! " + CHR$(13)
+       m$ = m$ + CHR$(13) + CHR$(10)
+       m$ = m$ + "  vuoi SALVARLO ?? " + CHR$(13)
+       r = MSGBOX(m$, 3 + 0, " INFORMAZIONE: ")
+       IF r = 2 THEN EXIT SUB
+       IF r = 6 THEN CALL Salva
+     END IF
+
+   ' IF LEN(t1.text) > 2 AND modificato = VERO THEN
+   '    M$ = "  ATTENZIONE:" + CHR$(13) + CHR$(10)
+   '    M$ = M$ + CHR$(13) + CHR$(10)
+   '    M$ = M$ + "  Non hai salvato il file !! " + CHR$(13)
+   '    M$ = M$ + CHR$(13) + CHR$(10)
+   '    M$ = M$ + "  Vuoi uscire ?? " + CHR$(13)
+    '   rr = MSGBOX(M$, 260, " INFORMAZIONE: ")
+   '    IF rr = 7 THEN EXIT SUB
+   '  END IF
+  cod1$ = ""
+  UNLOAD testo
+  'testo.HIDE
+  LOAD Menu
+  Menu.SHOW 1
+END SUB
+
+SUB mnuimporta_click ()
+  mnuimporta.Checked = vero
+ ON LOCAL ERROR GOTO Erroreimporta
+yy:
+m$ = ii$ + nl + "Dimmi il drive da cui importare ( A: o B:)" + nl
+i$ = INPUTBOX$(m$, "    ", "A:")
+i$ = LTRIM$(RTRIM$(i$))
+i$ = UCASE$(i$)
+IF i$ = "" THEN
+  nomepercorso$ = vecchiopercorso$ + "\"
+  file.path = vecchiopercorso$
+  GOTO t123
+END IF
+IF i$ <> "A:" THEN
+ IF i$ <> "B:" THEN ii$ = "Nome non valido.Ripeto..": GOTO yy
+ END IF
+ nomepercorso$ = i$ + "\"
+file.path = nomepercorso$
+t123:
+ etidir.caption = file.path
+ file.pattern = "*.*"
+file.REFRESH
+ DO WHILE rpl2.listcount
+  rpl2.REMOVEITEM 0
+ LOOP
+FOR t% = 0 TO file.listcount - 1
+  rpl2.ADDITEM file.List(t%)
+ NEXT
+IF rpl2.listcount > 0 THEN rpl2.listIndex = 0
+rpl2.visible = vero
+rpl2.SETFOCUS
+EXIT SUB
+Erroreimporta:
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato": CLOSE #1: EXIT SUB
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile": CLOSE #1: EXIT SUB
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'.": CLOSE #1: EXIT SUB
+IF ERR = 57 THEN MSGBOX "Errore disco interno.": CLOSE #1: EXIT SUB
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno.": CLOSE #1: EXIT SUB
+IF ERR = 64 THEN MSGBOX "Nome non valido 64.": CLOSE #1: EXIT SUB
+IF ERR = 52 THEN MSGBOX "Nome o numero di file non valido 52.": CLOSE #1: EXIT SUB
+IF ERR = 75 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR = 53 THEN MSGBOX "Percorso o file non trovato.": CLOSE #1: EXIT SUB
+IF ERR > 0 THEN MSGBOX "Errore nella lettura o scrittura. N' " + STR$(ERR): CLOSE #1: EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB mnuL1_Click ()
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "L1"
+testo2.text = filenome$
+t1.text = ""
+CALL aprifile
+END SUB
+
+
+SUB mnuL2_Click ()
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "L2"
+testo2.text = filenome$
+t1.text = ""
+CALL aprifile
+END SUB
+
+SUB mnuL3_Click ()
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "L3"
+testo2.text = filenome$
+t1.text = ""
+CALL aprifile
+END SUB
+
+SUB mnuL4_Click ()
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "L4"
+testo2.text = filenome$
+t1.text = ""
+CALL aprifile
+END SUB
+
+SUB mnuL5_Click ()
+CALL avviso
+file.path = vecchiopercorso$
+etidir.caption = file.path
+aa% = INSTR(filenome$, ".")
+filenome$ = LEFT$(filenome$, aa%)
+filenome$ = filenome$ + "L5"
+testo2.text = filenome$
+t1.text = ""
+CALL aprifile
+END SUB
+
+SUB mnumarchio_Click ()
+ RANDOMIZE TIMER
+ tmsu.top = INT(RND * 18) + 3
+ RANDOMIZE TIMER
+ tmsu.left = INT(RND * 30) + 10
+ IF tmsu.visible = falso THEN
+   tmsu.visible = vero
+   timer1.interval = 150
+   tmsu.SETFOCUS
+ ELSE
+   timer1.interval = 0
+   tmsu.visible = falso
+   END IF
+END SUB
+
+SUB mnuMcancella_Click ()
+t1.SelText = ""
+END SUB
+
+SUB mnuMC_Click ()
+clipboard.SETTEXT t1.SelText
+END SUB
+
+SUB mnuMI_Click ()
+ temp$ = clipboard.GETTEXT()            ' Recupera il testo dal CLIPBOARD.
+ templen% = LEN(t1.SelText)  ' Usato per trovare la posizione del cursore.
+ t1.SelText = temp$     ' Incolla il testo sulla posizione del cursore (sostituisce il testo selezionato).
+ t1.selstart = t1.selstart + LEN(temp$) - templen% ' Posiziona il cursore alla fine del testo incollato.
+ END SUB
+
+SUB mnuModifica_Click ()
+    IF clipboard.GETTEXT() = "" THEN
+        mnuMI.enabled = falso
+    ELSE
+        mnuMI.enabled = vero
+    END IF
+    IF t1.SelText = "" THEN
+        mnuMC.enabled = falso
+        mnuMT.enabled = falso
+        mnuMcancella.enabled = falso
+    ELSE
+        mnuMC.enabled = vero
+        mnuMT.enabled = vero
+        mnuMcancella.enabled = vero
+    END IF
+END SUB
+
+SUB mnuMT_Click ()
+    clipboard.SETTEXT t1.SelText
+    t1.SelText = ""
+END SUB
+
+SUB mnuNuovo_Click ()
+file.path = vecchiopercorso$
+etidir.caption = file.path
+CALL avviso
+t1.text = ""
+CALL NuovoNome
+ mnuL1.caption = "  L&1"
+ mnuL2.caption = "  L&2"
+ mnuL3.caption = "  L&3"
+ mnuL4.caption = "  L&4"
+ mnuL5.caption = "  L&5"
+ mnuDati.caption = "  DATI"
+END SUB
+
+SUB mnuSalvaIn_Click ()
+filenome$ = testo2.text
+filenome$ = LTRIM$(RTRIM$(filenome$))
+IF filenome$ = "" AND LEN(LTRIM$(RTRIM$(t1.text))) < 3 THEN EXIT SUB
+IF filenome$ = "" THEN CALL NuovoNome
+IF INSTR(filenome$, "\") > 0 THEN filenome$ = MID$(filenome$, INSTR(filenome$, "\") + 1)
+testo2.text = filenome$
+yyy:
+m$ = ii$ + nl + "In quale drive salvare ( A: o B:)" + nl
+i$ = INPUTBOX$(m$, "    ", "A:")
+i$ = LTRIM$(RTRIM$(i$))
+i$ = UCASE$(i$)
+ IF i$ = "" THEN
+   nomepercorso$ = ""
+   file.path = vecchiopercorso$
+   etidir.caption = file.path
+ GOTO hh
+END IF
+ IF i$ <> "A:" THEN
+    IF i$ <> "B:" THEN ii$ = "Nome non valido.Ripeto..": GOTO yyy
+ END IF
+ nomepercorso$ = i$ + "\"
+hh:
+testo2.text = filenome$
+etidir.caption = nomepercorso$
+CALL Salva
+END SUB
+
+SUB mnuSalva_click ()
+file.path = vecchiopercorso$
+etidir.caption = file.path
+nomepercorso$ = ""
+filenome$ = testo2.text
+filenome$ = LTRIM$(RTRIM$(filenome$))
+IF filenome$ = "" AND LEN(LTRIM$(RTRIM$(t1.text))) < 3 THEN EXIT SUB
+IF filenome$ = "" THEN NuovoNome
+IF INSTR(filenome$, "\") > 0 THEN filenome$ = MID$(filenome$, INSTR(filenome$, "\") + 1)
+testo2.text = filenome$
+CALL Salva
+END SUB
+
+SUB mnuStampa_Click ()
+ON LOCAL ERROR GOTO ErroreStampa
+ test$ = t1.text
+ WIDTH "LPT1:", 255
+   printer.PRINT t1.text
+   printer.NEWPAGE
+ EXIT SUB
+ErroreStampa:
+IF ERR = 25 THEN : MSGBOX " Stampante spenta oppure non selezionata. Provvedi !! ": EXIT SUB
+IF ERR = 27 THEN : MSGBOX " Non posso stampare. Manca la carta!! ": EXIT SUB
+IF ERR > 0 THEN : MSGBOX " Non posso stampare. Qualcosa non va!! " + STR$(ERR): EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB NuovoNome ()
+titolo.text = ""
+testo2.text = ""
+inizio:
+in$ = INPUTBOX$("Dimmi il nome del file (Max 8 caratteri)")
+lf% = LEN(in$)
+IF lf% = 0 THEN EXIT SUB
+ filenome$ = LTRIM$(RTRIM$(in$)) ' Elimina gli spazi dalle due estremitÖ
+ filenome$ = UCASE$(filenome$)         ' Converte i caratteri in maiuscolo
+' inserisco trattini al posto di spazi vuoti tra le lettere
+FOR t = 1 TO lf%
+  IF MID$(filenome$, t, 1) = " " THEN
+     filenome$ = LEFT$(filenome$, t - 1) + "_" + RIGHT$(filenome$, lf% - t)
+  END IF
+NEXT
+' se  c'e' il punto lo tolgo
+     IF INSTR(filenome$, ".") > 0 THEN
+         filenome$ = LEFT$(filenome$, INSTR(filenome$, ".") - 1)
+     END IF
+ 'taglio a 8 caratteri
+filenome$ = LEFT$(filenome$, 8)
+filenome$ = filenome$ + ".L1"
+IF DIR$(filenome$) = filenome$ THEN
+    m$ = "  ATTENZIONE:  "
+    m$ = m$ + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + "In archivio esiste un file con lo stesso nome !!" + CHR$(13)
+    MSGBOX m$
+    GOTO inizio
+END IF
+testo2.text = filenome$
+inizio2:
+in$ = INPUTBOX$(" Dimmi il Titolo per il Menu' ")
+lf% = LEN(in$)
+IF lf% = 0 THEN GOTO inizio2
+in$ = LTRIM$(RTRIM$(in$)) ' Elimina gli spazi dalle due estremitÖ
+IF LEN(in$) > 30 THEN : in$ = LEFT$(in$, 30) 'taglio a 30 caratteri
+titolo.text = in$
+t1.SETFOCUS
+END SUB
+
+SUB protez ()
+a$ = "Soft prof. C. Muscolino - Palmanova "
+IF ASC(MID$(a$, 34, 1)) <> 118 THEN GOTO FINE
+IF ASC(MID$(a$, 35, 1)) <> 97 THEN GOTO FINE
+IF ASC(MID$(a$, 36, 1)) <> 32 THEN GOTO FINE
+EXIT SUB
+FINE:
+CLS : LOCATE 10, 1: MSGBOX "COPIA MANOMESSA."
+END
+END SUB
+
+SUB Rpl1_Click ()
+ i$ = rpl1.List(rpl1.listIndex)
+ b$ = LEFT$(i$, 8)
+ b$ = LTRIM$(RTRIM$(b$))
+ i$ = b$ + ".L1"
+ IF DIR$(i$) = i$ THEN mnuL1.caption = " ØL&1" ELSE mnuL1.caption = "  L&1"
+ i$ = b$ + ".L2"
+ IF DIR$(i$) = i$ THEN mnuL2.caption = " ØL&2" ELSE mnuL2.caption = "  L&2"
+ i$ = b$ + ".L3"
+ IF DIR$(i$) = i$ THEN mnuL3.caption = " ØL&3" ELSE mnuL3.caption = "  L&3"
+ i$ = b$ + ".L4"
+ IF DIR$(i$) = i$ THEN mnuL4.caption = " ØL&4" ELSE mnuL4.caption = "  L&4"
+ i$ = b$ + ".L5"
+ IF DIR$(i$) = i$ THEN mnuL5.caption = " ØL&5" ELSE mnuL5.caption = "  L&5"
+ i$ = b$ + ".DAT"
+ IF DIR$(i$) = i$ THEN mnuDati.caption = " Ø&DATI" ELSE mnuDati.caption = "  &DATI"
+END SUB
+
+SUB rpl1_dblclick ()
+ filenome$ = nomifile$(rpl1.listIndex)
+rpl1.visible = falso
+dir1.visible = falso
+testo2.text = filenome$
+protez
+t1.visible = vero
+t1.SETFOCUS
+aprifile
+t1.selstart = posizcursore%
+END SUB
+
+SUB Rpl1_KeyPress (KeyAscii AS INTEGER)
+ IF KeyAscii = 13 THEN : CALL rpl1_dblclick: EXIT SUB
+ IF KeyAscii = 27 THEN : rpl1.visible = falso: EXIT SUB
+END SUB
+
+SUB Rpl1_LostFocus ()
+rpl1.visible = falso
+END SUB
+
+SUB rpl2_dblclick ()
+filenome$ = rpl2.List(rpl2.listIndex)
+rpl2.visible = falso
+IF testo2.text = "" THEN testo2.text = filenome$
+'etidir.caption = nomepercorso$
+t1.visible = vero
+t1.SETFOCUS
+aprifile
+END SUB
+
+SUB Rpl2_KeyPress (KeyAscii AS INTEGER)
+ IF KeyAscii = 13 THEN : CALL rpl2_dblclick: EXIT SUB
+ IF KeyAscii = 27 THEN : rpl2.visible = falso: EXIT SUB
+END SUB
+
+SUB Rpl2_LostFocus ()
+rpl2.visible = falso
+END SUB
+
+SUB Salva ()
+ ON LOCAL ERROR GOTO SaveFileErr ' Imposta la routine di gestione d'errore.
+nomefile$ = nomepercorso$ + filenome$
+IF DIR$(nomefile$) <> filenome$ AND LEN(LTRIM$(RTRIM$(t1.text))) < 5 THEN
+   j$ = "Non salvo " + filenome$ + " perche' non contiene caratteri." + CHR$(13) + CHR$(10)
+   j$ = j$ + CHR$(13) + CHR$(10)
+   j$ = j$ + "Non cancello il file perche' non e' presente." + CHR$(13) + CHR$(10)
+   MSGBOX j$
+   EXIT SUB
+   END IF
+IF DIR$(nomefile$) = filenome$ AND LEN(LTRIM$(RTRIM$(t1.text))) < 5 THEN
+  IF INSTR(nomefile$, ".L1") > 0 THEN
+       f$ = LEFT$(nomefile$, INSTR(nomefile$, ".L1") - 1)
+       n$ = LEFT$(filenome$, INSTR(filenome$, ".L1") - 1)
+       m$ = "  ATTENZIONE !!!  " + CHR$(13)
+       m$ = m$ + " Vuoi eliminare TUTTI i file che hanno nome " + f$ + " ??" + CHR$(13)
+       m$ = m$ + CHR$(13)
+       V# = MSGBOX(m$, 4, "")
+       IF V# = 7 THEN EXIT SUB ' risposta no
+       KILL nomefile$
+       testo2.text = "": titolo.text = ""
+       IF DIR$(f$ + ".L2") = n$ + ".L2" THEN KILL f$ + ".L2"
+       IF DIR$(f$ + ".L3") = n$ + ".L3" THEN KILL f$ + ".L3"
+       IF DIR$(f$ + ".L4") = n$ + ".L4" THEN KILL f$ + ".L4"
+       IF DIR$(f$ + ".L5") = n$ + ".L5" THEN KILL f$ + ".L5"
+       IF DIR$(f$ + ".DAT") = n$ + ".DAT" THEN KILL f$ + ".DAT"
+       mnuL1.caption = "  L&1"
+       mnuL2.caption = "  L&2"
+       mnuL3.caption = "  L&3"
+       mnuL4.caption = "  L&4"
+       mnuL5.caption = "  L&5"
+       mnuDati.caption = "  DATI"
+       EXIT SUB
+     END IF
+    m$ = "  ATTENZIONE:  " + CHR$(13)
+    m$ = m$ + " Vuoi eliminare il file " + filenome$ + " ??" + CHR$(13)
+    m$ = m$ + CHR$(13)
+    V# = MSGBOX(m$, 4, "")
+    IF V# = 7 THEN EXIT SUB ' risposta no
+    KILL nomefile$
+    IF INSTR(nomefile$, ".DAT") > 0 THEN mnuDati.caption = " &DATI"
+    IF INSTR(nomefile$, ".L2") > 0 THEN mnuL2.caption = "  L&2"
+    IF INSTR(nomefile$, ".L3") > 0 THEN mnuL3.caption = "  L&3"
+    IF INSTR(nomefile$, ".L4") > 0 THEN mnuL4.caption = "  L&4"
+    IF INSTR(nomefile$, ".L5") > 0 THEN mnuL5.caption = "  L&5"
+    testo2.text = "": titolo.text = ""
+    EXIT SUB
+END IF
+
+IF DIR$(nomefile$) = filenome$ THEN
+    m$ = "  ATTENZIONE:  "
+    m$ = m$ + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Esiste un testo con lo stesso nome in archivio !! " + CHR$(13)
+    m$ = m$ + " Voi sostituire il vecchio testo con il presente ? " + CHR$(13)
+    V# = MSGBOX(m$, 4, " INFORMAZIONE: ")
+   IF V# = 7 THEN :  EXIT SUB  ' risposta no
+END IF
+    IF INSTR(nomefile$, ".DAT") > 0 THEN mnuDati.caption = " Ø&DATI"
+    IF INSTR(nomefile$, ".L2") > 0 THEN mnuL2.caption = " ØL&2"
+    IF INSTR(nomefile$, ".L3") > 0 THEN mnuL3.caption = " ØL&3"
+    IF INSTR(nomefile$, ".L4") > 0 THEN mnuL4.caption = " ØL&4"
+    IF INSTR(nomefile$, ".L5") > 0 THEN mnuL5.caption = " ØL&5"
+    IF INSTR(nomefile$, ".L1") > 0 THEN mnuL1.caption = " ØL&1"
+   OPEN nomefile$ FOR OUTPUT AS 1
+   MOUSEPOINTER = 11
+   IF INSTR(nomefile$, ".txt") > 0 OR INSTR(nomefile$, ".TXT") > 0 THEN
+       PRINT #1, t1.text 'se txt non si codifica
+       GOTO uuscita
+   END IF
+   IF INSTR(nomefile$, ".L1") > 0 THEN : PRINT #1, titolo.text
+   jh$ = ""
+FOR i% = 1 TO LEN(cod1$)
+      z1$ = MID$(cod1$, i%, 1)
+      z1$ = CHR$(ASC(z1$) - 10)
+      jh$ = jh$ + z1$
+NEXT
+    jh$ = jh$ + "f-h_s%%ltahheehfdtymmgumu.kppj+++s"
+ 
+   IF INSTR(nomefile$, ".L1") > 0 THEN : PRINT #1, jh$
+   i$ = t1.text
+FOR i% = 1 TO LEN(i$)
+      IF MID$(i$, i%, 1) = CHR$(13) OR MID$(i$, i%, 1) = CHR$(10) THEN
+      PRINT #1, MID$(i$, i%, 1);
+      ELSE
+      z1$ = MID$(i$, i%, 1)
+      PRINT #1, CHR$(ASC(z1$) - 10);
+      END IF
+NEXT
+uuscita:
+    CLOSE #1
+    modificato = falso
+    t1.SETFOCUS
+RitornoErroreSalvataggioFile:
+    MOUSEPOINTER = 0                    ' Ristabilisce il cursore normale.
+ EXIT SUB
+SaveFileErr:
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato"
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile"
+IF ERR = 71 THEN MSGBOX "Inserire un disco nell'unita'."
+IF ERR = 57 THEN MSGBOX "Errore disco interno."
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno."
+IF ERR = 64 THEN MSGBOX "Nome non valido."
+IF ERR = 52 THEN MSGBOX "Nome non valido."
+IF ERR = 75 THEN MSGBOX "Disco protetto dalla scrittura !!"
+IF ERR = 53 THEN MSGBOX "File non trovato."
+RESUME RitornoErroreSalvataggioFile
+'-----------
+END SUB
+
+SUB T1_Change ()
+modificato = vero
+END SUB
+
+SUB Testo2_KeyUp (KeyCode AS INTEGER, Shift AS INTEGER)
+a = INP(96)
+'MSGBOX STR$(a)
+IF a = 59 THEN MSGBOX " Testo modificabile. Se premi invio salvi con il nuovo nome"
+IF a = 27 THEN
+     UNLOAD testo
+     testo.HIDE
+     LOAD Menu
+     Menu.SHOW 1
+ END IF
+IF a = 28 AND LEN(testo2.text) > 3 THEN
+    filenome$ = LTRIM$(RTRIM$(testo2.text))
+    testo2.text = filenome$
+    CALL Salva
+ END IF
+END SUB
+
+SUB Timer1_Timer ()
+ a$ = RIGHT$(a$, LEN(a$) - 1) + LEFT$(a$, 1)
+tmsu.text = LEFT$(a$, 38)
+END SUB
+
+SUB Tmsu_KeyPress (KeyAscii AS INTEGER)
+ timer1.interval = 0
+ tmsu.visible = falso
+IF t1.visible THEN t1.SETFOCUS
+END SUB
+
+' BLOCCO CODICE DEL GIOCO PUZZLE
+DECLARE SUB im1_click (Index AS INTEGER)
+DECLARE SUB controllo (posizione%)
+DECLARE SUB im2_click (Index AS INTEGER)
+DECLARE SUB controllo2 (posizione2%)
+DIM SHARED topp(30)
+DIM SHARED leftt(30)
+DIM SHARED tasto(30)
+DIM SHARED Ntasto%
+DIM SHARED topp2(30)
+DIM SHARED leftt2(30)
+DIM SHARED tasto2(30)
+DIM SHARED Ntasto2%
+DIM SHARED Nmosse1%
+DIM SHARED Nmosse2%
+DIM SHARED CONT%
+DIM SHARED cont2%
+DIM SHARED nl AS STRING
+COMMON SHARED provenienza$
+COMMON SHARED modificato AS INTEGER
+COMMON SHARED filenome$
+COMMON SHARED sec%
+COMMON SHARED codice$
+COMMON SHARED cod1$
+
+SUB Comando1_GotFocus ()
+IF provenienza$ = "gioco2" THEN EXIT SUB
+FOR i% = 0 TO 8
+  topp(i%) = im1(i%).top
+  leftt(i%) = im1(i%).left
+  topp2(i%) = im2(i%).top
+  leftt2(i%) = im2(i%).left
+NEXT
+etichetta1.caption = " Secondi di gioco = "
+timer1.interval = 10
+timer2.interval = 1000
+
+END SUB
+
+SUB Comando1_KeyUp (keycode AS INTEGER, Shift AS INTEGER)
+a% = INP(96)
+'MSGBOX STR$(a%)
+IF a% = 1 THEN   'TASTO END
+  provenienza$ = "gioco2"
+  UNLOAD PUZZLE
+  PUZZLE.HIDE
+END IF
+
+
+ IF a% > 1 AND a% < 12 THEN
+    IF a% = 11 THEN
+          k% = 0
+          ELSE
+     k% = a% - 1
+    END IF
+
+ CALL im1_click(k%)
+ END IF
+ IF a% > 78 AND a% < 82 THEN : k% = a% - 78: CALL im2_click(k%)
+ IF a% > 74 AND a% < 78 THEN : k% = a% - 71: CALL im2_click(k%)
+ IF a% = 71 THEN : k% = 7: CALL im2_click(k%)
+ IF a% = 82 THEN : k% = 0: CALL im2_click(k%)
+
+END SUB
+
+SUB controllo (posizione%)
+  IF tasto(posizione%) = 8 THEN
+    im1(Ntasto%).top = topp(posizione%)
+    im1(Ntasto%).left = leftt(posizione%)
+    FOR i% = 0 TO 8
+         IF tasto(i%) = Ntasto% THEN tasto(i%) = 8
+    NEXT
+    tasto(posizione%) = Ntasto%
+   END IF
+
+END SUB
+
+SUB controllo2 (posizione2%)
+  IF tasto2(posizione2%) = 8 THEN
+    im2(Ntasto2%).top = topp2(posizione2%)
+    im2(Ntasto2%).left = leftt2(posizione2%)
+    FOR i% = 0 TO 8
+         IF tasto2(i%) = Ntasto2% THEN tasto2(i%) = 8
+    NEXT
+    tasto2(posizione2%) = Ntasto2%
+   END IF
+
+END SUB
+
+SUB Form_Load ()
+nl = CHR$(13) + CHR$(10)
+SCREEN.ControlPanel(0) = 15  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 7   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 0   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+END SUB
+
+SUB im1_click (Index AS INTEGER)
+Ntasto% = Index
+FOR i% = 0 TO 8
+   IF tasto(i%) = Ntasto% THEN posiz% = i%
+NEXT
+SELECT CASE posiz%
+CASE 0
+  controllo 1
+  controllo 3
+CASE 1
+  controllo 0
+  controllo 2
+  controllo 4
+CASE 2
+  controllo 1
+  controllo 5
+CASE 3
+controllo 0
+controllo 4
+controllo 6
+CASE 4
+controllo 1
+controllo 3
+controllo 5
+controllo 7
+CASE 5
+controllo 8
+controllo 2
+controllo 4
+CASE 6
+controllo 3
+controllo 7
+CASE 7
+controllo 8
+controllo 6
+controllo 4
+CASE 8
+controllo 7
+controllo 5
+END SELECT
+
+   CONT% = 0
+   FOR t% = 0 TO 7
+     IF tasto(t%) = t% THEN CONT% = CONT% + 1
+   NEXT
+   Nmosse1% = Nmosse1% + 1
+   testo1.text = "Numeri  OK: " + STR$(CONT%) + CHR$(13)
+   testo1.text = testo1.text + "" + CHR$(13)
+   IF CONT% = 8 THEN
+   testo1.text = testo1.text + " Attendi !!! "
+   END IF
+
+IF CONT% = 8 AND cont2% = 8 THEN
+  IF Nmosse1% > Nmosse2% THEN testo2.text = " HAI VINTO": testo1.text = " HAI PERSO"
+  IF Nmosse2% > Nmosse1% THEN testo1.text = " HAI VINTO": testo2.text = " HAI PERSO"
+  IF Nmosse2% = Nmosse1% THEN : testo2.text = " PARITA'": testo1.text = " PARITA'"
+  testo2.text = testo2.text + nl + nl + " N¯ mosse : " + STR$(Nmosse2%)
+  testo1.text = testo1.text + nl + nl + " N¯ mosse : " + STR$(Nmosse1%)
+END IF
+END SUB
+
+SUB Im1_GotFocus (Index AS INTEGER)
+comando1.SETFOCUS
+END SUB
+
+SUB im2_click (Index AS INTEGER)
+Ntasto2% = Index
+FOR i% = 0 TO 8
+ IF tasto2(i%) = Ntasto2% THEN posiz2% = i%
+NEXT
+SELECT CASE posiz2%
+CASE 0
+  controllo2 1
+  controllo2 3
+CASE 1
+  controllo2 0
+  controllo2 2
+  controllo2 4
+CASE 2
+  controllo2 1
+  controllo2 5
+CASE 3
+controllo2 0
+controllo2 4
+controllo2 6
+CASE 4
+controllo2 1
+controllo2 3
+controllo2 5
+controllo2 7
+CASE 5
+controllo2 8
+controllo2 2
+controllo2 4
+CASE 6
+controllo2 3
+controllo2 7
+CASE 7
+controllo2 8
+controllo2 6
+controllo2 4
+CASE 8
+controllo2 7
+controllo2 5
+END SELECT
+
+   cont2% = 0
+   FOR t% = 0 TO 7
+   IF tasto2(t%) = t% THEN cont2% = cont2% + 1
+   NEXT
+   Nmosse2% = Nmosse2% + 1
+   testo2.text = "Numeri  OK: " + STR$(cont2%) + CHR$(13)
+   testo2.text = testo2.text + "" + CHR$(13)
+   IF cont2% = 8 THEN
+       testo2.text = testo2.text + " Attendi !!! "
+   END IF
+
+IF CONT% = 8 AND cont2% = 8 THEN
+  IF Nmosse1% > Nmosse2% THEN : testo2.text = " HAI VINTO": testo1.text = " HAI PERSO"
+  IF Nmosse2% > Nmosse1% THEN : testo1.text = " HAI VINTO": testo2.text = " HAI PERSO"
+  IF Nmosse2% = Nmosse1% THEN : testo2.text = " PARITA'": testo1.text = " PARITA'"
+  testo2.text = testo2.text + nl + nl + " N¯ mosse : " + STR$(Nmosse2%)
+  testo1.text = testo1.text + nl + nl + " N¯ mosse : " + STR$(Nmosse1%)
+END IF
+
+
+END SUB
+SUB Im2_GotFocus (Index AS INTEGER)
+comando1.SETFOCUS
+END SUB
+
+SUB mnuinfo_Click ()
+ abc$ = abc$ + "#\â}xy%gu4sxyywl,Ñju,xzh,{nrouyr~}3#,4%#," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "#UÄ%juÉhr,wtq}xwq4shx4wl{Üilzuwh,}%qÅÅjuu4idxÄt#Üywr,uq#yywqB%#,4%#," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "#_}%sÅ©%juÉhd~y%f{ÇyhyÑtumÇjdyyswqB%RsÇn#s}tfmàtuq4md,xnv|Ésln}ql," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "#u4xx{}%wmáylF4vxqÄqr,xn#pyxw~u%lx4ydành~}sr,ÇzpqÜnf{4rhzàwh" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%tÅyqo{4il,ánquáyum4n#Äuxwu4sxyywlo}%s~}sfuÑfouB%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "4[lzwj#o|n#oÉrsxyyd,}q#s}tf{4hrz4no,Ånq{Üj#zârh~É%gu4rráj1" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%+UÄ%qÅÅju{4il,Åtvy%ç,ájj~yyr:=%1," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "#bywvuÉsh,vjwm4yhà3#" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%DÅàtuqN%FmÜrhxÉ%PÅáhrx}sr,dfoyusrÇu%Xp}sh," + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+inizio2:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO fine2
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ ww$ = ww$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizio2
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF (t% AND 3) = 0 THEN a% = a% - 5
+ IF (t% AND 3) = 1 THEN a% = a% - 3
+ IF (t% AND 3) = 2 THEN a% = a% - 12
+ IF (t% AND 3) = 3 THEN a% = a% - 20
+ ww$ = ww$ + CHR$(a%)
+ GOTO inizio2
+fine2:
+MSGBOX ww$
+END SUB
+
+SUB mnuNuovo_Click ()
+timer1.interval = 10
+Nmosse1% = 0
+Nmosse2% = 0
+END SUB
+
+SUB mnuscita_Click ()
+  UNLOAD PUZZLE
+  PUZZLE.HIDE
+  timer2.interval = 0
+END SUB
+
+SUB mnuVincente_Click ()
+FOR u% = 0 TO 8
+ tasto(u%) = u%
+ tasto2(u%) = u%
+ im1(u%).top = topp(u%)
+ im1(u%).left = leftt(u%)
+ im2(u%).top = topp2(u%)
+ im2(u%).left = leftt2(u%)
+NEXT
+Nmosse1% = 0
+Nmosse2% = 0
+END SUB
+
+SUB Testo1_GotFocus ()
+    comando1.SETFOCUS
+    PUZZLE.CurrentY = 17
+    PUZZLE.CurrentX = 12
+    PUZZLE.PRINT "nome1"
+    PUZZLE.CurrentY = 17
+    PUZZLE.CurrentX = 41
+    PUZZLE.PRINT "nome2"
+END SUB
+
+SUB Testo2_GotFocus ()
+comando1.SETFOCUS
+END SUB
+
+SUB Timer1_Timer ()
+provenienza$ = "gioco2"
+timer1.interval = 0
+FOR i% = 0 TO 8
+  tasto(i%) = i%
+  tasto2(i%) = i%
+  im1(i%).CLS
+  im1(i%).PRINT " " + STR$(i%)
+  im2(i%).CLS
+  im2(i%).PRINT " " + STR$(i%)
+NEXT
+im1(8).visible = falso
+im2(8).visible = falso
+FOR u% = 0 TO 8
+ tasto(u%) = 8 - u%
+ tasto2(u%) = 8 - u%
+ im1(u%).top = topp(8 - u%)
+ im1(u%).left = leftt(8 - u%)
+ im2(u%).top = topp2(8 - u%)
+ im2(u%).left = leftt2(8 - u%)
+NEXT
+Nmosse1% = -101
+Nmosse2% = -101
+FOR u% = 0 TO 100
+  RANDOMIZE TIMER
+  inferiore = 0: superiore = 7
+  i% = INT((superiore - inferiore + 1) * RND + inferiore)
+  CALL im1_click(i%)
+  CALL im2_click(i%)
+NEXT
+ IF comando1.visible = -1 THEN comando1.SETFOCUS
+END SUB
+
+SUB Timer2_Timer ()
+sec% = sec% - 1
+etichetta1.caption = " Secondi di gioco = " + STR$(sec%)
+IF sec% < 0 THEN
+  m$ = "Il tempo del gioco ä finito. " + CHR$(13)
+  MSGBOX m$ + "Proseguire con lo studio."
+  UNLOAD PUZZLE
+  PUZZLE.HIDE
+  timer2.interval = 0
+  END IF
+END SUB
+'BLOCCO DI LAVORO
+DECLARE FUNCTION ritardo! ()
+DECLARE SUB timerOK_timer ()
+DECLARE SUB CambioLivello ()
+DECLARE SUB mnumenu_click ()
+DECLARE SUB Rplin_Click ()
+DECLARE SUB Rplin_DblClick ()
+DECLARE SUB decodifica (ii$)
+'$FORM menu
+DECLARE SUB leggiquesiti ()
+DECLARE SUB leggidati ()
+DECLARE SUB esercizio ()
+DECLARE SUB protez ()
+DECLARE SUB Messaggio (nmessaggio)
+DECLARE SUB st (n AS INTEGER)
+DIM SHARED punti%
+ DIM SHARED np AS INTEGER
+ CONST vero = -1
+ CONST falso = 0
+ CONST suonoallarme = "MBT255L16O6CO4GEDCBT255L16O6CO4GEDCBT255L16O6CO4GEDC"
+DIM SHARED a$      'FRASE protetta
+DIM SHARED scuola$ 'FRASE protetta
+DIM SHARED livello%
+DIM SHARED Tpunitivo%(6)
+DIM SHARED puntiOk%(6)
+DIM SHARED puntier%(6)
+DIM SHARED puntitempo%(6)
+DIM SHARED puntisl%(6)
+DIM SHARED Nerrori%
+DIM SHARED ERRore%
+DIM SHARED esercizi%
+DIM SHARED quesiti$(300)
+DIM SHARED consegne$(300)
+DIM SHARED tempoGioco%(6)
+DIM SHARED Nquesitimax%
+DIM SHARED legato%(300)
+DIM SHARED esesvolto%
+DIM SHARED nl AS STRING
+DIM SHARED risposte$(12)
+DIM SHARED rplinOK$
+DIM SHARED Nlivellimax%
+DIM SHARED tempobloccoErr%
+DIM SHARED lungrisposta%
+DIM SHARED ese$(10)
+DIM SHARED conse$(10)
+DIM SHARED sugge%
+DIM SHARED lezione$
+DIM SHARED operazione%
+COMMON SHARED provenienza$
+COMMON SHARED modificato AS INTEGER
+COMMON SHARED filenome$
+COMMON SHARED sec%
+COMMON SHARED codice$
+COMMON SHARED cod1$
+
+SUB CambioLivello ()
+livello% = livello% + 1
+     IF livello% > Nlivellimax% THEN
+             provenienza$ = "fine"
+             ITA.HIDE
+             UNLOAD ITA
+      i$ = i$ + "Bravissimo !!." + nl
+      i$ = i$ + "Hai raggiunto il livello massimo." + nl
+      i$ = i$ + "Esercizi errati : " + STR$(Nerrori%) + nl
+      i$ = i$ + "Esercizi svolti : " + STR$(esercizi%) + nl
+      i$ = i$ + "Percentuale di errati : " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+      MSGBOX i$, 0, "Informazione"
+      CALL mnumenu_click
+       EXIT SUB
+     END IF
+     IF provenienza$ <> "gioco" THEN
+     PLAY suonoallarme
+     MSGBOX " HAI RAGGIUNTO IL LIVELLO " + STR$(livello%) + "¯"
+     END IF
+     Messaggio 3
+     CALL leggiquesiti
+     IF operazione% = falso THEN CALL mnumenu_click
+     etilivello.caption = "LIVELLO " + STR$(livello%) + "¯"
+     timer1.interval = Tpunitivo%(livello%) * 1000
+
+     IF tempoGioco%(livello%) > 0 THEN
+          sec% = sec% + tempoGioco%(livello%)
+           etiinfo2.caption = STR$(sec%) + " sec. di gioco a " + STR$(puntisl%(livello%)) + " punti"
+         ELSE
+          etiinfo2.caption = "Il prossimo livello a " + STR$(puntisl%(livello%)) + " punti"
+     END IF
+     etiinfo1.caption = "Livello massimo : " + STR$(Nlivellimax%) + "¯"
+  IF LTRIM$(RTRIM$(lezione$)) <> "" THEN MSGBOX lezione$, 0, "INFORMAZIONI:"
+  lezione$ = ""
+END SUB
+
+SUB decodifica (ii$)
+    hh$ = ""
+    FOR i% = 1 TO LEN(ii$)
+       hh$ = hh$ + CHR$(ASC(MID$(ii$, i%, 1)) + 10)
+    NEXT
+ ii$ = hh$
+END SUB
+
+SUB esercizio ()
+'MSGBOX "esercizio"
+provenienza$ = "esercizi"
+ON LOCAL ERROR GOTO esercizio
+IF legato%(esesvolto% + 1) = 1 THEN : i% = esesvolto% + 1: GOTO zzz
+IF tempoGioco%(livello%) > 0 AND punti% > puntisl%(livello%) THEN
+           PLAY suonoallarme
+           IF livello% = Nlivellimax% THEN g$ = "Puzzle" ELSE g$ = "Gorilla"
+          i$ = "" + CHR$(13) + CHR$(10)
+          i$ = i$ + "BENISSIMO !" + CHR$(13) + CHR$(10)
+          i$ = i$ + CHR$(13) + CHR$(10)
+          i$ = i$ + "Vuoi riposarti giocando con " + g$ + " ?" + CHR$(13) + CHR$(10)
+          i$ = i$ + CHR$(13) + CHR$(10)
+          i$ = i$ + "Se non giochi conservo il tempo-gioco. " + CHR$(13) + CHR$(10)
+          i$ = i$ + CHR$(13) + CHR$(10)
+          i$ = i$ + "Adesso sono disponibili " + STR$(sec%) + " di gioco. "
+          i$ = i$ + CHR$(13) + CHR$(10)
+           r = MSGBOX(i$, 4, " INFORMAZIONE: ")
+           IF r = 6 THEN  'SI
+             timer1.interval = 0
+             provenienza$ = "Superamento livello gioco"
+             IF livello% = Nlivellimax% THEN provenienza$ = "Ultimolivello"
+             UNLOAD ITA
+             ITA.HIDE
+             EXIT SUB
+           END IF
+ END IF
+ IF punti% > puntisl%(livello%) THEN CALL CambioLivello
+www:
+RANDOMIZE TIMER
+inferiore = 0: superiore = Nquesitimax% - 1
+i% = INT((superiore - inferiore + 1) * RND + inferiore)
+IF legato%(i%) = 1 OR i% = esesvolto% THEN : GOTO www
+zzz:
+esesvolto% = i%
+al% = INSTR(quesiti$(i%), "\")
+ domanda$ = LEFT$(quesiti$(i%), al% - 1)
+ risposta$ = RIGHT$(quesiti$(i%), LEN(quesiti$(i%)) - al%)
+'MSGBOX risposta$ + "  " + STR$(i%)
+'------- calcolo lrigamax e disegno finestra e stampo testo
+d$ = domanda$
+WHILE LEN(d$) <> 0
+ aa% = INSTR(d$, CHR$(13))
+IF aa% = 0 THEN : aa% = LEN(d$)
+IF aa% > ap% THEN ap% = aa%
+d$ = MID$(d$, aa% + 1)
+rg% = rg% + 1
+WEND
+IF rg% > 5 THEN testofrase.top = 5 ELSE testofrase.top = 7
+IF ap% < 30 THEN ap% = 30
+IF ap% > 75 THEN ap% = 75
+testofrase.left = INT((75 - ap%) / 2)
+testofrase.Width = ap% + 5
+testofrase.text = RTRIM$(domanda$)
+testofrase.Height = rg% + 2 'altezza
+IF testofrase.Height + testofrase.top > 24 THEN testofrase.Height = 19
+eticonsegna.top = testofrase.top + testofrase.Height + 1
+testorisposta.top = eticonsegna.top + 1
+IF testorisposta.top > 21 THEN testorisposta.top = 21
+'-------
+ERASE risposte$
+ risposte$(0) = LTRIM$(RTRIM$(risposta$))
+xxx:
+al% = INSTR(risposta$, "\")
+IF al% > 0 THEN
+  risposte$(jj%) = LEFT$(risposta$, al% - 1)
+  risposta$ = RIGHT$(risposta$, LEN(risposta$) - al%)
+  risposte$(jj%) = LTRIM$(RTRIM$(risposte$(jj%)))
+  IF LEFT$(risposte$(jj%), 1) = "!" THEN presenta$ = "lista"
+  jj% = jj% + 1
+  GOTO xxx
+END IF
+IF jj% > 0 THEN risposte$(jj%) = LTRIM$(RTRIM$(risposta$))
+IF presenta$ = "lista" THEN
+   DO WHILE rplin.listcount
+     rplin.REMOVEITEM 0
+   LOOP
+   WHILE risposte$(aj%) <> ""
+     IF LEFT$(risposte$(aj%), 1) = "!" THEN
+        risposte$(aj%) = LTRIM$(RIGHT$(risposte$(aj%), LEN(risposte$(aj%)) - 1))
+        rplinOK$ = risposte$(aj%)
+     END IF
+     rplin.ADDITEM risposte$(aj%)
+     lrpl% = LEN(risposte$(aj%)): IF lrpl% > lrplprec% THEN lrplprec% = lrpl%
+     aj% = aj% + 1
+   WEND
+  testorisposta.visible = falso
+  rplin.visible = vero
+  rplin.Width = lrplprec% + 4
+  rplin.left = 79 - rplin.Width
+  IF rplin.left > 50 THEN rplin.left = 50
+  eticonsegna.caption = consegne$(i%)
+  rplin.ListIndex = 0
+  rplin.SETFOCUS
+  EXIT SUB
+END IF
+testorisposta.visible = vero
+rplin.visible = falso
+testorisposta.text = ""
+eticonsegna.caption = consegne$(i%)
+testorisposta.SETFOCUS
+EXIT SUB
+esercizio:
+RESUME NEXT
+END SUB
+
+SUB Eticonsegna_MouseMove (Button AS INTEGER, Shift AS INTEGER, X AS SINGLE, Y AS SINGLE)
+'eticonsegna.caption = STR$(x)
+MOUSEPOINTER = 0
+IF X < 0 AND Button = 1 THEN : eticonsegna.left = eticonsegna.left - 1: MOUSEPOINTER = 5
+IF X > eticonsegna.Width - 3 AND Button = 1 THEN : eticonsegna.left = eticonsegna.left + 1: MOUSEPOINTER = 5
+IF Y < 0 AND Button = 1 THEN : eticonsegna.top = eticonsegna.top - 1: MOUSEPOINTER = 5
+IF Y > eticonsegna.Height - 3 AND Button = 1 THEN : eticonsegna.top = eticonsegna.top + 1: MOUSEPOINTER = 5
+END SUB
+
+SUB EtiLIVELLO_MouseMove (Button AS INTEGER, Shift AS INTEGER, X AS SINGLE, Y AS SINGLE)
+'eticonsegna.caption = STR$(x)
+MOUSEPOINTER = 0
+IF X < 0 AND Button = 1 THEN : etilivello.left = etilivello.left - 1: MOUSEPOINTER = 5
+IF X > etilivello.Width - 3 AND Button = 1 THEN : etilivello.left = etilivello.left + 1: MOUSEPOINTER = 5
+IF Y < 0 AND Button = 1 THEN : etilivello.top = etilivello.top - 1: MOUSEPOINTER = 5
+IF Y > etilivello.Height - 3 AND Button = 1 THEN : etilivello.top = etilivello.top + 1: MOUSEPOINTER = 5
+END SUB
+
+SUB Form_Load ()
+nl = CHR$(13) + CHR$(10)
+scuola$ = ""
+CALL protez
+SCC$ = "z≠ùØ©¶õzßüû£õz°©®õ¨≠zÇØûÉz" ' SCUOLA MEDIA GONARS (UD)
+FOR i = 1 TO LEN(SCC$)
+scuola$ = scuola$ + CHR$(ASC(MID$(SCC$, i, 1)) - 90)
+NEXT
+mnuSm.caption = "               " + scuola$
+SCREEN.ControlPanel(0) = 15  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 7   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 0   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+  '+++++++++ prosegue con testorisposta setfocus
+END SUB
+
+SUB im1_click ()
+IF testorisposta.visible = vero THEN testorisposta.SETFOCUS
+IF rplin.visible = vero THEN rplin.SETFOCUS
+im1.CLS
+im1.PRINT "  Lavora!!!  "
+END SUB
+
+SUB Im1_MouseMove (Button AS INTEGER, Shift AS INTEGER, X AS SINGLE, Y AS SINGLE)
+'eticonsegna.caption = STR$(x)
+MOUSEPOINTER = 0
+IF X < 0 AND Button = 1 THEN : im1.left = im1.left - 1: MOUSEPOINTER = 5
+IF X > im1.Width - 3 AND Button = 1 THEN : im1.left = im1.left + 1: MOUSEPOINTER = 5
+IF Y < 0 AND Button = 1 THEN : im1.top = im1.top - 1: MOUSEPOINTER = 5
+IF Y > im1.Height - 3 AND Button = 1 THEN : im1.top = im1.top + 1: MOUSEPOINTER = 5
+END SUB
+
+SUB imgMessaggio_GotFocus ()
+IF testorisposta.visible = vero THEN testorisposta.SETFOCUS
+IF rplin.visible = vero THEN rplin.SETFOCUS
+im1.CLS
+im1.PRINT "  Lavora!!!  "
+END SUB
+
+SUB leggidati ()
+ERASE Tpunitivo%
+ERASE puntiOk%
+ERASE puntier%
+ERASE puntitempo%
+ERASE puntisl%
+ERASE tempoGioco%
+aa% = INSTR(filenome$, ".")
+nome$ = LEFT$(filenome$, aa%)
+nome$ = UCASE$(nome$) + "DAT"
+ON LOCAL ERROR GOTO ErroreApriFile
+IF DIR$(nome$) <> nome$ THEN
+   j$ = "Manca il file " + nome$ + ". Lo creo con dati prestabiliti. " + CHR$(13) + CHR$(10)
+   j$ = j$ + CHR$(13) + CHR$(10)
+   MSGBOX j$
+ OPEN nome$ FOR OUTPUT AS 1
+j$ = "B'B(B)B*B+"
+PRINT #1, j$
+j$ = "'&'&---e]d_gkWdj_i[YedZ_Z[l[je]b_[h[fkdj_"
+PRINT #1, j$
+j$ = "+++++fkdj_jebj_WbfWiWh[Z[bj[cfejf"
+PRINT #1, j$
+j$ = ",&,&,&,&,&fkdj_Yehh[jje"
+PRINT #1, j$
+j$ = ")&*&*&+&,&fkdj_[hhWje"
+PRINT #1, j$
+j$ = ")&&,&&.&&'&&&'(&&fkdj_eYYeh[dj_f[hikf[hWh[b_l[bbeef[h]_eYWh[j]4&"
+PRINT #1, j$
+j$ = "&)&&&/&'(&j[cfeZ_]_eYei[&i_]_eYWWbb_l[bbeikYY[ii_le"
+PRINT #1, j$
+CLOSE #1
+END IF
+
+OPEN nome$ FOR INPUT AS #1
+   LINE INPUT #1, ii$  ' linea non informativa  L1 L2 ecc..
+   LINE INPUT #1, ii$
+   decodifica ii$
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   Tpunitivo%(i%) = VAL(LEFT$(ii$, aa%)) 'ogni quanti sec devi togliere punti
+    IF Tpunitivo%(i%) > 30 THEN
+    MSGBOX "Nel file " + nome$ + " sono troppi i secondi togli punti (max 30)"
+    Tpunitivo%(livello%) = 30
+    END IF
+    ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+NEXT
+   LINE INPUT #1, ii$
+   decodifica ii$
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   puntitempo%(i%) = VAL(LEFT$(ii$, aa%)) 'punti tolti al passare del tempo
+   ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+NEXT
+   LINE INPUT #1, ii$
+   decodifica ii$
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   puntiOk%(i%) = VAL(LEFT$(ii$, aa%)) 'punti ok
+   ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+NEXT
+   LINE INPUT #1, ii$
+   decodifica ii$
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   puntier%(i%) = VAL(LEFT$(ii$, aa%))    'punti errore
+   ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+NEXT
+   LINE INPUT #1, ii$
+   decodifica ii$
+  Nlivellimax% = 5
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   puntisl%(i%) = VAL(LEFT$(ii$, aa%))     'punti per superare il livello
+   IF puntisl%(i%) = 0 THEN : Nlivellimax% = i% - 1: EXIT FOR
+   ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+ NEXT
+   LINE INPUT #1, ii$
+   decodifica ii$
+ FOR i% = 1 TO 5
+   ii$ = LTRIM$(RTRIM$(ii$))
+   aa% = INSTR(ii$, " ")
+   tempoGioco%(i%) = VAL(LEFT$(ii$, aa%))  ' secondi di gioco
+   ii$ = MID$(ii$, aa%, LEN(ii$) - aa%)
+NEXT
+ CLOSE
+EXIT SUB
+ErroreApriFile:
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato": CLOSE #1: EXIT SUB
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile": CLOSE #1: EXIT SUB
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'.": CLOSE #1: EXIT SUB
+IF ERR = 57 THEN MSGBOX "Errore disco interno.": CLOSE #1: EXIT SUB
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno.": CLOSE #1: EXIT SUB
+IF ERR = 64 THEN MSGBOX "Nome non valido.": CLOSE #1: EXIT SUB
+IF ERR = 52 THEN MSGBOX "Nome non valido.": CLOSE #1: EXIT SUB
+IF ERR = 75 THEN MSGBOX "Non trovo il file " + nome$: CLOSE #1: EXIT SUB
+IF ERR = 53 THEN MSGBOX "Non trovo il file " + nome$: CLOSE #1: EXIT SUB
+IF ERR > 0 THEN MSGBOX "Errore nella lettura o scrittura. N' " + STR$(ERR): CLOSE #1: EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB leggiquesiti ()
+'MSGBOX "leggiq"
+ operazione% = vero
+ Messaggio 3
+aa% = INSTR(filenome$, ".")
+nome$ = LEFT$(filenome$, aa%)
+IF livello% = 1 THEN nome$ = nome$ + "L1"
+IF livello% = 2 THEN nome$ = nome$ + "L2"
+IF livello% = 3 THEN nome$ = nome$ + "L3"
+IF livello% = 4 THEN nome$ = nome$ + "L4"
+IF livello% = 5 THEN nome$ = nome$ + "L5"
+'=========
+ERASE quesiti$: ERASE consegne$: ERASE legato%
+ON LOCAL ERROR GOTO ErroreApriFile1
+MOUSEPOINTER = 11
+tipo% = 1
+lezione$ = ""
+OPEN nome$ FOR INPUT AS #1
+  IF livello% = 1 THEN LINE INPUT #1, ii$      ' entra il menu
+  IF livello% = 1 THEN LINE INPUT #1, ii$      ' entra il codice
+salt1:
+IF EOF(1) < 0 THEN GOTO salt2
+   LINE INPUT #1, ii$: decodifica ii$: aii$ = LTRIM$(ii$)
+   IF LEFT$(aii$, 1) = "'" THEN
+     IF MID$(aii$, 2, 1) = "0" THEN : tipo% = 0
+     IF MID$(aii$, 2, 1) = "1" THEN : tipo% = 1
+     IF MID$(aii$, 2, 1) = "2" THEN : tipo% = 2
+     IF MID$(aii$, 2, 1) = "3" THEN : tipo% = 3
+     IF MID$(aii$, 2, 1) = "4" THEN : tipo% = 4
+     GOTO salt1
+    END IF
+ IF tipo% = 0 THEN
+   lezione$ = lezione$ + ii$ + nl
+   GOTO salt1
+ END IF
+ IF tipo% = 1 THEN
+   IF LTRIM$(RTRIM$(ii$)) = "" THEN GOTO salt1
+   IF LEFT$(aii$, 1) = "." AND LEFT$(aii$, 2) <> ".." THEN : Uconse$ = MID$(aii$, 2): GOTO salt1
+   quesiti$(i%) = quesiti$(i%) + ii$
+   'IF LEFT$(aii$, 1) = " " THEN legato%(i%) = 1 ELSE legato%(i%) = 0
+   IF INSTR(ii$, "\") = 0 THEN quesiti$(i%) = quesiti$(i%) + nl: GOTO salt1
+   consegne$(i%) = Uconse$
+   i% = i% + 1
+   GOTO salt1
+ END IF
+ IF tipo% = 2 THEN
+    IF LEFT$(aii$, 1) = "." AND LEFT$(aii$, 2) <> ".." THEN : Uconse$ = MID$(aii$, 2): GOTO salt1
+    IF INSTR(ii$, "\") > 0 THEN
+       ese$(z%) = MID$(ii$, INSTR(ii$, "\"))
+       conse$(z%) = LEFT$(ii$, INSTR(ii$, "\") - 1)
+       z% = z% + 1
+       GOTO salt1
+     END IF
+    IF LTRIM$(RTRIM$(ii$)) = "" THEN
+        FOR t% = 0 TO z% - 1
+             quesiti$(i%) = base$ + ese$(t%)
+             base$ = base$ + MID$(ese$(t%), 2) + nl
+             IF t% > 0 THEN legato%(i%) = 1 ELSE legato%(i%) = 0
+           IF conse$(t%) = "" THEN
+                   consegne$(i%) = Uconse$
+                        ELSE
+                   consegne$(i%) = conse$(t%)
+            END IF
+            i% = i% + 1
+        NEXT
+        ERASE ese$: base$ = "": z% = 0: ERASE conse$: GOTO salt1
+    END IF
+  base$ = base$ + ii$ + nl: GOTO salt1
+  END IF
+ IF tipo% = 3 THEN  ' problemi variabile - numero
+  IF LEFT$(aii$, 1) = "." AND LEFT$(aii$, 2) <> ".." THEN : Uconse$ = MID$(aii$, 2): GOTO salt1
+  IF INSTR(ii$, "\") > 0 THEN
+     ese$(z%) = MID$(ii$, INSTR(ii$, "\"))
+     conse$(z%) = LEFT$(ii$, INSTR(ii$, "\") - 1)
+     'conse$(z%) = LTRIM$(RTRIM$(conse$(z%)))
+     z% = z% + 1
+     GOTO salt1
+  END IF
+   IF LTRIM$(RTRIM$(ii$)) = "" THEN
+      FOR t% = 0 TO z% - 1
+        quesiti$(i%) = base$ + ese$(t%)
+        IF t% > 0 THEN legato%(i%) = 1 ELSE legato%(i%) = 0
+        IF (t% / 2) - INT(t% / 2) = 0 THEN
+           q% = INSTR(MID$(ese$(t%), 2), "\")
+           base$ = base$ + MID$(ese$(t%), 3, q% - 2) + " = "
+        ELSE
+           base$ = base$ + MID$(ese$(t%), 2) + nl
+           IF INSTR(base$, "\") > 0 THEN base$ = LEFT$(base$, INSTR(base$, "\") - 1)
+        END IF
+       IF conse$(t%) = "" THEN consegne$(i%) = Uconse$ ELSE consegne$(i%) = conse$(t%)
+       i% = i% + 1
+      NEXT
+      ERASE ese$: base$ = "": z% = 0: ERASE conse$: GOTO salt1
+    END IF
+    base$ = base$ + ii$ + nl
+ END IF
+ IF tipo% = 4 THEN  ' testo con puntini
+  IF LEFT$(aii$, 1) = "." AND LEFT$(aii$, 2) <> ".." THEN : Uconse$ = MID$(aii$, 2): GOTO salt1
+  IF INSTR(ii$, "\") > 0 THEN
+     ese$(z%) = MID$(ii$, INSTR(ii$, "\"))
+     conse$(z%) = LEFT$(ii$, INSTR(ii$, "\") - 1): conse$(z%) = LTRIM$(RTRIM$(conse$(z%)))
+     z% = z% + 1
+     GOTO salt1
+  END IF
+   IF LTRIM$(RTRIM$(ii$)) = "" THEN
+     FOR t% = 0 TO z% - 1
+        quesiti$(i%) = base$ + ese$(t%)
+        IF t% > 0 THEN legato%(i%) = 1 ELSE legato%(i%) = 0
+        kl% = INSTR(base$, "..")
+        IF kl% > 0 THEN
+           base1$ = LEFT$(base$, kl% - 1): base2$ = MID$(base$, kl% + 2)
+gira:       
+        IF LEFT$(base2$, 1) = "." THEN : base2$ = MID$(base2$, 2): GOTO gira
+        END IF
+        IF INSTR(ese$(t%), "\!") > 0 THEN
+                  u$ = MID$(ese$(t%), INSTR(ese$(t%), "\!") + 2)
+                  u$ = LEFT$(u$, INSTR(u$, "\") - 1)
+        END IF
+        IF INSTR(ese$(t%), "\") > 0 AND INSTR(ese$(t%), "\!") = 0 THEN
+                u$ = MID$(ese$(t%), INSTR(ese$(t%), "\") + 1)
+                IF INSTR(u$, "\") > 0 THEN u$ = LEFT$(u$, INSTR(u$, "\") - 1)
+        END IF
+        base$ = base1$ + " " + u$ + " " + base2$
+        IF conse$(t%) = "" THEN
+                   consegne$(i%) = Uconse$
+                        ELSE
+                   consegne$(i%) = conse$(t%)
+        END IF
+      i% = i% + 1
+        NEXT
+       ERASE ese$: base$ = "": z% = 0: ERASE conse$: GOTO salt1
+    END IF
+    base$ = base$ + ii$ + nl
+ END IF
+
+
+GOTO salt1
+salt2:
+Nquesitimax% = i%
+CLOSE 1
+MOUSEPOINTER = 1
+imgmessaggio.visible = falso
+EXIT SUB
+ErroreApriFile1:
+MOUSEPOINTER = 1
+IF ERR > 0 THEN operazione% = falso
+IF ERR = 72 THEN MSGBOX "Errore !!. Supporto danneggiato"
+IF ERR = 68 THEN MSGBOX "L'unita' non sempra disponibile"
+IF ERR = 71 THEN MSGBOX "Inserire un disco con dati nell'unita'."
+IF ERR = 57 THEN MSGBOX "Errore disco interno."
+IF ERR = 61 THEN MSGBOX "Errore !!. Disco pieno."
+IF ERR = 62 THEN MSGBOX "input oltre la fine del file."
+IF ERR = 64 THEN MSGBOX "Nome non valido."
+IF ERR = 52 THEN MSGBOX "Nome non valido."
+IF ERR = 75 THEN MSGBOX "Non e' presente il file :" + nome$: EXIT SUB
+IF ERR = 53 THEN MSGBOX "Non e' presente il file :" + nome$: EXIT SUB
+RESUME NEXT
+END SUB
+
+SUB Messaggio (nmessaggio)
+    imgmessaggio.left = 2
+    imgmessaggio.top = 20
+    imgmessaggio.Height = 4
+    imgmessaggio.Width = 50
+    imgmessaggio.forecolor = 15
+    imgmessaggio.BackColor = 4
+    imgmessaggio.visible = vero
+    imgmessaggio.CLS
+    SELECT CASE nmessaggio
+    CASE 1
+    imgmessaggio.PRINT "  ATTENZIONE !! ERRORE   "
+    imgmessaggio.PRINT "  correggi con il tasto [ CANC ] o con [ <- ] "
+    CASE 2
+    imgmessaggio.PRINT "   ERRORE !! non ä la scelta giusta  "
+    CASE 3
+    imgmessaggio.PRINT "            A T T E N D E R E      "
+    CASE 4
+    imgmessaggio.forecolor = 15
+    imgmessaggio.BackColor = 1
+    imgmessaggio.left = 5
+    imgmessaggio.Width = 40
+    FOR j = 1 TO 5
+    imgmessaggio.top = 25 - j * 2
+    imgmessaggio.Height = j
+    i! = ritardo! / 10
+    DO: i! = i! - 1: LOOP WHILE i! < 0
+    NEXT
+     RANDOMIZE TIMER
+        inferiore = 1: superiore = 10
+        i% = INT((superiore - inferiore + 1) * RND + inferiore)
+    IF i% = 1 THEN
+    m0$ = ""
+    m1$ = "             B R A V O "
+    m2$ = "           _____________"
+    m3$ = ""
+    END IF
+    IF i% = 2 THEN
+    m0$ = " "
+    m1$ = "           S E I   F O R T E  !!!"
+    m2$ = "          ------------------------"
+    m3$ = ""
+    END IF
+    IF i% = 3 THEN
+    m0$ = ""
+    m1$ = "         B E N I S S I M O  !!"
+    m2$ = "        ....................... "
+    m3$ = ""
+    END IF
+    IF i% = 4 THEN
+    m0$ = ""
+    m1$ = "         P E R F E T T O  !!!  "
+    m2$ = "       ***********************  "
+    m3$ = ""
+    END IF
+    IF i% = 5 THEN
+    m0$ = ""
+    m1$ = "     C H E   C E N T R O  ! !  "
+    m2$ = "    _______________________"
+    m3$ = ""
+    END IF
+
+    IF i% = 6 THEN
+    m0$ = ""
+    m1$ = "            E S A T T O "
+    m2$ = "           _____________"
+    m3$ = ""
+    END IF
+    IF i% = 7 THEN
+    m0$ = ""
+    m1$ = "      SEI IN OTTIMA FORMA !!!"
+    m2$ = "     _____________________"
+    m3$ = ""
+    END IF
+    IF i% = 8 THEN
+    m0$ = ""
+    m1$ = "             B R A V O "
+    m2$ = "           _____________"
+    m3$ = ""
+    END IF
+    IF i% = 9 THEN
+    m0$ = ""
+    m1$ = "             B R A V O "
+    m2$ = "           _____________"
+    m3$ = ""
+    END IF
+    IF i% = 10 THEN
+    m0$ = ""
+    m1$ = "             B R A V O "
+    m2$ = "           _____________"
+    m3$ = ""
+    END IF
+    imgmessaggio.CLS
+    imgmessaggio.PRINT m0$
+    imgmessaggio.PRINT m1$
+    imgmessaggio.PRINT m2$
+    imgmessaggio.PRINT m3$
+    CASE 9
+    imgmessaggio.PRINT ""
+    imgmessaggio.PRINT "       Per proseguire premi il tasto "
+    imgmessaggio.PRINT ""
+    imgmessaggio.PRINT "         [ CANC ] o [ spazio ]       "
+    END SELECT
+END SUB
+
+SUB mnumenu_click ()
+provenienza$ = "mnumenu_click"
+UNLOAD ITA
+LOAD menu
+menu.SHOW 1
+END SUB
+
+SUB mnuPuntoDomanda_Click ()
+ RANDOMIZE TIMER
+ testomessaggio.top = INT(RND * 18) + 3
+ RANDOMIZE TIMER
+ testomessaggio.left = INT(RND * 30) + 10
+ IF testomessaggio.visible = falso THEN
+           testomessaggio.visible = vero
+           timer2.interval = 150
+           testomessaggio.SETFOCUS
+ ELSE
+      timer2.interval = 0
+      testomessaggio.visible = falso
+      IF testorisposta.visible = vero THEN
+          testorisposta.SETFOCUS
+      ELSE
+          rplin.SETFOCUS
+      END IF
+ END IF
+END SUB
+
+SUB mnuSM_Click ()
+IF mnuSm.caption = "       " + a$ THEN
+   mnuSm.caption = "                " + scuola$
+   EXIT SUB
+END IF
+CALL protez
+mnuSm.caption = "       " + a$
+END SUB
+
+SUB MNUSuggerisci_Click ()
+IF testorisposta.visible = vero THEN
+   testorisposta.text = risposte$(0) + "ˇ" 'attenzione e' il carattere 255
+   testorisposta.selstart = LEN(testorisposta.text) - 1
+   Messaggio 9
+  punti% = punti% - puntier%(livello%)
+  Nerrori% = Nerrori% + 1
+  etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+  sugge% = 1
+  st punti%
+END IF
+IF rplin.visible = vero THEN
+   FOR i% = 0 TO rplin.listcount
+     IF rplin.list(i%) = rplinOK$ THEN rplin.ListIndex = i%
+   NEXT
+  punti% = punti% - puntier%(livello%)
+  Nerrori% = Nerrori% + 1
+  etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+  sugge% = 1
+  st punti%
+END IF
+END SUB
+
+SUB munesci_Click ()
+       M$ = M$ + "  Vuoi uscire ?? " + CHR$(13)
+       M$ = M$ + CHR$(13) + CHR$(10)
+       r = MSGBOX(M$, 256 + 4, " INFORMAZIONE: ")
+       IF r = 6 THEN : MSGBOX " Ciao !! ": END
+END SUB
+
+
+FUNCTION ritardo! ()
+S! = TIMER
+  DO
+    i! = i! + 1
+  LOOP UNTIL TIMER - S! >= .1
+  ritardo! = i!
+
+'DO: I! = I! + 1: LOOP WHILE I! > ritardo!
+END FUNCTION
+
+SUB Rplin_Click ()
+imgmessaggio.visible = falso
+END SUB
+
+SUB Rplin_DblClick ()
+ IF sugge% = 1 THEN : sugge% = 0: timerOk.interval = 100: EXIT SUB
+IF rplin.list(rplin.ListIndex) <> rplinOK$ THEN  'caso errore
+      SOUND 300, 2: SOUND 100, 2: SOUND 300, 2
+      Messaggio 2
+      punti% = punti% - puntier%(livello%)
+      st punti%
+      Nerrori% = Nerrori% + 1
+      etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+     EXIT SUB
+  END IF
+     ' caso esatto
+     SOUND 1000, 2: SOUND 500, 2: SOUND 800, 2
+     esercizi% = esercizi% + 1
+     etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+     punti% = punti% + puntiOk%(livello%)
+     st punti%
+     Messaggio 4
+     timerOk.interval = 1000
+     ' nel timer vi ä cal esercizio e cancella messaggio
+     'imgmessaggio.visible = falso
+END SUB
+
+SUB Rplin_KeyPress (KeyAscii AS INTEGER)
+'MSGBOX STR$(keyascii)
+IF KeyAscii = 127 THEN  ' return
+   CALL Rplin_Click
+END IF
+IF KeyAscii = 27 THEN  ' return
+   CALL mnumenu_click
+END IF
+
+IF KeyAscii = 13 THEN  ' return
+   CALL Rplin_DblClick
+END IF
+END SUB
+
+SUB Rplin_MouseMove (Button AS INTEGER, Shift AS INTEGER, X AS SINGLE, Y AS SINGLE)
+'eticonsegna.caption = STR$(x)
+MOUSEPOINTER = 0
+IF X < 0 AND Button = 1 THEN : rplin.left = rplin.left - 1: MOUSEPOINTER = 5
+IF X > rplin.Width - 3 AND Button = 1 THEN : rplin.left = rplin.left + 1: MOUSEPOINTER = 5
+IF Y < 0 AND Button = 1 THEN : rplin.top = rplin.top - 1: MOUSEPOINTER = 5
+IF Y > rplin.Height - 3 AND Button = 1 THEN : rplin.top = rplin.top + 1: MOUSEPOINTER = 5
+END SUB
+
+SUB st (n AS INTEGER)
+im1.CLS
+i$ = STR$(n)
+ln% = LEN(i$)
+FOR t% = 1 TO ln%
+  c$ = MID$(i$, t%, 1)
+ X% = 16 - (ln% - t%) * 4
+ im1.currenty = 0
+ SELECT CASE c$
+  CASE "0"
+       im1.currentx = X%: im1.PRINT "…Õª"
+       im1.currentx = X%: im1.PRINT "∫ ∫"
+       im1.currentx = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentx = X%: im1.PRINT " ª "
+       im1.currentx = X%: im1.PRINT " ∫ "
+       im1.currentx = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentx = X%: im1.PRINT "…Õª"
+       im1.currentx = X%: im1.PRINT "…Õº"
+       im1.currentx = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentx = X%: im1.PRINT " Õª"
+       im1.currentx = X%: im1.PRINT " Õπ"
+       im1.currentx = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentx = X%: im1.PRINT "… …"
+       im1.currentx = X%: im1.PRINT "»Õπ"
+       im1.currentx = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentx = X%: im1.PRINT "…ÕÕ"
+       im1.currentx = X%: im1.PRINT "»Õª"
+       im1.currentx = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentx = X%: im1.PRINT "…ÕÕ"
+       im1.currentx = X%: im1.PRINT "ÃÕª"
+       im1.currentx = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentx = X%: im1.PRINT "…Õª"
+       im1.currentx = X%: im1.PRINT "  ∫"
+       im1.currentx = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentx = X%: im1.PRINT "…Õª"
+       im1.currentx = X%: im1.PRINT "ÃÕπ"
+       im1.currentx = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentx = X%: im1.PRINT "…Õª"
+       im1.currentx = X%: im1.PRINT "»Õπ"
+       im1.currentx = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentx = X%: im1.PRINT "   "
+       im1.currentx = X%: im1.PRINT "   "
+       im1.currentx = X%: im1.PRINT "   "
+
+  CASE "+"
+       im1.currentx = X%: im1.PRINT "   "
+       im1.currentx = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentx = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentx = X%: im1.PRINT "   "
+       im1.currentx = X%: im1.PRINT "ƒƒƒ"
+       im1.currentx = X%: im1.PRINT "   "
+  CASE ":"
+       im1.currentx = X%: im1.PRINT " . "
+       im1.currentx = X%: im1.PRINT " . "
+       im1.currentx = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+END SUB
+
+SUB Testofrase_GotFocus ()
+IF testorisposta.visible = vero THEN testorisposta.SETFOCUS
+IF rplin.visible = vero THEN rplin.SETFOCUS
+IF provenienza$ = "esercizi" THEN EXIT SUB
+timerstart.interval = 100
+END SUB
+
+SUB Testomessaggio_KeyPress (KeyAscii AS INTEGER)
+testomessaggio.visible = falso
+timer2.interval = 0
+st punti%
+IF testorisposta.visible = vero THEN testorisposta.SETFOCUS
+IF rplin.visible = vero THEN rplin.SETFOCUS
+END SUB
+
+SUB testorisposta_Change ()
+ON LOCAL ERROR GOTO testoerror
+a% = INSTR(testorisposta.text, CHR$(255))
+IF a% > 0 THEN EXIT SUB  'caso del testo inserito dal menu' risposta
+IF sugge% = 1 THEN : sugge% = 0: timerOk.interval = 100: EXIT SUB
+IF timerOk.interval > 0 THEN CALL timerOK_timer
+'un tasto qualsiasi quando ä stato gia risolto l'esercizio resetta il timer
+testorisposta.text = LTRIM$(testorisposta.text)
+ rispostaOk$ = ""
+WHILE risposte$(rr%) <> ""
+  IF testorisposta.text = LEFT$(risposte$(rr%), LEN(testorisposta.text)) THEN
+    rispostaOk$ = risposte$(rr%)
+  END IF
+  rr% = rr% + 1
+WEND
+
+ IF rispostaOk$ = "" THEN ' caso errore
+     Messaggio 1
+    IF tempobloccoErr% = falso AND LEN(testorisposta.text) > lungrisposta% THEN
+      punti% = punti% - puntier%(livello%)
+      st punti%
+      SOUND 100, 3
+      ERRore% = vero
+      tempobloccoErr% = vero
+      tfinestra.interval = 2000
+      etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+     END IF
+     st punti%
+     lungrisposta% = LEN(testorisposta.text)
+     EXIT SUB
+  END IF
+lungrisposta% = LEN(testorisposta.text)
+imgmessaggio.visible = falso
+IF LEN(testorisposta.text) = LEN(rispostaOk$) THEN
+     SOUND 1000, 2: SOUND 500, 2: SOUND 800, 2
+     esercizi% = esercizi% + 1
+     IF ERRore% = vero THEN : ERRore% = falso: Nerrori% = Nerrori% + 1
+     etierrori.caption = "Errori = " + STR$(INT((Nerrori% / (esercizi% + 1)) * 100)) + "%"
+     punti% = punti% + puntiOk%(livello%)
+     st punti%
+     Messaggio 4
+     provenienza$ = "Esercizio"
+     timerOk.interval = 1000
+     ' nel timer vi ä cal esercizio e cancella messaggio
+END IF
+st punti%
+EXIT SUB
+testoerror:
+RESUME NEXT
+END SUB
+
+SUB TestoRisposta_KeyDown (keycode AS INTEGER, Shift AS INTEGER)
+'MSGBOX STR$(keycode)
+IF Shift = 2 AND keycode = 39 THEN testorisposta.left = testorisposta.left + 1
+IF Shift = 2 AND keycode = 37 THEN testorisposta.left = testorisposta.left - 1
+IF Shift = 2 AND keycode = 40 THEN testorisposta.top = testorisposta.top + 1
+IF Shift = 2 AND keycode = 38 THEN testorisposta.top = testorisposta.top - 1
+END SUB
+
+SUB TestoRisposta_KeyUp (keycode AS INTEGER, Shift AS INTEGER)
+'MSGBOX STR$(Shift)
+IF keycode = 37 AND LEN(testorisposta.text) > 0 THEN
+  testorisposta.text = LEFT$(testorisposta.text, LEN(testorisposta.text) - 1)
+  testorisposta.selstart = LEN(testorisposta.text) + 1
+ END IF
+IF keycode = 127 AND LEN(testorisposta.text) > 0 THEN 'canc
+  testorisposta.text = LEFT$(testorisposta.text, LEN(testorisposta.text) - 1)
+  testorisposta.selstart = LEN(testorisposta.text) + 1
+END IF
+IF keycode = 13 AND LEN(testorisposta.text) > 0 THEN
+  testorisposta.text = LEFT$(testorisposta.text, LEN(testorisposta.text) - 1)
+  testorisposta.selstart = LEN(testorisposta.text) + 1
+END IF
+IF keycode = 32 AND INSTR(testorisposta.text, "ˇ") > 0 THEN
+testorisposta.text = LEFT$(testorisposta.text, LEN(testorisposta.text) - 2)
+  imgmessaggio.visible = falso
+END IF
+IF keycode = 27 THEN
+  imgmessaggio.visible = falso
+   mnumenu_click
+END IF
+END SUB
+
+SUB Tfinestra_Timer ()
+tempobloccoErr% = falso
+ tfinestra.interval = 0
+ END SUB
+
+ SUB Timer1_Timer ()
+ punti% = punti% - puntitempo%(livello%)
+ st punti%
+END SUB
+
+
+SUB Timer2_Timer ()
+testomessaggio.visible = vero
+a$ = RIGHT$(a$, LEN(a$) - 1) + LEFT$(a$, 1)
+testomessaggio.text = LEFT$(a$, 38)
+END SUB
+
+SUB timerOK_timer ()
+'MSGBOX "timeroK"
+timerOk.interval = 0
+imgmessaggio.visible = falso
+CALL esercizio  ' NUOVO
+END SUB
+
+SUB TimerStart_Timer ()
+'ogni volta che si attiva esercizio si esegue questa routin
+'MSGBOX "start"
+timerstart.interval = 0
+rplin.visible = falso
+lungrisposta% = 0
+esesvolto% = -1
+ 'MSGBOX provenienza$
+IF provenienza$ = "Menu" THEN
+     livello% = 1
+     punti% = 10
+     st punti%
+     esercizi% = 0
+     Nerrori% = 0
+     etilivello.caption = "LIVELLO " + STR$(livello%) + "¯"
+     CALL leggidati
+     timer1.interval = Tpunitivo%(1) * 1000
+     CALL leggiquesiti
+
+     IF tempoGioco%(livello%) > 0 THEN
+          sec% = sec% + tempoGioco%(livello%)
+           etiinfo2.caption = STR$(sec%) + " sec. di gioco a " + STR$(puntisl%(livello%)) + " punti"
+         ELSE
+          etiinfo2.caption = "Il prossimo livello a " + STR$(puntisl%(livello%)) + " punti"
+     END IF
+
+     etiinfo1.caption = "Livello massimo : " + STR$(Nlivellimax%) + "¯"
+
+END IF
+IF provenienza$ = "gioco" THEN : CALL CambioLivello
+
+IF LTRIM$(RTRIM$(lezione$)) <> "" THEN MSGBOX lezione$, 0, "INFORMAZIONI:"
+lezione$ = ""
+
+CALL esercizio
+
+END SUB
+
+

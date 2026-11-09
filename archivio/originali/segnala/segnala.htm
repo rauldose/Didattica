@@ -1,0 +1,177 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>segnala</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#000080" text="#800000">
+
+<p align="left"><a href="../index.htm"><font color="#800000"
+size="5" face="Comic Sans MS"><strong><img src="home.gif"
+border="0" width="57" height="54"></strong></font></a></p>
+
+<p align="left"><font color="#800000" size="5"
+face="Comic Sans MS"><strong>Link a Siti utili.</strong></font><font
+color="#800000" size="6" face="Comic Sans MS"><strong> </strong></font></p>
+
+<table border="1">
+    <tr>
+        <td>&nbsp;</td>
+        <td><font face="Comic Sans MS"><img src="terriscu.gif"
+        width="81" height="50"></font></td>
+        <td><a href="http://www.territorioscuola.com/"><font
+        size="4" face="Comic Sans MS"><strong>T</strong></font><font
+        size="1" face="Comic Sans MS">ERRITORIO</font><font
+        size="4" face="Comic Sans MS">S</font><font size="1"
+        face="Comic Sans MS">CUOLA.COM</font></a></td>
+        <td>&nbsp;</td>
+        <td><font face="Comic Sans MS"><img src="perotto.gif"
+        width="88" height="54"></font></td>
+        <td><a href="http://perotto.freeweb.it/"><font
+        face="Comic Sans MS">Scuola Media Perotto (Manfredonia)</font></a></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><font face="Comic Sans MS"><img src="torino.gif"
+        width="82" height="58"></font></td>
+        <td><a href="http://www.to2000.it/scuole/dante"><font
+        face="Comic Sans MS">Scuola Media D.Alighieri (Torino)</font></a></td>
+        <td>&nbsp;</td>
+        <td align="center"><a
+        href="http://didatticamente.freeweb.org/"><font
+        face="Comic Sans MS"><img src="didattic.gif" border="0"
+        width="64" height="63"></font></a></td>
+        <td><font face="Comic Sans MS">Didatticamente</font></td>
+    </tr>
+    <tr>
+        <td align="center">&nbsp;</td>
+        <td><font face="Comic Sans MS"><img src="liceo.gif"
+        width="82" height="53"></font></td>
+        <td><font face="Comic Sans MS">Liceo scientifico
+        'Marconi' Pesaro<br>
+        La FISICA ON LINE<br>
+        </font><a
+        href="http://www.lsmarconi.it/sitopolo/index.html"><font
+        face="Comic Sans MS">http://www.lsmarconi.it/sitopolo/index.html</font></a></td>
+        <td>&nbsp;</td>
+        <td><a
+        href="http://guide.supereva.it/istruzione_e_formazione/scuola_di_base_elementare_e_media_/"><img
+        src="eva.gif" border="0" width="96"
+        height="38"></a></td>
+        <td><a
+        href="http://guide.supereva.it/istruzione_e_formazione/scuola_di_base_elementare_e_media_/"><font
+        face="Comic Sans MS">Scuola di Base (Elementare e Media) </font></a></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><img src="gira.gif" width="70" height="70"></td>
+        <td><a href="http://www.lagirandola.it/"><img
+        src="lagirand.gif" border="0" width="102" height="26"></a></td>
+        <td>&nbsp;</td>
+        <td><a href="http://www.berghem.it/scuola/nonsoloscuola"><img
+        src="nss_g.gif" border="0" width="100" height="62"></a></td>
+        <td><a href="http://www.berghem.it/scuola/nonsoloscuola"><font
+        face="Comic Sans MS">NON SOLO SCUOLA</font></a></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><font face="Comic Sans MS"><img src="virg.gif"
+        width="83" height="35"></font></td>
+        <td><table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="top" width="20">&nbsp;</td>
+                <td valign="top" width="180"><form
+                action="http://www.virgilio.it/gw/psearch01"
+                method="GET" target="_top">
+                    <p><font face="Comic Sans MS"><input
+                    type="text" size="20" maxlength="50"
+                    name="qs" border="0"><br>
+                    <input type="image" name="cerca"
+                    src="http://www.virgilio.it/gw/plink01?cerca_form_wmc.gif"
+                    alt="Cerca" align="absbottom" border="0"
+                    vspace="4" width="87" height="24"
+                    value="Cerca"><br>
+                    </font><font color="#FFFFCC" size="1"
+                    face="Comic Sans MS">definisci dove cercare </font><font
+                    color="#000000" size="1" face="Comic Sans MS">¬</font><font
+                    size="1" face="Comic Sans MS"><br>
+                    </font><font size="2" face="Comic Sans MS"><select
+                    name="dove" size="1">
+                        <option value="virgilio">In Virgilio </option>
+                        <option value="sitimondiali">Nei Siti Mondiali </option>
+                        <option value="altavista">Rete con AltaVista </option>
+                        <option value="google">Rete con Google </option>
+                    </select></font><font size="1"
+                    face="Comic Sans MS"><br>
+                    </font><font color="#FFFFCC" size="1"
+                    face="Comic Sans MS">i risultati devono
+                    contenere </font><font color="#000000"
+                    size="1" face="Comic Sans MS">¬</font><font
+                    size="1" face="Comic Sans MS"><br>
+                    <input type="radio" checked name="op"
+                    value="and">Tutte le parole<br>
+                    <input type="radio" name="op" value="or">Almeno
+                    una parola </font></p>
+                </form>
+                </td>
+            </tr>
+        </table>
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a href="http://scuolaer.regione.emilia-romagna.it/">SCUOLA
+        e r</a></td>
+    </tr>
+</table>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

@@ -1,0 +1,34 @@
+/* Vari DOS + Geometria - layout of the VB-DOS forms */
+.vd-screen { max-width: 66em; }
+.vd-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 15em; gap: 1em 1.4em; position: relative; }
+.vd-sinistra { display: flex; flex-direction: column; gap: 0.8em; min-width: 0; }
+.vd-intest {
+  font-family: var(--mono); font-size: 1em; background: var(--c15); color: var(--c0); border: 0.15em solid var(--c0);
+  padding: 0.35em 0.5em; text-align: center; cursor: pointer; letter-spacing: 0.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vd-area { min-height: 15em; }
+.vd-esercizio { display: flex; flex-direction: column; gap: 0.6em; }
+.vd-domanda { color: var(--c15); white-space: pre-wrap; line-height: 1.4; }
+.vd-infoliv { color: var(--c11); white-space: pre-wrap; }
+.vd-infoliv:empty { display: none; }
+.vd-riga { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.3em; margin-top: 0.4em; }
+.vd-etitesto { color: var(--c14); white-space: pre; }
+.vd-campo { width: 9em; }
+.vd-espr { width: 100%; max-width: 22em; margin-left: 1.5em; color: var(--c15); }
+.vd-espr:first-of-type { color: var(--c14); }
+.vd-espr:disabled { color: var(--c15); background: transparent; border-bottom-color: transparent; }
+.vd-lato { display: flex; flex-direction: column; align-items: stretch; gap: 0.5em; }
+.vd-livello { background: var(--c2); color: var(--c0); text-align: center; font-weight: bold; cursor: pointer; padding: 0.1em; }
+.vd-lcd { cursor: pointer; text-align: right; font-size: 1em; }
+.vd-punti { color: var(--c12); text-align: right; font-weight: bold; cursor: pointer; }
+.vd-vel, .vd-extra { color: var(--c11); text-align: right; min-height: 1.25em; }
+.vd-suono { color: var(--c15); }
+.vd-bottoni { display: flex; flex-direction: column; gap: 0.9em; margin-top: 0.6em; align-items: flex-start; }
+.vd-info { position: absolute; right: 0.4em; top: 1.6em; background: none; border: 0; color: var(--c14); font-family: var(--mono); font-size: 1em; cursor: pointer; }
+.vd-errbox { left: 1.2em; bottom: 1.2em; }
+@media (max-width: 640px) {
+  .vd-corpo { grid-template-columns: 1fr; }
+  .vd-lato { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+  .vd-bottoni { flex-direction: row; grid-column: 1 / -1; }
+  .vd-lcd { font-size: 0.85em; }
+}

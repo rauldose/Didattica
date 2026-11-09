@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EM – Esercizi Multimediali</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<link rel="stylesheet" href="em.css">
+</head>
+<body class="em">
+<nav class="topbar"><a href="../../index.html">← Programmi</a><span>EM – Esercizi Multimediali</span><span class="spacer"></span><span>Prof. Carmelo Muscolino</span></nav>
+
+<!-- Lettore: list of exercises found -->
+<main id="em-lettore" class="win-window em-finestra-lettore">
+  <div class="win-titlebar"><span class="t">Lettore – esercitazioni disponibili</span></div>
+  <div class="em-lettore-corpo">
+    <img src="../../img/em-logo.gif" alt="EM - Esercizi multimediali" class="em-logo">
+    <ul id="em-lista" class="win-sunken em-lista" role="listbox" tabindex="0" aria-label="Esercitazioni"></ul>
+    <p class="em-nota">Per scegliere l'esercitazione usare il mouse o i tasti ↑ ↓. Un doppio clic sul titolo o il tasto Invio fanno partire l'esercitazione. Le esercitazioni con * sono state create o importate da te.</p>
+    <div class="em-riga">
+      <button id="em-avvia" class="win-btn" type="button">Avvia</button>
+      <a class="win-btn" href="editor.html">Programmazione…</a>
+      <a class="win-btn" href="../../index.html">Uscita</a>
+    </div>
+  </div>
+</main>
+
+<!-- Lavoro -->
+<main id="em-lavoro" class="win-window em-lavoro" hidden>
+  <div class="win-titlebar"><span class="t" id="em-titolo">EM</span></div>
+  <div class="win-menubar em-menubar">
+    <div class="em-menu-wrap">
+      <button id="em-mnu-esercizi" type="button" aria-haspopup="true">Esercizi</button>
+      <div id="em-tendina" class="win-window em-tendina" hidden>
+        <button id="em-t-menu" type="button">Menu</button>
+        <button id="em-t-prog" type="button">Programmazione</button>
+        <button id="em-t-uscita" type="button">Uscita</button>
+      </div>
+    </div>
+    <button id="em-mnu-help" type="button">?</button>
+    <button id="em-mnu-soluzione" type="button">Soluzione</button>
+    <button id="em-mnu-audio" type="button" disabled>Audio</button>
+    <button id="em-mnu-risorse" type="button" disabled>Risorse</button>
+  </div>
+  <div class="em-scena">
+    <div id="em-lavagna" class="em-lavagna">
+      <div id="em-lav-testo" class="em-lav-testo" aria-live="polite"></div>
+      <div id="em-lav-media" class="em-lav-media"></div>
+      <div class="em-riga">
+        <button id="em-continua" class="win-btn" type="button">Per continuare clicca qui</button>
+        <button id="em-risorsa-pres" class="win-btn" type="button" hidden></button>
+      </div>
+    </div>
+    <div id="em-risposta" class="em-risposta">
+      <div id="em-istr" class="em-istr"></div>
+      <div class="em-riga">
+        <input id="em-campo" class="win-field em-campo" type="text" autocomplete="off" spellcheck="false" aria-label="risposta">
+        <button id="em-ok" class="win-btn" type="button">OK</button>
+      </div>
+      <div id="em-scelta" class="em-scelta" hidden></div>
+      <div id="em-esito" class="em-esito" hidden role="status"></div>
+    </div>
+    <div class="em-fondo">
+      <div class="em-punti">
+        <div><span class="em-cap">punti</span><pre id="em-lcd" class="em-lcd" title="punti"></pre></div>
+        <div><span class="em-cap">livello</span><pre id="em-livello" class="em-lcd"></pre></div>
+        <div id="em-tempo" class="em-tempo"></div>
+      </div>
+      <button id="em-gufo" class="em-gufo" type="button" title="Suggerimento" hidden>
+        <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><ellipse cx="32" cy="38" rx="20" ry="22" fill="#8b5a2b"/><ellipse cx="32" cy="44" rx="12" ry="14" fill="#d9b48f"/><circle cx="23" cy="28" r="9" fill="#fff"/><circle cx="41" cy="28" r="9" fill="#fff"/><circle cx="23" cy="28" r="4" fill="#000"/><circle cx="41" cy="28" r="4" fill="#000"/><path d="M29 34 L32 40 L35 34 Z" fill="#f0a020"/><path d="M14 18 L20 8 L24 20 Z M50 18 L44 8 L40 20 Z" fill="#8b5a2b"/></svg>
+        <span>Suggerimento</span>
+      </button>
+      <img src="../../img/pesce.gif" alt="" class="em-pesce" aria-hidden="true">
+    </div>
+  </div>
+</main>
+
+<script src="../../js/common.js"></script>
+<script src="../../dati/em/em-dati.js"></script>
+<script src="em-core.js"></script>
+<script src="em.js"></script>
+</body>
+</html>

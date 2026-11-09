@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spinta di Archimede</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<style>
+  /* Teal "maximized" form with the original striped floor along the bottom */
+  body {
+    min-height: 100vh;
+    background: #008080 url("../../img/archimede-fondo.png") repeat-x left bottom;
+  }
+  .arch { max-width: 1060px; margin: 0 auto; padding: 10px 16px 24px; }
+
+  /* top gray group bar */
+  .barra {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px;
+    padding: 8px 12px;
+  }
+  .barra label { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .barra select { font-family: "Courier New", monospace; font-size: 14px; min-width: 0; max-width: 100%; }
+  .barra .campo { min-width: 5.5em; text-align: right; display: inline-block; }
+  .cavita { display: flex; align-items: center; gap: 6px; }
+  .stepper { display: flex; flex-direction: column; }
+  .stepper button {
+    width: 22px; height: 15px; min-height: 0; padding: 0; font-size: 9px; line-height: 1;
+    display: flex; align-items: center; justify-content: center; touch-action: manipulation;
+  }
+
+  /* centre: vessel canvas + readouts */
+  .scena { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; margin-top: 12px; align-items: start; }
+  .vasca-box { position: relative; height: min(74vh, 660px); min-height: 380px; }
+  #cv { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; outline: none; }
+  #cv:focus-visible { outline: 2px dotted #ff0; }
+  .hint { position: absolute; left: 0; top: 0; color: #e6fffb; font-size: 13px; pointer-events: none; text-shadow: 1px 1px 0 #004040; }
+
+  .letture { padding: 10px 12px; }
+  .letture .riga { margin: 0 0 9px; }
+  .letture .lab { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 13px; }
+  .letture .val { margin-top: 3px; text-align: right; font-family: "Courier New", monospace; font-size: 17px; font-weight: bold; }
+  .sw { width: 22px; height: 6px; border: 1px solid #000; flex: none; }
+  .link-arch {
+    background: none; border: 0; padding: 0; font: inherit; font-weight: bold; cursor: pointer;
+    color: #000080; text-decoration: underline dotted;
+  }
+  .stato { min-height: 1.3em; font-weight: bold; color: #800000; font-size: 13px; }
+
+  .comandi { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+  .autore { color: #fff; cursor: pointer; text-decoration: underline; margin-left: auto; user-select: none; }
+
+  /* Archimedes info window */
+  .info-arch { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+  .info-arch img { width: 152px; height: 228px; flex: none; border: 2px solid; border-color: #808080 #fff #fff #808080; }
+  .info-arch .testo { white-space: pre-wrap; flex: 1 1 200px; min-width: 0; }
+
+  @media (max-width: 760px) {
+    .scena { grid-template-columns: minmax(0, 1fr); }
+    .vasca-box { height: min(68vh, 600px); }
+  }
+  @media (max-width: 420px) {
+    .arch { padding: 8px 10px 20px; }
+    .barra { gap: 6px 12px; padding: 6px 8px; }
+    .barra select { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../../index.html">← Programmi</a>
+  <strong>Spinta di Archimede</strong>
+  <span class="spacer"></span>
+  <span>Prof. Carmelo Muscolino</span>
+</div>
+
+<main class="arch">
+  <div class="barra win-window">
+    <label>Tipo di solido: <select id="solido" aria-label="Tipo di solido"></select></label>
+    <label>Tipo di liquido: <select id="liquido" aria-label="Tipo di liquido"></select></label>
+    <span>Volume solido: <span class="win-field campo" id="volume">100 cm³</span></span>
+    <span class="cavita">Cavità di :
+      <span class="win-field campo" id="cavita" tabindex="0" role="spinbutton" aria-label="Volume della cavità in cm³"
+            aria-valuemin="0" aria-valuemax="79" aria-valuenow="0" title="Cavità vuota all'interno del solido">0 cm³</span>
+      <span class="stepper">
+        <button type="button" class="win-btn" id="cavSu" aria-label="Aumenta cavità">▲</button>
+        <button type="button" class="win-btn" id="cavGiu" aria-label="Diminuisci cavità">▼</button>
+      </span>
+    </span>
+  </div>
+
+  <div class="scena">
+    <div class="vasca-box">
+      <canvas id="cv" tabindex="0" aria-label="Recipiente con il liquido e il solido appeso alla bilancia. Trascina il solido in alto o in basso; frecce su e giù da tastiera."></canvas>
+      <div class="hint" id="hint">Trascina il solido in alto o in basso con il mouse</div>
+    </div>
+
+    <aside class="letture win-window" aria-live="polite">
+      <div class="riga">
+        <div class="lab"><span class="sw" style="background:#ffff00"></span>FORZA PESO :</div>
+        <div class="val win-field" id="vPeso">0 g</div>
+      </div>
+      <div class="riga">
+        <div class="lab"><span class="sw" style="background:#00ffff"></span>
+          <button type="button" class="link-arch" id="linkArch" title="Clicca per inf. su Archimede">SPINTA DI ARCHIMEDE</button></div>
+        <div class="val win-field" id="vSpinta">0 g</div>
+      </div>
+      <div class="riga">
+        <div class="lab">Volume liquido spostato</div>
+        <div class="val win-field" id="vVolume">0 cm³</div>
+      </div>
+      <div class="riga">
+        <div class="lab">Peso specifico del liquido</div>
+        <div class="val win-field" id="vPsl">1 g/cm³</div>
+      </div>
+      <div class="riga">
+        <div class="lab">Peso del liquido spostato</div>
+        <div class="val win-field" id="vPls">0 g</div>
+      </div>
+      <div class="riga">
+        <div class="lab" title="Peso del solido immerso">Peso del solido immerso (bilancia)</div>
+        <div class="val win-field" id="vBil">0 g</div>
+      </div>
+      <div class="stato" id="stato"></div>
+    </aside>
+  </div>
+
+  <div class="comandi">
+    <button type="button" class="win-btn" id="lascia" title="Lascia andare il solido">Lascia</button>
+    <button type="button" class="win-btn" id="uscita">Uscita</button>
+    <span class="autore" id="autore" role="button" tabindex="0">Autore...</span>
+  </div>
+</main>
+
+<script src="../../js/common.js"></script>
+<script src="archimede.js"></script>
+</body>
+</html>

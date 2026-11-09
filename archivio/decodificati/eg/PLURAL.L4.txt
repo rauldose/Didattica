@@ -1,0 +1,36 @@
+'1
+. Trasforma dal singolare al plurale 
+banco \banchi
+astrologo\ astrologi
+.Trasforma dal plurale al singolare  
+camicie \ camicia
+.Trasforma dal singolare al plurale 
+ciliegia \ ciliegie
+fascia  \ fasce 
+striscia  \ strisce 
+farmacia  \ farmacie 
+capoclasse  \ capiclasse
+bue  \ buoi
+tigre  \ tigri
+computer  \ computer 
+armadio  \ armadi 
+altoforno  \ altiforni
+braccio(arto)  \ braccia 
+valigia  \ valigie 
+moglie  \ mogli 
+chirurgo  \ chirurghi 
+trancio  \ tranci 
+scoppio  \ scoppi 
+medico  \ medici 
+cantastorie  \ cantastorie
+specie  \ specie 
+gorilla  \ gorilla 
+obbligo  \ obblighi 
+vaglia  \ vaglia 
+film  \ film 
+superficie  \ superfici 
+valico  \ valichi 
+ferocia  \ ferocie 
+
+
+

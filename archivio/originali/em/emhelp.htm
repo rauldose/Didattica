@@ -1,0 +1,903 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>#${bmc em</title>
+</head>
+
+<body background="sfondi15.jpg" link="#0000FF">
+
+<p align="center"><a name="indice"></a></p>
+
+<table border="0">
+    <tr>
+        <td rowspan="3"><img src="EM2.gif" width="110"
+        height="83"></td>
+        <td rowspan="3">&nbsp;</td>
+        <td colspan="2"><a href="#DESCRIZIONE"><font
+        color="#0000FF" size="4" face="Comic Sans MS"><strong>DESCRIZIONE</strong></font></a></td>
+        <td align="right" rowspan="3">&nbsp;</td>
+        <td rowspan="3"><a href="em.htm"><font color="#FF0000"
+        face="Comic Sans MS">ritorna</font></a></td>
+        <td rowspan="3"><a href="em.htm"><strong><img
+        src="PESCE.gif" border="0" width="80" height="100"></strong></a></td>
+    </tr>
+    <tr>
+        <td colspan="2"><font color="#234747" size="4"
+        face="Comic Sans MS"><strong>COME </strong></font><a
+        href="#Esecuzione"><font color="#0000FF" size="4"
+        face="Comic Sans MS"><strong>ESEGUIRE</strong></font></a><font
+        color="#234747" size="4" face="Comic Sans MS"><strong> </strong></font></td>
+    </tr>
+    <tr>
+        <td colspan="2"><font color="#234747" size="4"
+        face="Comic Sans MS"><strong>COME </strong></font><a
+        href="#Programmazione"><font color="#0000FF" size="4"
+        face="Comic Sans MS"><strong>PROGRAMMARE</strong></font></a><font
+        color="#234747" size="4" face="Comic Sans MS"><strong> </strong></font></td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><font color="#234747" size="4"
+        face="Comic Sans MS"><strong>MODALITA' OPERATIVE:</strong></font></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><p align="right"><font color="#FF0000"
+        size="5"><strong>° </strong></font></p>
+        </td>
+        <td><a href="#digitare"><font color="#0000FF" size="4"
+        face="Comic Sans MS"><strong>DIGITARE</strong></font></a></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><p align="right"><font color="#FF0000"
+        size="5"><strong>° </strong></font></p>
+        </td>
+        <td><a href="#scegliere"><font color="#0000FF" size="4"
+        face="Comic Sans MS"><strong>SCEGLIERE</strong></font></a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><p align="right"><font color="#FF0000"
+        size="5"><strong>° </strong></font></p>
+        </td>
+        <td><a href="#selezionare."><font color="#0000FF"
+        size="4" face="Comic Sans MS"><strong>SELEZIONARE</strong></font></a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><p align="right"><font color="#FF0000"
+        size="5"><strong>°</strong></font><font size="5"><strong>
+        </strong></font></p>
+        </td>
+        <td><a href="#cliccare"><font color="#0000FF" size="4"
+        face="Comic Sans MS"><strong>CLICCARE</strong></font></a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><a href="#Programmazione veloce"><font
+        color="#0000FF" size="4" face="Comic Sans MS"><strong>PROGRAMMAZIONE
+        VELOCE</strong></font></a></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<p><a name="DESCRIZIONE"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>DESCRIZIONE</strong></font></a></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Soft di
+esercitazione multimediale </font><font color="#FF0000" size="3"
+face="Comic Sans MS">programmabile</font><font color="#000080"
+size="3" face="Comic Sans MS"> con le seguenti caratteristiche:</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">semplicità</font><font
+color="#000080" size="3" face="Comic Sans MS"> nella
+programmazione delle esercitazioni ;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">multimedialità</font><font
+color="#000080" size="3" face="Comic Sans MS"> con l'uso di file
+grafici .BMP e di file audio .WAV ;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">adattabilità</font><font
+color="#000080" size="3" face="Comic Sans MS"> all'apprendimento
+di tutte le discipline ;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- rendere
+particolarmente </font><font color="#FF0000" size="3"
+face="Comic Sans MS">stimolante e socializzante</font><font
+color="#000080" size="3" face="Comic Sans MS"> l'apprendimento;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">facilità di
+scambio delle esercitazioni </font><font color="#000080" size="3"
+face="Comic Sans MS">multimediali tra scuole (si trasporta solo
+la cartella con i dati dell'esercitazione);</font></p>
+
+<p align="left"><font color="#234747" size="4"
+face="Comic Sans MS"><strong>STRUTTURA</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il soft
+ricalca lo schema dei videogiochi infatti è formato da </font><font
+color="#FF0000" size="3" face="Comic Sans MS">livelli</font><font
+color="#000080" size="3" face="Comic Sans MS"> (cinque)
+superabili al raggiungimento di un punteggio stabilito. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per ogni
+livello si possono inserire:</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- i punti
+occorrenti per il superamento del livello;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- i punti
+acquisiti per ogni esercizio esatto;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- i punti
+persi per risposte errate;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- i punti
+persi per non aver risposto nel tempo stabilito;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- tempo
+concesso per rispondere;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- tempo di
+</font><font color="#FF0000" size="3" face="Comic Sans MS">gioco</font><font
+color="#000080" size="3" face="Comic Sans MS"> guadagnato.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Ogni
+livello è composto da:</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">presentazione</font><font
+color="#000080" size="3" face="Comic Sans MS"> : parte iniziale (
+testo, grafica o suono) che serve per spiegare all'alunno il
+lavoro da eseguire in quel livello. Con la presentazione si può
+attivare anche un soft esterno.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">consegna</font><font
+color="#000080" size="3" face="Comic Sans MS"> : parte ( testo,
+grafica o suono) comune ad un blocco di esercizi;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- </font><font
+color="#FF0000" size="3" face="Comic Sans MS">esercizi</font><font
+color="#000080" size="3" face="Comic Sans MS">.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Gli
+esercizi sono composti da uno o più </font><font color="#FF0000"
+size="3" face="Comic Sans MS">quesiti</font><font color="#000080"
+size="3" face="Comic Sans MS">.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">L'esercizio
+composto da un solo quesito è la più semplice struttura
+programmabile. E' composto da domanda (testo, grafica o suono) e
+risposta.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">L'alunno
+può fornire la risposta in </font><font color="#FF0000" size="3"
+face="Comic Sans MS">quattro modi operativi</font><font
+color="#000080" size="3" face="Comic Sans MS">:</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">1) </font><font
+color="#FF0000" size="3" face="Comic Sans MS">digitando</font><font
+color="#000080" size="3" face="Comic Sans MS"> ;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">2) </font><font
+color="#FF0000" size="3" face="Comic Sans MS">selezionando</font><font
+color="#000080" size="3" face="Comic Sans MS">;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">3) </font><font
+color="#FF0000" size="3" face="Comic Sans MS">scegliendo da una
+lista</font><font color="#000080" size="3" face="Comic Sans MS">;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">4) </font><font
+color="#FF0000" size="3" face="Comic Sans MS">cliccando in una
+porzione di video</font><font color="#000080" size="3"
+face="Comic Sans MS">;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Nella
+modalità 1, in fase di programmazione, si possono inserire fino
+a cinque soluzione corrette.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Quando l'esercizio
+è composto da più quesiti (max 7), questi sono presentati in
+sequenza. I quesiti possono presentarsi in un'unico blocco o in
+più parti via via che l'alunno risponde. Quando i quesiti sono
+in un unico blocco di testo è </font><font color="#FF0000"
+size="3" face="Comic Sans MS">possibile inserire delle linee</font><font
+color="#000080" size="3" face="Comic Sans MS"> sempre nel testo
+che verranno sostituite dalle varie soluzioni. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Gli
+esercizi possono essere eseguiti in ordine sequenziale o in
+ordine casuale.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Quando gli
+esercizi sono eseguiti in ordine casuale, il soft ripropone
+quelli risolti in modo errato fino a quando non vengono risolti
+correttamente.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La
+risoluzione dell'esercizio è facilitata da tre accessori :</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- il
+suggerimento;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- l'avvio
+di un programma esterno;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">- la
+soluzione;</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il </font><font
+color="#FF0000" size="3" face="Comic Sans MS">suggerimento</font><font
+color="#000080" size="3" face="Comic Sans MS"> è un' aiuto (
+testo , grafica o audio) inseribile facoltativamente in ogni
+soluzione ed è utilizzabile dall'alunno cliccando sull'immagime
+del gufo (appare solo quando è disponibile il suggerimento). </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per far '</font><font
+color="#FF0000" size="3" face="Comic Sans MS">partire' un
+programma esterno,</font><font color="#000080" size="3"
+face="Comic Sans MS"> per esempio il prog. calc.exe (la
+calcolatrice di windows) l'alunno deve cliccare su un elemento
+del menù che appare con la presentazione dell'esercizio.</font></p>
+
+<p align="left"><font color="#000080" size="3"
+face="Comic Sans MS">Cliccando , in qualsiasi momento '</font><font
+color="#FF0000" size="3" face="Comic Sans MS">soluzione</font><font
+color="#000080" size="3" face="Comic Sans MS">', si perdono i
+punti stabiliti per risposta errata e appare la soluzione.</font></p>
+
+<p align="left"><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><a name="Esecuzione"><font color="#234747"
+size="5" face="Comic Sans MS"><strong>Esecuzione </strong></font></a></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il menù
+degli esercizi si presenta con:</font></p>
+
+<p><img src="lett1.gif" width="283" height="108"></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Appare la
+finestra:</font></p>
+
+<p><img src="lett2.gif" width="417" height="70"></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Si leggono
+tutte le esercitazioni disponibili e le relative cartelle. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il
+programma EM 'vede' tutte le cartelle che si trovano nella
+cartella contenente se stesso. Dentro queste cartelle si trovano
+tutti i file necessari per lo svolgimento delle relative
+esercitazioni.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questo
+modo di operare permette di inserire o togliere , in qualsiasi
+momento, esercitazioni .</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per
+scegliere l'esercitazione usare il mouse o i tasti ' sù giù'.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Un doppio
+clic sul titolo dell'esercizio scelto o la digitazione del tasto
+invio fanno partire l'esercitazione.</font></p>
+
+<p><img src="ese.gif" width="269" height="200"></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Le
+finestre sono mobili. Si spostano con il mouse. Cliccare la
+cornice rossa e trascinare.</font></p>
+
+<p align="left"><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><a name="Programmazione"><font color="#234747"
+size="5" face="Comic Sans MS"><strong>Programmazione</strong></font></a><font
+color="#234747" size="5" face="Comic Sans MS"><strong>.</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Con click
+sulla voce 'programmazione' compare la finestra che invita a
+digitare la</font><font size="3" face="Comic Sans MS"> </font><font
+color="#FF0000" size="3" face="Comic Sans MS">password</font><font
+size="3" face="Comic Sans MS">.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questa è
+indispensabile per leggere o modificare le esercitazioni già
+scritte. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per l'insegnante
+è possibile superare la password con un'operazione di
+riconoscimento.</font></p>
+
+<p>&nbsp;</p>
+
+<table border="0">
+    <tr>
+        <td colspan="3"><font color="#000080" size="3"
+        face="Comic Sans MS">Per creare una</font><font size="3"
+        face="Comic Sans MS"> </font><font color="#FF0000"
+        size="3" face="Comic Sans MS">nuova</font><font size="3"
+        face="Comic Sans MS"> </font><font color="#000080"
+        size="3" face="Comic Sans MS">esercitazione:</font></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><font color="#000080" size="3" face="Comic Sans MS">cliccare
+        su</font></td>
+        <td><font color="#000080" size="3" face="Comic Sans MS"><img
+        src="pn.gif" width="38" height="37"></font></td>
+        <td colspan="3"><font color="#000080" size="3"
+        face="Comic Sans MS">e scrivere il nome della nuova
+        cartella che si vuole creare.</font></td>
+    </tr>
+</table>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Non è
+possibile scrivere il nome di una cartella già esistente. E'
+possibile fare ciò solo se nella cartella esistente non è
+presente il file </font><font color="#0000FF" size="3"
+face="Comic Sans MS">'.ese '</font><font color="#000080" size="3"
+face="Comic Sans MS">. Successivamente apparirà una schermata
+dove si individua in alto sul menù la cartella di lavoro del
+momento con tutto il percorso. Nello spazio apposito si scrive il</font><font
+size="3" face="Comic Sans MS"> </font><font color="#FF0000"
+size="3" face="Comic Sans MS">nome dell'esercitazione</font><font
+size="3" face="Comic Sans MS">. </font><font color="#000080"
+size="3" face="Comic Sans MS">Il significato dei valori numerici
+(tutti modificabili) è immediato. Per un'aiuto cliccare sul
+tasto </font><font color="#FF0000" size="3" face="Comic Sans MS">?</font><font
+color="#000080" size="3" face="Comic Sans MS">. Per eliminare l'aiuto
+cliccare di nuovo lo stesso tasto.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Cliccando
+sulle scritte Livello ,,,, si aprono le finestre di testo dove si
+digita il</font><font size="3" face="Comic Sans MS"> </font><font
+color="#FF0000" size="3" face="Comic Sans MS">programma</font><font
+size="3" face="Comic Sans MS"> </font><font color="#000080"
+size="3" face="Comic Sans MS">esercitazione.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Le
+finestre di testo sono ridimensionabili cliccando e trascinando
+il pulsante rosso. La larghezza della finestra, che, può essere
+diversa da livello a livello, viene riprodotta in fase di
+esecuzione, dalla larghezza della lavagna. Anche la dimensione
+del testo è variabile e memorizzabile. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">I bottoni
+da cliccare sono <img src="aa.gif" width="73" height="38"></font></p>
+
+<p align="left"><font color="#808000" size="4"
+face="Comic Sans MS">Regole della programmazione</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il testo
+che si scrive nelle prime righe fino alla parola </font><font
+color="#FF00FF" size="3" face="Comic Sans MS">.esercizio</font><font
+color="#000080" size="3" face="Comic Sans MS"> oppure </font><font
+color="#FF00FF" size="3" face="Comic Sans MS">.consegna</font><font
+color="#000080" size="3" face="Comic Sans MS"> è riservato alle</font><font
+size="3" face="Comic Sans MS"> </font><font color="#FF0000"
+size="3" face="Comic Sans MS">presentazioni</font><font size="3"
+face="Comic Sans MS">.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La
+presentazione (max 255 car) serve a descrivere brevemente gli
+esercizi di quel livello .</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se nel
+testo si scrive il nome di un file .wav, per esempio prova.wav,
+quando avverrà la presentazione verrà eseguito il suono del
+file. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se nel
+testo si scrive il nome di un file .bmp, per esempio prova.bmp,
+quando avverrà la presentazione verrà presentato il disegno
+relativo.</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Attenzione:</font><font
+color="#000080" size="3" face="Comic Sans MS"> scrivere il nome
+dei file in minuscolo !!</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Ovviamente
+il nome del file non apparirà sulla lavagna.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Finita la
+stesura della presentazione si porta il</font><font size="3"
+face="Comic Sans MS"> </font><font color="#000080" size="3"
+face="Comic Sans MS">cursore sulla sinistra e si digita</font><font
+size="3" face="Comic Sans MS"> </font><font color="#FF00FF"
+size="3" face="Comic Sans MS">.co</font><font size="3"
+face="Comic Sans MS"> </font><font color="#000080" size="3"
+face="Comic Sans MS">(un punto seguito dalle lettere co). Il
+computer completerà la frase '</font><font color="#FF0000"
+size="3" face="Comic Sans MS">.CONSEGNA</font><font
+color="#000080" size="3" face="Comic Sans MS">'. Il testo dopo
+questa frase è quello che viene associato a tutti gli esercizi
+seguenti, fino a quando non si scrive un' altra consegna.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In questo
+modo si evita di digitare sempre lo stesso testo nei vari
+esercizi.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il testo
+consegna finisce con l'inizio dell' esercizio.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">L'inserimento
+della consegna o della presentazione è facoltativo. </font></p>
+
+<p align="left"><font color="#808000" size="4"
+face="Comic Sans MS">Programmazione degli esercizi</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Si scriva,
+a inizio rigo,</font><font size="3" face="Comic Sans MS"> </font><font
+color="#FF00FF" size="3" face="Comic Sans MS">.es</font><font
+color="#000080" size="3" face="Comic Sans MS">. Il computer
+completerà con </font><font color="#FF0000" size="3"
+face="Comic Sans MS">.ESERCIZIO N° *</font><font size="3"
+face="Comic Sans MS"> </font><font color="#000080" size="3"
+face="Comic Sans MS">e va accapo.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Non
+occorre scrivere il numero perchè sarà fatto automaticamente
+dal computer, quando aprirà il file (ovviamente deve essere
+prima salvato).</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Nella riga
+dove risiede la parola .esercizio N° *, si può scrivere il nome
+di un programma esterno da fornire come risorsa all'alunno.</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Per
+esempio:</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">.ESERCIZIO
+N° * calcolatrice cal.exe xxx</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">quando si
+eseguirà l'esercizio, la parola calcolatrice apparirà sul menù
+e se l'alunno la clicca partirà il programma cal.exe, con gli
+eventuali parametri xxx.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per
+iniziare vedi la prima modalità operativa: </font><a
+href="#digitare"><font color="#000080" size="3"
+face="Comic Sans MS">modalità digitare.</font></a></p>
+
+<p><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>Modalità </strong></font><a
+name="digitare"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>digitare</strong></font></a><font
+color="#234747" size="5" face="Comic Sans MS"><strong>.</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Adesso
+scriviamo un esercizio.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il caso più
+semplice è quello di una domanda e di una risposta da digitare.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Si scrive
+la domanda e la risposta che l'alunno dovrà digitare preceduta
+dal carattere \</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Esempio:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.CONSEGNA
+Risolvi la seguente espressione:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">(2+3)/2=</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\2,5</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questo
+produrrà sulla lavagna il seguente testo:</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Risolvi la
+seguente espressione:</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">(2+3)/2=</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">l'alunno
+dovrà digitare 2,5 per rispondere correttamente.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Per
+accettare più risposte ( per es. 2,5 e 2.5) scrivere il testo
+della risposta così:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">CONSEGNA
+Risolvi la seguente espressione:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">(2+3)/2=</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\2.5\2,5</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Si possono
+inserire fino a sei risposte valide.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se
+riteniamo utile fornire un suggerimento, lo spazio da utilizzare
+è quello tra il margine sinistro ed il carattere \</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">questo
+testo appare come suggerimento\2.5\2,5</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Uso dei
+file audio o dei file grafici.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Esempio:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">CONSEGNA
+Risolvi la seguente espressione:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">prova.wav
+(2+3)/2= </font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">sugg.wav\2,5</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questo
+produrrà sulla lavagna il testo, mentre l'audio esegue il file
+prova.wav.</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Risolvi la
+seguente espressione:</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">(2+3)/2=</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">contemporaneamente
+si attiverà la voce audio sul menù e comparirà l'immagine di
+un gufo nella finestra dei punti.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Cliccando
+sul gufo si può ascoltare il suggerimento registrato in sugg.wav,
+mentre cliccando su audio si può ascoltare di nuovo l'audio di
+prova.wav.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Esercizio
+con più domande.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Analizziamo
+il seguente esempio:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.CONSEGNA
+Scrivi cosa va scritto al posto delle linee.</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">La
+fotosintesi _________ avviene nelle _________.</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\clorofilliana</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\foglie</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">(7+1)*2=_______=_____</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\8*2</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\16</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In
+entrambi gli esempi, l'alunno deve dare la prima soluzione. Il
+computer aggiorna la lavagna sostituendo la soluzione alle linee
+e attende la seconda soluzione.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Ovviamente
+si possono inserire dei suggerimenti per ogni soluzione .</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Sono
+possibili strutture con 7 domande consecutive.</font></p>
+
+<p><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>Modalità </strong></font><a
+name="scegliere"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>scegliere</strong></font></a><font
+color="#234747" size="5" face="Comic Sans MS"><strong>.</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In vari
+casi conviene non richiedere la risposta scritta ma permettere la
+scelta della soluzione da una lista di nomi.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Ecco un
+esempio:</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">CONSEGNA
+scegli la risposta esatta.</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">Quali dei
+seguenti numeri è divisore di 10 </font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\!5\3\7\9</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">Il cane
+vola?</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\!falso\vero</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La lista
+è una serie di soluzioni attendibili con un carattere (</font><font
+color="#FF0000" size="3" face="Comic Sans MS"> !</font><font
+color="#000080" size="3" face="Comic Sans MS"> ) che identifica
+la soluzione esatta.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In fase di
+esecuzione, per esempio del secondo esercizio descritto, si ha la
+lavagna contenente la frase </font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Il cane
+vola?</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">ed una
+finestra di scelta con le due parole vero e falso.L'alunno dovrà
+scegliere la soluzione.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Le voci
+della lista possono essere scritte, in sede di programmazione, in
+qualsiasi ordine perchè verranno presentate all'allievo in
+ordine alfabetico.</font></p>
+
+<p><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>Modalità </strong></font><a
+name="selezionare."><font color="#234747" size="5"
+face="Comic Sans MS"><strong>selezionare.</strong></font></a></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La terza
+modalità di risposta è selezionare, con il mouse, la soluzione
+presente sulla lavagna.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Esempio </font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">CONSEGNA
+Seleziona la risposta esatta.</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">Quali dei
+seguenti numeri è divisore di 10</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">5 3 7 9 </font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\&quot;5</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">.ESERCIZIO
+N° *</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">Il cane
+vola?</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">- falso </font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">- vero</font></p>
+
+<p><font color="#FF00FF" size="3" face="Comic Sans MS">\&quot;falso</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Osservate
+che cambia solo il simbolo chiave che segue \</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In questo
+caso sulla lavagna il primo esercizio sarà:</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Seleziona
+la risposta esatta.</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">Quali dei
+seguenti numeri è divisore di 10</font></p>
+
+<p><font color="#FF0000" size="3" face="Comic Sans MS">5 3 7 9 </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">e l'alunno
+dovrà selezionare il numero 5.</font></p>
+
+<p><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>Modalità </strong></font><a
+name="cliccare"><font color="#234747" size="5"
+face="Comic Sans MS"><strong>cliccare</strong></font></a><font
+color="#234747" size="5" face="Comic Sans MS"><strong>.</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questa
+modalità operativa interessa gli esercizi con testo/grafica </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">In fase di
+esecuzione, l'alunno dovrà cliccare sul video la soluzione
+corretta.</font></p>
+
+<p align="left"><font color="#000080" size="3"
+face="Comic Sans MS">Il modo di programmare è spiegato nel
+capitolo </font><a href="#Programmazione veloce"><font
+color="#008000" size="3" face="Comic Sans MS"><u>PROGRAMMAZIONE
+VELOCE</u></font></a><font size="3" face="Comic Sans MS"> </font></p>
+
+<p align="left"><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+
+<p align="center"><a name="Programmazione veloce"><font
+color="#234747" size="5" face="Comic Sans MS"><strong>Programmazione
+veloce</strong></font></a><font color="#234747" size="5"
+face="Comic Sans MS"><strong>.</strong></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La
+programmazione veloce può essere utilizzata per tutte le modalità
+operative ma è essenziale per la 'modalità cliccare'.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La </font><font
+color="#FF0000" size="3" face="Comic Sans MS">prima</font><font
+color="#000080" size="3" face="Comic Sans MS"> operazione è
+scegliere la modalità cliccando sul bottone corrispondente</font></p>
+
+<p align="center"><img src="prvel.gif" width="150" height="42"></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Osservate
+che rimane attivo solo quello che è stato cliccato.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">La </font><font
+color="#FF0000" size="3" face="Comic Sans MS">seconda</font><font
+color="#000080" size="3" face="Comic Sans MS"> operazione
+consiste nel selezionare un testo degli esercizi e premere il
+tasto ctrl ( questa operazione equivale ad un doppio clic sul
+testo).</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Al
+rilascio del tasto ctrl il computer si comporta in modo
+dipendente dal bottone attivo.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se il
+bottone attivo è il 1° o il 2° o il 3° e la parola
+selezionata è il nome di un file </font><font color="#FF0000"
+size="3" face="Comic Sans MS">wav</font><font color="#000080"
+size="3" face="Comic Sans MS"> o </font><font color="#FF0000"
+size="3" face="Comic Sans MS">bmp</font><font color="#000080"
+size="3" face="Comic Sans MS"> il computer apre questi file,
+altrimenti la parola selezionata verrà scritta come soluzione ed
+al suo posto verrà riportata una linea. </font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Questa
+funzione è utile per scrivere esercizi 'importando' un testo 'scannato'.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se il
+bottone attivo è l'ultimo cioè <img src="cl.gif" width="39"
+height="38"></font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Il
+computer è attivo solo per i nomi dei file bmp.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Selezionando
+il nome di un file bmp, esistente nella cartella di lavoro, per
+esempio prova.bmp, (attenzione!! il nome deve essere scritto in
+minuscolo) al rilascio di ctrl si va nella programmazione dei </font><font
+color="#FF0000" size="3" face="Comic Sans MS">punti caldi</font><font
+color="#000080" size="3" face="Comic Sans MS"> della </font><font
+color="#FF0000" size="3" face="Comic Sans MS">modalità cliccare.
+</font><font color="#000080" size="3" face="Comic Sans MS">Apparirà
+il contenuto del file grafico e degli oggetti quadrati color
+azzurro e rosso.</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Con il
+mouse si spostano questi quadratini sul disegno in modo da
+indicare con i </font><font color="#FF0000" size="3"
+face="Comic Sans MS">rossi le risposte errate</font><font
+color="#000080" size="3" face="Comic Sans MS"> e con l' </font><font
+color="#0000FF" size="3" face="Comic Sans MS">azzurro quello
+esatte</font><font color="#000080" size="3" face="Comic Sans MS">.
+I quadrati sono modificabili nelle dimensioni (cliccare e
+trascinare gli angoli) e nel colore (cliccandoli con il pulsante
+destro del mouse).</font></p>
+
+<p><font color="#000080" size="3" face="Comic Sans MS">Se nel
+disegno non si mettono quadrati rossi, nello svolgimento appare
+la 'manina' per tutto il disegno. Risulterà così più difficile
+individuare la risposta esatta.</font></p>
+
+<p><a href="#indice"><font color="#004000" size="5"
+face="Comic Sans MS">- inizio pagina -</font></a></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

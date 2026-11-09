@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duello</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<style>
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .gioco { flex: 1; display: flex; flex-direction: column; width: auto; margin: 8px; min-height: 0; box-shadow: none; }
+  .gioco .dos-body { flex: 1; display: flex; flex-direction: column; gap: 0.4em; min-height: 0; padding: 0.5em; }
+  .riga { display: flex; gap: 0.6em 1em; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .riga .dos-btn { min-width: 0; padding: 0.15em 0.9em; }
+  #secondi { white-space: pre; }
+  .punti { white-space: pre; }
+  .g1 { color: var(--c11); }
+  .g2 { color: var(--c13); }
+  .campo { flex: 1; min-height: 80px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; border: 0.15em solid var(--c7); background: var(--c1); touch-action: manipulation; }
+  .comandi { display: flex; gap: 0.5em 1.2em; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .campo-num { display: inline-flex; align-items: center; gap: 0.3em; white-space: nowrap; }
+  .campo-num .dos-input { width: 3.2em; text-align: center; }
+  .pm { font-family: var(--mono); font-size: 1em; width: 1.8em; height: 1.6em; padding: 0; border: 0; cursor: pointer;
+        background: var(--c7); color: var(--c0); box-shadow: 0.2em 0.2em 0 var(--c0); touch-action: manipulation; user-select: none; }
+  .pm:active { transform: translate(0.2em, 0.2em); box-shadow: none; }
+  .pm:disabled, .dos-btn:disabled { opacity: 0.5; cursor: default; }
+  #fuoco { background: var(--c12); color: var(--c15); min-width: 0; }
+  #fuoco:hover:not(:disabled), #fuoco:focus-visible { background: var(--c14); color: var(--c0); }
+  #turno { min-width: 9em; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 16em; }
+  .aiuto { color: var(--c7); font-size: 0.8em; text-align: center; }
+  #avviso { color: var(--c14); min-height: 1.25em; text-align: center; white-space: pre; overflow: hidden; }
+</style>
+</head>
+<body class="dos">
+<div class="dos-screen gioco">
+  <div class="dos-title">DUELLO</div>
+  <div class="dos-body">
+    <div class="riga">
+      <button class="dos-btn" type="button" id="nuovo"><u>N</u>uova partita</button>
+      <span class="dos-panel punti"><span class="g1" id="nome0">nome1</span>  <b id="punti">0 - 0</b>  <span class="g2" id="nome1">nome2</span></span>
+      <span class="dos-label" id="secondi"> Secondi di gioco = </span>
+      <button class="dos-btn" type="button" id="esci"><u>E</u>sci</button>
+    </div>
+    <div class="campo" id="campo"><canvas id="tela" width="640" height="350" aria-label="Campo di gioco"></canvas></div>
+    <div id="avviso"></div>
+    <div class="dos-panel comandi">
+      <span id="turno" class="g1">Tocca a: nome1</span>
+      <span class="campo-num">Angolo
+        <button class="pm" type="button" data-campo="ang" data-d="-1" aria-label="Diminuisci angolo">-</button>
+        <input class="dos-input" id="ang" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Angolo da 0 a 90">
+        <button class="pm" type="button" data-campo="ang" data-d="1" aria-label="Aumenta angolo">+</button>
+      </span>
+      <span class="campo-num">Velocità
+        <button class="pm" type="button" data-campo="vel" data-d="-1" aria-label="Diminuisci velocità">-</button>
+        <input class="dos-input" id="vel" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Velocità da 1 a 100">
+        <button class="pm" type="button" data-campo="vel" data-d="1" aria-label="Aumenta velocità">+</button>
+      </span>
+      <button class="dos-btn" type="button" id="fuoco">Fuoco!</button>
+    </div>
+    <div class="aiuto">↑ ↓ angolo (0-90) · ← → velocità (1-100) · Maiusc = passi di 5 · Invio = Fuoco!</div>
+  </div>
+</div>
+<script src="../../js/common.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var W = 640, H = 350;
+  var G_ACC = 14;          // gravity, px/s^2 (simulated seconds)
+  var VEL = 1;             // px/s per unit of "velocità"
+  var SPEED = 4;           // simulated seconds per real second
+  var COL = ["#55ffff", "#ff55ff"];   // EGA cyan / light magenta
+  var DIM = ["#00aaaa", "#aa00aa"];
+
+  var tela = D.$("#tela"), cx = tela.getContext("2d");
+  var inAng = D.$("#ang"), inVel = D.$("#vel");
+
+  var nomi = ["nome1", "nome2"];
+  var punti = [0, 0];
+  var mira = [{ ang: 45, vel: 50 }, { ang: 45, vel: 50 }]; // remembered per player
+  var turno = 0;
+  var stato = "attesa";    // attesa | mira | volo | esplosione
+  var suolo = new Float32Array(W); // y of the ground surface for each column
+  var cannoni = [{ x: 0 }, { x: 0 }];
+  var vento = 0, sole = { x: 80, y: 50 }, nuvole = [];
+  var scie = [[], []];     // last trajectory of each player
+  var colpo = null, esplosione = null, ultimo = 0;
+
+  /* ---------------- landscape ---------------- */
+  function nuovoPaesaggio() {
+    var base = H * (0.55 + Math.random() * 0.12);
+    var onde = [0, 1, 2].map(function (k) {
+      return { a: (k === 0 ? 30 : k === 1 ? 14 : 5) * (0.5 + Math.random()), f: (k + 1) * (0.006 + Math.random() * 0.006), p: Math.random() * 6.3 };
+    });
+    cannoni[0].x = D.rand(40, 110);
+    cannoni[1].x = W - D.rand(40, 110);
+    var collina = 25 + Math.random() * 30;        // both cannons sit on a hill
+    var centro = (Math.random() - 0.3) * 70;      // hill or valley in the middle
+    for (var x = 0; x < W; x++) {
+      var y = base;
+      onde.forEach(function (o) { y += o.a * Math.sin(x * o.f + o.p); });
+      cannoni.forEach(function (c) { y -= collina * Math.exp(-Math.pow((x - c.x) / 55, 2)); });
+      y -= centro * Math.exp(-Math.pow((x - W / 2) / 70, 2));
+      suolo[x] = Math.max(H * 0.28, Math.min(H - 25, y));
+    }
+    // flat pad under each cannon, blended into the slope
+    cannoni.forEach(function (c) {
+      var y0 = suolo[c.x];
+      for (var dx = -22; dx <= 22; dx++) {
+        var x = c.x + dx; if (x < 0 || x >= W) continue;
+        var k = Math.abs(dx) <= 10 ? 1 : 1 - (Math.abs(dx) - 10) / 12;
+        suolo[x] = y0 * k + suolo[x] * (1 - k);
+      }
+    });
+    vento = D.rand(-25, 25) / 10;
+    sole = { x: Math.random() < 0.5 ? D.rand(60, 200) : D.rand(440, 580), y: D.rand(35, 60) };
+    nuvole = [0, 1, 2].map(function () { return { x: Math.random() * W, y: D.rand(25, 85), s: 0.7 + Math.random() * 0.6 }; });
+    scie = [[], []];
+  }
+
+  function yCannone(c) { return Math.min(suolo[c.x - 3] || H, suolo[c.x], suolo[c.x + 3] || H); }
+
+  // muzzle position and direction of the current player's barrel
+  function bocca(k) {
+    var c = cannoni[k], a = mira[k].ang * Math.PI / 180, dir = k === 0 ? 1 : -1;
+    var ox = c.x, oy = yCannone(c) - 7;
+    return { x: ox + dir * 13 * Math.cos(a), y: oy - 13 * Math.sin(a), dx: dir * Math.cos(a), dy: -Math.sin(a), ox: ox, oy: oy };
+  }
+
+  function cratere(x0, y0, r) {
+    for (var x = Math.max(0, Math.floor(x0 - r)); x <= Math.min(W - 1, Math.ceil(x0 + r)); x++) {
+      var fondo = y0 + Math.sqrt(Math.max(0, r * r - (x - x0) * (x - x0)));
+      if (fondo > suolo[x]) suolo[x] = Math.min(H - 2, fondo);
+    }
+  }
+
+  /* ---------------- drawing ---------------- */
+  function disegna() {
+    // sky, sun, clouds
+    cx.fillStyle = "#5555ff"; cx.fillRect(0, 0, W, H);
+    cx.fillStyle = "#0000aa"; cx.fillRect(0, 0, W, 40);
+    for (var b = 0; b < 40; b += 2) { cx.fillRect(0, 40 + b * 1.5, W, 1); }
+    cx.fillStyle = "#ffff55";
+    cx.beginPath(); cx.arc(sole.x, sole.y, 16, 0, 7); cx.fill();
+    cx.strokeStyle = "#ffff55"; cx.lineWidth = 2;
+    for (var r = 0; r < 8; r++) {
+      var a = r * Math.PI / 4;
+      cx.beginPath(); cx.moveTo(sole.x + 21 * Math.cos(a), sole.y + 21 * Math.sin(a));
+      cx.lineTo(sole.x + 28 * Math.cos(a), sole.y + 28 * Math.sin(a)); cx.stroke();
+    }
+    cx.fillStyle = "#ffffff";
+    nuvole.forEach(function (n) {
+      [[-18, 2, 14], [0, -4, 17], [18, 2, 13]].forEach(function (p) {
+        cx.beginPath(); cx.ellipse(n.x + p[0] * n.s, n.y + p[1] * n.s, p[2] * n.s * 1.2, p[2] * n.s * 0.7, 0, 0, 7); cx.fill();
+      });
+    });
+
+    // terrain: grass on top, earth below
+    for (var x = 0; x < W; x++) {
+      var y = Math.round(suolo[x]);
+      cx.fillStyle = "#aa5500"; cx.fillRect(x, y, 1, H - y);
+      cx.fillStyle = "#00aa00"; cx.fillRect(x, y, 1, 6);
+      cx.fillStyle = "#55ff55"; cx.fillRect(x, y, 1, 1);
+      if ((x * 7) % 23 === 0) { cx.fillStyle = "#555555"; cx.fillRect(x, y + 14 + (x % 30), 2, 2); }
+    }
+
+    // previous trajectories (dotted)
+    scie.forEach(function (s, k) {
+      cx.fillStyle = DIM[k];
+      for (var i = 0; i < s.length; i += 3) cx.fillRect(s[i].x - 1, s[i].y - 1, 2, 2);
+    });
+
+    cannoni.forEach(function (c, k) { disegnaCannone(k); });
+
+    // wind indicator
+    cx.font = "12px monospace"; cx.textAlign = "center"; cx.textBaseline = "middle";
+    cx.fillStyle = "#000000"; cx.fillRect(W / 2 - 75, 3, 150, 34);
+    cx.strokeStyle = "#aaaaaa"; cx.lineWidth = 1; cx.strokeRect(W / 2 - 74.5, 3.5, 149, 33);
+    cx.fillStyle = "#ffffff";
+    cx.fillText("VENTO " + (vento === 0 ? "0" : Math.abs(vento).toFixed(1)), W / 2, 12);
+    if (vento !== 0) {
+      var len = 8 + Math.abs(vento) * 22, d = vento > 0 ? 1 : -1, y0 = 27;
+      cx.strokeStyle = "#ffff55"; cx.fillStyle = "#ffff55"; cx.lineWidth = 3;
+      cx.beginPath(); cx.moveTo(W / 2 - d * len / 2, y0); cx.lineTo(W / 2 + d * len / 2, y0); cx.stroke();
+      cx.beginPath(); cx.moveTo(W / 2 + d * (len / 2 + 7), y0); cx.lineTo(W / 2 + d * len / 2, y0 - 6); cx.lineTo(W / 2 + d * len / 2, y0 + 6); cx.fill();
+    }
+
+    // flight
+    if (colpo) {
+      cx.fillStyle = "#ffffff";
+      for (var i = 0; i < colpo.scia.length; i += 2) cx.fillRect(colpo.scia[i].x, colpo.scia[i].y, 1, 1);
+      if (colpo.y >= 0) {
+        cx.fillStyle = "#000000"; cx.beginPath(); cx.arc(colpo.x, colpo.y, 3, 0, 7); cx.fill();
+        cx.fillStyle = "#aaaaaa"; cx.fillRect(colpo.x - 1, colpo.y - 2, 1, 1);
+      } else { // above the screen: small marker on the top edge
+        cx.fillStyle = "#ffffff"; cx.beginPath(); cx.moveTo(colpo.x, 1); cx.lineTo(colpo.x - 4, 7); cx.lineTo(colpo.x + 4, 7); cx.fill();
+      }
+    }
+
+    // explosion: expanding rings
+    if (esplosione) {
+      var t = esplosione.t, rr = esplosione.r * Math.min(1, t * 4);
+      ["#aa0000", "#ff5555", "#ffff55", "#ffffff"].forEach(function (c, i) {
+        var rad = rr * (1 - i * 0.22);
+        if (rad <= 0) return;
+        cx.globalAlpha = Math.max(0, 1 - t * 1.2);
+        cx.fillStyle = c; cx.beginPath(); cx.arc(esplosione.x, esplosione.y, rad, 0, 7); cx.fill();
+      });
+      cx.globalAlpha = 1;
+    }
+  }
+
+  function disegnaCannone(k) {
+    var c = cannoni[k], gy = yCannone(c), m = bocca(k);
+    // barrel
+    cx.strokeStyle = "#555555"; cx.lineWidth = 5; cx.lineCap = "round";
+    cx.beginPath(); cx.moveTo(m.ox, m.oy); cx.lineTo(m.x, m.y); cx.stroke();
+    cx.strokeStyle = COL[k]; cx.lineWidth = 3;
+    cx.beginPath(); cx.moveTo(m.ox, m.oy); cx.lineTo(m.x, m.y); cx.stroke();
+    cx.lineCap = "butt";
+    // carriage and wheel
+    cx.fillStyle = COL[k]; cx.fillRect(c.x - 8, gy - 9, 16, 5);
+    cx.fillStyle = "#000000"; cx.beginPath(); cx.arc(c.x, gy - 4, 4, 0, 7); cx.fill();
+    cx.fillStyle = "#aaaaaa"; cx.fillRect(c.x - 1, gy - 5, 2, 2);
+    // name, and a blinking marker on the player who has to shoot
+    cx.font = "11px monospace"; cx.textAlign = "center"; cx.textBaseline = "bottom";
+    cx.fillStyle = COL[k];
+    var nx = Math.max(30, Math.min(W - 30, c.x));
+    cx.fillText(nomi[k].slice(0, 12), nx, gy - 26);
+    if (stato === "mira" && turno === k && Math.floor(performance.now() / 400) % 2 === 0) {
+      cx.beginPath(); cx.moveTo(c.x, gy - 40); cx.lineTo(c.x - 5, gy - 48); cx.lineTo(c.x + 5, gy - 48); cx.fill();
+    }
+  }
+
+  /* ---------------- turn / controls ---------------- */
+  function limita(campo, v) {
+    v = Math.round(+v);
+    if (isNaN(v)) v = campo === "ang" ? 45 : 50;
+    return campo === "ang" ? Math.max(0, Math.min(90, v)) : Math.max(1, Math.min(100, v));
+  }
+
+  function mostraComandi() {
+    inAng.value = mira[turno].ang;
+    inVel.value = mira[turno].vel;
+    var t = D.$("#turno");
+    t.textContent = "Tocca a: " + nomi[turno];
+    t.className = turno ? "g2" : "g1";
+    var on = stato === "mira";
+    D.$$(".comandi button, .comandi input").forEach(function (e) { e.disabled = !on; });
+  }
+
+  function cambia(campo, d) {
+    if (stato !== "mira") return;
+    mira[turno][campo] = limita(campo, mira[turno][campo] + d);
+    mostraComandi();
+  }
+
+  function leggiCampi() {
+    mira[turno].ang = limita("ang", inAng.value);
+    mira[turno].vel = limita("vel", inVel.value);
+  }
+
+  function iniziaTurno(k) {
+    turno = k; stato = "mira";
+    mostraComandi();
+  }
+
+  function avviso(t) { D.$("#avviso").textContent = t; }
+
+  function aggiornaPunti() {
+    D.$("#punti").textContent = punti[0] + " - " + punti[1];
+  }
+
+  /* ---------------- shot ---------------- */
+  function fuoco() {
+    if (stato !== "mira" || G.finito) return;
+    leggiCampi(); mostraComandi();
+    var m = bocca(turno), v = mira[turno].vel * VEL;
+    colpo = { x: m.x, y: m.y, vx: m.dx * v, vy: m.dy * v, t: 0, scia: [], k: turno };
+    stato = "volo";
+    mostraComandi();
+    avviso("");
+    D.sound(180, 1.5); D.sound(90, 1.5);
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  }
+
+  // advance the projectile by `dt` simulated seconds (in small steps)
+  function avanza(dt) {
+    var passi = Math.ceil(dt / 0.01), h = dt / passi;
+    for (var i = 0; i < passi && colpo; i++) {
+      colpo.vx += vento * h;
+      colpo.vy += G_ACC * h;
+      colpo.x += colpo.vx * h;
+      colpo.y += colpo.vy * h;
+      colpo.t += h;
+      var last = colpo.scia[colpo.scia.length - 1];
+      if (!last || Math.abs(last.x - colpo.x) + Math.abs(last.y - colpo.y) > 2) colpo.scia.push({ x: colpo.x, y: colpo.y });
+      controlla();
+    }
+  }
+
+  function controlla() {
+    var x = colpo.x, y = colpo.y;
+    // direct hit on a cannon (own cannon only after leaving the barrel)
+    for (var k = 0; k < 2; k++) {
+      var c = cannoni[k];
+      if ((k !== colpo.k || colpo.t > 0.6) && Math.hypot(x - c.x, y - (yCannone(c) - 6)) < 9) return finisci(k, x, y);
+    }
+    if (x < -5 || x > W + 5 || y > H) return finisci(-1, x, y, true);
+    var col = Math.floor(x);
+    if (col >= 0 && col < W && y >= suolo[col]) {
+      // landed: a near miss (within 14 px) still counts as a hit
+      for (var j = 0; j < 2; j++) {
+        var cc = cannoni[j];
+        if ((j !== colpo.k || colpo.t > 0.6) && Math.hypot(x - cc.x, y - (yCannone(cc) - 6)) < 14) return finisci(j, x, y);
+      }
+      return finisci(-1, x, y);
+    }
+  }
+
+  // end of a shot: bersaglio = cannon hit (or -1); fuori = left the field
+  function finisci(bersaglio, x, y, fuori) {
+    var k = colpo.k;
+    scie[k] = colpo.scia;
+    colpo = null;
+    if (bersaglio < 0) {
+      if (!fuori) { cratere(x, y, 9); esplosione = { x: x, y: y, r: 9, t: 0 }; D.sound(70, 2); }
+      stato = fuori ? "mira" : "esplosione";
+      avviso(fuori ? "Fuori campo!" : "Mancato!");
+      if (fuori) iniziaTurno(1 - k);
+      else esplosione.dopo = function () { iniziaTurno(1 - k); };
+      return;
+    }
+    // hit: the shooter scores (or the opponent, if you hit yourself)
+    var vincitore = bersaglio === k ? 1 - k : k;
+    punti[vincitore]++;
+    aggiornaPunti();
+    avviso(bersaglio === k ? "Ahi! " + nomi[k] + " ha colpito il proprio cannone!  Punto a " + nomi[vincitore]
+                           : "COLPITO!  Punto a " + nomi[vincitore]);
+    cratere(cannoni[bersaglio].x, yCannone(cannoni[bersaglio]), 14);
+    esplosione = { x: cannoni[bersaglio].x, y: yCannone(cannoni[bersaglio]) - 5, r: 30, t: 0, lunga: true };
+    stato = "esplosione";
+    D.play("T200L32O3CDEFGAB>CDEFGL8C");
+    esplosione.dopo = function () {
+      nuovoPaesaggio();
+      avviso("Nuovo campo di battaglia!");
+      iniziaTurno(bersaglio); // whoever was hit shoots first
+    };
+  }
+
+  /* ---------------- main loop ---------------- */
+  function ciclo(ora) {
+    var dt = Math.min(0.05, (ora - (ultimo || ora)) / 1000);
+    ultimo = ora;
+    nuvole.forEach(function (n) {
+      n.x += vento * 6 * dt;
+      if (n.x > W + 40) n.x = -40; else if (n.x < -40) n.x = W + 40;
+    });
+    if (stato === "volo" && colpo) avanza(dt * SPEED);
+    if (esplosione) {
+      esplosione.t += dt;
+      if (esplosione.t > (esplosione.lunga ? 1.6 : 0.7)) {
+        var dopo = esplosione.dopo; esplosione = null;
+        if (dopo) dopo();
+      }
+    }
+    disegna();
+    requestAnimationFrame(ciclo);
+  }
+
+  // scale the 640x350 canvas to the available area, keeping its ratio
+  function adatta() {
+    var box = D.$("#campo"), w = box.clientWidth - 6, h = box.clientHeight - 6;
+    var s = Math.max(0.2, Math.min(w / W, h / H));
+    tela.style.width = Math.floor(W * s) + "px";
+    tela.style.height = Math.floor(H * s) + "px";
+  }
+
+  /* ---------------- events ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (D.dialogoAperto() || e.ctrlKey || e.altKey || e.metaKey) return;
+    var passo = e.shiftKey ? 5 : 1;
+    switch (e.key) {
+      case "ArrowUp": e.preventDefault(); cambia("ang", passo); break;
+      case "ArrowDown": e.preventDefault(); cambia("ang", -passo); break;
+      case "ArrowRight": e.preventDefault(); cambia("vel", passo); break;
+      case "ArrowLeft": e.preventDefault(); cambia("vel", -passo); break;
+      case "Enter":
+        if (document.activeElement && /^(BUTTON)$/.test(document.activeElement.tagName) && document.activeElement.id !== "fuoco") return;
+        e.preventDefault(); fuoco(); break;
+      default:
+        if (document.activeElement && document.activeElement.tagName === "INPUT") return;
+        if (e.key === "n" || e.key === "N") { e.preventDefault(); nuovaPartita(); }
+        else if (e.key === "e" || e.key === "E") { e.preventDefault(); G.esci(); }
+    }
+  });
+
+  [inAng, inVel].forEach(function (inp) {
+    inp.addEventListener("input", function () {
+      inp.value = inp.value.replace(/\D/g, "");
+      if (inp.value !== "" && stato === "mira") mira[turno][inp.id] = limita(inp.id, inp.value);
+    });
+    inp.addEventListener("blur", function () { if (stato === "mira") { leggiCampi(); mostraComandi(); } });
+    inp.addEventListener("focus", function () { inp.select(); });
+  });
+
+  // +/- buttons repeat while held (mouse and touch)
+  D.$$(".pm").forEach(function (b) {
+    var rip = null, att = null;
+    function stop() { clearTimeout(att); clearInterval(rip); }
+    b.addEventListener("pointerdown", function (e) {
+      e.preventDefault();
+      var campo = b.getAttribute("data-campo"), d = +b.getAttribute("data-d");
+      cambia(campo, d);
+      att = setTimeout(function () { rip = setInterval(function () { cambia(campo, d); }, 70); }, 350);
+    });
+    ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) { b.addEventListener(ev, stop); });
+    // keyboard activation of the button (Space / Enter on focus)
+    b.addEventListener("click", function (e) { if (e.detail === 0) cambia(b.getAttribute("data-campo"), +b.getAttribute("data-d")); });
+  });
+
+  D.$("#fuoco").addEventListener("click", fuoco);
+  D.$("#esci").addEventListener("click", function () { G.esci(); });
+  D.$("#nuovo").addEventListener("click", function () { nuovaPartita(); this.blur(); });
+
+  function nuovaPartita() {
+    if (stato === "attesa") return;
+    punti = [0, 0]; aggiornaPunti();
+    colpo = null; esplosione = null;
+    mira = [{ ang: 45, vel: 50 }, { ang: 45, vel: 50 }];
+    nuovoPaesaggio();
+    avviso("");
+    iniziaTurno(0);
+  }
+
+  window.addEventListener("resize", adatta);
+  G.topbar("Duello");
+  adatta();
+  nuovoPaesaggio();
+  mostraComandi();
+  requestAnimationFrame(ciclo);
+
+  G.nomi().then(function (n) {
+    nomi = n;
+    D.$("#nome0").textContent = n[0];
+    D.$("#nome1").textContent = n[1];
+    adatta();
+    iniziaTurno(0);
+    G.avviaTempo(D.$("#secondi"));
+  });
+
+  // Hooks for automated tests
+  window.duello = {
+    stato: function () { return { stato: stato, turno: turno, punti: punti.slice(), vento: vento, cannoni: cannoni.map(function (c) { return { x: c.x, y: yCannone(c) }; }) }; },
+    mira: mira, fuoco: fuoco
+  };
+})();
+</script>
+</body>
+</html>

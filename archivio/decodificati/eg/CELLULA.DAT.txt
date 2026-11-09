@@ -1,0 +1,7 @@
+#HDR B'B(B)B*B+
+ 10    10    7     7    7      ogni quanti secondi deve togliere punti
+ 5     5     5     5    5      punti tolti al pasare del tempo tp
+ 60    60    60    60    60    punti corretto
+ 30    40    40    50    60    punti errato
+ 300   600   00     0    00  punti occorenti per superare livello  o per giocare tg>0
+ 90    120   00    180   120   tempo di gioco (se 0 si gioca al livello successivo)

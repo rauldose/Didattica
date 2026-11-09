@@ -1,0 +1,91 @@
+/* EM - Windows look: black stage, white blackboard with red frame, fish and grass (see img/em-schermata.gif) */
+.em-finestra-lettore { max-width: 760px; margin: 24px auto; }
+.em-lettore-corpo { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.em-logo { max-width: 100%; height: auto; align-self: center; }
+.em-lista { list-style: none; margin: 0; padding: 2px; max-height: 340px; overflow: auto; outline: none; }
+.em-lista li { display: flex; gap: 10px; justify-content: space-between; padding: 3px 8px; cursor: pointer; }
+.em-lista li.sel { background: var(--w-title); color: #fff; }
+.em-lista:focus li.sel { outline: 1px dotted #fff; outline-offset: -2px; }
+.em-l-dir { color: #777; font-size: 12px; }
+.em-lista li.sel .em-l-dir { color: #ccd; }
+.em-nota { margin: 0; font-size: 13px; }
+.em-riga { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+a.win-btn { color: #000; text-decoration: none; display: inline-flex; align-items: center; }
+
+.em-lavoro { max-width: 980px; margin: 16px auto; }
+.em-menubar { position: relative; }
+.em-menu-wrap { position: relative; }
+.em-tendina { position: absolute; top: 100%; left: 0; z-index: 30; display: flex; flex-direction: column; min-width: 170px; padding: 2px; }
+.em-tendina button { text-align: left; background: none; border: 0; padding: 5px 12px; cursor: pointer; }
+.em-tendina button:hover, .em-tendina button:focus { background: var(--w-title); color: #fff; outline: none; }
+.em-scena { background: #000; padding: 18px; display: flex; flex-direction: column; gap: 12px; min-height: 560px; }
+.em-lavagna { background: #fff; border: 4px solid #c0392b; outline: 2px solid #fff; padding: 14px 18px; min-height: 220px; display: flex; flex-direction: column; gap: 10px; }
+.em-lav-testo { white-space: pre-wrap; font: 20px/1.45 var(--comic); color: #000; overflow-wrap: anywhere; }
+.em-lav-media { display: flex; flex-wrap: wrap; gap: 10px; }
+.em-img { position: relative; display: inline-block; max-width: 100%; line-height: 0; }
+.em-img img { max-width: 100%; height: auto; display: block; user-select: none; }
+.em-clic.tutta { cursor: pointer; }
+.em-zona { position: absolute; background: transparent; border: 0; padding: 0; cursor: pointer; }
+.em-zona:focus-visible { outline: 2px dashed #ff0; }
+.em-zona.vista { outline: 3px solid #1e90ff; background: rgba(30, 144, 255, 0.25); }
+.em-parola { cursor: pointer; border-radius: 3px; }
+.em-parola:hover, .em-parola:focus { background: #ffe680; outline: none; }
+.em-parola.giusta { background: #9fe0a0; }
+.em-risposta { background: #c0c0c0; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; border: 2px solid; border-color: #fff #808080 #808080 #fff; }
+.em-istr { font-size: 14px; color: #222; }
+.em-istr:empty { display: none; }
+.em-campo { font-size: 18px; width: min(420px, 100%); }
+.em-scelta { display: flex; flex-wrap: wrap; gap: 8px; }
+.em-voce { font-size: 16px; }
+.em-voce.giusta { background: #9fe0a0; }
+.em-esito { font-weight: bold; padding: 4px 10px; align-self: flex-start; }
+.em-esito.si { background: #1b7a1b; color: #fff; }
+.em-esito.no { background: #b00; color: #fff; }
+.em-esito.sol { background: #000080; color: #fff; }
+.em-lavoro[data-modo="presentazione"] .em-risposta { display: none; }
+.em-fondo {
+  margin-top: auto; display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; padding: 10px 6px 18px;
+  background: linear-gradient(transparent 70%, #2e7d32 70%, #1b5e20); position: relative;
+}
+.em-punti { display: flex; gap: 10px; align-items: flex-end; background: #c0c0c0; padding: 6px 8px; border: 2px solid; border-color: #fff #808080 #808080 #fff; flex-wrap: wrap; }
+.em-cap { display: block; font-size: 11px; color: #c00; font-weight: bold; }
+.em-lcd { margin: 0; background: #000; color: #ff3b8b; font: 12px/1.05 var(--mono); padding: 4px 6px; cursor: pointer; }
+#em-livello { color: #3bd1ff; }
+.em-tempo { font: bold 16px var(--mono); color: #000; min-width: 4em; }
+.em-gufo { background: #fff8dc; border: 2px solid #8b5a2b; border-radius: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; padding: 4px 8px; font-size: 12px; }
+.em-gufo:hover { background: #ffeeb0; }
+.em-pesce { margin-left: auto; width: 64px; height: auto; }
+.em-finestra { position: fixed; inset: 0; z-index: 800; background: #008080; display: flex; flex-direction: column; }
+.em-finestra-barra { padding: 6px; background: #c0c0c0; }
+.em-finestra iframe { flex: 1; border: 0; width: 100%; }
+.em-calc-out { font: bold 20px var(--mono); margin-top: 10px; min-height: 1.3em; }
+@media (max-width: 600px) {
+  .em-scena { padding: 10px; min-height: 0; }
+  .em-lav-testo { font-size: 17px; }
+  .em-lavoro, .em-finestra-lettore { margin: 0; }
+}
+
+/* ---------- editor ---------- */
+.ed { max-width: 1100px; margin: 16px auto; }
+.ed-corpo { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.ed-par { border-collapse: collapse; background: #fff; font-size: 13px; }
+.ed-par th, .ed-par td { border: 1px solid #999; padding: 2px 5px; text-align: right; }
+.ed-par td.descr { text-align: left; color: #333; }
+.ed-par input { width: 4.8em; text-align: right; }
+.ed-scroll { overflow-x: auto; max-width: 100%; }
+.ed-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.ed-tabs button[aria-selected="true"] { background: #fff; font-weight: bold; }
+.ed-testo { width: 100%; min-height: 340px; font: 14px/1.4 var(--mono); resize: vertical; }
+.ed-media { display: flex; flex-wrap: wrap; gap: 8px; }
+.ed-media figure { margin: 0; background: #fff; border: 1px solid #999; padding: 4px; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; max-width: 150px; }
+.ed-media img { max-width: 140px; max-height: 90px; }
+.ed-zone-wrap { position: relative; display: inline-block; line-height: 0; max-width: 100%; cursor: crosshair; user-select: none; touch-action: none; }
+.ed-zone-wrap img { max-width: 100%; height: auto; display: block; pointer-events: none; }
+.ed-z { position: absolute; border: 2px solid #d00; background: rgba(220, 0, 0, 0.18); }
+.ed-z.giusta { border-color: #06f; background: rgba(0, 100, 255, 0.22); }
+.ed-guida { white-space: pre-wrap; font: 13px/1.4 var(--mono); background: #fff; padding: 10px; max-height: 420px; overflow: auto; }
+.ed-stato { min-height: 1.3em; font-size: 13px; }
+.ed select, .ed input[type=text] { max-width: 100%; min-width: 0; }
+.ed .em-riga > * { min-width: 0; }
+.ed code { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .ed { margin: 0; } }

@@ -1,0 +1,197 @@
+#TITLE caccia all'errore
+#PWD 1235
+'1
+. Leggi bene la frase. Scrivi la parola errata correttamente.
+Con tè faremo i conti dopo.\te
+Non verrò al cinema, perche sono stanco.\perché
+Domani parlero con te e con i tuoi genitori.\parlerò
+Non mi piace andare la perché non conosco nessuno.\là 
+Gianni aspettò per ore seduto li.\lì 
+La, da lui, non ci sono tante auto come qui da noi.\Là 
+Io guardo sempre se e arrivata la posta.\è 
+Con tè non si può mai discutere.\te
+Hai gia lavato e asciugato i piatti?\già 
+Chiedi a Gianni se da lui il becchime ai polli.\dà 
+Dì alla nonna Carolina che il pranzo è pronto.\Di'
+Se avesse più cura di se non sarebbe così emarginato.\sé 
+Davide mi ha detto che Martina farà la festa di carnevale giu in cantina.\giù 
+Gia che ci sei prendi anche un chilogrammo di banane.\Già 
+Dà a tua madre questa medicina, e vedrai che guarirà presto.\Da' 
+Filippo è alla gelateria all'angolo e si stà divorando un maxi gelato.\sta 
+Verrò in treno, cosi non mi stanco molto.\così
+Daria e Silvia hanno stampato con gran velocita la relazione.\velocità
+Quando Massimiliano fà quell'esercizio sbaglia sempre.\fa 
+Alla vista del regalo Tonino fù molto contento.\fu 
+Un altra volta vorrei essere invitato anch'io a casa tua.\Un' 
+Dopo la curva c'è lo albergo dove siamo alloggiati.\l' 
+Posso venire da te con un'amico che ho conosciuto al mare?\un 
+Durante un temporale è caduto un'albero del giardino.\un 
+In questa stagione mi viene sempre un allergia noiosissima.\un' 
+Mio fratello da grande vuole diventare un'astronauta.\un 
+Il mio parrucchiere ha un aiutante nuova.\un' 
+Un'antipatico incidente rovinò la serata.\Un 
+Gina è rimasta a casa per un emicrania inesistente.\un' 
+Si lasciarono a un angolo di strada con un'addio frettoloso.\un
+Una telefonata in città costa un scatto.\uno
+Mi piacciono i gnocchi al sugo.\gli 
+Ho comperato un zainetto nuovo per andare a scuola.\uno 
+Il bambino porgeva noccioline al scoiattolo.\allo 
+Un studente di matematica mi aiuta nei compiti per casa.\Uno 
+Nel salone c'erano i ritratti dei antenati.\degli 
+Ci incamminammo per il erto sentiero.\l' 
+Il bambino si nascose in un scattolone.\uno 
+Nel tè metti un zuccherino e una fetta di limone.\uno 
+# Guarda bene!! Una parola è errata . Digita correttamente.   
+Hai chiesto ai amici di aiutarti?\agli 
+Il bambino si rifiutò di salutare i zii.\gli 
+Il mio vicino di casa è un psicologo pazzo.\uno 
+Sentivo un strano rumore nel motore, ma ancora funziona.\uno
+Il compito mi è andato male per un stupido errore di calcolo.\uno 
+Era così forte che mi sono fatto male nel stringergli la mano.\nello 
+Ecco a voi il strabiliante mago di Istambul!\lo 
+I giornali non dicono niente del sciopero di ieri.\dello 
+Lo zio Pino è un scapolo convinto.\uno 
+Prese lo straccio e lo spazzolone e si mise a lavare i scalini.\gli 
+Gli Americani amano molto la pizza e i spaghetti.\gli 
+Vedendo quel dolce mi è venuta l'aquolina in bocca.\acquolina
+Quando arrivò la polizia i ladri se l'erano già scuagliata.\squagliata
+Non tutte le conquiste sono innoque.\innocue 
+E' una brava quoca e prepara pranzi squisiti.\cuoca 
+Ho comprato cuesto bel giubbotto al mercato.\questo 
+Cuella quaglia canta molto bene.\Quella 
+La carne di bovino si deve quocere a fuoco vivace.\cuocere 
+Maria soffre per problemi di quore.\cuore 
+L'aereo era giunto in cuota.\quota 
+Mio cugino frecuenta l'università.\frequenta 
+Mi piace molto bere l'aqua fresca.\acqua 
+Quiz, quesiti, cuestionari sono oggi molto diffusi.\questionari 
+. Una parola errata è nascosta in questa frase. Scrivi la forma corretta.
+Il vigile aveva già il tacquino in mano.\taccuino 
+Il prezzo mi sembrava ecuo.\equo 
+Uso soltanto scarpe di quoio.\cuoio 
+Mia sorella ha messo la stanza a socquadro.\soqquadro 
+Questa è la scquadra di calcio migliore.\squadra 
+Il cuoco sta quocendo un pollo.\cuocendo 
+Cuindici è dato da cinque per tre.\Quindici 
+Questa mattina la nonna va a risquotere la pensione.\riscuotere 
+Michele è andatto a scuola con la febbre.\andato 
+Doppo pranzo andrò da Marco.\Dopo 
+La lavagna è quadretata.\quadrettata 
+Hanno esposto un cartellone molto collorato.\colorato 
+Il bastonne della bandiera è molto lungo.\bastone 
+In garage ho visto un piccolo toppo.\topo 
+Marco vincerrà questa gara.\vincerà 
+L'ufficio di Luigi si trova in un pallazzo molto alto.\palazzo 
+La proffessoressa di matematica è molto buona.\professoressa 
+Il Meddioevo va dal 500 al 1500 d.C.\Medioevo 
+Mi piace dormire in un letto sofice.\soffice 
+Questo cafè è troppo zuccherato.\caffè 
+L'aquillone di Massimiliano vola più alto di tutti.\aquilone 
+La catedra della nostra classe è rotta e piena di buchi.\cattedra 
+Papà ha comprato una machina da cucire nuova per la mamma.\macchina 
+Questo dolce è troppo apiccicoso.\appiccicoso 
+Lungo la strada vedemo un ampio giardino.\vedemmo 
+Mi sono adormentato profondamente sul divano.\addormentato 
+Il pescivendolo ha degli ottimi callamari.\calamari 
+Durante le vacanze abiamo fatto molti giochi.\abbiamo 
+Anno interrogato Giovanni in matematica.\Hanno 
+Che classe hai frequentato l'hanno scorso?\anno 
+Bruno e Giorgio anno caldo.\hanno 
+I bambini anno trascorso una vacanza serena.\hanno 
+Gli alunni anno cominciato a frequentare la mensa.\hanno 
+Andare ha spasso mi piace.\a 
+Il mio amico è stato a casa mia fino ha sera\a 
+Quanti anni a tuo padre?\ha 
+Ha,che sollievo\Ah 
+Sono andato ha vedere una partita di calcio.\a 
+Paolo andò da sua madre ha parlare.\a 
+La casa di mio nonno a la stalla.\ha 
+Essi anno serbato un buon ricordo di te.\hanno 
+L'attuale hanno è il più difficile per la nostra squadra.\anno 
+La zia a tagliato la torta per noi.\ha 
+Quando mi ha visto Harry a pianto\ha 
+Il mese scorso i miei amici anno fatto un lungo viaggio.\hanno 
+Durante l'hanno,non hai tratto giovamento dalle lezioni.\anno 
+I sindacati anno deciso di fare uno sciopero.\hanno 
+Alla fine dell'hanno scorso ho avuto un incidente di macchina.\anno 
+Perchè non ai prestato il libro al tuo amico?\hai 
+Quanto fa sette per sei, lo sai ho no?\o 
+Ho, che sorpresa!\Oh 
+Ahi del pane secco? Sbriciolalo e dallo alle galline.\Hai 
+Ho pensato di telefonare ha Lucia.\a 
+Il mio gatto a il pelo striato.\ha 
+Mi sono ferito e oh un dito gonfio.\ho 
+La borsa oh la vita.\o 
+E' accaduto un hanno fa, ma non l'ho detto a nessuno.\anno 
+I vigili anno bloccato il traffico come la settimana scorsa.\hanno 
+Paolo andò ah pescare con lo zio.\a 
+Ieri o visitato il museo egizio di Torino.\ho 
+Essi anno serbato un buon ricordo di te.\hanno 
+La squadra che ai appena visto entrare è la favorita.\hai 
+Il nipotino a portato i fiori alla nonna\ha 
+Ho che pace! Finalmente si può riposare.\Oh 
+Mio fratello si è diplomato l' hanno scorso.\anno 
+Ieri sera sulla rete 1 o visto un bel film di Fantozzi.\ho 
+Non ai neppure aperto il libro.\hai 
+Ho chiesto hai miei compagni se venivano in gita.\ai 
+Il gelato lo vuoi al limone oh al cioccolato?\o 
+Hai, ho combinato un guaio!\Ahi 
+Oh appena incontrato tua sorella.\Ho 
+Spiegami dove o sbagliato.\ho 
+Non ha chiesto il permesso ahi suoi genitori.\ai 
+Ci rivedremo al mare l' hanno prossimo.\anno 
+Non so se telefonarle ho scriverle.\o 
+In una scatola o trovato delle vecchie fotografie.\ho 
+Ho dato qualche consiglio hai ragazzi.\ai 
+Quante volte te l' oh detto?\ho 
+La minestra e buonissima: me ne dai ancora un po'?\è 
+Stà zitto quando parlo io!\Sta' 
+Prendi pure due pasticini, ce ne sono tanti.\pasticcini 
+Un mese fà ho preso il morbillo.\fa 
+Oh capito subito le sue intenzioni.\Ho 
+Perchè non ai usato i pastelli per questo disegno?\hai 
+A Pasqua ho visitato perugia con la mia famiglia.\Perugia
+Perché oggi non hai portato il libbro?\libro 
+Ha chiamato mè per caso?\me 
+Vieni qua subbito!\subito 
+Ogni volta che vengo quà per me è una festa.\qua 
+L'aereo atterro con un rombo assordante.\atterrò
+I carabinieri anno arrestato un ladro in flagrante.\hanno 
+Dopo pranzo andrò a riposare cosi questa sera posso guardare la TV.\così
+Alla nostra richiesta rispose di nò e fu irremovibile.\no 
+Giovedì partiremo per una gitta di due giorni.\gita 
+Gli chiesi di spostarsi un po' più in la.\là 
+Dopo il temporale un' albero del giardino giaceva a terra sradicato.\un 
+Per una vacanza di tre giorni ha portato con se quattro libri.\sé 
+Marco và sempre a giocare a pallone.\va 
+Abbiamo messo tutto a socquadro, la mamma ci sgriderà.\soqquadro 
+Fu solo colpa mia, quando ci penso stò male.\sto
+Michela sta' alla finestra e guarda il mare.\sta 
+Non disturbare, sta' atento!\attento 
+Papà mi dice senpre:-Usa tutta la tua grinta nello studio-.\sempre
+Allora, vi anno dato l'aumento?\hanno 
+La forma ai del verbo avere, vuole l'h o no?\hai 
+Sono tornato a casa tutto sporco e la mamma si è arabbiata.\arrabbiata
+Finalmente è arrivata la bella staggione.\stagione 
+Ogni mattina la mamma mi fa un sacco di racomandazioni.\raccomandazioni 
+Marco entrò in casa trafelato e aggitato e mi chiese un panino.\agitato
+I pescatori raccolsero la rette carica di pesce.\rete 
+Il papà accellerava sempre di più, ma non riusciva a raggiungerlo.\accelerava 
+Il comandante si complimentò con l'ecquipaggio.\equipaggio 
+Il cane si nascose dietro la sciepe e non volle più uscire.\siepe 
+Il suo incarico era di annaffiare ogni serra i fiori .\sera 
+Sono molto settico sulla bontà dell'impresa.\scettico 
+Ci vuole molto inpegno per riuscire nello studio e nel lavoro.\impegno
+Il fidanzato di mia sorella è un ingegnere molto abbile.\abile 
+Non si poteva salire in ascensore, per questo ho il fiattone.\fiatone 
+Per il mio compleanno mi è stata regalata una lanpada da tavolo alogena.\lampada
+Non ho mai visto cilia lunghe e nere come quelle di Silvia.\ciglia 
+Il ripasso di ieri è stato molto profiquo, ho risposto a tutte le domande.\proficuo 
+Ogni pomeriggio mi preparo un panino inbottito meraviglioso.\imbottito
+Il colpevole a confessato il suo misfatto.\ha 
+Oggi mi sono dedicata alla pulizzia della mia stanza.\pulizia 
+Domani faremo una prova di conposizione in lingua straniera.\composizione
+L'elicottero è aterrato con molta dolcezza.\atterrato 
+Và a chiamare il bidello, per cortesia.\Va' 
+Dimmi chiaramente cosa è successo: non voglio ecuivoci.\equivoci 
+

@@ -1,0 +1,70 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+
+<HTML>
+<HEAD>
+<TITLE>Lettore</TITLE>
+</HEAD>
+<BODY>
+<CENTER>
+<P><font face="COMIC SANS MS"><font color=#000080>Esecution of the esercitations</font></font></P>
+</CENTER>
+<P><font face="COMIC SANS MS"><font color=#000080>The menu of exercise it presents itself with:</font></font></P>
+<P><img src="../eng/lett167.gif"></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Appear the window:</font></font></P>
+<P><img src="../eng/lett2.gif"></P>
+<P><font face="COMIC SANS MS"><font color=#000080>All is read the available exercises and the relative</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>directories. The program EM 'see' all the directories that are situated in the directory who contain if self. Into these</font></font>
+</P>
+<P><font face="COMIC SANS MS"><font color=#000080>directories it all finds the in single file necessary for the carrying out of the relative exercises.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>This way of operate allows of insert or remove, in any moment, exercises. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>For choose the exercise use the mouse or the keys ' up down'. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>A double click on the title of the select exercise or the digitation of the key enter does depart the exercise.</font></font></P>
+<P><img src="../eng/ese167~1.gif"></P>
+<P><font face="COMIC SANS MS"><font color=#000080>The windows are mobile. They move with the mouse. Click the red frame and drag.</font></font></P>
+</BODY>
+</HTML><script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

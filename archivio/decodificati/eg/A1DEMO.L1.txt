@@ -1,0 +1,49 @@
+#TITLE Demo 1  .domanda\risposta
+#PWD 0000
+'0
+   Spazio utilizzabile per presentare  gli esercizi .
+   Disponibili 18 righe per  75 caratteri
+   Il 1° modo di operare è riconosciuto dalla parola chiave:  '1 
+
+I quesiti dell'esercitazione sono proposti seguendo l'ordine 
+dei livelli (max 5), ma nell'ambito di ogni livello la scelta è casuale.
+La frase che inizia con un punto puo' essere il comando del tipo di 
+esercizio o la frase che verrà scritta nello spazio consegna.
+Se un esercizio è privo della consegna il programma propone l'ultima
+consegna inserita.
+Il testo prima del carattere \ sarà il testo proposto nella "lavagna"
+mentre il testo dopo sarà la risposta che l'alunno dovrà fornire.
+Il testo dell'esercizio può essere composto da più righe.
+La risposta si può scrivere dopo il testo o sulla riga seguente.
+Non occorre inserire righe vuote tra i vari quesiti.
+Le risposte possono essere presentate in scelta multipla (vedi esempio).
+E' possibile prevedere più di una risposta esatta (vedi esempio).
+
+'1
+.Calcola la somma
+5+1=\6
+ 
+.Scegli il risultato della somma.
+2+3=\!5\4\6\1\23\32\10
+
+.Seleziona con i tasti cursore la scelta esatta
+Un rettangolo ha le due dimensioni che misurano rispettivamente 
+12 cm. e 1,2 m..Calcola il perimetro.
+\!264 cm.\2,44 m.\2.66 m. \132 cm.\1,32 m.\1.32 m.
+
+.Risolvi il problema ed esprimi il risultato in cm. oppure in m.
+Un rettangolo ha le due dimensioni che misurano rispettivamente 
+12 cm. e 1,2 m..Calcola il perimetro.
+\264 cm.\2,64 m.\2.64 m. 
+
+
+     
+
+
+
+
+
+        
+
+
+   

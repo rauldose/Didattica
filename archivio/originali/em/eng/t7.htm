@@ -1,0 +1,80 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+
+<HTML>
+<HEAD>
+<TITLE>p3 modalità selezionare</TITLE>
+</HEAD>
+<BODY>
+<CENTER>
+<P><font face="COMIC SANS MS"><font color=#ff0000>Modality select.</font></font><font face="COMIC SANS MS"><font color=#000080> </font></font></P>
+</CENTER>
+<P>
+<font face="COMIC SANS MS"><font color=#000080>The third modality of answer is select, with the mouse, the present solution on the blackboard. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Example</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#ff00ff>CONSIGNS Selects the exact response.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>Which of the followings numbers are divisor of 10</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>5 3 7 9</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\&quot;5</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>EXERCISE N° *
+</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>Does the dog fly?</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>- false</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>- true</font></font>
+</P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\ &quot;false </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Observes that you change only the symbol key that follows \ In this case on the blackboard the first exercise will be:
+</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>You select the exact answer. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>Which of the followings numbers are divisor of 10</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#ff0000>5 3 7 9</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>and the pupil will select the number 5.</font></font></P>
+</BODY>
+</HTML><script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

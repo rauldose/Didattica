@@ -1,0 +1,826 @@
+DECLARE SUB calcON ()
+DECLARE SUB calcOff ()
+DECLARE SUB pulizia ()
+DECLARE SUB esercizio3 ()
+DECLARE SUB esercizio4 ()
+DECLARE SUB esercizio1 ()
+DECLARE SUB esercizio2 ()
+DECLARE SUB esercizio ()
+DECLARE SUB LISTA ()
+DECLARE SUB cmdesercizio_click ()
+DECLARE SUB frase ()
+DECLARE SUB presentazione ()
+DECLARE SUB protez ()
+DECLARE SUB messaggio (Nmessaggio)
+DECLARE SUB st (n AS INTEGER)
+COMMON SHARED SEC%
+DIM SHARED nl AS STRING
+DIM SHARED punti AS INTEGER
+DIM SHARED np AS INTEGER
+DIM SHARED a$      'FRASE protetta
+DIM SHARED scuola$ 'FRASE protetta
+DIM SHARED livello%
+DIM SHARED proced(7)
+DIM SHARED passaggio%
+DIM SHARED risultato$(7)
+DIM SHARED sugg$(7)
+DIM SHARED suggf$(7)
+DIM SHARED orologio!
+CONST vero = -1
+ CONST falso = 0
+ CONST suonoallarme = "MBT255L16O6CO4GEDCBT255L16O6CO4GEDCBT255L16O6CO4GEDC"
+
+
+SUB calcOff ()
+imgtot.visible = falso
+testocalcolo.visible = falso
+cmdcopia.visible = falso
+cornice1.visible = falso
+END SUB
+
+SUB calcON ()
+imgtot.visible = vero
+testocalcolo.visible = vero
+cmdcopia.visible = vero
+cornice1.visible = vero
+testocalcolo.SETFOCUS
+END SUB
+
+SUB cmduscita_Click ()
+END
+END SUB
+
+SUB esercizio1 ()
+ livello% = 1: timer1.interval = 8000
+ ETIlivello.caption = "  " + STR$(livello%) + "  LIVELLO "
+ CALL pulizia
+inferiore = 1: superiore = 2
+RANDOMIZE TIMER
+n% = INT((superiore - inferiore + 1) * RND + inferiore)
+SELECT CASE n%
+CASE 1
+inferiore = 4: superiore = 9
+RANDOMIZE TIMER
+n = INT((superiore - inferiore + 1) * RND + inferiore)
+ h = n * 3: b = n * 4: d = n * 5: p = (b + h) * 2
+PRINT "..................................................."
+PRINT " ESERCIZIO "
+PRINT " Un rettangolo ha il perimetro  e la base lunghi  "
+PRINT " rispettivamente" + STR$(p) + " cm. e " + STR$(b) + " cm."
+PRINT " Calcola la lunghezza della diagonale."
+PRINT "..................................................."
+rpl.visible = vero
+rpl.ADDITEM "Perimetro"
+rpl.ADDITEM "Diagonale"
+rpl.ADDITEM "Area"
+rpl.ADDITEM "Altezza "
+rpl.ADDITEM "Cateto"
+rpl.ADDITEM "Ipotenusa"
+proced(0) = 3: risultato$(0) = STR$(h) + " cm."
+ sugg$(0) = STR$(p) + " / 2 -" + STR$(b): suggf$(0) = "Altezza = Perimetro/2 - Base"
+proced(1) = 1: risultato$(1) = STR$(d) + " cm."
+ sugg$(1) = "˚(" + STR$(b) + ")˝+(" + STR$(h) + ")˝": suggf$(1) = "Diagonale=˚(base)˝+(altezza)˝"
+proced(2) = -1
+CASE 2
+inferiore = 4: superiore = 9
+RANDOMIZE TIMER
+n = INT((superiore - inferiore + 1) * RND + inferiore)
+ h = n * 3: b = n * 4: d = n * 5: a = b * h
+PRINT "..................................................."
+PRINT " ESERCIZIO "
+PRINT " Un rettangolo ha la base e la diagonale lunghi  "
+PRINT " rispettivamente" + STR$(b) + " cm. e " + STR$(d) + " cm."
+PRINT " Calcola l'area (in centimetri quadrati cmq.) ."
+PRINT "..................................................."
+rpl.visible = vero
+rpl.ADDITEM "Perimetro"
+rpl.ADDITEM "Diagonale"
+rpl.ADDITEM "Area"
+rpl.ADDITEM "Altezza "
+rpl.ADDITEM "Cateto"
+rpl.ADDITEM "Ipotenusa"
+proced(0) = 3: risultato$(0) = STR$(h) + " cm."
+ sugg$(0) = "˚(" + STR$(d) + ")˝-(" + STR$(b) + ")˝": suggf$(0) = "Altezza=˚(Diagonale)˝-(Base)˝"
+proced(1) = 2: risultato$(1) = STR$(a) + " cmq."
+sugg$(1) = STR$(b) + " *" + STR$(h): suggf$(1) = " Area = Base * Altezza"
+proced(2) = -1
+END SELECT
+rpl.top = 11
+rpl.Height = 22 - rpl.top
+rpl.SETFOCUS
+rpl.listindex = 0
+passaggio% = 0
+eti(0).visible = vero: eti(0).caption = " Cosa calcoli ?? "
+END SUB
+
+SUB esercizio2 ()
+  livello% = 2: timer1.interval = 12000
+  ETIlivello.caption = "  " + STR$(livello%) + "  LIVELLO "
+ CALL pulizia
+ inferiore = 4
+ superiore = 9
+RANDOMIZE TIMER
+n = INT((superiore - inferiore + 1) * RND + inferiore)
+ Dmin = n * 3 * 2
+ Dmag = n * 4 * 2
+ p = n * 5 * 4
+ a = (Dmin * Dmag) / 2
+PRINT "..................................................."
+PRINT " ESERCIZIO "
+PRINT " Un rombo ha l'area di " + STR$(a) + " cmq. Sapendo che 1/2  della"
+PRINT " diagonale maggiore misura " + STR$(Dmag / 2) + " cm. calcolare"
+PRINT " la lunghezza del perimetro."
+PRINT "..................................................."
+rpl.visible = vero
+rpl.ADDITEM " Perimetro"
+rpl.ADDITEM " Lato"
+rpl.ADDITEM " Diagonale maggiore"
+rpl.ADDITEM " Area"
+rpl.ADDITEM " Altezza "
+rpl.ADDITEM " 1/2 Diagonale minore"
+rpl.ADDITEM " Diagonale minore"
+proced(0) = 2: risultato$(0) = STR$(Dmag) + " cm."
+ sugg$(0) = STR$(Dmag / 2) + " * 2": suggf$(0) = "Diag. Magg.= semidiagonale magg. * 2"
+proced(1) = 6: risultato$(1) = STR$(Dmin) + " cm."
+ sugg$(1) = STR$(a) + " * 2 /" + STR$(Dmag): suggf$(1) = "Diag.minore = 2 * area / diag.magg.)"
+proced(2) = 5: risultato$(2) = STR$(Dmin / 2) + " cm."
+ sugg$(2) = STR$(Dmin) + " / 2": suggf$(2) = "Semidiag.minore = Diag. minore / 2"
+proced(3) = 1: risultato$(3) = STR$(n * 5) + " cm."
+ sugg$(3) = "˚(" + STR$(Dmag / 2) + ")˝+(" + STR$(Dmin / 2) + ")˝": suggf$(3) = "Lato = ˚ (Dmag / 2)˝+(Dmin / 2)˝"
+proced(4) = 0: risultato$(4) = STR$(n * 5 * 4) + " cm."
+ sugg$(4) = STR$(n * 5) + " * 4": suggf$(4) = "Perimetro = lato * 4"
+proced(5) = -1
+rpl.top = 11
+rpl.Height = 22 - rpl.top
+rpl.SETFOCUS
+rpl.listindex = 0
+passaggio% = 0
+eti(0).visible = vero
+eti(0).caption = "Cosa calcoli adesso ??"
+END SUB
+
+SUB esercizio3 ()
+  livello% = 3: timer1.interval = 14000
+  ETIlivello.caption = "  " + STR$(livello%) + "  LIVELLO "
+  CALL pulizia
+ inferiore = 4
+ superiore = 9
+RANDOMIZE TIMER
+n = INT((superiore - inferiore + 1) * RND + inferiore)
+ a = n * n * 45
+ Bmin = 3 * n
+ pro = n * 12
+ Bmax = 15 * n
+ h = n * 5
+ lob = n * 13
+ p = 36 * n
+PRINT ""
+PRINT " ESERCIZIO "
+PRINT " Un trapezio rettangolo ha l'area di " + STR$(a) + " cmq."
+PRINT " Sapendo che la base minore e la proiezione del lato "
+PRINT " obliquo sulla base maggiore misurano  "
+PRINT " rispettivamente" + STR$(Bmin) + " e " + STR$(pro) + " cm."
+PRINT " Calcola la lunghezza del perimetro."
+PRINT ""
+rpl.visible = vero
+rpl.ADDITEM " Perimetro"
+rpl.ADDITEM " Lato obliquo"
+rpl.ADDITEM " Diagonale maggiore"
+rpl.ADDITEM " Base maggiore"
+rpl.ADDITEM " Area"
+rpl.ADDITEM " Altezza "
+rpl.ADDITEM " Base Minore"
+rpl.ADDITEM " Diagonale minore"
+proced(0) = 3: risultato$(0) = STR$(15 * n) + " cm."
+ sugg$(0) = STR$(Bmin) + " +" + STR$(pro): suggf$(0) = "Base Magg. = Base Minore + Proiezione "
+proced(1) = 5: risultato$(1) = STR$(5 * n) + " cm."
+ sugg$(1) = "2 *" + STR$(a) + " /(" + STR$(15 * n) + " +" + STR$(Bmin) + ")": suggf$(1) = "Altezza = 2 * area / ( base mag.+ base min.)"
+proced(2) = 1: risultato$(2) = STR$(13 * n) + " cm."
+ sugg$(2) = "˚(" + STR$(5 * n) + ")˝+(" + STR$(pro) + ")˝": suggf$(2) = "Lato ob.=˚(Altezza)˝+(proiezione)˝"
+proced(3) = 0: risultato$(3) = STR$(36 * n) + " cm."
+ sugg$(3) = STR$(15 * n) + " +" + STR$(Bmin) + " +" + STR$(13 * n) + " +" + STR$(5 * n): suggf$(3) = "Perim. = Base Mag.+ Base min.+ Altezza + lato ob."
+proced(4) = -1
+rpl.top = 11
+ rpl.Height = 22 - rpl.top
+rpl.SETFOCUS
+ rpl.listindex = 0
+passaggio% = 0
+eti(0).visible = vero
+eti(0).caption = "Cosa calcoli adesso ??"
+END SUB
+
+
+SUB esercizio4 ()
+  livello% = 4: timer1.interval = 18000
+  ETIlivello.caption = "  " + STR$(livello%) + "  LIVELLO "
+ CALL pulizia
+ inferiore = 3
+ superiore = 9
+RANDOMIZE TIMER
+n = INT((superiore - inferiore + 1) * RND + inferiore)
+ a = n * n * 90
+ h = n * 5
+ p = 54 * n
+PRINT ""
+PRINT " ESERCIZIO "
+PRINT " Un trapezio rettangolo ha l'area di " + STR$(a) + " cmq."
+PRINT " Sapendo che l'altezza ed il perimetro misurano "
+PRINT " rispettivamente" + STR$(h) + " cm." + " e" + STR$(p) + " cm., calcola"
+PRINT " la lunghezza della diagonale minore."
+PRINT ""
+rpl.visible = vero
+rpl.ADDITEM " Perimetro "
+rpl.ADDITEM " Lato obliquo "
+rpl.ADDITEM " Diagonale maggiore  "
+rpl.ADDITEM " Base maggiore  "
+rpl.ADDITEM " Proiez.lato obbliquo  "
+rpl.ADDITEM " Base magg.+ base minore  "
+rpl.ADDITEM " Area    "
+rpl.ADDITEM " Altezza       "
+rpl.ADDITEM " Base minore  "
+rpl.ADDITEM " Diagonale minore  "
+proced(0) = 5: risultato$(0) = STR$(36 * n) + " cm."
+sugg$(0) = "2 *" + STR$(a) + " /" + STR$(h): suggf$(0) = "Somma delle due basi = area * 2 / altezza"
+proced(1) = 1: risultato$(1) = STR$(13 * n) + " cm."
+ sugg$(1) = STR$(p) + " - ( " + STR$(36 * n) + " +" + STR$(h) + " )": suggf$(1) = "Lato ob. = Perimetro - ( Somma delle due basi + altezza)"
+proced(2) = 4: risultato$(2) = STR$(12 * n) + " cm."
+ sugg$(2) = "˚(" + STR$(13 * n) + ")˝ - (" + STR$(h) + ")˝": suggf$(2) = "Proiez.= ˚ (lato ob.)˝ - (altezza)˝"
+proced(3) = 8: risultato$(3) = STR$(12 * n) + " cm."
+ sugg$(3) = "( " + STR$(36 * n) + "-" + STR$(12 * n) + " ) / 2": suggf$(3) = "Base min.= (Somma delle due basi-proiez.) / 2"
+proced(4) = 9: risultato$(4) = STR$(13 * n) + " cm."
+ sugg$(4) = "˚(" + STR$(h) + ")˝ + (" + STR$(12 * n) + ")˝": suggf$(4) = "Diag min = ˚ (altezza)˝ + (base min.)˝"
+proced(5) = -1
+rpl.top = 11
+rpl.Height = 22 - rpl.top
+rpl.SETFOCUS
+rpl.listindex = 0
+passaggio% = 0
+eti(0).visible = vero
+eti(0).caption = "Iniziamo calcolando ..??"
+END SUB
+
+SUB EtiLIVELLO_Click ()
+messaggio 11
+tempo.interval = 2000
+END SUB
+
+SUB Etinote_Click ()
+abc$ = abc$ + "'\ÜjzÄ%l21zu+ÅwvrÉftxr%ktuf{zhv+wnul}nÅÖryv+rqsz1x}t}zw{Ä" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "+ujswv%jlÅfjtÖf.+un'nrqjz}t'rvttpÖwpnÄ3'^Äsv+Åwl~vs{t1" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "+ÇzhÖwv+Önwt1ip+vxl}tnÅt1ip+xjvxvyytr%wtrsh+9fw{}njlãnvyv%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "1YlzÉjtl1ip+an{lxtyl:%jz%p+uf{t1s|xvwpnz%lwrgv}ryp+tfzÄrqtpyl9" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "'^v%zt1x|{vwhyÄ%p+ÇzhÖwv+}n}p}qp+un'ozkmtttsr,'nÄs'Ä%wÄylrxnv" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%hovl|lÖt'p8%wzÑxpmzql+xnvnrwl+ttu+Xtyt}qh~1ul}1zu+Åfpz1ip+~nuÄÖn5+" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "'Wv%ytÑuv~Öj'yÜrl}zhop1ilÅÄsv+vxzpÉj'~vl|tÖj'or%|yÄ%z{rpz1j'" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%kl}q.Än{l8%kt1rp~Üwh+9%l~vrwtÄ%'<C9'n~3'4?" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "+Utwz1i|p1jy}Äwp+ttu~vh|z{p+ruwlÉj'Ä%htÜyv+ttu+}f'qÄwtÄ}f'or%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "1z{t}nÅÖrwl91Iv{Ä%{}v%l}Étyt1hvxÅfyp1q.pÑuypÑxpzj'yÜrl}zhh9" + CHR$(13) + CHR$(10)
+REM abc$ = abc$ + "'\Üjzr%jzÅnh+v,'nÄsjpÑxh+zs'ÄÑt'l}%w}Äk5+R3'MÄrilÉf5" + CHR$(13) + CHR$(10)
+REM abc$ = abc$ + "%HÄÖtypK%w}Äk5+T3'XÜxjz}nuz1%Wl}rhyÄ{h9" + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+
+inizio2:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO fine2
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ WW$ = WW$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizio2
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF (t% AND 3) = 0 THEN a% = a% - 5
+ IF (t% AND 3) = 1 THEN a% = a% - 7
+ IF (t% AND 3) = 2 THEN a% = a% - 11
+ IF (t% AND 3) = 3 THEN a% = a% - 17
+ WW$ = WW$ + CHR$(a%)
+ GOTO inizio2
+fine2:
+MSGBOX WW$
+END SUB
+
+SUB Etisuono_Click ()
+IF etisuono.caption = "[ ] Suono" THEN : etisuono.caption = "[&X] Suono": EXIT SUB
+IF etisuono.caption = "[&X] Suono" THEN : etisuono.caption = "[ ] Suono": EXIT SUB
+END SUB
+
+SUB Eti_Click (Index AS INTEGER)
+messaggio 12
+tempo.interval = 2000
+END SUB
+
+SUB Form_Click ()
+ RANDOMIZE TIMER
+ tmsu.top = INT(RND * 18) + 3
+ RANDOMIZE TIMER
+ tmsu.left = INT(RND * 30) + 10
+ IF tmsu.visible = falso THEN
+ tmsu.visible = vero
+ timer2.interval = 150
+ tmsu.SETFOCUS
+ ELSE
+ timer1.interval = 0
+ tmsu.visible = falso
+ END IF
+ END SUB
+
+SUB form_load ()
+nl = CHR$(13) + CHR$(10)
+timer1.interval = 0
+scuola$ = ""
+CALL protez
+punti = 0
+st punti
+SCC$ = "z≠ùØ©¶õzßüû£õz°©®õ¨≠zÇØûÉz" ' SCUOLA MEDIA GONARS (UD)
+FOR i = 1 TO LEN(SCC$)
+scuola$ = scuola$ + CHR$(ASC(MID$(SCC$, i, 1)) - 90)
+NEXT
+f1.caption = scuola$
+SCREEN.ControlPanel(0) = 10  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 8  'colore cornice
+SCREEN.ControlPanel(2) = 0 'filetto cornice
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0 'selezione
+SCREEN.ControlPanel(5) = 3 ' tavolo
+SCREEN.ControlPanel(6) = 1
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 8   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 4   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+presentazione
+timerstart.interval = 1
+calcOff
+END SUB
+
+SUB Im1_Click ()
+
+END SUB
+
+SUB messaggio (Nmessaggio)
+    imgmessaggio.top = 1
+    imgmessaggio.Width = 41
+    imgmessaggio.visible = vero
+    imgmessaggio.CLS
+    SELECT CASE Nmessaggio
+    CASE 1
+    imgmessaggio.PRINT "                             "
+    imgmessaggio.PRINT "   ATTENZIONE !!  ERRORE     "
+    imgmessaggio.PRINT "                             "
+    imgmessaggio.PRINT "  Cancella con  il tasto  <--"
+    imgmessaggio.PRINT "  o con il tasto cancella    "
+    CASE 2
+    imgmessaggio.PRINT "                             "
+    imgmessaggio.PRINT "   ATTENZIONE !!  ERRORE     "
+    imgmessaggio.PRINT " -------------------------   "
+    imgmessaggio.PRINT "  Non e' la grandezza da     "
+    imgmessaggio.PRINT "  calcolare adesso . "
+    CASE 3
+    imgmessaggio.PRINT "                             "
+    imgmessaggio.PRINT "   ATTENZIONE !!  ERRORE     "
+    imgmessaggio.PRINT "                             "
+    imgmessaggio.PRINT "   MANCA L' UNITA' DI  "
+    imgmessaggio.PRINT "   MISURA     "
+    CASE 4
+    imgmessaggio.top = 17
+    imgmessaggio.PRINT "  ATTENZIONE !!  Il calcolo e' errato.  "
+    imgmessaggio.PRINT "  Ti suggerisco di eseguire:                       "
+    imgmessaggio.PRINT ""
+    imgmessaggio.PRINT "  " + sugg$(passaggio%)
+    CASE 5
+    imgmessaggio.PRINT "                       "
+    imgmessaggio.PRINT "  B R A V O   ! ! !    "
+    imgmessaggio.PRINT "                       "
+    CASE 6
+    imgmessaggio.PRINT "                       "
+    imgmessaggio.PRINT "  B R A V O   ! ! !    "
+    imgmessaggio.PRINT "                       "
+    CASE 9
+    imgmessaggio.top = 17
+    imgmessaggio.Width = 60
+    imgmessaggio.PRINT "  SUGGERIMENTO : "
+    imgmessaggio.PRINT "  "
+    imgmessaggio.PRINT "  " + suggf$(passaggio%)
+    imgmessaggio.PRINT " "
+    CASE 10
+    imgmessaggio.top = 17
+    imgmessaggio.Width = 60
+    imgmessaggio.PRINT "  Calcolo ERRATO !!! Ti suggerisco la formula : "
+    imgmessaggio.PRINT "  "
+    imgmessaggio.PRINT "  " + suggf$(passaggio%)
+    imgmessaggio.PRINT " "
+    CASE 11
+    imgmessaggio.PRINT " "
+    imgmessaggio.PRINT " Non cliccare !!!  "
+    imgmessaggio.PRINT " Pensa a risolvere l'esercizio. "
+    CASE 12
+    imgmessaggio.PRINT " Non distrarti !!! "
+    imgmessaggio.PRINT " Risolvi l'esercizio se vuoi giocare. "
+    CASE 13
+    imgmessaggio.PRINT "  SVEGLIATI !!.  "
+    imgmessaggio.PRINT "  E' la quarta volta che sbagli. "
+    imgmessaggio.PRINT "  Lavora con calma e con ordine."
+
+    CASE 100
+    imgmessaggio.PRINT "  -----------------------------------  "
+    imgmessaggio.PRINT " Soft. Prof. C. Muscolino Palmanova UD "
+    imgmessaggio.PRINT "  -----------------------------------  "
+    END SELECT
+END SUB
+
+SUB presentazione ()
+abc$ = abc$ + "" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "1%'+1%'+⁄“‘ÿﬁ%'‘ﬁ“'+⁄“‘∆1%'+1%'+1%'+1" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "+1%'+1%'≈1“‘∆1%”ÿﬁ%'≈1%¡+1%'+1%'+1%'+" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "'+1%'+1%œÿﬁ“√+1Õ‘ÿ1%œÿﬁ¡'+1%'+1%'+1%'" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "%'+1%'+1%'+1%'+1%'+1%'+1%'+1%'+1%'+1%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "1LLZ^J[]ZF'[ZFULK%'+1%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "1Fw{}njlãnvyz%kp}%[pÄwlxr%kt1Uprlv}r" + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+
+inizio3:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO FINE3
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ WW$ = WW$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizio3
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF (t% AND 3) = 0 THEN a% = a% - 5
+ IF (t% AND 3) = 1 THEN a% = a% - 7
+ IF (t% AND 3) = 2 THEN a% = a% - 11
+ IF (t% AND 3) = 3 THEN a% = a% - 17
+
+ WW$ = WW$ + CHR$(a%)
+ GOTO inizio3
+FINE3:
+WW$ = WW$ + " Versione N' 2.3"
+MSGBOX WW$, 0, f1.caption
+
+END SUB
+
+SUB protez ()
+a$ = "Soft prof. C. Muscolino - Palmanova "
+IF ASC(MID$(a$, 1, 1)) <> 83 THEN GOTO FINE
+IF ASC(MID$(a$, 2, 1)) <> 111 THEN GOTO FINE
+IF ASC(MID$(a$, 35, 1)) <> 97 THEN GOTO FINE
+IF ASC(MID$(a$, 36, 1)) <> 32 THEN GOTO FINE
+EXIT SUB
+FINE:
+CLS : LOCATE 10, 1: MSGBOX "COPIA MANOMESSA."
+END
+END SUB
+
+SUB pulizia ()
+  FOR O% = 0 TO 5
+  eti(O%).caption = ""
+  eti(O%).visible = falso
+  testo(O%).text = ""
+  testo(O%).visible = falso
+  NEXT
+CLS
+DO WHILE rpl.listcount
+   rpl.REMOVEITEM 0
+LOOP
+END SUB
+
+SUB Rpl_Click ()
+    imgmessaggio.CLS
+    imgmessaggio.visible = falso
+END SUB
+
+SUB Rpl_KeyPress (keyascii AS INTEGER)
+  
+  imgmessaggio.visible = falso
+
+  IF keyascii = 27 THEN : MSGBOX " CIAO!! A PRESTO.": END
+  
+IF keyascii = 13 THEN
+   
+   IF proced(passaggio%) = rpl.listindex THEN
+     punti = punti + 80
+     messaggio 5: tempo.interval = 1000
+     st punti
+     IF cntSuono.value = 1 THEN : SOUND 1000, 2: SOUND 500, 2: SOUND 800, 2
+     eti(passaggio%).caption = rpl.text
+     testo(passaggio%).visible = vero
+     testo(passaggio%).enabled = vero
+     testo(passaggio%).SETFOCUS
+     rpl.visible = falso
+     IF punti < 0 THEN calcON
+   ELSE
+     IF (TIMER - orologio!) < 3 THEN EXIT SUB
+     punti = punti - 80
+     messaggio 2
+     st punti
+   END IF
+ orologio! = TIMER
+END IF
+END SUB
+
+SUB st (n AS INTEGER)
+im1.CLS
+IF etisuono.caption = "[ ] Suono" THEN : np = n: GOTO senzasuono
+eti:
+IF n = np THEN GOTO senzasuono
+IF n > np THEN np = np + 1
+IF n < np THEN np = np - 1
+FOR i% = 1 TO 10000: NEXT
+i$ = STR$(np)
+ln% = LEN(i$)
+FOR t% = 1 TO ln%
+  IF t% = 1 THEN SOUND 50, 1: SOUND 50, 0
+  c$ = MID$(i$, t%, 1)
+ X% = 16 - (ln% - t%) * 4
+ im1.currentY = 0
+    SELECT CASE c$
+  CASE "0"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "∫ ∫"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentX = X%: im1.PRINT " ª "
+       im1.currentX = X%: im1.PRINT " ∫ "
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "…Õº"
+       im1.currentX = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentX = X%: im1.PRINT " Õª"
+       im1.currentX = X%: im1.PRINT " Õπ"
+       im1.currentX = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentX = X%: im1.PRINT "… …"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "»Õª"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "ÃÕª"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "  ∫"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       
+  CASE "+"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒƒƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "A"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "– –"
+  CASE ":"
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+GOTO eti
+
+senzasuono:
+i$ = STR$(n)
+ln% = LEN(i$)
+FOR t% = 1 TO ln%
+  c$ = MID$(i$, t%, 1)
+ X% = 16 - (ln% - t%) * 4
+ im1.currentY = 0
+    SELECT CASE c$
+  CASE "0"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "∫ ∫"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentX = X%: im1.PRINT " ª "
+       im1.currentX = X%: im1.PRINT " ∫ "
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "…Õº"
+       im1.currentX = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentX = X%: im1.PRINT " Õª"
+       im1.currentX = X%: im1.PRINT " Õπ"
+       im1.currentX = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentX = X%: im1.PRINT "… …"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "»Õª"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "ÃÕª"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "  ∫"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+
+  CASE "+"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒƒƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "A"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "– –"
+  CASE ":"
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+
+END SUB
+
+SUB Tempo_Timer ()
+tempo.interval = 0
+imgmessaggio.visible = falso
+END SUB
+
+SUB Testocalcolo_KeyDown (keycode AS INTEGER, Shift AS INTEGER)
+STATIC operazFatta%
+STATIC totale$
+'MSGBOX STR$(keycode)
+IF operazFatta% = vero THEN : operazFatta% = falso: testocalcolo.text = ""
+IF keycode = 13 THEN
+   IF testocalcolo.text = "" THEN
+        calcOff
+        testo(passaggio%).text = totale$
+        testo(passaggio%).SETFOCUS
+        testo(passaggio%).selstart = LEN(testo(passaggio%).text)
+    EXIT SUB
+    END IF
+  imgtot.CLS
+  tn$ = testocalcolo.text
+    IF INSTR(tn$, "-") THEN
+    n1 = VAL(LEFT$(tn$, INSTR(tn$, "-") - 1))
+    n2 = VAL(MID$(tn$, INSTR(tn$, "-") + 1))
+    totale = n1 - n2
+    totale$ = FORMAT$(totale, "### ### ###")
+    imgtot.PRINT totale$
+    operazFatta% = vero
+    EXIT SUB
+    END IF
+    IF INSTR(tn$, "+") THEN
+    n1 = VAL(LEFT$(tn$, INSTR(tn$, "+") - 1))
+    n2 = VAL(MID$(tn$, INSTR(tn$, "+") + 1))
+    totale = n1 + n2
+    totale$ = FORMAT$(totale, "### ### ###")
+    imgtot.PRINT totale$
+    operazFatta% = vero
+    EXIT SUB
+    END IF
+    IF INSTR(tn$, "*") THEN
+    n1 = VAL(LEFT$(tn$, INSTR(tn$, "*") - 1))
+    n2 = VAL(MID$(tn$, INSTR(tn$, "*") + 1))
+    totale = n1 * n2
+    totale$ = FORMAT$(totale, "### ### ###")
+    imgtot.PRINT totale$
+    operazFatta% = vero
+    EXIT SUB
+    END IF
+    IF INSTR(tn$, "/") THEN
+    n1 = VAL(LEFT$(tn$, INSTR(tn$, "/") - 1))
+    n2 = VAL(MID$(tn$, INSTR(tn$, "/") + 1))
+    totale = n1 / n2
+    totale$ = FORMAT$(totale)
+    imgtot.PRINT totale$
+    operazFatta% = vero
+    EXIT SUB
+    END IF
+END IF
+
+END SUB
+
+SUB Testo_KeyPress (Index AS INTEGER, keyascii AS INTEGER)
+STATIC tentativi%
+'MSGBOX STR$(keyascii)
+IF keyascii = 27 THEN
+   MSGBOX " CIAO!! A PRESTO."
+   END
+ END IF
+ IF keyascii = 8 OR keyascii = 127 THEN : testo(passaggio%).text = "": imgmessaggio.visible = falso
+ IF keyascii = 83 OR keyascii = 115 THEN
+  testo(passaggio%).text = ""
+  punti = punti - 30: st punti
+  messaggio 9
+  EXIT SUB
+ END IF
+IF keyascii = 13 THEN
+       IF (TIMER - orologio!) < 3 THEN EXIT SUB
+       orologio! = TIMER
+       risposta$ = LCASE$(LTRIM$(RTRIM$(testo(passaggio%).text)))
+       risultato$ = LCASE$(LTRIM$(RTRIM$(risultato$(passaggio%))))
+       IF INSTR(risposta$, "cm") = 0 THEN
+          messaggio 3: punti = punti - 30: st punti
+          tempo.interval = 2000
+          EXIT SUB
+       END IF
+       IF risposta$ = risultato$ THEN ' esatto il numero"
+          punti = punti + 100
+          tentativi% = 0
+          messaggio 5: tempo.interval = 500
+          st punti
+          testo(passaggio%).enabled = falso
+          passaggio% = passaggio% + 1
+          calcOff
+          IF proced(passaggio%) = -1 THEN  '-----  fine esercizio
+            IF cntSuono.value = 1 THEN PLAY suonoallarme
+            IF punti > 1000 AND livello% = 4 THEN : SEC% = 200: UNLOAD f1: EXIT SUB
+            IF punti > 750 THEN : SEC% = 40: CALL esercizio4: EXIT SUB
+            IF punti > 500 THEN : SEC% = 15: CALL esercizio3: EXIT SUB
+            IF punti > 250 THEN : SEC% = 8: CALL esercizio2: EXIT SUB
+            SEC% = 5: CALL esercizio1
+            EXIT SUB
+          END IF
+          eti(passaggio%).visible = vero
+          eti(passaggio%).caption = "e adesso cosa calcoli ??"
+          rpl.top = rpl.top + 1
+          rpl.Height = 22 - rpl.top
+          rpl.visible = vero
+          rpl.SETFOCUS
+        ELSE          '- "numero errato"
+          punti = punti - 30
+          st punti
+          tentativi% = tentativi% + 1
+          IF tentativi% = 1 THEN : messaggio 1: EXIT SUB
+          IF tentativi% = 2 THEN : messaggio 10: EXIT SUB
+          IF tentativi% = 3 THEN : messaggio 4: EXIT SUB
+          IF tentativi% = 4 THEN : messaggio 13: EXIT SUB
+         END IF
+END IF
+END SUB
+
+SUB Testo_KeyUp (Index AS INTEGER, keycode AS INTEGER, Shift AS INTEGER)
+'MSGBOX STR$(KEYCODE)
+IF keycode = 83 OR keycode = 115 THEN testo(passaggio%).text = ""
+END SUB
+
+ SUB timer1_timer ()
+ punti = punti - 5
+ st punti
+END SUB
+
+
+SUB Timer2_Timer ()
+a$ = RIGHT$(a$, LEN(a$) - 1) + LEFT$(a$, 1)
+tmsu.text = LEFT$(a$, 38)
+END SUB
+
+SUB Timerstart_Timer ()
+timerstart.interval = 0
+CALL esercizio1
+END SUB
+
+SUB Tmsu_KeyPress (keyascii AS INTEGER)
+tmsu.visible = falso
+timer2.interval = 0
+'testorisposta.SETFOCUS
+END SUB

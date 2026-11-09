@@ -1,0 +1,129 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Caratteristiche e scopo</title>
+</head>
+
+<body>
+
+<p><font color="#004080" size="6" face="Comic Sans MS"><img
+src="descr6.gif" width="246" height="97"></font></p>
+
+<p><font color="#004080" face="Comic Sans MS">Soft of exercise
+programmable multimediale with the followings characteristics: </font></p>
+
+<p><font color="#004080" face="Comic Sans MS">- simplicity in the
+programming of the exercises;<br>
+- multimedialità with the custom of lines graphic .BMP and of
+lines audio .WAV; <br>
+- adaptability at the learning of all the disciplines; <br>
+- make particularly stimulating and socializating the learning;<br>
+- facility of exchange of the exercises multimediali between
+schools (it is moved only the directory with the dates of the
+exercise);</font></p>
+
+<p><font color="#004080" size="4" face="Comic Sans MS">STRUCTURE<br>
+</font><font color="#004080" face="Comic Sans MS">The soft tramp
+the scheme of the videogames it in fact has formed by levels (five)
+surmountable to the attainment of a dots established. For each
+level could be inserted: <br>
+- the necessary points for the overcome of the level; <br>
+- the acquired points for each exact exercise;<br>
+- the points lost for wrong answers;<br>
+- the points lost for have not answered in the established time;<br>
+- given time for answer;<br>
+- time of gained play.<br>
+Each level is composed from:<br>
+- introduction: initial part (text, graphic or sound) the use for
+explain the pupil the work to execute in that level. With the
+introduction an external soft could also be activated. <br>
+- delivery : part (text, graphic or sound) common to a block of
+exercises;<br>
+- exercises.<br>
+The exercises are composed from one or more questions. The
+composed exercise from an only question is simplest programmable
+structure. It's composed by question (text, graphic or sound) and
+answer. The pupil could furnish the answer by four operative ways
+:<br>
+1) fingering ;<br>
+2) selecting ;<br>
+3) choosing from a list ; <br>
+4) clicking in a portion of video;<br>
+In the modality 1, in phase of programming, they could be
+inserted up to five correct solution. <br>
+When the exercise is composed from more questions (max 7), these
+has presented in sequence. The questions could present themselves
+in an only block or in more parts away away that the pupil
+answers. When the questions are in an only block of text it is
+possible insert of the lines always in the text that will come
+replaces by the varied solutions.<br>
+The exercises could be executed in sequential order or in casual
+order.<br>
+When the exercises have executed in casual order, the soft
+propose again those resolved in wrong way up to when not they
+come resolved correctly.<br>
+The resolution of the exercise has facilitated from three
+accessories:<br>
+- the hint;<br>
+- the launching of an external program;<br>
+- the solution; <br>
+The hint is a help (text, graphic or audio) insertable optionally
+in each solution and he is usable from the pupil clicking on the
+picture of the owl (he appears only when he is available the hint.)
+For do an external program, for example the prog. calc.exe (the
+calculator of windows) the pupil must clic on an element of the
+menù that appears with the presentation of the exercise.Clicking,
+in any moment 'solution ', they lose themselves the established
+points for wrong answer and appears the solution.</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

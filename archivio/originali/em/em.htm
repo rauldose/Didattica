@@ -1,0 +1,142 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>EM</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#FFFFFF">
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td align="center"><a href="../index.htm"><img
+        src="home.gif" border="0" width="57" height="54"></a></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="center"><hr>
+        </td>
+        <td><hr>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#FF8040" size="6"
+        face="Comic Sans MS">EM </font><font color="#FF8040"
+        size="3" face="Comic Sans MS">v1</font></td>
+        <td><img src="em3.gif" width="400" height="300"></td>
+    </tr>
+    <tr>
+        <td align="center"><font size="1" face="Comic Sans MS">revisione</font><font
+        size="3" face="Comic Sans MS"> </font><font size="1"
+        face="Comic Sans MS"><br>
+        2/7/2000</font></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="center"><img src="ITALIA.gif" width="32"
+        height="32"></td>
+        <td><a href="emhelp.htm"><font size="3"
+        face="Comic Sans MS">GUIDA</font></a></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="eng/index.htm"><img
+        src="AMERICA.gif" border="0" width="32" height="32"></a></td>
+        <td><a href="eng/index.htm"><font size="3"
+        face="Comic Sans MS">HELP</font></a></td>
+    </tr>
+    <tr>
+        <td align="center"><img src="ITALIA.gif" width="32"
+        height="32"></td>
+        <td><a href="em.exe"><font size="3" face="Comic Sans MS">DOWNLOAD</font></a><font
+        size="3" face="Comic Sans MS"> del soft (990 K)</font></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</center></div><div align="center"><center>
+
+<table border="1" bordercolor="#C0C0C0">
+    <tr>
+        <td><font size="5">ESERCITAZIONI DA ESEGUIRE CON EM</font></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><font size="3" face="Comic Sans MS">- Operazioni<br>
+        - Ossa del corpo umano<br>
+        - Verbi</font><font size="1" face="Comic Sans MS"><br>
+        </font><font size="3" face="Comic Sans MS">Sono
+        utilizzabili se le cartelle vengono copiate nella<br>
+        cartella contenente EM.exe.</font></td>
+        <td><a href="opscve.exe"><font size="4">DOWNLOAD</font></a><br>
+        (<font size="4"> 328 k)</font></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><a
+href="http://members.xoom.it/Muscolino/home.htm"><font size="1"
+face="Comic Sans MS">muscolino</font></a><font size="1"
+face="Comic Sans MS"> copyright © 1998-2000. All rights reserved
+.</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

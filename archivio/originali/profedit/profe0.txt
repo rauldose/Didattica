@@ -1,0 +1,2632 @@
+DECLARE SUB Rplfrasario_DblClick ()
+DECLARE SUB stampaFronte216 ()
+DECLARE SUB stampaFronte360 ()
+DECLARE SUB AVVISO ()
+DECLARE SUB stampa360 ()
+DECLARE SUB stampa216 ()
+DECLARE SUB protez ()
+DECLARE SUB Salva_colori ()
+DECLARE SUB img2_click ()
+DECLARE SUB img1_click ()
+DECLARE SUB mnupuntodomanda_Click ()
+DECLARE SUB cancella_menu ()
+DECLARE SUB presentazione ()
+DECLARE SUB PROtEZ ()
+DECLARE SUB Rplstampanti_dblclick ()
+DECLARE SUB leggi_colori ()
+DECLARE SUB leggi_drvSt ()
+DECLARE SUB prestampa ()
+DECLARE SUB impagina ()
+DECLARE SUB mnuimpagina_click ()
+DECLARE SUB rplfrasario_click ()
+DECLARE SUB spazioQ12 ()
+DECLARE SUB aggRplclasse ()
+DECLARE SUB aggRpltipo ()
+DECLARE SUB AggiungiFileFinestra ()
+DECLARE SUB elabnomescheda ()
+DECLARE SUB elabNomeAlunni ()
+DECLARE SUB rplalunni_dblclick ()
+DECLARE SUB rplTipo_dblclick ()
+DECLARE SUB rplclasse_dblclick ()
+DECLARE SUB impagina_di_nuovo ()
+DECLARE SUB impaginazione ()
+DECLARE SUB mnuSalva_Click ()
+DECLARE SUB elabnomeclasse ()
+DECLARE SUB leggi_alunni ()
+DECLARE SUB leggi_classe ()
+DECLARE SUB testotipo_click ()
+DECLARE SUB leggi_tipo ()
+DECLARE SUB elabnometipo ()
+DECLARE SUB apri_scheda ()
+DECLARE SUB caricaFrasario ()
+DECLARE SUB parametri_Lettura ()
+DECLARE SUB parametri_compilaz ()
+DIM SHARED nomeclasse$
+DIM SHARED nomesalva$
+DIM SHARED nometipo$
+DIM SHARED nomescheda$
+DIM SHARED base$
+DIM SHARED q2$
+DIM SHARED q1$
+DIM SHARED righe%
+DIM SHARED melo$
+DIM SHARED messaggio$
+DIM SHARED abc$
+DIM SHARED i360c1
+DIM SHARED i360c2
+DIM SHARED i216c1
+DIM SHARED i216c2
+DIM SHARED i10cpic1
+DIM SHARED i10cpic2
+DIM SHARED i12cpic1
+DIM SHARED i12cpic2
+DIM SHARED flag%
+DIM SHARED numlista%
+DIM SHARED modificato
+DIM SHARED stato
+DIM SHARED marginesinistro
+DIM SHARED marginesuperiore
+DIM SHARED ncar%   'numero di caratteri per riga
+                  ' 86 per 12cpi ; 72 per 10 cpi
+DIM SHARED operazione
+DIM SHARED salta
+
+CONST vero = -1
+CONST falso = 0
+
+SUB aggRplclasse ()
+file1.REFRESH
+file1.pattern = "*.cla"  ' imposta il filtro dei file
+DO WHILE rplclasse.listcount
+   rplclasse.REMOVEITEM 0
+LOOP
+nl% = file1.listcount
+DO WHILE nl%
+rplclasse.ADDITEM LEFT$(file1.list(nl% - 1), 2) + " " + MID$(file1.list(nl% - 1), 4, 2)
+nl% = nl% - 1
+LOOP
+
+END SUB
+
+SUB aggRpltipo ()
+DO WHILE rpltipo.listcount
+  rpltipo.REMOVEITEM 0
+LOOP
+file2.REFRESH
+file2.pattern = "???.txt"        ' imposta il filtro dei file
+nl% = file2.listcount
+DO WHILE nl%
+  rpltipo.ADDITEM LEFT$(file2.list(nl% - 1), LEN(file2.list(nl% - 1)) - 4)
+  nl% = nl% - 1
+LOOP
+
+END SUB
+
+SUB apri_scheda ()
+mnuaddFrasi.checked = falso
+base$ = "": testo.text = "": stato = 13
+CALL elabnomescheda
+IF operazione = falso THEN EXIT SUB
+CALL parametri_Lettura
+IF mnustampaQ12.checked = vero AND LEFT$(testotipo.text, 2) <> "Q1" THEN
+   m$ = m$ + "CANCELLO il segno di spunta alla voce Stampa Q1+Q2 ." + CHR$(13)
+   m$ = m$ + "Se vuoi leggere (e quindi dopo stampare Q1+Q2) " + CHR$(13)
+   m$ = m$ + "devi leggere Q1 (con segno di spunta sulla voce Stampa Q1+Q2)."
+   MSGBOX m$
+   mnustampaQ12.checked = falso: cmdq2.visible = falso
+END IF
+ON LOCAL ERROR GOTO hh2
+etichetta:
+OPEN nomescheda$ FOR INPUT AS #1
+
+DO WHILE NOT EOF(1)
+  LINE INPUT #1, io$
+  io$ = RTRIM$(io$)
+  IF io$ = "" THEN GOTO salto1
+  IF LEN(io$) > contmax THEN contmax = LEN(io$)
+  scheda$ = scheda$ + io$ + CHR$(13) + CHR$(10)
+salto1:
+  LOOP
+CLOSE #1
+
+IF situazione$ = "Q12" THEN
+cmdq2.visible = vero
+cmdq2.caption = "&X"
+q2$ = scheda$
+EXIT SUB
+END IF
+'-----
+IF contmax > 73 AND mnust12cpi.checked = falso THEN
+     MSGBOX "Attenzione!. Sono necessari 12 cpi. Vi e' una riga con " + STR$(contmax) + " caratteri."
+     mnust12cpi.checked = vero
+     testo.width = 80: testo.left = 0: ncar% = 86
+ END IF
+IF contmax < 75 AND mnust12cpi.checked = vero THEN
+     ms$ = " Non sono necessari 12 cpi." + CHR$(13) + CHR$(10)
+     ms$ = ms$ + "Vuoi passare a 10 caratteri per pollice ? "
+     v% = MSGBOX(ms$, 4, "    A T T E N Z I O N E   ")
+     IF v% = 6 THEN      'si
+         mnust12cpi.checked = falso
+         testo.width = 74: testo.left = 3: ncar% = 72
+     END IF
+     IF v% = 7 THEN    'no
+     testo.width = 80: testo.left = 0: ncar% = 86
+     END IF
+ END IF
+'------
+   testo.text = scheda$: scheda$ = ""
+'-----
+IF mnustampaQ12.checked = vero THEN
+    N = INSTR(nomescheda$, ".")
+    nomescheda$ = LEFT$(nomescheda$, N + 1) + "2" + MID$(nomescheda$, N + 3, 1)
+    situazione$ = "Q12"
+    q1$ = testo.text
+    GOTO etichetta
+    END IF
+EXIT SUB
+hh2:
+  IF situazione$ = "Q12" THEN
+    msg$ = msg$ + ""
+    msg$ = " La scheda Q2  NON e' nell'archivio " + CHR$(13) + CHR$(13)
+    msg$ = msg$ + ""
+    msg$ = msg$ + "CANCELLO il segno di spunta alla voce Stampa Q1+Q2 ." + CHR$(13)
+    msg$ = msg$ + "Se vuoi leggere (e quindi dopo stampare Q1+Q2) " + CHR$(13)
+    msg$ = msg$ + "devi leggere Q1 (con segno di spunta sulla voce Stampa Q1+Q2)."
+    MSGBOX msg$
+    mnustampaQ12.checked = falso
+    cmdq2.visible = falso
+    EXIT SUB
+  END IF
+    IF ERR = 52 THEN RESUME NEXT
+    IF ERR = 53 THEN
+     msg$ = " Questa scheda NON e' nell'archivio " + CHR$(13) + CHR$(13)
+     msg$ = msg$ + "Vuoi compilarla  ? "
+     v% = MSGBOX(msg$, 4, "    A T T E N Z I O N E   ")
+    END IF
+    IF v% = 6 THEN
+         flag% = 0
+         numlista% = 0
+         testo.text = ""
+         base$ = ""
+        CALL parametri_compilaz    'si
+    END IF
+
+    IF v% = 7 THEN testotipo.SETFOCUS
+    EXIT SUB
+END SUB
+
+SUB AVVISO ()
+IF LEN(testo.text) > 10 AND modificato = vero THEN
+msg$ = "Il testo non e' stato salvato" + CHR$(13) + CHR$(10)
+msg$ = msg$ + "Desideri salvarlo ? "
+    v# = MSGBOX(msg$, 4, " ATTENZIONE ")
+ IF v# = 6 THEN  ' risposta SI
+    CALL mnuSalva_Click
+ END IF
+END IF
+modificato = falso
+mnuscheda.enabled = vero
+mnumodifiche.enabled = vero
+mnustampa.enabled = vero
+mnuopzioni.enabled = vero
+mnutesto.enabled = vero
+
+END SUB
+
+SUB cancella_menu ()
+mnumodifiche.visible = falso
+mnustampa.visible = falso
+mnuopzioni.visible = falso
+mnutesto.visible = falso
+mnusalva.visible = falso
+mnupuntodomanda.visible = falso
+mnuc.visible = falso
+mnuaddFrasi.visible = falso
+END SUB
+
+SUB caricaFrasario ()
+ operazione = falso
+DO WHILE rplfrasario.listcount
+  rplfrasario.REMOVEITEM 0
+LOOP
+ON LOCAL ERROR GOTO ff2
+OPEN nometipo$ FOR INPUT AS #1
+   DO WHILE NOT EOF(1)
+     LINE INPUT #1, i$
+     i$ = RTRIM$(i$)
+     IF INSTR(i$, "<") > 0 THEN
+         i$ = i$ + CHR$(13) + CHR$(10)
+     ELSE
+         i$ = i$ + " "
+     END IF
+     IF LEFT$(i$, 1) <> "(" THEN rplfrasario.ADDITEM i$
+   LOOP
+operazione = vero
+CLOSE #1
+rplfrasario.ADDITEM "~~~"
+mnuaddFrasi.visible = vero
+EXIT SUB
+ff2:
+    IF ERR = 52 THEN RESUME NEXT
+    IF ERR = 53 THEN
+    msg$ = "" + CHR$(13) + CHR$(13)
+    msg$ = msg$ + " Questo FRASARIO NON e' nell'archivio " + CHR$(13) + CHR$(13)
+    MSGBOX msg$
+    END IF
+    EXIT SUB
+END SUB
+
+SUB Cmdalunni_Click ()
+ON LOCAL ERROR GOTO alunnierrore
+'---------
+FOR i% = 5 TO LEN(abc$) STEP 5
+h% = h% + ASC(MID$(abc$, i%, 1))
+NEXT
+'MSGBOX STR$(h%)
+IF h% <> 12636 THEN : MSGBOX "cmdalunni": END
+'---------
+
+
+IF rplalunni.listcount = 0 THEN
+   msg$ = " Non ci sono alunni." + CHR$(13) + CHR$(10)
+   msg$ = msg$ + " Seleziona la classe !!"
+   MSGBOX msg$
+   rplalunni.visible = falso
+   testoclasse.SETFOCUS
+   EXIT SUB
+   END IF
+
+IF rplalunni.visible = falso AND rplalunni.listcount > 0 THEN
+   rplalunni.visible = vero
+   
+   END IF
+rplalunni.SETFOCUS
+IF rplalunni.text = "" THEN rplalunni.listindex = 0
+EXIT SUB
+alunnierrore:
+RESUME NEXT
+END SUB
+
+SUB Cmdclasse_Click ()
+'---------
+FOR i% = 6 TO LEN(abc$) STEP 6
+h% = h% + ASC(MID$(abc$, i%, 1))
+NEXT
+'MSGBOX STR$(h%)
+IF h% <> 10123 THEN : MSGBOX "cmdclasse": END
+
+IF rplclasse.visible = falso THEN
+   CALL aggRplclasse
+   rplclasse.visible = vero
+   rplclasse.SETFOCUS
+   IF rplclasse.listcount > 0 THEN rplclasse.listindex = 0
+   EXIT SUB
+   END IF
+rplclasse.visible = falso
+testoclasse.SETFOCUS
+END SUB
+
+SUB Cmdq2_Click ()
+FOR i% = 1 TO LEN(abc$) STEP 11
+h% = h% + ASC(MID$(abc$, i%, 1))
+NEXT
+'MSGBOX STR$(h%)
+IF h% <> 5755 THEN : MSGBOX "cmdq2": END
+'---------
+IF cmdq2.caption = "&X" THEN
+   cmdq2.caption = "&x"
+   q1$ = testo.text
+   testo.text = q2$
+   testotipo.text = "Q2" + MID$(testotipo.text, 3)       'cambio mometipo
+   mnuscheda.enabled = falso
+   mnumodifiche.enabled = falso
+   mnustampa.enabled = falso
+   mnuopzioni.enabled = falso
+   mnutesto.enabled = falso
+   mnusalva.enabled = falso
+   testoalunni.visible = falso
+   testoclasse.visible = falso
+   testotipo.enabled = falso
+   cmdtipo.visible = falso
+   cmdclasse.visible = falso
+   cmdalunni.visible = falso
+   testo.enabled = falso
+   EXIT SUB
+   END IF
+
+IF cmdq2.caption = "&x" THEN
+   cmdq2.caption = "&X"
+   q2$ = testo.text
+   testo.text = q1$
+   testotipo.text = "Q1" + MID$(testotipo.text, 3)      'cambio mometipo
+   mnuscheda.enabled = vero
+   mnumodifiche.enabled = vero
+   mnustampa.enabled = vero
+   mnuopzioni.enabled = vero
+   mnutesto.enabled = vero
+   mnusalva.enabled = vero
+   testoalunni.visible = vero
+   testoclasse.visible = vero
+   testotipo.enabled = vero
+   cmdtipo.visible = vero
+   cmdclasse.visible = vero
+   cmdalunni.visible = vero
+   testo.enabled = vero
+   EXIT SUB
+   END IF
+
+END SUB
+
+SUB Cmdtipo_Click ()
+FOR i% = 7 TO LEN(abc$) STEP 7
+h% = h% + ASC(MID$(abc$, i%, 1))
+NEXT
+'MSGBOX STR$(h%)
+IF h% <> 8515 THEN : MSGBOX "cmdtipo": END
+'---------
+
+CALL aggRpltipo
+IF rpltipo.visible = falso THEN
+   rpltipo.visible = vero
+   rpltipo.SETFOCUS
+   IF rpltipo.listcount > 0 THEN rpltipo.listindex = 0
+   EXIT SUB
+   END IF
+rpltipo.visible = falso
+testotipo.SETFOCUS
+END SUB
+
+SUB elabNomeAlunni ()
+operazione = falso
+testoalunni.text = LTRIM$(RTRIM$(testoalunni.text))
+testoalunni.text = UCASE$(testoalunni.text)
+ IF testoalunni.text = "" THEN
+     MSGBOX " Manca il nome dell'alunno "
+     EXIT SUB
+  END IF
+
+ IF LEN(testoalunni.text) < 2 THEN
+      MSGBOX " Il nome dell'alunno non ha caratteri sufficienti "
+      EXIT SUB
+  END IF
+
+ L% = INT(11 - LEN(testoalunni.text) / 2)
+  IF L% > 0 THEN
+         testoalunni.text = SPACE$(L%) + testoalunni.text
+  END IF
+ operazione = vero
+END SUB
+
+SUB elabnomeclasse ()
+ON LOCAL ERROR GOTO err1
+operazione = falso
+testoclasse.text = LTRIM$(RTRIM$(testoclasse.text))
+testoclasse.text = UCASE$(testoclasse.text)
+IF LEN(testoclasse.text) = 0 THEN
+     testoclasse.text = ""
+     MSGBOX "scrivi il nome della classe (es. 1b/95 ) "
+     testoclasse.SETFOCUS
+     EXIT SUB
+END IF
+
+IF LEN(testoclasse.text) < 5 THEN
+     testoclasse.text = ""
+     MSGBOX " Il nome della classe deve essere di 5 caratteri (es. 3b.95) "
+     testoclasse.SETFOCUS
+     EXIT SUB
+END IF
+IF ASC(MID$(testoclasse.text, 1, 1)) < 49 OR ASC(MID$(testoclasse.text, 1, 1)) > 53 THEN
+     MSGBOX "1 cifra non ok"
+     testoclasse.text = ""
+     testoclasse.SETFOCUS
+     EXIT SUB
+END IF
+IF ASC(MID$(testoclasse.text, 2, 1)) < 65 OR ASC(MID$(testoclasse.text, 2, 1)) > 90 THEN
+     MSGBOX "2 lettera non ok"
+     testoclasse.text = ""
+     testoclasse.SETFOCUS
+     EXIT SUB
+END IF
+IF ASC(MID$(testoclasse.text, 4, 1)) = 57 OR ASC(MID$(testoclasse.text, 4, 1)) = 48 THEN
+   GOTO salto
+   ELSE
+   MSGBOX "1 cifra dell'anno non ok"
+   testoclasse.text = ""
+   testoclasse.SETFOCUS
+   EXIT SUB
+END IF
+salto:
+IF ASC(MID$(testoclasse.text, 5, 1)) < 48 OR ASC(MID$(testoclasse.text, 5, 1)) > 57 THEN
+    MSGBOX "2 cifra anno non ok"
+    testoclasse.text = ""
+    testoclasse.SETFOCUS
+    EXIT SUB
+ END IF
+IF ASC(MID$(testoclasse.text, 4, 1)) = 57 AND ASC(MID$(testoclasse.text, 5, 1)) < 53 THEN
+    MSGBOX "anno inferiore al 1995"
+    testoclasse.text = ""
+    testoclasse.SETFOCUS
+    EXIT SUB
+ END IF
+
+ testoclasse.text = LEFT$(testoclasse.text, 2) + " " + MID$(testoclasse.text, 4, 2)
+ nomeclasse$ = LEFT$(testoclasse.text, 2) + "_" + RIGHT$(testoclasse.text, 2) + ".cla"
+ operazione = vero
+EXIT SUB
+err1:
+RESUME NEXT
+END SUB
+
+SUB elabnomescheda ()
+CALL elabnomeclasse
+IF operazione = falso THEN EXIT SUB
+CALL elabnometipo
+IF operazione = falso THEN EXIT SUB
+CALL elabNomeAlunni
+IF operazione = falso THEN EXIT SUB
+cl1$ = LEFT$(LTRIM$(RTRIM$(testoclasse.text)), 2)
+cl2$ = MID$(LTRIM$(RTRIM$(testoclasse.text)), 5, 1)
+a1$ = LEFT$(LTRIM$(RTRIM$(testoalunni.text)), 5)
+fin$ = LEFT$(LTRIM$(RTRIM$(testotipo.text)), 3)
+nomescheda$ = cl1$ + cl2$ + a1$ + "." + fin$
+FOR i% = 1 TO 8
+IF MID$(nomescheda$, i%, 1) = " " THEN MID$(nomescheda$, i%, 1) = "_"
+NEXT
+END SUB
+
+SUB elabnometipo ()
+operazione = falso
+testotipo.text = LTRIM$(RTRIM$(testotipo.text))
+testotipo.text = UCASE$(testotipo.text)
+IF LEN(testotipo.text) > 3 THEN
+     testotipo.text = ""
+     nometipo$ = ""
+     MSGBOX "il nome deve avere max 3 caratteri  "
+     testotipo.SETFOCUS
+     EXIT SUB
+END IF
+IF LEN(testotipo.text) = 0 THEN
+ MSGBOX " Imposta il tipo di Q "
+ rpltipo.visible = vero
+ testotipo.SETFOCUS
+ EXIT SUB
+ END IF
+ nometipo$ = LEFT$(testotipo.text, 3) + ".txt"
+ testotipo.text = LEFT$(testotipo.text, 3)
+operazione = vero
+END SUB
+
+SUB Form_Load ()
+ ab$ = "?SRMPCNpmd,A_pkcjmKsqamjglm(((N?JK?LMT?(((&SB'"
+ 
+inizio3:
+ ty% = ty% + 1
+ IF ty% > LEN(ab$) THEN GOTO fine3
+ IF MID$(abc$, ty%, 1) = CHR$(13) THEN
+ melo$ = melo$ + CHR$(13) + CHR$(10)
+ ty% = ty% + 1: GOTO inizio3
+ END IF
+ a% = ASC(MID$(ab$, ty%, 1))
+ IF ty% AND 3 = 0 THEN a% = a% - 1
+ IF ty% AND 3 = 1 THEN a% = a% + 1
+ IF ty% AND 3 = 2 THEN a% = a% - 2
+ IF ty% AND 3 = 3 THEN a% = a% + 2
+ melo$ = melo$ + CHR$(a%)
+ GOTO inizio3
+fine3:
+CALL cancella_menu
+timer2.interval = 100
+CALL protez
+CALL protez
+CALL protez
+messaggio$ = melo$
+CALL leggi_drvSt
+ncar% = 72
+CALL leggi_colori
+marginesinistro = 20
+masinistro.text = "M.sin." + LTRIM$(STR$(marginesinistro)) + " mm"
+marginesuperiore = 10
+masuperiore.text = "M.sup." + LTRIM$(STR$(marginesuperiore)) + " mm"
+
+END SUB
+
+SUB img1_click ()
+img1.top = 3
+img1.left = 10
+CALL protez
+IF img1.width < 52 THEN
+img1.height = img1.height + 3
+img1.width = img1.width + 5
+END IF
+tit1$ = " Scuola "
+tit2$ = " Media  "
+tit3$ = " Gonars "
+img$ = img$ + "                     ³" + CHR$(13) + CHR$(10)
+img$ = img$ + "             ³³      ³" + CHR$(13) + CHR$(10)
+img$ = img$ + "           ÉËËËË» ÉËËÎË»" + CHR$(13) + CHR$(10)
+img$ = img$ + "           Ç××××¶ Ç    ¶  ³" + CHR$(13) + CHR$(10)
+img$ = img$ + "           Ç××××¶ Ç××××¶ ÚÐ¿" + CHR$(13) + CHR$(10)
+img$ = img$ + "           Ç××××¶ Ç    ¶ÚÏÍÏ¿" + CHR$(13) + CHR$(10)
+img$ = img$ + "           Ç××××¶ Ç××××¶³###³" + CHR$(13) + CHR$(10)
+img$ = img$ + "   Õ   ÕÍÍÍÊÊÊÊÊÊ¸Ç    ¶³###³ÍÍ^^^^ÍÍ»" + CHR$(13) + CHR$(10)
+img$ = img$ + "  ÖÎ·  ³ð±ððððððð³Ç××××¶³###³± ± ± ± º" + CHR$(13) + CHR$(10)
+img$ = img$ + " ÖÊÊÊ· ³ððð±ððððð³Ç    ¶³###³ ± ± ± ±º" + CHR$(13) + CHR$(10)
+img$ = img$ + "ÖÎÎÎÎÎ·³ðððððÛßÛßÛßÛßÛßÛßÛ##³± ± ± ± º" + CHR$(13) + CHR$(10)
+img$ = img$ + "ºãããããº³ðððððºþÜþÜþÜþÜþÜþº##³" + tit1$ + "º" + CHR$(13) + CHR$(10)
+img$ = img$ + "ººººººº³ð±ððÖ×ÒÒÒÒÒ·þÜþÜþº##³" + tit2$ + "º" + CHR$(13) + CHR$(10)
+img$ = img$ + "ÎÎÎÎÎÎÎ´ððððÌÎÎÎÎÎÎ¹þÜþÜþº##³" + tit3$ + "ÌÍÍ»" + CHR$(13) + CHR$(10)
+img$ = img$ + "ããããããã³ðÞÛÛÃÅÅÅÅÅÅ´þÜþÜþº##³± ± ± ± ÌÍÍñÍ»" + CHR$(13) + CHR$(10)
+img$ = img$ + "ÎÎÎÎÎÎÎµðÞÞÞÃÅÅÅÅÅÅ´þÜþÜþº²²²ßßßßßßßßÌÍÍÍÍñÍ»" + CHR$(13) + CHR$(10)
+img$ = img$ + "ºãããããã³ðÞÞÞÃÅÅÅÅÅÅ´þÜþÜþº²²²ßßßßßßßßÌÍÍÍÍÍÍ»" + CHR$(13) + CHR$(10)
+img$ = img$ + "ºº   ºº³ðÞÞÞÃÅÅÅÅÅÅ´þÜþÜþº²²²ßßßßßßßßß ßßßßßß" + CHR$(13) + CHR$(10)
+img$ = img$ + "ÛßßÜÜÜÜ³ðÞÞÞÃÅÅÅÅÅÅ´þÜþÜþº²²²ÜÛÛÛÛßßßßßßßßßßß" + CHR$(13) + CHR$(10)
+img$ = img$ + "     ßÛÛÛÞÞÞÃÅ    Å´ÜÛÛÛÛÛÛÛßßßß" + CHR$(13) + CHR$(10)
+img$ = img$ + "        ßßßßßßßßßßßßßß" + CHR$(13) + CHR$(10)
+img1.CLS
+img1.PRINT img$
+FOR i% = 1 TO LEN(img$) - 2
+ q1% = ASC(MID$(img$, i%, 1))
+ q2% = ASC(MID$(img$, i% + 1, 1))
+ 
+ IF q1% > q2% THEN tot% = tot% + (q1% - q2%)
+ IF q1% < q2% THEN tot% = tot% + (q2% - q1%)
+NEXT
+ 
+IF tot% <> 28405 THEN :  END
+END SUB
+
+SUB Img1_KeyPress (keyascii AS INTEGER)
+CALL protez
+img1.visible = falso
+ RANDOMIZE TIMER
+ testop.top = INT(RND * 7) + 2
+ RANDOMIZE TIMER
+ testop.left = INT(RND * 4) + 1
+ testop.width = 80 - testop.left * 2
+ testop.height = 22 - testop.top
+ testop.visible = vero
+ testop.SETFOCUS
+END SUB
+
+SUB impagina ()
+righe% = 0
+tst$ = testo.text
+e11:
+acapo% = INSTR(tst$, CHR$(13))
+IF LEN(tst$) > ncar% THEN
+       IF acapo% = 0 OR acapo% > ncar% THEN
+           N% = ncar% + 1
+           DO
+             N% = N% - 1
+           LOOP UNTIL MID$(tst$, N%, 1) = " " OR N% = 1
+           IF N% < 2 THEN N% = ncar%
+           riga$ = riga$ + LEFT$(tst$, N% - 1) + CHR$(13) + CHR$(10)
+           tst$ = RIGHT$(tst$, LEN(tst$) - N%)  'tst$ = MID$(tst$, n% + 1)
+           righe% = righe% + 1
+           GOTO e11
+       ELSE    ' acapo% <=   ncar%
+
+         riga$ = riga$ + LEFT$(tst$, acapo% + 1)
+         righe% = righe% + 1
+         tst$ = RIGHT$(tst$, LEN(tst$) - acapo% - 1) 'tst$ = MID$(tst$, acapo% + 2)
+         GOTO e11
+      END IF
+
+ELSE      ' LEN(tst$) < = ncar%
+
+   IF acapo% > 0 THEN
+      riga$ = riga$ + LEFT$(tst$, acapo% + 1)
+      righe% = righe% + 1
+      tst$ = RIGHT$(tst$, LEN(tst$) - acapo% - 1) 'tst$ = MID$(tst$, acapo% + 2)  '
+      GOTO e11
+     ELSE
+     riga$ = riga$ + tst$
+     END IF
+END IF
+testo.text = riga$
+
+IF SCREEN.height = 43 THEN EXIT SUB
+IF LEFT$(testotipo.text, 2) = "Q1" OR LEFT$(testotipo.text, 2) = "Q2" THEN
+    IF righe% > 11 THEN
+    rplfrasario.top = 3
+    END IF
+END IF
+
+END SUB
+
+SUB leggi_alunni ()
+testo.text = ""
+'------
+DO WHILE rplalunni.listcount
+rplalunni.REMOVEITEM 0
+LOOP
+'-----
+ON LOCAL ERROR GOTO apriErr
+N% = 0
+OPEN nomeclasse$ FOR INPUT AS #1
+DO WHILE NOT EOF(1)
+   LINE INPUT #1, al$
+   al$ = LTRIM$(RTRIM$(UCASE$(al$)))
+  IF al$ <> "" THEN
+      i% = INSTR(al$, "/")
+      IF i% = 0 THEN rplalunni.ADDITEM LEFT$(al$, 13) + " ? sesso"
+      i% = INSTR(al$, "/M")
+      IF i% > 0 THEN rplalunni.ADDITEM LEFT$(al$, i% - 1) + CHR$(255) 'maschio
+      i% = INSTR(al$, "/F")
+      IF i% > 0 THEN rplalunni.ADDITEM LEFT$(al$, i% - 1) 'femmina
+  END IF
+  N% = N% + 1
+  IF N% > 40 THEN EXIT SUB
+LOOP
+CLOSE #1
+IF N% > 0 THEN
+testoalunni.text = rplalunni.list(0)
+ELSE
+testoalunni.text = "------"
+END IF
+EXIT SUB
+apriErr:
+    IF ERR = 0 THEN RESUME NEXT
+ IF ERR = 53 THEN
+    MSGBOX "LA CLASSE NON NELL'ARCHIVIO ", 0, "    A T T E N Z I O N E   "
+    testoclasse.SETFOCUS
+    EXIT SUB
+ END IF
+IF ERR = 52 THEN
+    MSGBOX "nome errato ", 0, "    A T T E N Z I O N E   "
+    testoclasse.SETFOCUS
+    EXIT SUB
+ END IF
+MSGBOX STR$(ERR)
+RESUME NEXT
+END SUB
+
+SUB leggi_classe ()
+testo.text = ""
+ ON LOCAL ERROR GOTO Ee1
+            'OPEN nomeclasse$ FOR BINARY AS 1
+            'testo.text = INPUT$(LOF(1), 1)
+            ' CLOSE #1
+OPEN nomeclasse$ FOR INPUT AS #1
+     testo.width = 47: testo.left = 14
+     testo.height = SCREEN.height - 2
+     testo.top = 1
+     testo.visible = vero
+DO WHILE NOT EOF(1)
+ LINE INPUT #1, io$
+ testo.text = testo.text + io$ + CHR$(13) + CHR$(10)
+ LOOP
+CLOSE #1
+EXIT SUB
+Ee1:
+   
+    IF ERR = 52 THEN RESUME NEXT
+    IF ERR = 53 THEN
+    msg$ = " NON E' NELL'ARCHIVIO " + CHR$(13) + CHR$(13)
+    msg$ = msg$ + " VUOI UN TESTO NUOVO ? "
+    v% = MSGBOX(msg$, 4, "    A T T E N Z I O N E   ")
+    END IF
+    IF v% = 6 THEN
+       testo.width = 50: testo.left = 14
+       testo.height = SCREEN.height - 2
+       testo.top = 1
+       testo.visible = vero
+       testo.SETFOCUS
+     END IF
+       IF v% = 7 THEN testoclasse.SETFOCUS
+    EXIT SUB
+END SUB
+
+SUB leggi_colori ()
+ ON LOCAL ERROR GOTO ErroreLettura
+OPEN "COLORI.ini" FOR INPUT AS 1
+    FOR i% = 0 TO 17
+        INPUT #1, num%
+        SCREEN.ControlPanel(i%) = num%
+    NEXT i%
+INPUT #1, num%: img2.backcolor = num%
+INPUT #1, num%: img2.forecolor = num%
+INPUT #1, num%: img1.backcolor = num%
+INPUT #1, num%: img1.forecolor = num%
+INPUT #1, num%: rplstampanti.backcolor = num%
+INPUT #1, num%: rplstampanti.forecolor = num%
+INPUT #1, num%: rplfrasario.backcolor = num%
+INPUT #1, num%: rplfrasario.forecolor = num%
+INPUT #1, num%: rplalunni.backcolor = num%
+INPUT #1, num%: rplalunni.forecolor = num%
+INPUT #1, num%: rpltipo.backcolor = num%
+INPUT #1, num%: rpltipo.forecolor = num%
+INPUT #1, num%: rplclasse.backcolor = num%
+INPUT #1, num%: rplclasse.forecolor = num%
+INPUT #1, num%: testotipo.backcolor = num%
+INPUT #1, num%: testotipo.forecolor = num%
+INPUT #1, num%: testoclasse.backcolor = num%
+INPUT #1, num%: testoclasse.forecolor = num%
+INPUT #1, num%: testoalunni.backcolor = num%
+INPUT #1, num%: testoalunni.forecolor = num%
+INPUT #1, num%: testop.backcolor = num%
+INPUT #1, num%: testop.forecolor = num%
+INPUT #1, num%: cmdtipo.backcolor = num%
+ '
+INPUT #1, num%: cmdalunni.backcolor = num%
+ '
+cmdq2.backcolor = num%
+
+INPUT #1, num%: cmdclasse.backcolor = num%
+ '
+INPUT #1, num%: masinistro.backcolor = num%
+INPUT #1, num%: masinistro.forecolor = num%
+INPUT #1, num%: masuperiore.backcolor = num%
+INPUT #1, num%: masuperiore.forecolor = num%
+INPUT #1, num%: testo.backcolor = num%
+INPUT #1, num%: testo.forecolor = num%
+INPUT #1, num%: testomessaggio.backcolor = num%
+INPUT #1, num%: testomessaggio.forecolor = num%
+
+
+RitornoErroreLettura:
+ CLOSE 1
+EXIT SUB
+ErroreLettura:
+
+MSGBOX "Non e' possibile leggere il file Colori.ini"
+GOTO llll
+' settaggio -----
+SCREEN.ControlPanel(0) = 6  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 0
+SCREEN.ControlPanel(6) = 7
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 15   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 4   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 0   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+ img2.backcolor = 7
+ img2.forecolor = 0
+ img1.backcolor = 7
+ img1.forecolor = 0
+ rplstampanti.backcolor = 7
+ rplstampanti.forecolor = 0
+ rplfrasario.backcolor = 7
+ rplfrasario.forecolor = 0
+ rplalunni.backcolor = 7
+ rplalunni.forecolor = 0
+ rpltipo.backcolor = 7
+ rpltipo.forecolor = 0
+ rplclasse.backcolor = 7
+ rplclasse.forecolor = 0
+ testotipo.backcolor = 7
+ testotipo.forecolor = 0
+ testoclasse.backcolor = 7
+ testoclasse.forecolor = 0
+ testoalunni.backcolor = 7
+ testoalunni.forecolor = 0
+ testop.backcolor = 7
+ testop.forecolor = 0
+ cmdtipo.backcolor = 7
+ '
+ cmdalunni.backcolor = 7
+ '
+ cmdclasse.backcolor = 7
+ '
+ masinistro.backcolor = 7
+ masinistro.forecolor = 0
+ masuperiore.backcolor = 7
+ masuperiore.forecolor = 0
+ testo.backcolor = 7
+ testo.forecolor = 0
+ testomessaggio.backcolor = 7
+ testomessaggio.forecolor = 0
+llll:
+RESUME RitornoErroreLettura
+ END SUB
+
+SUB leggi_drvSt ()
+ON LOCAL ERROR GOTO drvErr
+OPEN "st.DRV" FOR INPUT AS #1
+LINE INPUT #1, io$
+CLOSE #1
+
+punto% = INSTR(io$, ".")
+tstSt.text = LEFT$(io$, punto% - 1)
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i360c1 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i360c2 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i216c1 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i216c2 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i12cpic1 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i12cpic2 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i10cpic1 = VAL(LEFT$(io$, punto% - 1))
+io$ = MID$(io$, punto% + 1)
+punto% = INSTR(io$, ".")
+i10cpic2 = VAL(LEFT$(io$, punto% - 1))
+
+EXIT SUB
+drvErr:
+MSGBOX "Non trovo il file st.drv " + STR$(ERR)
+EXIT SUB
+END SUB
+
+SUB leggi_tipo ()
+testo.text = ""
+ON LOCAL ERROR GOTO hh1
+ OPEN nometipo$ FOR INPUT AS #1
+   testomessaggio.visible = vero
+   testomessaggio.text = "  A T T E N D E R E  "
+   testomessaggio.SETFOCUS
+ DO WHILE NOT EOF(1)
+   LINE INPUT #1, ii$
+   testo.text = testo.text + ii$ + CHR$(13) + CHR$(10)
+ LOOP
+CLOSE #1
+testomessaggio.visible = falso
+ testo.width = 80: testo.left = 0
+ testo.top = 3
+ testo.height = SCREEN.height - 4
+ testo.visible = vero
+EXIT SUB
+hh1:
+    IF ERR = 52 THEN RESUME NEXT
+    IF ERR = 53 THEN
+    msg$ = " NON E' NELL'ARCHIVIO " + CHR$(13) + CHR$(13)
+    msg$ = msg$ + "VUOI UN TESTO NUOVO ? "
+    v% = MSGBOX(msg$, 4, "    A T T E N Z I O N E   ")
+    END IF
+    IF v% = 6 THEN
+        testo.width = 80: testo.left = 0
+        testo.top = 3
+        testo.height = SCREEN.height - 4
+        testo.visible = vero
+        testo.SETFOCUS
+
+    END IF
+    IF v% = 7 THEN testotipo.SETFOCUS
+    EXIT SUB
+END SUB
+
+SUB MaSinistro_KeyUp (keycode AS INTEGER, shift AS INTEGER)
+IF keycode = 43 THEN marginesinistro = marginesinistro + 1
+IF keycode = 45 THEN marginesinistro = marginesinistro - 1
+IF marginesinistro > 25 THEN marginesinistro = 25
+IF marginesinistro < 6 THEN marginesinistro = 6
+masinistro.text = "M.sin." + LTRIM$(STR$(marginesinistro)) + " mm"
+END SUB
+
+SUB MaSuperiore_KeyUp (keycode AS INTEGER, shift AS INTEGER)
+IF keycode = 43 THEN marginesuperiore = marginesuperiore + 1
+IF keycode = 45 THEN marginesuperiore = marginesuperiore - 1
+IF marginesuperiore < 6 THEN marginesuperiore = 6
+masuperiore.text = "M.sup." + LTRIM$(STR$(marginesuperiore)) + " mm"
+END SUB
+
+SUB mnu43_Click ()
+q4.HIDE
+IF mnu43.caption = "&Video: 43 linee" THEN
+   mnu43.caption = "&Video: 25 linee"
+   WIDTH 80, 43
+   ELSE
+   mnu43.caption = "&Video: 43 linee"
+   WIDTH 80, 25
+   END IF
+q4.SHOW
+q4.height = SCREEN.height    ' Imposta l'altezza 
+IF stato = 11 THEN testo.height = SCREEN.height - 2
+IF stato = 12 THEN testo.height = SCREEN.height - 4
+
+END SUB
+
+SUB mnuAddFrasi_Click ()
+mnuaddFrasi.checked = vero
+base$ = testo.text
+CALL parametri_compilaz
+END SUB
+
+SUB mnucolore1_Click ()
+ON LOCAL ERROR GOTO colorErr
+OPEN "color1.dat" FOR INPUT AS #1
+OPEN "colori.ini" FOR OUTPUT AS #2
+DO WHILE NOT EOF(1)
+   INPUT #1, i
+  PRINT #2, i
+LOOP
+CLOSE #1
+CLOSE #2
+CALL leggi_colori
+zaw:
+EXIT SUB
+colorErr:
+MSGBOX "Non trovo color1.dat o non riesco a scrivere colori.ini"
+RESUME zaw
+END SUB
+
+SUB mnucolore2_Click ()
+ON LOCAL ERROR GOTO colorErr2
+OPEN "color2.dat" FOR INPUT AS #1
+OPEN "colori.ini" FOR OUTPUT AS #2
+DO WHILE NOT EOF(1)
+   INPUT #1, i
+  PRINT #2, i
+LOOP
+CLOSE #1
+CLOSE #2
+CALL leggi_colori
+zaw1:
+EXIT SUB
+colorErr2:
+MSGBOX " Non trovo color2.dat o non riesco a scrivere colori.ini"
+RESUME zaw1
+END SUB
+
+
+
+SUB mnucolore3_Click ()
+ON LOCAL ERROR GOTO colorErr3
+OPEN "color3.dat" FOR INPUT AS #1
+OPEN "colori.ini" FOR OUTPUT AS #2
+DO WHILE NOT EOF(1)
+   INPUT #1, i
+  PRINT #2, i
+LOOP
+CLOSE #1
+CLOSE #2
+CALL leggi_colori
+zaw3:
+EXIT SUB
+colorErr3:
+MSGBOX " Non trovo color3.dat o non riesco a scrivere colori.ini"
+RESUME zaw3
+END SUB
+
+SUB mnucoloreBN_Click ()
+ON LOCAL ERROR GOTO colorErr1
+OPEN "colorBN.dat" FOR INPUT AS #1
+OPEN "colori.ini" FOR OUTPUT AS #2
+DO WHILE NOT EOF(1)
+   INPUT #1, i
+   PRINT #2, i
+LOOP
+CLOSE #1
+CLOSE #2
+CALL leggi_colori
+zawbn:
+EXIT SUB
+colorErr1:
+MSGBOX " Non trovo colorbn.dat o non riesco a scrivere colori.ini"
+RESUME zawbn
+END SUB
+
+SUB mnuelabclasse_Click ()
+mnuaddFrasi.visible = falso
+stato = 11 '
+' avvertire di salvare ...
+ CALL protez
+IF LEN(testo.text) > 10 AND modificato = vero THEN
+msg$ = "Il testo non e' stato salvato" + CHR$(13) + CHR$(10)
+msg$ = msg$ + "Desideri salvarlo ? "
+    v# = MSGBOX(msg$, 4, " ATTENZIONE ")
+ IF v# = 6 THEN  ' risposta SI
+    CALL mnuSalva_Click
+ END IF
+modificato = falso
+EXIT SUB
+END IF
+testo.text = ""
+mnustampaQ12.checked = falso
+testo.visible = falso
+rplfrasario.visible = falso
+marginesinistro = 20
+marginesuperiore = 20
+masinistro.text = "M. sin." + STR$(marginesinistro)
+masuperiore.text = "M. sup." + STR$(marginesuperiore)
+masinistro.visible = falso
+masuperiore.visible = falso
+testotipo.visible = falso
+rpltipo.visible = falso
+cmdtipo.visible = falso
+testoalunni.visible = falso
+rplalunni.visible = falso
+cmdalunni.visible = falso
+testoclasse.visible = vero
+cmdclasse.visible = vero
+rplclasse.visible = vero
+rplclasse.SETFOCUS
+CALL aggRplclasse
+testoclasse.SETFOCUS
+END SUB
+
+SUB mnuElimina_Click ()
+testo.seltext = ""
+CALL protez
+END SUB
+
+SUB mnuEsci_Click ()
+    IF modificato = falso THEN GOTO uscita1 ' si ha quando il testo non e' stato cambiato
+    m$ = "  ATTENZIONE:  " + CHR$(13)
+    m$ = m$ + CHR$(13)
+    m$ = m$ + " Il testo e' stato modificato " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Vuoi salvarlo ? " + CHR$(13)
+    v# = MSGBOX(m$, 4, " INFORMAZIONE: ")
+ IF v# = 7 THEN GOTO uscita1 ' risposta no
+ CALL mnuSalva_Click
+ END
+uscita1:
+ 'INT ((superiore - inferiore + 1)*RND + inferiore)
+ RANDOMIZE TIMER
+ te% = INT(RND * 8)
+ IF te% = 1 THEN MSGBOX testop.text + SPACE$(80)
+ IF te% = 3 THEN MSGBOX SPACE$(80) + testop.text
+ IF te% = 0 THEN MSGBOX SPACE$(80) + testop.text + SPACE$(80)
+ END
+END SUB
+
+SUB mnufrasario_Click ()
+ mnuaddFrasi.visible = falso
+ CALL protez
+rplfrasario.visible = falso
+IF LEN(testo.text) > 10 AND modificato = vero THEN
+msg$ = "Il testo non e' stato salvato" + CHR$(13) + CHR$(10)
+msg$ = msg$ + "Desideri salvarlo ? "
+    v# = MSGBOX(msg$, 4, " ATTENZIONE ")
+ IF v# = 6 THEN  ' risposta SI
+    CALL mnuSalva_Click
+ END IF
+modificato = falso
+EXIT SUB
+END IF
+stato = 12
+marginesinistro = 20
+marginesuperiore = 20
+masinistro.text = "M. sin." + STR$(marginesinistro)
+masuperiore.text = "M. sup." + STR$(marginesuperiore)
+masinistro.visible = falso
+masuperiore.visible = falso
+'------
+testo.text = ""
+testo.visible = falso
+'------
+mnustampaQ12.checked = falso
+testoclasse.visible = falso
+cmdclasse.visible = falso
+rplclasse.visible = falso
+testoalunni.visible = falso
+cmdalunni.visible = falso
+rplalunni.visible = falso
+cmdtipo.visible = vero
+testotipo.visible = vero
+rpltipo.visible = vero
+'------
+DO WHILE rpltipo.listcount
+rpltipo.REMOVEITEM 0
+LOOP
+file2.REFRESH
+file2.pattern = "???.txt"  ' imposta il filtro dei file
+nl% = file2.listcount
+DO WHILE nl%
+rpltipo.ADDITEM LEFT$(file2.list(nl% - 1), LEN(file2.list(nl% - 1)) - 4)
+nl% = nl% - 1
+LOOP
+rpltipo.SETFOCUS
+testotipo.text = "Q"
+testotipo.SETFOCUS
+testotipo.selstart = LEN(testotipo.text)
+testotipo.SelLength = 0
+END SUB
+
+SUB mnuimpagina_click ()
+  'elimina i return ed impagina
+tst$ = testo.text
+i% = 1
+t1:
+i% = i% + 1
+IF MID$(tst$, i%, 1) = CHR$(13) AND MID$(tst$, (i% - 1), 1) <> "<" THEN
+   L% = LEN(tst$)
+   a1$ = LEFT$(tst$, i% - 1)
+   a2$ = RIGHT$(tst$, L% - (i% + 1))
+   tst$ = a1$ + " " + a2$
+   END IF
+IF i% + 3 < LEN(tst$) THEN GOTO t1
+'-----
+testo.text = tst$
+CALL impagina
+END SUB
+
+SUB mnuIncolla_Click ()
+  temp$ = clipboard.GETTEXT()    ' Recupera il testo dal CLIPBOARD.
+  templen% = LEN(testo.seltext) ' Usato per trovare la posizione del cursore.
+  testo.seltext = temp$
+  'Incolla il testo sulla posizione del cursore (sostituisce il testo selezionato).
+  testo.selstart = testo.selstart + LEN(temp$) - templen%
+  ' Posiziona il cursore alla fine del testo incollato.
+END SUB
+
+SUB mnuinstalST_Click ()
+CALL protez
+rplstampanti.visible = vero
+'------
+DO WHILE rplstampanti.listcount
+rplstampanti.REMOVEITEM 0
+LOOP
+'-----
+ON LOCAL ERROR GOTO apriSt
+OPEN "ST.DAT" FOR INPUT AS #1
+DO WHILE NOT EOF(1)
+   LINE INPUT #1, io$
+   io$ = LTRIM$(RTRIM$(UCASE$(io$)))
+   IF io$ <> "" THEN rplstampanti.ADDITEM io$
+   LOOP
+CLOSE #1
+rplstampanti.ADDITEM "Altra stampante"
+rplstampanti.SETFOCUS
+IF rplstampanti.listcount > 0 THEN rplstampanti.listindex = 0
+EXIT SUB
+apriSt:
+    IF ERR = 0 THEN RESUME NEXT
+ IF ERR = 53 THEN
+    MSGBOX "Il file stampanti.dat NON e' accessibile", 0, "    A T T E N Z I O N E   "
+    EXIT SUB
+ END IF
+MSGBOX "errore installa " + STR$(ERR)
+RESUME NEXT
+END SUB
+
+
+SUB mnupuntodomanda_Click ()
+ 'INT ((limitesuperiore - limiteinferiore + 1)*RND + limiteinferiore)
+ RANDOMIZE TIMER
+ testomessaggio.top = INT(RND * 18) + 3
+ RANDOMIZE TIMER
+ testomessaggio.left = INT(RND * 30) + 10
+ IF testomessaggio.visible = falso THEN
+ testomessaggio.visible = vero
+ timer1.interval = 150
+ testomessaggio.SETFOCUS
+ ELSE
+ timer1.interval = 0
+ testomessaggio.visible = falso
+ END IF
+END SUB
+
+SUB mnuSalva_Click ()
+
+ON LOCAL ERROR GOTO erroresalva
+testo.SETFOCUS
+mnuscheda.enabled = vero
+mnumodifiche.enabled = vero
+mnustampa.enabled = vero
+mnuopzioni.enabled = vero
+mnutesto.enabled = vero
+rplfrasario.visible = falso
+
+IF stato = 11 THEN
+  CALL elabnomeclasse
+     IF operazione = falso THEN
+       testoclasse.SETFOCUS
+       EXIT SUB
+     END IF
+   nomesalva$ = nomeclasse$
+END IF
+IF stato = 12 THEN
+  CALL elabnometipo
+     IF operazione = falso THEN
+        testotipo.SETFOCUS
+        EXIT SUB
+      END IF
+   nomesalva$ = nometipo$
+END IF
+IF stato = 13 OR stato = 22 THEN
+  CALL elabnomescheda
+     IF operazione = falso THEN EXIT SUB
+  nomesalva$ = nomescheda$
+END IF
+nomesalva$ = UCASE$(nomesalva$)
+
+IF DIR$(nomesalva$) = nomesalva$ AND LEN(LTRIM$(RTRIM$(testo.text))) < 10 THEN
+    m$ = "  ATTENZIONE:  "
+    m$ = m$ + CHR$(13)
+    m$ = m$ + " Vuoi eliminare questa scheda ??" + CHR$(13)
+    m$ = m$ + CHR$(13)
+    v# = MSGBOX(m$, 4, "")
+    IF v# = 7 THEN EXIT SUB ' risposta no
+    KILL nomesalva$
+ EXIT SUB
+END IF
+
+IF DIR$(nomesalva$) = nomesalva$ THEN
+    m$ = "  ATTENZIONE:  "
+    m$ = m$ + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Esiste un testo con lo stesso nome in archivio !! " + CHR$(13)
+    m$ = m$ + " Voi sostituire il vecchio testo con il presente ? " + CHR$(13)
+    v# = MSGBOX(m$, 4, " INFORMAZIONE: ")
+   IF v# = 7 THEN : modificato = falso: EXIT SUB' risposta no
+END IF
+IF LEN(LTRIM$(RTRIM$(testo.text))) < 10 THEN EXIT SUB
+testo.visible = falso
+testomessaggio.visible = vero
+testomessaggio.text = "  S T O   L A V O R A N D O  "
+testomessaggio.SETFOCUS
+
+SOUND 3000, 1
+
+OPEN nomesalva$ FOR OUTPUT AS 1
+PRINT #1, testo.text
+CLOSE #1
+
+IF stato = 13 THEN CALL apri_scheda  '************
+
+  testomessaggio.visible = falso
+  testo.visible = vero
+ modificato = falso
+www:
+EXIT SUB
+erroresalva:
+ SELECT CASE ERR
+   CASE 70
+     MSGBOX " Errore. Disco protetto . "
+     RESUME www
+   CASE 57                    ' Errore di I/O su periferica
+        MSGBOX " Errore. Non riesco a salvare. "
+        RESUME www
+   CASE 61                    ' Disco pieno
+        MSGBOX " Errore. Non c'Š spazio disponibile sul disco."
+        RESUME www
+   CASE 68                    ' Periferica non disponbile
+        MSGBOX " Errore. Non riesco a salvare. "
+        RESUME www
+   CASE 71                    ' Disco non pronto
+        MSGBOX " Errore. Controllare l 'unita'."
+        RESUME www
+   CASE 5
+        MSGBOX " Errore. "
+        RESUME www
+    CASE ELSE
+        MSGBOX "Errore IRREVERSIBILE  N~ " + STR$(ERR)
+        RESUME www
+ END SELECT
+
+END SUB
+
+SUB mnuscheda_Click ()
+CALL protez
+stato = 13
+testo.visible = falso
+testoRigheVuote.visible = falso
+testo.text = ""
+testoalunni.text = ""
+masinistro.visible = falso
+masuperiore.visible = falso
+rplfrasario.visible = falso
+cmdalunni.visible = vero
+testoalunni.visible = vero
+rplalunni.visible = falso
+rplclasse.visible = falso
+cmdclasse.visible = vero
+testoclasse.visible = vero
+cmdtipo.visible = vero
+testotipo.visible = vero
+rpltipo.visible = falso
+CALL aggRpltipo
+CALL aggRplclasse
+'-- cancella lista alunni ----
+DO WHILE rplalunni.listcount
+rplalunni.REMOVEITEM 0
+LOOP
+'-----
+testoclasse.text = ""
+testoalunni.text = ""
+testotipo.text = ""
+testoclasse.SETFOCUS
+END SUB
+
+SUB mnuSt12cpi_Click ()
+IF mnust12cpi.checked = vero THEN
+   mnust12cpi.checked = falso
+   testo.width = 74: testo.left = 3
+   ncar% = 72
+   CALL mnuimpagina_click
+   EXIT SUB
+   END IF
+IF mnust12cpi.checked = falso THEN
+   mnust12cpi.checked = vero
+   testo.width = 80: testo.left = 0
+   ncar% = 86
+   CALL mnuimpagina_click
+   EXIT SUB
+   END IF
+ END SUB
+
+SUB mnuStampaQ12_Click ()
+
+IF mnustampaQ12.checked = vero THEN
+    mnustampaQ12.checked = falso
+    cmdq2.visible = falso
+    EXIT SUB
+ END IF
+
+IF mnustampaQ12.checked = falso THEN
+    mnustampaQ12.checked = vero
+    CALL apri_scheda
+    EXIT SUB
+END IF
+
+END SUB
+
+SUB mnuStampa_Click ()
+IF masuperiore.visible = falso THEN
+ masuperiore.visible = vero
+ masinistro.visible = vero
+ tstSt.visible = vero
+  m$ = m$ + " Se e' necessario puoi modificare adesso il valore dei margini. " + CHR$(13)
+  m$ = m$ + " (attiva il margine interessato e premi + oppure - )" + CHR$(13)
+  m$ = m$ + " Vai di nuovo su Stampa per stampare."
+  MSGBOX m$
+ EXIT SUB
+END IF
+IF LEN(testo.text) < 4 THEN : MSGBOX "Non ci sono caratteri": EXIT SUB
+IF i360c1 > 0 THEN CALL stampa360
+IF i216c1 > 0 THEN CALL stampa216
+END SUB
+
+SUB mnuStnome_Click ()
+CALL protez
+IF mnustnome.checked = -1 THEN : mnustnome.checked = 0: EXIT SUB
+IF mnustnome.checked = 0 THEN mnustnome.checked = -1
+END SUB
+
+SUB mnuStpausa_Click ()
+CALL protez
+IF mnustpausa.checked = -1 THEN : mnustpausa.checked = 0: EXIT SUB
+IF mnustpausa.checked = 0 THEN : mnustpausa.checked = -1
+END SUB
+
+SUB nmucopia_Click ()
+clipboard.SETTEXT testo.seltext
+END SUB
+
+SUB parametri_compilaz ()
+ CALL protez
+ stato = 22
+IF SCREEN.height = 25 THEN
+   rplfrasario.top = 15
+   rplfrasario.height = 9
+   IF LEFT$(testotipo.text, 2) = "Q1" THEN : testo.top = 2: testo.height = 22
+   IF LEFT$(testotipo.text, 2) = "Q2" THEN : testo.top = 2: testo.height = 22
+   IF LEFT$(testotipo.text, 2) = "Q4" THEN : testo.top = 3: testo.height = 12
+   IF LEFT$(testotipo.text, 2) = "QF" THEN
+    testo.top = 2: testo.height = 18
+    rplfrasario.top = 19: rplfrasario.height = 6
+   END IF
+
+ELSE  '43 linee
+   rplfrasario.top = 27
+   rplfrasario.height = 15
+   IF LEFT$(testotipo.text, 2) = "Q1" THEN : testo.top = 4: testo.height = 23
+   IF LEFT$(testotipo.text, 2) = "Q2" THEN : testo.top = 4: testo.height = 23
+   IF LEFT$(testotipo.text, 2) = "Q4" THEN : testo.top = 10: testo.height = 12
+   IF LEFT$(testotipo.text, 2) = "QF" THEN
+   testo.top = 6: testo.height = 18
+   rplfrasario.top = 24: rplfrasario.height = 17
+   END IF
+END IF
+rplfrasario.listindex = 0
+rplfrasario.visible = vero
+rplfrasario.SETFOCUS
+testo.visible = vero
+mnuscheda.enabled = falso
+mnustampa.enabled = falso
+mnuopzioni.enabled = falso
+mnutesto.enabled = falso
+END SUB
+
+SUB parametri_Lettura ()
+rplfrasario.visible = falso: testo.text = "": base$ = ""
+rpltipo.visible = falso: rplclasse.visible = falso: rplalunni.visible = falso
+
+ IF mnust12cpi.checked = vero THEN
+ cpi = 12: ncar% = 86
+ testo.width = 80: testo.left = 0
+ ELSE
+ cpi = 10: ncar% = 72
+ testo.width = 74: testo.left = 3
+ END IF
+
+IF SCREEN.height = 25 THEN
+   IF LEFT$(testotipo.text, 2) = "Q1" THEN
+   testo.top = 3: testo.height = 21
+   marginesuperiore = 20: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "Q2" THEN
+   testo.top = 3: testo.height = 21
+   marginesuperiore = 160: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "Q4" THEN
+   testo.top = 8: testo.height = 12
+   marginesuperiore = 35: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "QF" THEN
+   testo.top = 3: testo.height = 18
+   marginesuperiore = 35: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   marginesinistro = 18: masinistro.text = "M.sin." + LTRIM$(STR$(marginesinistro)) + " mm"
+   END IF
+ELSE  ' 43 linee
+   IF LEFT$(testotipo.text, 2) = "Q1" THEN
+   testo.top = 10: testo.height = 23
+   marginesuperiore = 20: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "Q2" THEN
+   testo.top = 10: testo.height = 23
+   marginesuperiore = 160: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "Q4" THEN
+   testo.top = 10: testo.height = 12
+   marginesuperiore = 35: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   END IF
+   IF LEFT$(testotipo.text, 2) = "QF" THEN
+   testo.top = 10: testo.height = 18
+   marginesuperiore = 35: masuperiore.text = "M.sup." + STR$(marginesuperiore) + " mm"
+   marginesinistro = 18: masinistro.text = "M.sin." + LTRIM$(STR$(marginesinistro)) + " mm"
+   END IF
+END IF
+testo.visible = vero
+END SUB
+
+ SUB prestampa ()
+   testomessaggio.text = "  A T T E N D E R E  "
+   testomessaggio.visible = vero
+   testomessaggio.SETFOCUS
+   
+     'togli <
+ DO
+     carat% = INSTR(testo.text, "<")
+     IF carat% = 0 THEN EXIT DO
+     testo.text = LEFT$(testo.text, carat% - 1) + RIGHT$(testo.text, LEN(testo.text) - carat%)
+  LOOP UNTIL carat% = 0
+
+'- controlla la pagina -------
+
+ FOR i% = 1 TO LEN(testo.text)
+   IF MID$(testo.text, i%, 1) = CHR$(13) THEN cont% = 0
+   cont% = cont% + 1
+   IF cont% > contmax% THEN contmax% = cont%
+ NEXT
+
+ IF contmax% > 73 AND mnust12cpi.checked = falso THEN
+   MSGBOX "Attenzione!. Questo testo lo stampero' con 12 cpi perche' la riga piu' lunga e' di " + STR$(contmax%) + " caratteri."
+   mnust12cpi.checked = vero
+   testo.width = 80: testo.left = 0
+   ncar% = 86
+ END IF
+
+IF contmax% < 73 AND mnust12cpi.checked = vero THEN
+     msg$ = "Attenzione!. Non e' necessario utilizzare 12 cpi" + CHR$(13)
+     msg$ = msg$ + " La riga piu' lunga e' di " + STR$(contmax%) + " caratteri." + CHR$(13)
+     msg$ = msg$ + " Vuoi proseguire con la stampa compressa?? "
+     v% = MSGBOX(msg$, 4, "    A T T E N Z I O N E   ")
+     IF v% = 7 THEN   'no
+        mnust12cpi.checked = falso
+        testo.width = 74: testo.left = 3: ncar% = 72
+     END IF
+ END IF
+'-----
+
+ IF modificato = vero THEN   ' Eliminaacapo%Finali
+        c% = LEN(testo.text)
+        DO UNTIL ASC(MID$(testo.text, c%, 1)) > 33
+          c% = c% - 1
+        LOOP
+        testo.text = LEFT$(testo.text, c%) + CHR$(13) + CHR$(10)
+ END IF
+   testomessaggio.visible = falso
+
+IF stato = 13 THEN
+   testoalunni.SETFOCUS
+   kk% = LEN(testoalunni.text)
+   IF LEN(testoalunni.text) > 20 THEN kk% = 20
+   testoalunni.selstart = kk%
+END IF
+  
+END SUB
+
+SUB protez ()
+IF ASC(MID$(melo$, 1, 1)) <> 32 THEN GOTO fine
+IF ASC(MID$(melo$, 2, 1)) <> 32 THEN GOTO fine
+IF ASC(MID$(melo$, 3, 1)) <> 32 THEN GOTO fine
+IF ASC(MID$(melo$, 4, 1)) <> 65 THEN GOTO fine
+IF ASC(MID$(melo$, 5, 1)) <> 85 THEN GOTO fine
+IF ASC(MID$(melo$, 6, 1)) <> 84 THEN GOTO fine
+IF ASC(MID$(melo$, 7, 1)) <> 79 THEN GOTO fine
+IF ASC(MID$(melo$, 8, 1)) <> 82 THEN GOTO fine
+IF ASC(MID$(melo$, 9, 1)) <> 69 THEN GOTO fine
+IF ASC(MID$(melo$, 10, 1)) <> 32 THEN GOTO fine
+EXIT SUB
+fine:
+hhh$ = "copia manomessa"
+MSGBOX hhh$
+END
+END SUB
+
+
+
+SUB rplalunni_dblclick ()
+CALL AVVISO
+testoalunni.text = rplalunni.text
+rplalunni.visible = falso
+IF stato = 13 OR stato = 22 THEN CALL apri_scheda
+END SUB
+
+SUB RplAlunni_KeyPress (keyascii AS INTEGER)
+CALL rplalunni_dblclick
+END SUB
+
+SUB rplclasse_dblclick ()
+CALL AVVISO
+
+testo.visible = falso
+testoclasse.text = rplclasse.text
+rplclasse.visible = falso
+rplfrasario.visible = falso
+CALL elabnomeclasse
+IF operazione = falso THEN EXIT SUB
+IF stato = 13 OR stato = 22 THEN  'se siamo in schedario
+      cmdalunni.visible = vero
+      testoalunni.visible = vero
+      rplalunni.visible = vero
+      CALL aggRpltipo
+      CALL leggi_alunni
+      testotipo.SETFOCUS
+      EXIT SUB
+  ELSE
+    CALL leggi_classe
+    testo.SETFOCUS
+END IF
+END SUB
+
+SUB Rplclasse_KeyPress (keyascii AS INTEGER)
+IF keyascii = 13 OR keyascii = 32 THEN
+CALL rplclasse_dblclick
+END IF
+END SUB
+
+SUB rplfrasario_click ()
+timer3.interval = 0
+IF salta = vero THEN EXIT SUB
+rigo$ = rplfrasario.text
+IF LEFT$(rigo$, 1) = "[" AND rplfrasario.listindex < rplfrasario.listcount THEN
+   timer3.interval = 100: EXIT SUB
+ END IF
+rigo$ = MID$(rigo$, 5)
+DO UNTIL INSTR(rigo$, "/") = 0
+  i% = INSTR(rigo$, "/")
+  IF UCASE$(MID$(rigo$, i% + 1, 1)) <> "A" THEN EXIT DO
+  IF INSTR(testoalunni.text, CHR$(255)) > 0 THEN ' Maschio
+    p1$ = LEFT$(rigo$, i% - 1): p2$ = RIGHT$(rigo$, LEN(rigo$) - (i% + 1)): rigo$ = p1$ + p2$
+  ELSE  ' femmina
+    p1$ = LEFT$(rigo$, i% - 2): p2$ = RIGHT$(rigo$, LEN(rigo$) - i%): rigo$ = p1$ + p2$
+  END IF
+LOOP
+i% = INSTR(rigo$, "{nome}")
+ IF i% > 0 THEN
+  p1$ = LEFT$(rigo$, i% - 1)
+  p2$ = RIGHT$(rigo$, LEN(rigo$) - (i% + 5))
+  i$ = testoalunni.text
+  FOR j% = 1 TO LEN(i$)
+  IF ASC(MID$(i$, j%, 1)) > 64 AND ASC(MID$(i$, j%, 1)) < 91 OR ASC(MID$(i$, j%, 1)) = 32 THEN
+  jn$ = jn$ + MID$(i$, j%, 1)
+  END IF
+  NEXT
+  rigo$ = p1$ + LTRIM$(RTRIM$(jn$)) + p2$
+ END IF
+testo.text = base$ + rigo$: CALL impagina
+
+IF mnuaddFrasi.checked = vero THEN EXIT SUB
+
+IF LEFT$(rplfrasario.text, 1) = "*" AND flag% > 0 THEN
+  IF rplfrasario.listindex <> (numlista% + 1) THEN
+  SOUND 300, 1
+  IF rplfrasario.listindex > numlista% THEN
+    rplfrasario.listindex = rplfrasario.listindex - 1
+    ELSE
+    rplfrasario.listindex = rplfrasario.listindex + 1
+   END IF
+  END IF
+END IF
+
+IF LEFT$(rplfrasario.text, 2) = "* " THEN
+  numlista% = rplfrasario.listindex
+  base$ = testo.text
+   SOUND 3000, 1
+  IF rplfrasario.listindex < rplfrasario.listcount THEN timer3.interval = 100
+  flag% = 1
+  EXIT SUB
+ END IF
+
+IF LEFT$(rplfrasario.text, 2) = "**" THEN
+  
+  numlista% = rplfrasario.listindex
+  base$ = testo.text
+   SOUND 3000, 1
+  IF rplfrasario.listindex < rplfrasario.listcount THEN timer3.interval = 100
+flag% = 2
+
+EXIT SUB
+ END IF
+END SUB
+
+SUB Rplfrasario_DblClick ()
+    modificato = vero: base$ = testo.text: SOUND 3000, 1
+    IF flag% = 2 THEN flag% = 0     'almeno una riga e' stata scritta
+    IF flag% = 1 THEN
+       flag% = 0: salta = vero
+          DO UNTIL LEFT$(rplfrasario.text, 1) = "*"
+            IF rplfrasario.listindex + 2 > rplfrasario.listcount THEN GOTO uscita
+            rplfrasario.listindex = rplfrasario.listindex + 1
+          LOOP
+          salta = falso: CALL rplfrasario_click
+      END IF
+uscita:
+salta = falso
+IF rplfrasario.text = "~~~" THEN rplfrasario.visible = falso
+
+END SUB
+
+SUB rplfrasario_KeyDown (codicetasto AS INTEGER, Maiusc AS INTEGER)
+IF codicetasto = 27 THEN
+mnuscheda.enabled = vero
+mnumodifiche.enabled = vero
+mnustampa.enabled = vero
+mnuopzioni.enabled = vero
+mnutesto.enabled = vero
+rplfrasario.visible = falso
+testo.SETFOCUS
+EXIT SUB
+END IF
+IF codicetasto = 112 THEN
+msg$ = " Tasti cursore per scegliere la frase. " + CHR$(13)
+msg$ = msg$ + "Invio o barra spazio per aggiungere la frase al testo."
+MSGBOX msg$
+END IF
+IF codicetasto = 32 OR codicetasto = 13 THEN CALL Rplfrasario_DblClick
+END SUB
+
+SUB Rplstampanti_dblclick ()
+rplstampanti.visible = falso
+tstSt.text = rplstampanti.text
+IF rplstampanti.text = "Altra stampante" THEN
+   tstSt.text = "No vers. Beta"
+   tstSt.visible = vero
+   EXIT SUB
+   END IF
+
+'salvo quanto letto
+OPEN "st.drv" FOR OUTPUT AS 1
+PRINT #1, rplstampanti.text
+CLOSE #1
+tstSt.visible = vero
+
+CALL leggi_drvSt
+
+'MSGBOX STR$(i360c1) + " " + STR$(i360c2)
+
+END SUB
+
+SUB Rplstampanti_KeyPress (keyascii AS INTEGER)
+
+CALL Rplstampanti_dblclick
+
+
+END SUB
+
+SUB rplTipo_dblclick ()
+CALL AVVISO
+testo.visible = falso
+testotipo.text = rpltipo.text
+rpltipo.visible = falso
+ CALL elabnometipo
+ IF operazione = falso THEN EXIT SUB
+ IF stato = 13 OR stato = 22 THEN
+      CALL aggRplclasse
+      testoclasse.SETFOCUS
+      CALL caricaFrasario
+       IF operazione = falso THEN EXIT SUB
+       testoalunni.SETFOCUS
+       CALL apri_scheda
+       EXIT SUB
+   END IF
+CALL leggi_tipo
+END SUB
+
+SUB RplTipo_KeyPress (keyascii AS INTEGER)
+IF keyascii = 13 OR keyascii = 32 THEN
+CALL rplTipo_dblclick
+END IF
+END SUB
+
+SUB Salva_colori ()
+' ****   control panel  *****
+SCREEN.ControlPanel(0) = 15     'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 0      'COLSFONDO_BORDO_ATTIVO
+SCREEN.ControlPanel(2) = 4      'COLPRIMOPIANO_BORDO_ATTIVO
+SCREEN.ControlPanel(3) = vero   'OMBRA_FINESTRA_ATTIVA
+SCREEN.ControlPanel(4) = 0      'COLPRIMOPIANO_PULSANTECOM
+SCREEN.ControlPanel(5) = 9      'COLSFONDO_DESKTOP
+SCREEN.ControlPanel(6) = 11     'COLPRIMOPIANO_DESKTOP
+SCREEN.ControlPanel(7) = 176    'motivo
+SCREEN.ControlPanel(8) = 7      'elementi disattivati
+SCREEN.ControlPanel(9) = 7      'sfondo menu'
+SCREEN.ControlPanel(10) = 0     'primo piano menu'
+SCREEN.ControlPanel(11) = 4     'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7     'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15    's.barra
+SCREEN.ControlPanel(14) = 0     'p.barra
+SCREEN.ControlPanel(15) = -1    'tridimensione
+SCREEN.ControlPanel(16) = 0     'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15    'primo piano barra con titoli
+
+ ON LOCAL ERROR GOTO ErroreSalvataggio1
+OPEN "color1.dat" FOR OUTPUT AS 1
+    FOR i% = 0 TO 17
+        PRINT #1, SCREEN.ControlPanel(i%)
+    NEXT i%
+  PRINT #1, img2.backcolor
+  PRINT #1, img2.forecolor
+  PRINT #1, img1.backcolor
+  PRINT #1, img1.forecolor
+  PRINT #1, rplstampanti.backcolor
+  PRINT #1, rplstampanti.forecolor
+  PRINT #1, rplfrasario.backcolor
+  PRINT #1, rplfrasario.forecolor
+  PRINT #1, rplalunni.backcolor
+  PRINT #1, rplalunni.forecolor
+  PRINT #1, rpltipo.backcolor
+  PRINT #1, rpltipo.forecolor
+  PRINT #1, rplclasse.backcolor
+  PRINT #1, rplclasse.forecolor
+  PRINT #1, testotipo.backcolor
+  PRINT #1, testotipo.forecolor
+  PRINT #1, testoclasse.backcolor
+  PRINT #1, testoclasse.forecolor
+  PRINT #1, testoalunni.backcolor
+  PRINT #1, testoalunni.forecolor
+  PRINT #1, testop.backcolor
+  PRINT #1, testop.forecolor
+  PRINT #1, cmdtipo.backcolor
+  PRINT #1, cmdalunni.backcolor
+  PRINT #1, cmdclasse.backcolor
+  PRINT #1, masinistro.backcolor
+  PRINT #1, masinistro.forecolor
+  PRINT #1, masuperiore.backcolor
+  PRINT #1, masuperiore.forecolor
+  PRINT #1, testo.backcolor
+  PRINT #1, testo.forecolor
+  PRINT #1, testomessaggio.backcolor
+  PRINT #1, testomessaggio.forecolor
+
+RitornoErroreSalvataggio1:
+    CLOSE 1
+    EXIT SUB
+ErroreSalvataggio1:
+    MSGBOX "Errore nella scrittura del file COLORE.INI. Impossibile salvare le impostazioni SCELTE.", 0, "Control Panel"
+    RESUME RitornoErroreSalvataggio1
+END SUB
+
+SUB stampa216 ()
+IF LTRIM$(RTRIM$(testotipo.text)) = "QF" THEN : CALL stampaFronte216: EXIT SUB
+CALL prestampa
+ON LOCAL ERROR GOTO PrintErr2
+ristampa:
+numerocopie% = numerocopie% + 1
+nri = 0
+'**
+ marginesuperiore = marginesuperiore * 100
+ marginesuperiore = INT(marginesuperiore)
+ marginesuperiore = marginesuperiore / 100
+ spa = INT(marginesuperiore / (25.4 / 216))
+DO UNTIL spa < 100
+  printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(100)
+  spa = spa - 100
+LOOP
+ printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(spa)
+ '**
+IF mnustpausa.checked = vero THEN
+   R = MSGBOX("La posizione della &S&C&H&E&D&A sulla stampante e' OK ?", 1, "ATTENZIONE")
+   IF R = 2 THEN EXIT SUB
+END IF
+'**
+ IF mnust12cpi.checked = vero THEN
+ cpi = 12: printer.PRINT CHR$(i12cpic1) + CHR$(i12cpic2);
+ ELSE
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+ END IF
+ '**
+carspazio = INT(marginesinistro / 25.4 * cpi)
+IF mnustnome.checked = vero THEN
+    printer.PRINT SPACE$(carspazio) + "- Q1 - " + testoalunni.text
+    printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(11)
+ END IF
+ '**
+ 
+ printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44);
+'--- stampa ----
+j = 0
+test$ = testo.text
+WIDTH "LPT1:", 255
+DO
+   acapo% = INSTR(test$, CHR$(13))
+   IF acapo% = 0 THEN EXIT DO
+   printer.PRINT SPACE$(carspazio) + LEFT$(test$, acapo% - 1)
+   nri = nri + 1: j = j + 1
+    IF j = 5 THEN
+       j = 0: printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(2)
+       printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44);
+    END IF
+   test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+LOOP UNTIL acapo% = 0
+
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   nri = nri + 1
+   END IF
+
+
+IF mnustampaQ12.checked = falso THEN : printer.NEWPAGE : GOTO uscita2
+ '*
+ IF mnustnome.checked = vero THEN
+    printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44)
+    printer.PRINT SPACE$(carspazio) + "- Q2 - "
+    GOTO etichetta1
+ END IF
+' - calcolo e stampa righe vuote
+nrv = 22 - nri
+ DO UNTIL nrv = 0
+    printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44)
+    j = j + 1
+    IF j = 5 THEN
+       j = 0: printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(2)
+       printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44);
+    END IF
+    nrv = nrv - 1
+ LOOP
+ ' - stampa spazio q1/2
+printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(156)
+printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44)
+etichetta1:
+testo.text = q2$
+testotipo.text = "Q2" + MID$(testotipo.text, 3)     'cambia il nome ...
+
+CALL prestampa
+test$ = testo.text
+WIDTH "LPT1:", 255
+
+ IF mnust12cpi.checked = vero THEN
+ cpi = 12: printer.PRINT CHR$(i12cpic1) + CHR$(i12cpic2);
+ ELSE
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+ END IF
+
+ carspazio = INT(marginesinistro / 25.4 * cpi)
+j = 0
+DO
+   acapo% = INSTR(test$, CHR$(13))
+   IF acapo% = 0 THEN EXIT DO
+   printer.PRINT SPACE$(carspazio) + LEFT$(test$, acapo% - 1)
+   j = j + 1
+    IF j = 5 THEN
+       j = 0: printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(2)
+       printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(44);
+    END IF
+  test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+LOOP UNTIL acapo% = 0
+
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   END IF
+
+
+printer.NEWPAGE
+
+testo.text = ""
+testotipo.text = "Q1" + MID$(testotipo.text, 3)     'cambia il nonome ...
+cmdq2.visible = falso
+uscita2:
+    m$ = CHR$(13)
+    m$ = m$ + " Sono state eseguite " + STR$(numerocopie%) + " copie di questo testo " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Desideri un'altra copia ?? " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    v# = MSGBOX(m$, 256 + 4, " INFORMAZIONE: ")
+ IF v# = 6 THEN 'si
+    GOTO ristampa
+  END IF
+
+EXIT SUB
+'----------
+PrintErr2:
+    IF ERR = 0 THEN RESUME NEXT
+    IF ERR = 27 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare.", 0, "    A T T E N Z I O N E   "
+    END IF
+    IF ERR = 25 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare. ", 0, "    A T T E N Z I O N E   "
+    END IF
+    EXIT SUB
+END SUB
+
+SUB stampa360 ()
+IF LTRIM$(RTRIM$(testotipo.text)) = "QF" THEN : CALL stampaFronte360: EXIT SUB
+CALL prestampa
+ristampa1:
+nri = 0
+numerocopie% = numerocopie% + 1
+'****
+ON LOCAL ERROR GOTO PrintErr1
+ marginesuperiore = marginesuperiore * 100
+ marginesuperiore = INT(marginesuperiore)
+ marginesuperiore = marginesuperiore / 100
+'--
+ spa = INT(marginesuperiore / (25.4 / 360))
+DO UNTIL spa < 100
+  printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(100)
+  spa = spa - 100
+LOOP
+ printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(spa)
+'--
+ IF mnust12cpi.checked = vero THEN
+ cpi = 12: printer.PRINT CHR$(i12cpic1) + CHR$(i12cpic2);
+ ELSE
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+ END IF
+'-----
+IF mnustpausa.checked = vero THEN
+   R = MSGBOX("La posizione della &S&C&H&E&D&A sulla stampante e' OK ?", 1, "ATTENZIONE")
+   IF R = 2 THEN EXIT SUB
+END IF
+carspazio = INT(marginesinistro / 25.4 * cpi)
+'--
+ IF mnustnome.checked = vero THEN
+   printer.PRINT SPACE$(carspazio) + "- Q1 -" + testoalunni.text
+   printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(15)
+ END IF
+'--- stampa ----
+ printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(74);
+ test$ = testo.text
+ WIDTH "LPT1:", 255
+DO
+   acapo% = INSTR(test$, CHR$(13))
+   IF acapo% = 0 THEN EXIT DO
+   printer.PRINT SPACE$(carspazio) + LEFT$(test$, acapo% - 1)
+   nri = nri + 1
+   test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+LOOP UNTIL acapo% = 0
+
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   nri = nri + 1
+   END IF
+
+IF mnustampaQ12.checked = falso THEN : printer.NEWPAGE : GOTO uscita4
+
+IF mnustnome.checked = vero THEN
+   printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(74)
+   printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(74)
+   printer.PRINT SPACE$(carspazio) + "- Q2 -"
+   GOTO etichetta2
+ END IF
+
+ ' - calcolo e stampa righe vuote
+nrv = 22 - nri
+ DO UNTIL nrv = 0
+    printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(74)
+    nrv = nrv - 1
+ LOOP
+ ' - stampa spazio q1/2
+printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(37)
+FOR h = 0 TO 3
+    printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(74)
+NEXT
+etichetta2:
+testo.text = q2$
+testotipo.text = "Q2" + MID$(testotipo.text, 3)     'cambia il nonome ...
+
+CALL prestampa
+test$ = testo.text
+WIDTH "LPT1:", 255
+ IF mnust12cpi.checked = vero THEN
+ cpi = 12: printer.PRINT CHR$(i12cpic1) + CHR$(i12cpic2);
+ ELSE
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+ END IF
+ carspazio = INT(marginesinistro / 25.4 * cpi)
+DO
+   acapo% = INSTR(test$, CHR$(13))
+   IF acapo% = 0 THEN EXIT DO
+   printer.PRINT SPACE$(carspazio) + LEFT$(test$, acapo% - 1)
+   test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+LOOP UNTIL acapo% = 0
+
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   END IF
+printer.NEWPAGE
+
+testo.text = q1$
+testotipo.text = "Q1" + MID$(testotipo.text, 3)     'cambia il nonome ...
+cmdq2.visible = falso
+
+uscita4:
+    m$ = CHR$(13)
+    m$ = m$ + " Sono state eseguite " + STR$(numerocopie%) + " copie di questo testo. " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Desideri un'altra copia ?? " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    v# = MSGBOX(m$, 256 + 4, " INFORMAZIONE  ")
+ IF v# = 6 THEN 'si
+    GOTO ristampa1
+  END IF
+
+EXIT SUB
+'----------
+PrintErr1:
+    IF ERR = 0 THEN RESUME NEXT
+    IF ERR = 27 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare.", 0, "    A T T E N Z I O N E   "
+    END IF
+    IF ERR = 25 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare. ", 0, "    A T T E N Z I O N E   "
+    END IF
+    EXIT SUB
+
+END SUB
+
+SUB stampaFronte216 ()
+ DO
+     carat% = INSTR(testo.text, "<")
+     IF carat% = 0 THEN EXIT DO
+     testo.text = LEFT$(testo.text, carat% - 1) + RIGHT$(testo.text, LEN(testo.text) - carat%)
+  LOOP UNTIL carat% = 0
+
+ testoalunni.SETFOCUS
+ kk% = LEN(testoalunni.text)
+ IF LEN(testoalunni.text) > 20 THEN kk% = 20
+ testoalunni.selstart = kk%
+
+ristampa4:
+nri% = 0
+numerocopie% = numerocopie% + 1
+'****
+ON LOCAL ERROR GOTO PrintErr4
+'--
+ spa = INT(marginesuperiore / (25.4 / 216))
+DO UNTIL spa < 100
+  printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(100)
+  spa = spa - 100
+LOOP
+ printer.PRINT CHR$(i216c1) + CHR$(i216c2) + CHR$(spa)
+
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+
+'-----
+IF mnustpausa.checked = vero THEN
+   R = MSGBOX("La posizione della &S&C&H&E&D&A sulla stampante e' OK ?", 1, "ATTENZIONE")
+   IF R = 2 THEN EXIT SUB
+END IF
+carspazio = INT(marginesinistro / 25.4 * cpi)
+'--- stampa ----
+
+ test$ = testo.text
+ WIDTH "LPT1:", 255
+ sp$ = SPACE$(carspazio)
+ e$ = CHR$(i216c1) + CHR$(i216c2)
+ acapo% = INSTR(test$, CHR$(13))
+ DO UNTIL acapo% = 0
+   acapo% = INSTR(test$, CHR$(13))
+   nri% = nri% + 1
+   IF nri% = 1 THEN
+      printer.PRINT e$ + CHR$(62) + sp$ + SPACE$(29) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 2 THEN
+      printer.PRINT e$ + CHR$(62) + sp$ + SPACE$(20) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 3 THEN
+      printer.PRINT e$ + CHR$(62) + sp$ + SPACE$(8) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 4 THEN
+      printer.PRINT e$ + CHR$(62) + sp$ + SPACE$(8) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 5 THEN
+      printer.PRINT e$ + CHR$(52) + sp$ + SPACE$(39) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 6 THEN
+      printer.PRINT e$ + CHR$(102) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+      printer.PRINT
+      printer.PRINT
+   END IF
+   IF nri% = 7 THEN 'nome
+      printer.PRINT e$ + CHR$(58) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 8 THEN
+      printer.PRINT e$ + CHR$(58) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 9 THEN 'indirizzo
+      printer.PRINT e$ + CHR$(62) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 10 THEN 'scuola materna ===
+      printer.PRINT e$ + CHR$(115) + sp$ + SPACE$(29) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+      printer.PRINT
+    END IF
+   IF nri% = 11 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 12 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 13 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 14 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 15 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 16 THEN
+      printer.PRINT e$ + CHR$(51) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+
+ LOOP
+
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   END IF
+
+ printer.NEWPAGE
+
+    m$ = CHR$(13)
+    m$ = m$ + " Sono state eseguite " + STR$(numerocopie%) + " copie di questo testo. " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Desideri un'altra copia ?? " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    v# = MSGBOX(m$, 256 + 4, " INFORMAZIONE  ")
+ IF v# = 6 THEN 'si
+    GOTO ristampa4
+  END IF
+
+EXIT SUB
+'----------
+PrintErr4:
+    IF ERR = 0 THEN RESUME NEXT
+    IF ERR = 27 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare.", 0, "    A T T E N Z I O N E   "
+    END IF
+    IF ERR = 25 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare. ", 0, "    A T T E N Z I O N E   "
+    END IF
+    EXIT SUB
+
+END SUB
+
+SUB stampaFronte360 ()
+
+ DO
+     carat% = INSTR(testo.text, "<")
+     IF carat% = 0 THEN EXIT DO
+     testo.text = LEFT$(testo.text, carat% - 1) + RIGHT$(testo.text, LEN(testo.text) - carat%)
+  LOOP UNTIL carat% = 0
+
+ testoalunni.SETFOCUS
+ kk% = LEN(testoalunni.text)
+ IF LEN(testoalunni.text) > 20 THEN kk% = 20
+ testoalunni.selstart = kk%
+
+ristampa3:
+nri% = 0
+numerocopie% = numerocopie% + 1
+'****
+ON LOCAL ERROR GOTO PrintErr3
+'--
+ spa = INT(marginesuperiore / (25.4 / 360))
+DO UNTIL spa < 100
+  printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(100)
+  spa = spa - 100
+LOOP
+ printer.PRINT CHR$(i360c1) + CHR$(i360c2) + CHR$(spa)
+
+ cpi = 10: printer.PRINT CHR$(i10cpic1) + CHR$(i10cpic2);
+
+'-----
+IF mnustpausa.checked = vero THEN
+   R = MSGBOX("La posizione della &S&C&H&E&D&A sulla stampante e' OK ?", 1, "ATTENZIONE")
+   IF R = 2 THEN EXIT SUB
+END IF
+carspazio = INT(marginesinistro / 25.4 * cpi)
+'--- stampa ----
+ 
+ test$ = testo.text
+ WIDTH "LPT1:", 255
+ sp$ = SPACE$(carspazio)
+ e$ = CHR$(i360c1) + CHR$(i360c2)
+ acapo% = INSTR(test$, CHR$(13))
+ DO UNTIL acapo% = 0
+   acapo% = INSTR(test$, CHR$(13))
+   nri% = nri% + 1
+   IF nri% = 1 THEN
+      printer.PRINT e$ + CHR$(103) + sp$ + SPACE$(29) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 2 THEN
+      printer.PRINT e$ + CHR$(103) + sp$ + SPACE$(20) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 3 THEN
+      printer.PRINT e$ + CHR$(103) + sp$ + SPACE$(8) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 4 THEN
+      printer.PRINT e$ + CHR$(193) + sp$ + SPACE$(8) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 5 THEN
+      printer.PRINT e$ + CHR$(87) + sp$ + SPACE$(39) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+   END IF
+   IF nri% = 6 THEN
+      printer.PRINT e$ + CHR$(171) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+      printer.PRINT
+      printer.PRINT
+   END IF
+   IF nri% = 7 THEN 'nome
+      printer.PRINT e$ + CHR$(96) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 8 THEN
+      printer.PRINT e$ + CHR$(96) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 9 THEN 'indirizzo 
+      printer.PRINT e$ + CHR$(104) + sp$ + SPACE$(4) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 10 THEN 'scuola materna ===
+      printer.PRINT e$ + CHR$(191) + sp$ + SPACE$(29) + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+      printer.PRINT
+    END IF
+   IF nri% = 11 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 12 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 13 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 14 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 15 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+   IF nri% = 16 THEN
+      printer.PRINT e$ + CHR$(85) + sp$ + LEFT$(test$, acapo% - 1)
+      test$ = RIGHT$(test$, LEN(test$) - acapo% - 1)
+    END IF
+
+ LOOP
+   
+   IF LEN(test$) > 2 THEN
+   printer.PRINT SPACE$(carspazio) + test$
+   END IF
+
+ printer.NEWPAGE
+
+uscita3:
+    m$ = CHR$(13)
+    m$ = m$ + " Sono state eseguite " + STR$(numerocopie%) + " copie di questo testo. " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    m$ = m$ + " Desideri un'altra copia ?? " + CHR$(13)
+    m$ = m$ + " " + CHR$(13)
+    v# = MSGBOX(m$, 256 + 4, " INFORMAZIONE  ")
+ IF v# = 6 THEN 'si
+    GOTO ristampa3
+  END IF
+
+EXIT SUB
+'----------
+PrintErr3:
+    IF ERR = 0 THEN RESUME NEXT
+    IF ERR = 27 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare.", 0, "    A T T E N Z I O N E   "
+    END IF
+    IF ERR = 25 THEN
+    MSGBOX ERROR$ + CHR$(13) + CHR$(13) + "Impossibile stampare. ", 0, "    A T T E N Z I O N E   "
+    END IF
+    EXIT SUB
+END SUB
+
+SUB testoAlunni_KeyPress (keyascii AS INTEGER)
+
+CALL AVVISO
+
+IF keyascii = 13 THEN
+   rplalunni.visible = falso
+   CALL apri_scheda
+   EXIT SUB
+END IF
+
+END SUB
+
+SUB testoclasse_KeyPress (keyascii AS INTEGER)
+CALL AVVISO
+
+IF keyascii = 13 THEN
+     rplclasse.visible = falso
+     CALL elabnomeclasse
+     IF operazione = falso THEN EXIT SUB
+     IF stato = 13 OR stato = 22 THEN 'se siamo in schedario
+         CALL leggi_alunni
+         testotipo.SETFOCUS
+         EXIT SUB
+     ELSE
+         CALL leggi_classe
+        testo.SETFOCUS
+     END IF
+END IF
+END SUB
+
+SUB Testoclasse_KeyUp (keycode AS INTEGER, shift AS INTEGER)
+IF LEN(testoclasse.text) > 5 THEN
+testoclasse.text = ""
+END IF
+IF LEN(testoclasse.text) > 4 THEN
+ww$ = testoclasse.text
+testoclasse.text = ""
+testoclasse.text = LEFT$(ww$, 5)
+END IF
+END SUB
+
+SUB Testomessaggio_KeyPress (keyascii AS INTEGER)
+timer1.interval = 0
+timer2.interval = 0
+testomessaggio.visible = falso
+mnuscheda.visible = vero
+mnumodifiche.visible = vero
+mnustampa.visible = vero
+mnuopzioni.visible = vero
+mnutesto.visible = vero
+mnusalva.visible = vero
+mnuesci.visible = vero
+mnupuntodomanda.visible = vero
+img1.visible = falso
+testop.visible = falso
+END SUB
+
+SUB TestoP_KeyPress (keyascii AS INTEGER)
+
+timer1.interval = 0
+timer2.interval = 0
+testop.visible = falso
+mnutesto.visible = vero
+mnumodifiche.visible = vero
+mnustampa.visible = vero
+mnuopzioni.visible = vero
+mnusalva.visible = vero
+mnupuntodomanda.visible = vero
+END SUB
+
+SUB testotipo_KeyPress (keyascii AS INTEGER)
+CALL AVVISO
+IF keyascii = 13 THEN
+rpltipo.visible = falso
+ CALL elabnometipo
+ IF operazione = falso THEN EXIT SUB
+ IF stato = 13 OR stato = 22 THEN
+       CALL caricaFrasario
+       IF operazione = falso THEN MSGBOX " frasario non trovato": EXIT SUB
+       CALL apri_scheda
+       EXIT SUB
+   END IF
+CALL leggi_tipo
+END IF
+END SUB
+
+SUB Testotipo_KeyUp (keycode AS INTEGER, shift AS INTEGER)
+IF LEN(testotipo.text) > 3 THEN
+testotipo.text = ""
+END IF
+IF LEN(testotipo.text) > 2 THEN
+ww$ = testotipo.text
+testotipo.text = ""
+testotipo.text = LEFT$(ww$, 5)
+END IF
+
+END SUB
+
+SUB Testo_KeyUp (keycode AS INTEGER, shift AS INTEGER)
+STATIC cursore
+IF keycode = 16 OR keycode = 13 THEN EXIT SUB
+IF shift = 1 AND keycode = 37 THEN EXIT SUB
+IF shift = 1 AND keycode = 38 THEN EXIT SUB
+IF shift = 1 AND keycode = 39 THEN EXIT SUB
+IF shift = 1 AND keycode = 40 THEN EXIT SUB
+ ' MSGBOX STR$(keycode)
+ ' rplfrasario.visible = FALSO
+IF mnuscheda.enabled = vero THEN
+    mnuscheda.enabled = falso
+    mnustampa.enabled = falso
+    mnuopzioni.enabled = falso
+    mnutesto.enabled = falso
+END IF
+
+IF keycode = 17 OR keycode = 37 OR keycode = 39 OR keycode = 32 OR keycode = 8 THEN
+  FOR i% = testo.selstart TO 1 STEP -1
+   IF MID$(testo.text, i%, 1) = CHR$(13) OR i% = 1 THEN EXIT FOR
+  NEXT
+  timerC.interval = 1000
+  mnuc.caption = "C=" + STR$(testo.selstart - i%)
+  mnuc.visible = vero
+END IF
+
+modificato = vero
+
+IF stato = 12 THEN EXIT SUB    'frasario
+cursore = testo.selstart
+CALL impagina
+testo.selstart = cursore
+END SUB
+
+SUB Testo_LostFocus ()
+base$ = testo.text
+rigo$ = ""
+flag% = 0
+END SUB
+
+SUB Timer1_Timer ()
+
+ messaggio$ = RIGHT$(messaggio$, LEN(messaggio$) - 1) + LEFT$(messaggio$, 1)
+testomessaggio.text = LEFT$(messaggio$, 38)
+
+END SUB
+
+SUB Timer2_Timer ()
+timer2.interval = 0
+a1% = 30
+a2% = 40
+a3% = 50
+a4% = 60
+titolo$ = titolo$ + CHR$(62 - a1%) + CHR$(72 - a2%) + CHR$(82 - a3%) + CHR$(62 - a1%)
+titolo$ = titolo$ + CHR$(113 - a1%) + CHR$(72 - a2%) + CHR$(117 - a3%) + CHR$(62 - a1%)
+titolo$ = titolo$ + CHR$(102 - a1%) + CHR$(72 - a2%) + CHR$(99 - a1%) + CHR$(62 - a1%)
+titolo$ = titolo$ + CHR$(98 - a1%) + CHR$(92 - a4%) + CHR$(105 - a2%) + CHR$(62 - a1%)
+titolo$ = titolo$ + CHR$(72 - a2%) + CHR$(62 - a1%) + CHR$(82 - a3%) + CHR$(80 - a1%) + CHR$(92 - a4%)
+titolo$ = titolo$ + CHR$(78 - a1%) + CHR$(72 - a2%) + CHR$(78 - a1%) + CHR$(82 - a3%) + CHR$(108 - a4%)
+img1.CLS
+img1.PRINT ""
+img1.PRINT titolo$
+img1.PRINT ""
+serie$ = CHR$(a1% + 2) + CHR$(32) + CHR$(a1% + 2) + CHR$(62 - a1%) + CHR$(a4% + 18) + CHR$(a3% + a3% + 148) + CHR$(32)
+serie$ = serie$ + CHR$(a3% + 65) + CHR$(131 - a1%) + CHR$(154 - a2%) + CHR$(135 - a1%) + CHR$(a4% + 41) + CHR$(a1% + 2)
+serie$ = serie$ + CHR$(a1% + 18) + CHR$(a4% - 12) + CHR$(a3% - 2) + CHR$(a1% + 18) + CHR$(a1% + 20) + CHR$(a1% + 22)
+img1.PRINT serie$
+versione$ = versione$ + CHR$(62 - a1%) + CHR$(62 - a1%) + CHR$(62 - a1%) + CHR$(62 - a1%) + CHR$(116 - a1%)
+versione$ = versione$ + CHR$(99 - a1%) + CHR$(112 - a1%) + CHR$(76 - a1%) + CHR$(62 - a1%)
+versione$ = versione$ + CHR$(80 - a1%) + CHR$(76 - a1%) + CHR$(81 - a1%)
+img1.PRINT ""
+img1.PRINT versione$
+img1.PRINT ""
+img1.visible = vero
+
+testop.text = ""
+abc$ = abc$ + "Npmep_kk_ncpamkngj_pccqr_kn_pcjcqafcbcncpqml_jg" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "bcejg_jsllgbgqasmj_kcbg_," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "J%srgjgxxmbgoscqrmnpmep_kk_qclx_pcemj_pcjgaclx_b%sqmc%" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "ncpqcesg`gjcncl_jkclrccagtgjkclrcqcamlbmj_lmpk_rgt_tgeclrc," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "Ncpj_t_jsr_xgmlcbcjnpmbmrrm*qgamlacbc_gammpbgl_rmpgbgaj_qqc" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "j_jgaclx_b%sqmep_rsgr_*cqajsqgt_kclrcncpj_amkngj_xgmlc" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "bcjjc`mxxcbcgegsbgxgcj_qr_kn_qsa_pr_ncpsqmncpqml_jc," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "J_bsnjga_xgmlcbcjnpmep_kk_cj_bgddsqgmlcqmlmamlqclrgrc," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "Qmlmep_bgrgmqqcpt_xgmlgcb_rg_jdglcbgkgejgmp_pcgjnpmbmrrmc" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "_knjg_pcj_jgqr_bcjjcqr_kn_lrgcbcjdp_q_pgm,Ep_xgc" + CHR$(13) + CHR$(10)
+abc$ = abc$ + "Tcpqgmlc0,1bcj/+4+74," + CHR$(13) + CHR$(10)
+abc$ = abc$ + "?srmpc8Npmd,A_pkcjmKsqamjglmTg_Acptgel_lm5_N_jk_lmt_" + CHR$(13) + CHR$(10)
+abc$ = abc$ + ""
+
+inizio2:
+ t% = t% + 1
+ IF t% > LEN(abc$) THEN GOTO fine2
+ IF MID$(abc$, t%, 1) = CHR$(13) THEN
+ ww$ = ww$ + CHR$(13) + CHR$(10)
+ t% = t% + 1: GOTO inizio2
+ END IF
+ a% = ASC(MID$(abc$, t%, 1))
+ IF t% AND 3 = 0 THEN a% = a% - 1
+ IF t% AND 3 = 1 THEN a% = a% + 1
+ IF t% AND 3 = 2 THEN a% = a% - 2
+ IF t% AND 3 = 3 THEN a% = a% + 2
+ ww$ = ww$ + CHR$(a%)
+ GOTO inizio2
+fine2:
+testop.text = ww$
+FOR i% = 1 TO LEN(ww$) STEP 5
+h1% = h1% + ASC(MID$(abc$, i%, 1))
+NEXT
+FOR i% = 2 TO LEN(ww$) STEP 5
+h2% = h2% + ASC(MID$(abc$, i%, 1))
+NEXT
+FOR i% = 3 TO LEN(ww$) STEP 5
+h3% = h3% + ASC(MID$(abc$, i%, 1))
+NEXT
+FOR i% = 4 TO LEN(ww$) STEP 5
+h4% = h4% + ASC(MID$(abc$, i%, 1))
+NEXT
+FOR i% = 5 TO LEN(ww$) STEP 5
+h5% = h5% + ASC(MID$(abc$, i%, 1))
+NEXT
+
+'MSGBOX STR$(h1%) + STR$(h2%) + STR$(h3%) + STR$(h4%) + STR$(h5%)
+IF h1% <> 12652 THEN END
+IF h2% <> 12438 THEN END
+IF h3% <> 12644 THEN END
+IF h4% <> 12735 THEN END
+IF h5% <> 12636 THEN END
+'--------
+FOR y = 1 TO 9
+img1.top = img1.top + 1
+img1.left = img1.left + 2
+NEXT
+img1.SETFOCUS
+END SUB
+
+SUB Timer3_Timer ()
+
+rplfrasario.listindex = rplfrasario.listindex + 1
+
+END SUB
+
+SUB TimerC_Timer ()
+timerC.interval = 0
+mnuc.visible = falso
+END SUB

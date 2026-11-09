@@ -1,0 +1,39 @@
+#TITLE Demo 4° .testo da completare
+#PWD 0000
+'0
+                 ESEMPIO DI PROG. TIPO 4 
+
+Si  inseriscono  nel testo del quesito in sostituzione delle soluzioni
+dei puntini che verranno sostituiti dalle risposte date.
+I quesiti dell'esercitazione sono proposti seguendo l'ordine 
+dei livelli (max 5), ma nell'ambito di ogni livello la scelta è casuale.
+La frase che inizia con un punto verrà scritta nello spazio consegna.
+Se un esercizio è privo della consegna il programma propone l'ultima
+consegna inserita.
+Il testo dell'esercizio può essere composto da più righe.
+Nelle righe seguenti a quelle del testo si scrivono le risposte.
+
+ATTENZIONE : inserire UNA riga vuota tra i vari quesiti.
+
+Le risposte possono essere presentate in scelta multipla (vedi esempio).
+E' possibile prevedere più di una risposta esatta (vedi esempio).
+
+'4
+           
+La clorofilla è un pigmento di colore ...... adibito a un'importante 
+funzione delle piante: la .........  ......... 
+\verde
+\fotosintesi
+\clorofilliana
+
+.Scegli la parola appropiata
+La ....... è un .......... di colore verde adibito a un'importante 
+funzione delle piante: la fotosintesi  ......... 
+\pigmento\clorofilliana\verde\!clorofilla\funzione\fotosintesi
+\!pigmento\clorofilliana\verde\clorofilla\funzione\fotosintesi
+\pigmento\!clorofilliana\verde\clorofilla\funzione\fotosintesi
+
+
+
+
+

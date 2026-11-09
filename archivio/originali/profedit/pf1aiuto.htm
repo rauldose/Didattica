@@ -1,0 +1,142 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>pf1aiuto</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#FFFFFF">
+
+<p align="center"><a href="profedit.htm"><font
+face="Comic Sans MS"><img src="s1.gif" border="0" width="25"
+height="24"></font></a></p>
+
+<p align="left"><font face="Comic Sans MS">Informazioni.<br>
+Questo editore ha la particolarità di memorizzare un testo e
+renderlo disponibile a blocchi nel Menu rapido (il menù che si
+ottiene premendo il pulsante destro del mouse).<br>
+Per attivare questa funzione occorre aprire un file testo del
+tipo .fra. <br>
+Se non si hanno testi già pronti si può scriverne uno, salvarlo
+e quindi aprirlo. <br>
+Nella finesta SALVA o nella finestra APRI è già predisposta l'estensione
+del file frasario (.FRA) .<br>
+Quando si carica un testo avente il nome con l'estensione .fra si
+attiva il tasto 'Memo'. <br>
+Cliccando questo tasto il testo sparisce dal video e viene
+conservato in memoria.<br>
+Cliccando sul pulsante destro del mouse compare il menù rapido
+con le frasi che sono state memorizzate.<br>
+Per comporre un testo occorre cliccare sulla frase scelta .<br>
+Le regole operative (comandi) che si possono inserire nel testo
+frasario sono dettate da tre caratteri 'speciali' scritti da soli,
+sul rigo.<br>
+Il comando suddivide il testo in blocchi i quali si presentano
+con ordine nel menù rapido.<br>
+I caratteri comando ed l'effetto relativo sono:<br>
+* <br>
+questo simbolo permette di scegliere una sola frase dal menu
+quindi automaticamente nel menu si ha l'aggiornamento con un
+secondo blocco di frasi.<br>
+$<br>
+questo simbolo permette di scegliere più di una frase. Per
+cambiare blocco di frasi bisogna cliccare il pulsante 'cambia'.<br>
+£<br>
+questo simbolo, come il precedente, permette di scegliere più di
+una frase dal blocco ma disattiva la frase appena scelta.<br>
+<br>
+Per cambiare blocco di frasi bisogna cliccare il pulsante 'cambia'.<br>
+&lt; questo simbolo impone un accapo.<br>
+Se nel frasario tra due caratteri è presente una sola riga
+questa non verrà presentata da sola nel menù ma verrà
+trasferita immediatamente.<br>
+Se il testo del frasario inizia la riga con un punto ( . ) si ha
+che, al momento del trasferimento del testo, vengono ignorati i
+primi 3 caratteri. <br>
+Questa funzionalità permette di inserire dei codici da
+utilizzare come indicatori della frase.<br>
+<br>
+In assenza di caratteri speciali, all'inizio del testo frasario,
+si ha il comportamento attuato dal *.<br>
+Nello stesso frasario possono coesistere tutti i comandi visti.<br>
+Il tasto trasferisce permette di trasferire il testo in Clippoard
+e apre un altro editore.( in questa versione è prestabilito il
+programma write.exe ).<br>
+Si può inserire qualsiasi editore purchè venga rinominato write.exe
+e che si trovi nel percorso di ricerca del computer o nella
+cartella di Profedit.<br>
+Quando si apre l' editore eseguire l'operazione incolla.<br>
+<br>
+Il pulsante ricarica è utile per scrivere tutti i giudizi in un
+solo foglio. <br>
+Esso permette di riproporre nel menù rapido la seguenza di frasi.
+<br>
+Con l'opzione 'cattura nome del file' attivata, succede che al
+momento del salvataggio l'editore propone il nome da scrivere per
+il file prelevando i primi otto caratteri della prima riga del
+testo. Questa funzione è utile quando si scrive il nome dell'alunno
+nel testo e si scrive un testo per ogni alunno.<br>
+Cliccando e trascinando il bottone rosso si dimensiona la
+finestra testo. <br>
+<br>
+Questa versione LIMITATA è funzionante ma, non permette di
+trasferire tutto il testo nell'editore per cui non si possono
+impostare i margini di stampa, e aggiunge la frase prof edit
+nella stampa.</font></p>
+
+<p align="center"><font face="Comic Sans MS"><br>
+</font><a href="profedit.htm"><font face="Comic Sans MS"><img
+src="s1.gif" border="0" width="25" height="24"></font></a><font
+face="Comic Sans MS"><br>
+</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

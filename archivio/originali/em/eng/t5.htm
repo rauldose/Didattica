@@ -1,0 +1,126 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+
+<HTML>
+<HEAD>
+<TITLE>p1 modalità digitare</TITLE>
+</HEAD>
+<BODY>
+<CENTER>
+<P><font face="COMIC SANS MS"><font color=#ff0000>Modality finger</font></font><font face="COMIC SANS MS"><font color=#000080> </font></font></P>
+</CENTER>
+<P>
+<font face="COMIC SANS MS"><font color=#000080>Now we write an exercise. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>The easier case is that of a question and of a response from finger. </font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#000080>He is written the question and the answer that the pupil will should finger preceded from the character \ </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Example:</font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#ff00ff>.DELEVERY You resolve the following expression:</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>.EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>(2+3)/2=</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#ff00ff>\2,5</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>This will cause on the blackboard the following text:</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>You resolve the following expression:</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>(2+3)/2=</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>the pupil will should finger 2,5 for answer correctly. For</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#000080>accept more responses (for example 2,5 and 2.5) write the text of the answer as:</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>DELIVERY Resolves the following expression:</font></font>
+</P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>.EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>(2+3)/2=</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\2.5\2,5</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#000080>They could be introduced up to you have answered valid. If we retain useful furnish a hint, the space to use is that among the left border and the character \</font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#ff0000>this text appears like hint\ 2.5\2,5</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Custom of the in single file audio or of the in single file</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>graphic. 
+</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Example: </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>DELIVERY Resolves the following expression:</font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#ff00ff>.EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>prova.wav (2+3)/ 2= </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>sugg.wav\ 2,5 </font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#000080>This will cause on the</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>blackboard the purview, while the audio do the in single file</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>prova.wav</font>
+</font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>You resolve the following expression:</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff0000>(2+3)/2=</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>contemporaneously will be activated the voice audio on the menù</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>and will appear the image of an owl in the window of the points.</font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#000080>Clicking on the owl could be listened to the hint registered in</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>sugg.wav, while clicking on audio could be listened to of</font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#000080>new the audio of prova.wav</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Exercise with more questions.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>We analyze the following example:</font></font>
+</P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>DELEVERY Write what it must writ in the lines.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>.EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>The fotosintesi _________ happens in the _________. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\clorofilliana </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\leaves</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#ff00ff>.EXERCISE N° *</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>(7+1)*2=_______=_____</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#ff00ff>\8*2</font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#ff00ff>\16</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>In both the examples, the pupil must give the first solution.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>The computer adjourns the blackboard replacing the solution to the lines and he waits your second solution.</font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>Obviously could be inserted of the hints for each solution. </font></font></P>
+<P>
+<font face="COMIC SANS MS"><font color=#000080>It is possible structures with 7 consecutive questions.</font></font></P>
+</BODY>
+</HTML><script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puzzle</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<style>
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .gioco { flex: 1; display: flex; flex-direction: column; width: auto; margin: 8px; min-height: 0; box-shadow: none; }
+  .gioco .dos-body { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.6em; min-height: 0; padding: 0.6em; }
+  .menu { display: flex; gap: 1em; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .menu .dos-btn { min-width: 6em; }
+  #secondi { white-space: pre; }
+  .campi { flex: 1; display: flex; justify-content: center; align-items: flex-start; gap: 2em; min-height: 0; }
+  .lato { display: flex; flex-direction: column; align-items: center; gap: 0.5em; }
+  .nome { color: var(--c14); font-weight: bold; max-width: calc(var(--t) * 3.2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* tile size in px units only (inherited by tiles): fits width (6 tiles) and height */
+  .gioco { --t: max(34px, min(13vw, calc((100vh - 340px) / 3))); }
+  .board {
+    position: relative; width: calc(var(--t) * 3 + 14px); height: calc(var(--t) * 3 + 14px);
+    background: var(--c8); border: 0.15em solid var(--c7); padding: 5px; border-width: 2px; box-sizing: border-box;
+    touch-action: manipulation; user-select: none;
+  }
+  .board.fatto { border-color: var(--c10); }
+  .tile {
+    position: absolute; width: var(--t); height: var(--t);
+    left: 5px; top: 5px; box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--c0); color: var(--c15); border: 2px solid var(--c7);
+    font-size: calc(var(--t) * 0.42); white-space: pre; cursor: pointer;
+    transition: transform 90ms linear;
+  }
+  .tile:hover { color: var(--c14); }
+  .info { white-space: pre; min-width: calc(var(--t) * 3 + 14px); min-height: 4.2em; color: var(--c15); }
+  .info.vinto { color: var(--c10); }
+  .info.perso { color: var(--c12); }
+  .dlg.larga { max-width: min(46em, 100%); }
+  .tasti { color: var(--c7); font-size: 0.85em; }
+</style>
+</head>
+<body class="dos">
+<div class="dos-screen gioco">
+  <div class="dos-title">PUZZLE</div>
+  <div class="dos-body">
+    <div class="menu">
+      <button class="dos-btn" type="button" id="nuovo"><u>N</u>uovo</button>
+      <button class="dos-btn" type="button" id="info"><u>I</u>nfo ?</button>
+      <button class="dos-btn" type="button" id="esci"><u>E</u>sci</button>
+      <span class="dos-label" id="secondi"> Secondi di gioco = </span>
+    </div>
+    <div class="campi">
+      <div class="lato">
+        <div class="nome" id="nome0">nome1</div>
+        <div class="board" id="board0" aria-label="Puzzle del 1° giocatore"></div>
+        <div class="dos-panel info" id="info0"></div>
+        <div class="tasti">Tasti 0-7</div>
+      </div>
+      <div class="lato">
+        <div class="nome" id="nome1">nome2</div>
+        <div class="board" id="board1" aria-label="Puzzle del 2° giocatore"></div>
+        <div class="dos-panel info" id="info1"></div>
+        <div class="tasti">Tastierino num. 0-7</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../js/common.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var HOLE = 8;
+  var attivo = false; // true once names are entered
+
+  // pos[p] = tile at position p (row-major 0..8), 8 = hole (original "tasto()")
+  var boards = [0, 1].map(function (k) {
+    var b = { el: D.$("#board" + k), info: D.$("#info" + k), pos: [], mosse: 0, ok: 0, fatto: false, tiles: [] };
+    for (var i = 0; i < 8; i++) {
+      var t = D.el("div", { class: "tile", text: " " + i, "data-n": i });
+      t.addEventListener("click", (function (n) {
+        return function () { if (attivo) mossa(k, n); };
+      })(i));
+      b.el.appendChild(t);
+      b.tiles.push(t);
+    }
+    return b;
+  });
+
+  function adiacenti(p, q) {
+    return Math.abs((p % 3) - (q % 3)) + Math.abs(Math.floor(p / 3) - Math.floor(q / 3)) === 1;
+  }
+
+  // Move tile n into the hole if adjacent; returns true when it moved
+  function muovi(b, n) {
+    var p = b.pos.indexOf(n), h = b.pos.indexOf(HOLE);
+    if (!adiacenti(p, h)) return false;
+    b.pos[h] = n; b.pos[p] = HOLE;
+    return true;
+  }
+
+  function contaOk(b) {
+    var c = 0;
+    for (var t = 0; t < 8; t++) if (b.pos[t] === t) c++;
+    return c;
+  }
+
+  function disegna(b) {
+    b.pos.forEach(function (n, p) {
+      if (n === HOLE) return;
+      b.tiles[n].style.transform = "translate(calc(var(--t) * " + (p % 3) + "), calc(var(--t) * " + Math.floor(p / 3) + "))";
+    });
+    b.el.classList.toggle("fatto", b.fatto);
+  }
+
+  function aggiornaInfo() {
+    boards.forEach(function (b) {
+      b.ok = contaOk(b);
+      b.info.className = "dos-panel info";
+      b.info.textContent = "Numeri  OK: " + b.ok + "\n\n" + (b.fatto ? " Attendi !!! " : "");
+    });
+    if (boards[0].fatto && boards[1].fatto) {
+      var m0 = boards[0].mosse, m1 = boards[1].mosse;
+      boards.forEach(function (b, k) {
+        var mia = k ? m1 : m0, altra = k ? m0 : m1;
+        var esito = mia === altra ? " PARITA'" : mia < altra ? " HAI VINTO" : " HAI PERSO";
+        b.info.textContent = esito + "\n\n N° mosse : " + mia;
+        b.info.classList.add(mia < altra ? "vinto" : mia > altra ? "perso" : "pari");
+      });
+      D.play("T180L16O4CEGO5C");
+    }
+  }
+
+  // A player's move (click or key)
+  function mossa(k, n) {
+    var b = boards[k];
+    if (b.fatto || G.finito) return;
+    if (!muovi(b, n)) { D.sound(120, 1); return; }
+    D.sound(1500, 0.6);
+    b.mosse++;
+    if (contaOk(b) === 8) b.fatto = true;
+    disegna(b);
+    aggiornaInfo();
+  }
+
+  // Original Timer1_Timer: start from the reversed board, then 101 random
+  // tile picks applied to BOTH boards so they start identical.
+  function mescola() {
+    do {
+      boards.forEach(function (b) {
+        for (var u = 0; u < 9; u++) b.pos[u] = 8 - u;
+      });
+      for (var u = 0; u <= 100; u++) {
+        var i = D.rand(0, 7);
+        boards.forEach(function (b) { muovi(b, i); });
+      }
+    } while (contaOk(boards[0]) === 8);
+    boards.forEach(function (b) { b.mosse = 0; b.fatto = false; disegna(b); });
+    aggiornaInfo();
+  }
+
+  // Keyboard: player 1 top-row digits, player 2 numeric keypad, Esc = Esci
+  document.addEventListener("keydown", function (e) {
+    if (D.dialogoAperto() || !attivo || e.ctrlKey || e.altKey || e.metaKey) return;
+    var m = /^(Digit|Numpad)([0-7])$/.exec(e.code);
+    if (m) {
+      e.preventDefault();
+      if (!e.repeat) mossa(m[1] === "Digit" ? 0 : 1, +m[2]);
+    } else if (e.key === "Escape") {
+      e.preventDefault(); G.esci();
+    } else if (e.key === "n" || e.key === "N") {
+      e.preventDefault(); mescola();
+    } else if (e.key === "i" || e.key === "I" || e.key === "?") {
+      e.preventDefault(); info();
+    } else if (e.key === "e" || e.key === "E") {
+      e.preventDefault(); G.esci();
+    }
+  });
+
+  D.$("#nuovo").addEventListener("click", function () { if (attivo) mescola(); this.blur(); });
+  // Original instructions (decoded from mnuinfo_Click), verbatim
+  var ISTRUZIONI = " Puzzle di numeri per due giocatori.\n Il gioco consiste nel riordinare i numeri dallo zero al sette.\n" +
+    " Si può giocare contemporaneamente. Ogni giocatore ha disponibili\n i suoi tasti: quello di destra il tastierino numerico mentre\n" +
+    " quello di sinistra i tasti numerici principali.\n Vince chi completa il gioco con il minore numero di mosse.\n" +
+    " (Il numero di mosse è segreto.) .\n\n Autore: Carmelo Muscolino Palmanova Udine";
+  function info() { if (!D.dialogoAperto()) D.msg(ISTRUZIONI, "PUZZLE", "larga"); }
+  D.$("#info").addEventListener("click", function () { this.blur(); info(); });
+  D.$("#esci").addEventListener("click", function () { G.esci(); });
+
+  G.topbar("Puzzle");
+  mescola();
+  G.nomi().then(function (n) {
+    D.$("#nome0").textContent = n[0];
+    D.$("#nome1").textContent = n[1];
+    attivo = true;
+    G.avviaTempo(D.$("#secondi"));
+  });
+
+  // Hooks for automated tests
+  window.puzzle = { boards: boards, mossa: mossa, mescola: mescola };
+})();
+</script>
+</body>
+</html>

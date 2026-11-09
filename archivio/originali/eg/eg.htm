@@ -1,0 +1,162 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>EG </title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#FFFFFF">
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td valign="top">&nbsp;</td>
+        <td align="center"><a href="../index.htm"><font
+        color="#800000" size="3" face="Comic Sans MS"><img
+        src="home.gif" border="0" width="79" height="71"></font></a><div
+        align="center"><center><table border="0">
+            <tr>
+                <td><font color="#800000" size="4"
+                face="Comic Sans MS">E.G. <br>
+                Descrizione</font><font color="#800000" size="2"
+                face="Comic Sans MS">:<br>
+                Soft programmabile per esercitazioni o test
+                multidisciplinari.<br>
+                Gli esercizi sono strutturati in livelli (Max 5 ).<br>
+                Per ogni livello si possono programmare :&quot;<br>
+                - i punti acquisiti per svolgimento corretto;<br>
+                - i punti persi per errore;<br>
+                - i punti necessari per superare il livello;<br>
+                - i punti da perdere al passare del tempo;<br>
+                - la cadenza del tempo in secondi;<br>
+                - l'eventuale tempo da dedicare al gioco; <br>
+                I giochi disponibili sono due (gorillas e puzzle).
+                Entrambi permettono il gioco a due alunni.<br>
+                Gorillas, è un soft prodotto da Autori non
+                identificati e allegato al sistema operativo dos??
+                come esempio di programmazione per QBASIC . 'Gira'
+                nei livelli intermedi mentre puzzle 'gira' nell'ultimo
+                livello.<br>
+                Gli esercizi all'interno di un livello sono
+                proposti casualmente.<br>
+                Ogni esercitazione si salva con una password
+                autore.<br>
+                La password per aprire gli esercizi inseriti è
+                1234.<br>
+                Gli esercizi d'esempio possono contenere degli
+                errori in quanto sono quelli prodotti dai ragazzi.<br>
+                Purtroppo ho perso il lavoro finale !! ...e non
+                ho tempo per sistemare questi. Qualcuno è
+                disponibile? Ovviamente gratis !!</font></td>
+            </tr>
+        </table>
+        </center></div></td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="2"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td align="center"><font color="#800000" size="2"
+        face="Comic Sans MS"><img src="eg.gif" width="420"
+        height="268"></font></td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="2"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td><font color="#800000" size="3" face="Comic Sans MS">Informazioni
+        tecniche:</font><font color="#800000" size="2"
+        face="Comic Sans MS"><br>
+        Per l'ardware sono sufficienti 286, con monitor
+        monocromatico, senza HD con il dos+soft nel dischetto.<br>
+        La nostra aula informatica era strutturata così !!.<br>
+        Il linguaggio adoperato è Visual Basic per DOS.<br>
+        </font><font color="#800000" size="3"
+        face="Comic Sans MS">Questo è il </font><a href="eg.txt"><font
+        color="#0000FF" size="3" face="Comic Sans MS">codice
+        sorgente.</font></a><p><font color="#800000" size="1"
+        face="Comic Sans MS"></font>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="1"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td><font color="#800000" size="3" face="Comic Sans MS">Clicca
+        </font><a href="egarc.exe"><font color="#0000FF" size="3"
+        face="Comic Sans MS">DOWNLOAD</font></a><font
+        color="#800000" size="3" face="Comic Sans MS"> per
+        scaricare il soft (250 Kb)</font></td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="2"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td><font color="#800000" size="2" face="Comic Sans MS"></font>&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="1"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td><font color="#800000" size="1" face="Comic Sans MS">Visual
+        Basic per DOS è un marchio registrato dalla Microsoft</font></td>
+    </tr>
+    <tr>
+        <td align="right"><font color="#800000" size="2"
+        face="Comic Sans MS"></font>&nbsp;</td>
+        <td align="right">&nbsp;</td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><a
+href="http://members.xoom.it/Muscolino/home.htm"><font size="1"
+face="Comic Sans MS">muscolino</font></a><font size="1"
+face="Comic Sans MS"> copyright © 1998-2000. All rights reserved
+.</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

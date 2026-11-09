@@ -1,0 +1,31 @@
+#TITLE Demo 3° .problemi
+#PWD 0000
+'0
+Descrizione della programmazione 3° tipo per i problemi. 
+Gli esercizi verranno proposti sempre in ordine casuale .
+Le risposte saranno in successione il nome della grandezza da calcolare 
+e il relativo valore. Il nome della grandezza deve essere presentato 
+in una lista a scelta multipla. 
+Le soluzioni vengono trascritte sulla "lavagna".
+Osservare che alla sinistra del carattere \ si può scrivere la consegna 
+momentanea o testo guida. 
+ATTENZIONE: lasciare una riga vuota esclusivamente tra un problema 
+e l'altro.
+
+'3
+
+Maria ha sul balcone 4 fioriere ed in ciascuna di esse deve porre 3 
+piantine di fiori. 
+Se ogni piantina costa 1000 lire, quanto spende in tutto?
+Iniziamo calcolando... \!totale dei fiori\costo di una fioriera\costo di un fiore\
+I fiori in tutto sono..\12
+Il costo totale sarà di lire..\12000
+
+
+
+
+
+
+
+
+

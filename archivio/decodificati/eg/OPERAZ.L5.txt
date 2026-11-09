@@ -1,0 +1,444 @@
+'0
+           ULTIMO LIVELLO
+   Le divivioni sono con una o due cifre decimali
+   
+   Il risultato lo puoi scrivere con la virgola o con il
+   punto.
+   Esempio:
+   
+   21/4=
+   
+   risposta valida    5.25   oppure  5,25
+
+   
+'2
+
+   20 / 8 =
+Quoziente con  1 cifre decimali.\ 2.5 \ 2,5
+
+   21 / 4 =
+Quoziente con  2 cifre decimali.\ 5.25 \ 5,25
+
+   21 / 6 =
+Quoziente con  1 cifre decimali.\ 3.5 \ 3,5
+
+   22 / 4 =
+Quoziente con  1 cifre decimali.\ 5.5 \ 5,5
+
+   22 / 5 =
+Quoziente con  1 cifre decimali.\ 4.4 \ 4,4
+
+   22 / 8 =
+Quoziente con  2 cifre decimali.\ 2.75 \ 2,75
+
+   23 / 4 =
+Quoziente con  2 cifre decimali.\ 5.75 \ 5,75
+
+   23 / 5 =
+Quoziente con  1 cifre decimali.\ 4.6 \ 4,6
+
+   24 / 5 =
+Quoziente con  1 cifre decimali.\ 4.8 \ 4,8
+
+   25 / 4 =
+Quoziente con  2 cifre decimali.\ 6.25 \ 6,25
+
+   26 / 4 =
+Quoziente con  1 cifre decimali.\ 6.5 \ 6,5
+
+   26 / 5 =
+Quoziente con  1 cifre decimali.\ 5.2 \ 5,2
+
+   26 / 8 =
+Quoziente con  2 cifre decimali.\ 3.25 \ 3,25
+
+   27 / 4 =
+Quoziente con  2 cifre decimali.\ 6.75 \ 6,75
+
+   27 / 5 =
+Quoziente con  1 cifre decimali.\ 5.4 \ 5,4
+
+   27 / 6 =
+Quoziente con  1 cifre decimali.\ 4.5 \ 4,5
+
+   28 / 5 =
+Quoziente con  1 cifre decimali.\ 5.6 \ 5,6
+
+   28 / 8 =
+Quoziente con  1 cifre decimali.\ 3.5 \ 3,5
+
+   29 / 4 =
+Quoziente con  2 cifre decimali.\ 7.25 \ 7,25
+
+   29 / 5 =
+Quoziente con  1 cifre decimali.\ 5.8 \ 5,8
+
+   30 / 4 =
+Quoziente con  1 cifre decimali.\ 7.5 \ 7,5
+
+   30 / 8 =
+Quoziente con  2 cifre decimali.\ 3.75 \ 3,75
+
+   31 / 4 =
+Quoziente con  2 cifre decimali.\ 7.75 \ 7,75
+
+   31 / 5 =
+Quoziente con  1 cifre decimali.\ 6.2 \ 6,2
+
+   32 / 5 =
+Quoziente con  1 cifre decimali.\ 6.4 \ 6,4
+
+   33 / 4 =
+Quoziente con  2 cifre decimali.\ 8.25 \ 8,25
+
+   33 / 5 =
+Quoziente con  1 cifre decimali.\ 6.6 \ 6,6
+
+   33 / 6 =
+Quoziente con  1 cifre decimali.\ 5.5 \ 5,5
+
+   34 / 4 =
+Quoziente con  1 cifre decimali.\ 8.5 \ 8,5
+
+   34 / 5 =
+Quoziente con  1 cifre decimali.\ 6.8 \ 6,8
+
+   34 / 8 =
+Quoziente con  2 cifre decimali.\ 4.25 \ 4,25
+
+   35 / 4 =
+Quoziente con  2 cifre decimali.\ 8.75 \ 8,75
+
+   36 / 5 =
+Quoziente con  1 cifre decimali.\ 7.2 \ 7,2
+
+   36 / 8 =
+Quoziente con  1 cifre decimali.\ 4.5 \ 4,5
+
+   37 / 4 =
+Quoziente con  2 cifre decimali.\ 9.25 \ 9,25
+
+   37 / 5 =
+Quoziente con  1 cifre decimali.\ 7.4 \ 7,4
+
+   38 / 4 =
+Quoziente con  1 cifre decimali.\ 9.5 \ 9,5
+
+   38 / 5 =
+Quoziente con  1 cifre decimali.\ 7.6 \ 7,6
+
+   38 / 8 =
+Quoziente con  2 cifre decimali.\ 4.75 \ 4,75
+
+   39 / 4 =
+Quoziente con  2 cifre decimali.\ 9.75 \ 9,75
+
+   39 / 5 =
+Quoziente con  1 cifre decimali.\ 7.8 \ 7,8
+
+   39 / 6 =
+Quoziente con  1 cifre decimali.\ 6.5 \ 6,5
+
+   41 / 4 =
+Quoziente con  2 cifre decimali.\ 10.25 \ 10,25
+
+   41 / 5 =
+Quoziente con  1 cifre decimali.\ 8.2 \ 8,2
+
+   42 / 4 =
+Quoziente con  1 cifre decimali.\ 10.5 \ 10,5
+
+   42 / 8 =
+Quoziente con  2 cifre decimali.\ 5.25 \ 5,25
+
+   43 / 4 =
+Quoziente con  2 cifre decimali.\ 10.75 \ 10,75
+
+   43 / 5 =
+Quoziente con  1 cifre decimali.\ 8.6 \ 8,6
+
+   44 / 5 =
+Quoziente con  1 cifre decimali.\ 8.8 \ 8,8
+
+   44 / 8 =
+Quoziente con  1 cifre decimali.\ 5.5 \ 5,5
+
+   45 / 4 =
+Quoziente con  2 cifre decimali.\ 11.25 \ 11,25
+
+   45 / 6 =
+Quoziente con  1 cifre decimali.\ 7.5 \ 7,5
+
+   46 / 4 =
+Quoziente con  1 cifre decimali.\ 11.5 \ 11,5
+
+   46 / 5 =
+Quoziente con  1 cifre decimali.\ 9.2 \ 9,2
+
+   46 / 8 =
+Quoziente con  2 cifre decimali.\ 5.75 \ 5,75
+
+   47 / 4 =
+Quoziente con  2 cifre decimali.\ 11.75 \ 11,75
+
+   48 / 5 =
+Quoziente con  1 cifre decimali.\ 9.6 \ 9,6
+
+   49 / 4 =
+Quoziente con  2 cifre decimali.\ 12.25 \ 12,25
+
+   49 / 5 =
+Quoziente con  1 cifre decimali.\ 9.8 \ 9,8
+
+   50 / 4 =
+Quoziente con  1 cifre decimali.\ 12.5 \ 12,5
+
+   50 / 8 =
+Quoziente con  2 cifre decimali.\ 6.25 \ 6,25
+
+   51 / 4 =
+Quoziente con  2 cifre decimali.\ 12.75 \ 12,75
+
+   51 / 5 =
+Quoziente con  1 cifre decimali.\ 10.2 \ 10,2
+
+   51 / 6 =
+Quoziente con  1 cifre decimali.\ 8.5 \ 8,5
+
+   52 / 5 =
+Quoziente con  1 cifre decimali.\ 10.4 \ 10,4
+
+   52 / 8 =
+Quoziente con  1 cifre decimali.\ 6.5 \ 6,5
+
+   53 / 4 =
+Quoziente con  2 cifre decimali.\ 13.25 \ 13,25
+
+   53 / 5 =
+Quoziente con  1 cifre decimali.\ 10.6 \ 10,6
+
+   54 / 4 =
+Quoziente con  1 cifre decimali.\ 13.5 \ 13,5
+
+   54 / 5 =
+Quoziente con  1 cifre decimali.\ 10.8 \ 10,8
+
+   54 / 8 =
+Quoziente con  2 cifre decimali.\ 6.75 \ 6,75
+
+   55 / 4 =
+Quoziente con  2 cifre decimali.\ 13.75 \ 13,75
+
+   56 / 5 =
+Quoziente con  1 cifre decimali.\ 11.2 \ 11,2
+
+   57 / 4 =
+Quoziente con  2 cifre decimali.\ 14.25 \ 14,25
+
+   57 / 5 =
+Quoziente con  1 cifre decimali.\ 11.4 \ 11,4
+
+   57 / 6 =
+Quoziente con  1 cifre decimali.\ 9.5 \ 9,5
+
+   58 / 4 =
+Quoziente con  1 cifre decimali.\ 14.5 \ 14,5
+
+   58 / 5 =
+Quoziente con  1 cifre decimali.\ 11.6 \ 11,6
+
+   58 / 8 =
+Quoziente con  2 cifre decimali.\ 7.25 \ 7,25
+
+   59 / 4 =
+Quoziente con  2 cifre decimali.\ 14.75 \ 14,75
+
+   59 / 5 =
+Quoziente con  1 cifre decimali.\ 11.8 \ 11,8
+
+   60 / 8 =
+Quoziente con  1 cifre decimali.\ 7.5 \ 7,5
+
+   61 / 4 =
+Quoziente con  2 cifre decimali.\ 15.25 \ 15,25
+
+   61 / 5 =
+Quoziente con  1 cifre decimali.\ 12.2 \ 12,2
+
+   62 / 4 =
+Quoziente con  1 cifre decimali.\ 15.5 \ 15,5
+
+   62 / 5 =
+Quoziente con  1 cifre decimali.\ 12.4 \ 12,4
+
+   62 / 8 =
+Quoziente con  2 cifre decimali.\ 7.75 \ 7,75
+
+   63 / 4 =
+Quoziente con  2 cifre decimali.\ 15.75 \ 15,75
+
+   63 / 5 =
+Quoziente con  1 cifre decimali.\ 12.6 \ 12,6
+
+   63 / 6 =
+Quoziente con  1 cifre decimali.\ 10.5 \ 10,5
+
+   64 / 5 =
+Quoziente con  1 cifre decimali.\ 12.8 \ 12,8
+
+   65 / 4 =
+Quoziente con  2 cifre decimali.\ 16.25 \ 16,25
+
+   66 / 4 =
+Quoziente con  1 cifre decimali.\ 16.5 \ 16,5
+
+   66 / 5 =
+Quoziente con  1 cifre decimali.\ 13.2 \ 13,2
+
+   66 / 8 =
+Quoziente con  2 cifre decimali.\ 8.25 \ 8,25
+
+   67 / 4 =
+Quoziente con  2 cifre decimali.\ 16.75 \ 16,75
+
+   67 / 5 =
+Quoziente con  1 cifre decimali.\ 13.4 \ 13,4
+
+   68 / 5 =
+Quoziente con  1 cifre decimali.\ 13.6 \ 13,6
+
+   68 / 8 =
+Quoziente con  1 cifre decimali.\ 8.5 \ 8,5
+
+   69 / 4 =
+Quoziente con  2 cifre decimali.\ 17.25 \ 17,25
+
+   69 / 5 =
+Quoziente con  1 cifre decimali.\ 13.8 \ 13,8
+
+   69 / 6 =
+Quoziente con  1 cifre decimali.\ 11.5 \ 11,5
+
+   70 / 4 =
+Quoziente con  1 cifre decimali.\ 17.5 \ 17,5
+
+   70 / 8 =
+Quoziente con  2 cifre decimali.\ 8.75 \ 8,75
+
+   71 / 4 =
+Quoziente con  2 cifre decimali.\ 17.75 \ 17,75
+
+   71 / 5 =
+Quoziente con  1 cifre decimali.\ 14.2 \ 14,2
+
+   72 / 5 =
+Quoziente con  1 cifre decimali.\ 14.4 \ 14,4
+
+   73 / 4 =
+Quoziente con  2 cifre decimali.\ 18.25 \ 18,25
+
+   73 / 5 =
+Quoziente con  1 cifre decimali.\ 14.6 \ 14,6
+
+   74 / 4 =
+Quoziente con  1 cifre decimali.\ 18.5 \ 18,5
+
+   74 / 5 =
+Quoziente con  1 cifre decimali.\ 14.8 \ 14,8
+
+   74 / 8 =
+Quoziente con  2 cifre decimali.\ 9.25 \ 9,25
+
+   75 / 4 =
+Quoziente con  2 cifre decimali.\ 18.75 \ 18,75
+
+   75 / 6 =
+Quoziente con  1 cifre decimali.\ 12.5 \ 12,5
+
+   76 / 5 =
+Quoziente con  1 cifre decimali.\ 15.2 \ 15,2
+
+   76 / 8 =
+Quoziente con  1 cifre decimali.\ 9.5 \ 9,5
+
+   77 / 4 =
+Quoziente con  2 cifre decimali.\ 19.25 \ 19,25
+
+   77 / 5 =
+Quoziente con  1 cifre decimali.\ 15.4 \ 15,4
+
+   78 / 4 =
+Quoziente con  1 cifre decimali.\ 19.5 \ 19,5
+
+   78 / 5 =
+Quoziente con  1 cifre decimali.\ 15.6 \ 15,6
+
+   78 / 8 =
+Quoziente con  2 cifre decimali.\ 9.75 \ 9,75
+
+   79 / 4 =
+Quoziente con  2 cifre decimali.\ 19.75 \ 19,75
+
+   79 / 5 =
+Quoziente con  1 cifre decimali.\ 15.8 \ 15,8
+
+   81 / 4 =
+Quoziente con  2 cifre decimali.\ 20.25 \ 20,25
+
+   81 / 5 =
+Quoziente con  1 cifre decimali.\ 16.2 \ 16,2
+
+   81 / 6 =
+Quoziente con  1 cifre decimali.\ 13.5 \ 13,5
+
+   82 / 4 =
+Quoziente con  1 cifre decimali.\ 20.5 \ 20,5
+
+   82 / 5 =
+Quoziente con  1 cifre decimali.\ 16.4 \ 16,4
+
+   82 / 8 =
+Quoziente con  2 cifre decimali.\ 10.25 \ 10,25
+
+   83 / 4 =
+Quoziente con  2 cifre decimali.\ 20.75 \ 20,75
+
+   83 / 5 =
+Quoziente con  1 cifre decimali.\ 16.6 \ 16,6
+
+   84 / 8 =
+Quoziente con  1 cifre decimali.\ 10.5 \ 10,5
+
+   85 / 4 =
+Quoziente con  2 cifre decimali.\ 21.25 \ 21,25
+
+   86 / 4 =
+Quoziente con  1 cifre decimali.\ 21.5 \ 21,5
+
+   86 / 5 =
+Quoziente con  1 cifre decimali.\ 17.2 \ 17,2
+
+   86 / 8 =
+Quoziente con  2 cifre decimali.\ 10.75 \ 10,75
+
+   87 / 4 =
+Quoziente con  2 cifre decimali.\ 21.75 \ 21,75
+
+   87 / 5 =
+Quoziente con  1 cifre decimali.\ 17.4 \ 17,4
+
+   87 / 6 =
+Quoziente con  1 cifre decimali.\ 14.5 \ 14,5
+
+   88 / 5 =
+Quoziente con  1 cifre decimali.\ 17.6 \ 17,6
+
+   89 / 4 =
+Quoziente con  2 cifre decimali.\ 22.25 \ 22,25
+
+   90 / 4 =
+Quoziente con  1 cifre decimali.\ 22.5 \ 22,5
+
+   90 / 8 =
+Quoziente con  2 cifre decimali.\ 11.25 \ 11,25
+

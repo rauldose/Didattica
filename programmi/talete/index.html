@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talete - Laboratorio di matematica</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<style>
+  body { min-height: 100vh; }
+  .lab { max-width: 980px; margin: 12px auto; }
+  .lab .win-menubar button { white-space: pre; }
+  .area { background: #008080; padding: 12px; color: #fff; }
+
+  .tela { position: relative; background: #fff; max-width: max(320px, calc((100vh - 290px) * 1.713)); margin: 0 auto; }
+  #cv { display: block; width: 100%; height: auto; aspect-ratio: 514 / 300; touch-action: none; outline: none; }
+  #cv:focus-visible { outline: 2px dotted #000080; outline-offset: -3px; }
+
+  .sotto { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 12px; align-items: flex-start; }
+  .paralleli { flex: 1 1 100%; font-weight: bold; }
+  .misure { display: grid; grid-template-columns: auto auto; gap: 4px 8px; align-items: center; }
+  .misure .win-field { color: #000; font-family: "Courier New", monospace; font-weight: bold; min-width: 7.5em; text-align: right; }
+  .misure b { font-size: 18px; }
+
+  .letterale { display: flex; flex-direction: column; gap: 8px; }
+  .letterale .riga { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .letterale input {
+    width: 7em; background: #c0c0c0; text-transform: lowercase; font-family: "Courier New", monospace;
+    font-size: 17px; font-weight: bold; color: #000;
+  }
+  .letterale .ris { color: #000; background: #ffff80; min-width: 6.5em; font-family: "Courier New", monospace; font-weight: bold; text-align: right; }
+  .letterale .ris.err { color: #a00000; }
+  .letterale .suggerimento { font-size: 13px; color: #e6fffb; }
+  .letterale .suggerimento button { font-size: 13px; padding: 2px 8px; min-height: 0; }
+
+  /* calculator window (non-modal, draggable by its title bar) */
+  .calc { position: fixed; z-index: 500; width: 250px; max-width: calc(100vw - 16px); }
+  .calc .win-titlebar { cursor: move; touch-action: none; user-select: none; }
+  .calc .chiudi-x { min-height: 0; padding: 0 6px; line-height: 16px; font-weight: bold; }
+  .calc .corpo { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .calc input { width: 100%; font-family: "Courier New", monospace; font-size: 16px; }
+  .calc #calcRis { background: #ffff00; text-align: right; }
+  .calc .tasti { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .calc .tasti button { padding: 4px 0; font-weight: bold; touch-action: manipulation; }
+  .calc .tasti .largo { grid-column: span 4; }
+  .calc label { font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .lab { margin: 0; }
+    .area { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../../index.html">← Programmi</a>
+  <strong>Talete</strong>
+  <span class="spacer"></span>
+  <span>Prof. Carmelo Muscolino</span>
+</div>
+
+<div class="lab win-window">
+  <div class="win-titlebar"><span class="t">LABORATORIO DI MATEMATICA</span></div>
+  <nav class="win-menubar">
+    <button type="button" id="mUscita">Uscita</button>
+    <button type="button" id="mCalc">Calcolatrice</button>
+    <button type="button" id="mAiuto" aria-label="Aiuto">  ?</button>
+  </nav>
+  <div class="area">
+    <div class="tela win-sunken">
+      <canvas id="cv" tabindex="0"
+        aria-label="Raggio di sole e due legni rossi con le loro ombre. Tasti 1, 2, 3: inclinazione del raggio. Tasti A o C: scegli il legno; frecce sinistra e destra: spostalo."></canvas>
+    </div>
+    <div class="sotto">
+      <div class="paralleli">I segmenti a e c sono paralleli</div>
+      <div class="misure" aria-live="polite">
+        <b>a</b><span class="win-field" id="ma">0 cm</span>
+        <b>b</b><span class="win-field" id="mb">0 cm</span>
+        <b>c</b><span class="win-field" id="mc">0 cm</span>
+        <b>d</b><span class="win-field" id="md">0 cm</span>
+      </div>
+      <div class="letterale">
+        <div class="riga">
+          <input class="win-field" id="e1" maxlength="7" value="a+b" autocomplete="off" spellcheck="false" aria-label="Prima espressione con le lettere a b c d">
+          <span>=</span><output class="win-field ris" id="r1"></output>
+        </div>
+        <div class="riga">
+          <input class="win-field" id="e2" maxlength="7" value="c+d" autocomplete="off" spellcheck="false" aria-label="Seconda espressione con le lettere a b c d">
+          <span>=</span><output class="win-field ris" id="r2"></output>
+        </div>
+        <div class="suggerimento">Prova a scrivere <b>a/b</b> e <b>c/d</b>, poi sposta i legni o cambia il sole.
+          <button type="button" class="win-btn" id="prova">Prova</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="calc win-window" id="calc" role="dialog" aria-label="Calcolatrice" hidden>
+  <div class="win-titlebar" id="calcTitolo"><span class="t">Calcolatrice</span>
+    <button type="button" class="win-btn chiudi-x" id="calcX" aria-label="Chiudi">×</button></div>
+  <nav class="win-menubar">
+    <button type="button" id="calcChiudi">Chiudi</button>
+    <button type="button" id="calcAiuto">?</button>
+  </nav>
+  <div class="corpo">
+    <input class="win-field" id="calcEspr" autocomplete="off" spellcheck="false" aria-label="Espressione">
+    <label for="calcRis">risultato</label>
+    <input class="win-field" id="calcRis" readonly>
+    <div class="tasti" id="tasti">
+      <button type="button" class="win-btn">7</button><button type="button" class="win-btn">8</button>
+      <button type="button" class="win-btn">9</button><button type="button" class="win-btn">/</button>
+      <button type="button" class="win-btn">4</button><button type="button" class="win-btn">5</button>
+      <button type="button" class="win-btn">6</button><button type="button" class="win-btn">*</button>
+      <button type="button" class="win-btn">1</button><button type="button" class="win-btn">2</button>
+      <button type="button" class="win-btn">3</button><button type="button" class="win-btn">-</button>
+      <button type="button" class="win-btn">0</button><button type="button" class="win-btn">.</button>
+      <button type="button" class="win-btn">=</button><button type="button" class="win-btn">+</button>
+      <button type="button" class="win-btn largo">Cancella</button>
+    </div>
+  </div>
+</div>
+
+<script src="../../js/common.js"></script>
+<script src="talete.js"></script>
+</body>
+</html>

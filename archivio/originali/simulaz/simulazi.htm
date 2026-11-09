@@ -1,0 +1,153 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>soft simulazione</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#C0C0C0">
+<div align="center"><center>
+
+<table border="2" bordercolor="#800000">
+    <tr>
+        <td><table border="0">
+            <tr>
+                <td><font color="#800000" size="4"><img
+                src="mano.gif" width="49" height="23"></font></td>
+                <td><a href="../index.htm"><font color="#800000"
+                size="2" face="Comic Sans MS"><img src="home.gif"
+                border="0" width="113" height="107"></font></a></td>
+            </tr>
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom"><dl>
+            <dd>&nbsp;</dd>
+            <dd>&nbsp;</dd>
+            <dd><font color="#800000" size="3"
+                face="Comic Sans MS">Archimede</font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">Il soft simula la Spinta
+                idrostatica. </font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">E' modificabile il:</font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">- tipo di solido</font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">-tipo di liquido;</font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">-volume della cavità;</font></dd>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">Si potrà spostare il solido,
+                verso l'alto o verso il basso, con il mouse. </font></dd>
+            <dt>&nbsp;</dt>
+            <dt><font color="#FFFF80" size="2"
+                face="Comic Sans MS">___</font><font
+                color="#800000" size="2" face="Comic Sans MS"> <img
+                src="archimede.gif" width="448" height="288"></font></dt>
+            <dt>&nbsp;</dt>
+            <dt><font color="#FFFF80" size="4">___</font><a
+                href="archime.exe"><font color="#0000FF" size="4">DOWNLOAD</font></a><font
+                color="#800000" size="4"> Archime.exe ( 226k )</font></dt>
+        </dl>
+        </td>
+    </tr>
+    <tr>
+        <td><dl>
+            <dd><dl>
+                    <dd>&nbsp;</dd>
+                    <dd><font color="#800000" size="3"
+                        face="Comic Sans MS">Talete</font></dd>
+                    <dd><font color="#800000" size="2"
+                        face="Comic Sans MS">Soft interattivo.<br>
+                        Applicazione della similitudine<br>
+                        Simula un raggio di sole che colpisce i
+                        due legni rossi e forma le due ombre.</font></dd>
+                    <dd><font color="#800000" size="2"
+                        face="Comic Sans MS">Si potrà agire:<br>
+                        - sull'inclinazione del raggio;<br>
+                        - sulla posizione dei due legni rossi.</font></dd>
+                </dl>
+                <p><font color="#800000" size="2"
+                face="Comic Sans MS"><img src="talete.gif"
+                width="351" height="240"></font></p>
+                <p><a href="matrar.exe"><font color="#0000FF"
+                size="4">DOWNLOAD</font><font color="#800000"
+                size="4"> Talete.exe</font></a><font
+                color="#800000" size="4"> ( 215k )</font></p>
+            </dd>
+        </dl>
+        </td>
+    </tr>
+    <tr>
+        <td><dl>
+            <dd><font color="#800000" size="2"
+                face="Comic Sans MS">Il linguaggio adoperato è
+                Delphi 1</font></dd>
+        </dl>
+        <p><font color="#800000" size="4">&nbsp; </font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<dl>
+    <dd><p align="center"><a
+        href="http://members.xoom.it/Muscolino/home.htm"><font
+        size="1" face="Comic Sans MS">muscolino</font></a><font
+        size="1" face="Comic Sans MS"> copyright © 1998-2000.
+        All rights reserved .</font></p>
+    </dd>
+</dl>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

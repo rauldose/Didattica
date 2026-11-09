@@ -1,0 +1,34 @@
+#TITLE Multipli e divisori
+#PWD 0000
+'1
+.Dimmi la parola da scrivere al posto dei puntini.
+Un numero è ....... per un'altro quando la divisione tra il primo ed il
+secondo numero ha come resto 0 e come quoziente un numero naturale.\divisibile
+
+Un numero è divisibile per un'altro quando la ...... tra il primo ed il
+secondo numero ha come resto 0 e come quoziente un numero naturale.\divisione
+
+Un numero è divisibile per un'altro quando la divisione tra il primo ed il
+secondo numero ha come ..... 0 e come quoziente un numero naturale.\resto
+
+Un numero è divisibile per un'altro quando la divisione tra il primo ed il
+secondo numero ha come resto 0 e come ....  un numero naturale.\quoziente
+
+Un numero è divisibile per un'altro quando la divisione tra il primo ed il
+secondo numero ha come resto 0 e come quoziente un numero ....... .\naturale
+
+7 è un ......... di 21\divisore
+8 è un ......... di 24\divisore
+2 è un ......... di 20\divisore
+5 è un ......... di 20\divisore
+3 è un ......... di 21\divisore
+50 è un ......... di 5\multiplo 
+10 è un ......... di 5\multiplo 
+20 è un ......... di 5\multiplo 
+10 è un ......... di 2\multiplo 
+50 è un ......... di 10\multiplo 
+50 è  ......... per 5\divisibile 
+10 è  ......... per 5\divisibile 
+20 è  ......... per 5\divisibile 
+10 è  ......... per 2\divisibile 
+50 è  ......... per 10\divisibile 

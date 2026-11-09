@@ -1,0 +1,494 @@
+DECLARE SUB cmdesercizio_click ()
+DECLARE SUB frase ()
+DECLARE SUB presentazione ()
+DECLARE SUB protez ()
+DECLARE SUB messaggio (Nmessaggio)
+DECLARE SUB st (n AS INTEGER)
+DIM SHARED PUNTI AS INTEGER
+ DIM SHARED np AS INTEGER
+ CONST vero = -1
+ CONST falso = 0
+ CONST suonoallarme = "MBT255L16O6CO4GEDCBT255L16O6CO4GEDCBT255L16O6CO4GEDC"
+DIM SHARED A$      'FRASE protetta
+DIM SHARED scuola$ 'FRASE protetta
+DIM SHARED eserciziosvolto%
+DIM SHARED esercizisvolti%
+DIM SHARED risposta$
+DIM SHARED TEMPOSTART
+DIM SHARED livello
+DIM SHARED CODICE%
+DIM SHARED q1
+DIM SHARED q2
+
+SUB Cmdesci_Click ()
+msg$ = " CIAO !!!." + CHR$(10) + CHR$(13)
+msg$ = msg$ + " " + CHR$(10) + CHR$(13)
+msg$ = msg$ + " A  PRESTO."
+MSGBOX msg$
+END
+END SUB
+
+SUB cmdesercizio_click ()
+inizio:
+cmdintestazione.CAPTION = scuola$
+IF eserciziosvolto% = falso THEN
+   ms$ = " Non hai finito l'esercizio !!! " + CHR$(10) + CHR$(13)
+   ms$ = ms$ + " Ti tolgo 150 punti. "
+   MSGBOX ms$
+   PUNTI = PUNTI - 150
+   st PUNTI
+END IF
+eserciziosvolto% = falso
+IF PUNTI < 200 AND livello = -1 THEN
+           livello = 0: que = 0
+       testoinformazione.text = "      Il risultato e' un intero   =< 13  "
+           ETILIVELLO.CAPTION = "  1¯  LIVELLO "
+           TEMPOSTART = INT(TIMER)
+           timer1.interval = 3000
+           END IF
+IF PUNTI > 199 AND PUNTI < 400 AND livello = 0 THEN
+           livello = 1
+     testoinformazione.text = "  Il risultato e' un intero >=14 e < 25 "
+            IF cntSuono.value = 1 THEN PLAY suonoallarme
+            ETILIVELLO.CAPTION = "  2¯   LIVELLO "
+            MSGBOX " SEI AL 2' LIVELLO "
+            timer1.interval = 5000
+            END IF
+IF PUNTI > 399 AND PUNTI < 600 AND livello = 1 THEN
+           livello = 2
+      testoinformazione.text = "   Il risultato e' un intero >=25 e <35"
+           IF cntSuono.value = 1 THEN PLAY suonoallarme
+           ETILIVELLO.CAPTION = "  3¯   LIVELLO "
+           MSGBOX " SEI AL 3' LIVELLO "
+           timer1.interval = 7000
+           END IF
+IF PUNTI > 599 AND PUNTI < 800 AND livello = 2 THEN
+           livello = 3
+ testoinformazione.text = " Scrivi il risultato approssimato per difetto con una sola cifra decimale "
+           IF cntSuono.value = 1 THEN PLAY suonoallarme
+           ETILIVELLO.CAPTION = " 4¯   LIVELLO "
+           MSGBOX " SEI AL 4' LIVELLO "
+           timer1.interval = 9000
+           END IF
+IF PUNTI > 799 AND PUNTI < 1000 AND livello = 3 THEN
+           livello = 4
+           testoinformazione.text = "Scrivi il risultato approssimato per difetto con due sole cifre decimali "
+           IF cntSuono.value = 1 THEN PLAY suonoallarme
+           ETILIVELLO.CAPTION = "  5¯   LIVELLO "
+           MSGBOX " SEI AL 5' LIVELLO "
+           timer1.interval = 11000
+           END IF
+ IF PUNTI > 999 THEN
+           IF cntSuono.value = 1 THEN PLAY suonoallarme
+           timer1.interval = 0
+           i$ = "" + CHR$(13) + CHR$(10)
+           i$ = i$ + "COMPLIMENTI  !!!!" + CHR$(13) + CHR$(10)
+           i$ = i$ + CHR$(13) + CHR$(10)
+           i$ = i$ + "COSA VUOI FARE ADESSO ? " + CHR$(13) + CHR$(10)
+           i$ = i$ + CHR$(13) + CHR$(10)
+           i$ = i$ + " 1 per Uscire " + CHR$(13) + CHR$(10)
+           i$ = i$ + " 2 per Giocare " + CHR$(13) + CHR$(10)
+           i$ = i$ + " 3 per Ripetere gli esercizi" + CHR$(13) + CHR$(10)
+           A$ = INPUTBOX$(i$, "", "", 2, 6)
+           A$ = LTRIM$(RTRIM$(A$))
+           IF A$ = "" OR A$ = "1" THEN END
+           numSEC% = 240
+           tt$ = "msu.exe " + STR$(numSEC%)
+           IF A$ = "2" THEN RUN tt$
+           IF A$ = "3" THEN : eserciziosvolto% = vero: PUNTI = 10: livello = -1: np = 0: GOTO inizio
+ END IF
+
+etichetta:
+SELECT CASE livello
+CASE 0
+'
+RANDOMIZE TIMER
+inf = 5: sup = 13: A = INT((sup - inf + 1) * RND + inf)
+esp$ = " " + LTRIM$(STR$(A * A)) + " = "
+risposta$ = LTRIM$(STR$(A))
+CASE 1
+'
+RANDOMIZE TIMER
+inf = 14: sup = 24: A = INT((sup - inf + 1) * RND + inf)
+esp$ = " " + LTRIM$(STR$(A * A)) + " = "
+risposta$ = LTRIM$(STR$(A))
+CASE 2
+'
+RANDOMIZE TIMER
+inf = 25: sup = 34: A = INT((sup - inf + 1) * RND + inf)
+esp$ = " " + LTRIM$(STR$(A * A)) + " = "
+risposta$ = LTRIM$(STR$(A))
+CASE 3
+'
+RANDOMIZE TIMER
+qq1:
+inf = 150: sup = 990: A = INT((sup - inf + 1) * RND + inf)
+IF SQR(A) - INT(SQR(A)) = 0 THEN GOTO qq1
+esp$ = " " + LTRIM$(STR$(A)) + " = "
+risposta$ = LTRIM$(STR$(INT(SQR(A) * 10) / 10))
+CASE 4
+'
+RANDOMIZE TIMER
+qq:
+inf = 150: sup = 990: A = INT((sup - inf + 1) * RND + inf)
+IF (SQR(A) - INT(SQR(A))) = 0 THEN GOTO qq
+esp$ = " " + LTRIM$(STR$(A)) + " = "
+risposta$ = LTRIM$(STR$(INT(SQR(A) * 100) / 100))
+END SELECT
+IF A = q1 OR A = q2 THEN
+  IF INP(94) = 1 THEN GOTO continua
+  GOTO etichetta
+END IF
+q2 = q1
+q1 = A
+continua:
+etitesto.CAPTION = esp$
+testorisposta.text = ""
+testorisposta.SETFOCUS
+END SUB
+
+SUB Cmdintestazione_Click ()
+cmdintestazione.CAPTION = " Non cliccarmi !!!!  BASTAAAA...."
+BEEP
+END SUB
+
+SUB Cntsuono_Click ()
+testorisposta.SETFOCUS
+END SUB
+
+SUB EtiLIVELLO_Click ()
+cmdintestazione.CAPTION = " Non cliccare. Lavora !!!!"
+END SUB
+
+SUB EtiPUNTI_Click ()
+cmdintestazione.CAPTION = " Lavora. Pensa a guadagnarti i punti !!!!"
+END SUB
+
+SUB ETPD_CLICK ()
+
+ RANDOMIZE TIMER
+ testomessaggio.top = INT(RND * 18) + 3
+ RANDOMIZE TIMER
+ testomessaggio.left = INT(RND * 30) + 10
+ IF testomessaggio.visible = falso THEN
+ testomessaggio.visible = vero
+ timer2.interval = 150
+ testomessaggio.SETFOCUS
+ ELSE
+ timer1.interval = 0
+ testomessaggio.visible = falso
+ END IF
+
+END SUB
+
+SUB form_load ()
+livello = -1
+timer1.interval = 0
+CALL protez
+st PUNTI
+SCC$ = "z≠ùØ©¶õzßüû£õz°©®õ¨≠zÇØûÉz" 
+FOR i = 1 TO LEN(SCC$)
+scuola$ = scuola$ + CHR$(ASC(MID$(SCC$, i, 1)) - 90)
+NEXT
+cmdintestazione.CAPTION = scuola$
+eserciziosvolto% = vero
+SCREEN.ControlPanel(0) = 14  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 15   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 4   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+
+ms$ = "Programma per esercitazione di calcolo di RADICI quadrate." + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Le radici vengono proposte casualmente." + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Usa il mouse oppure il tasto alt+lettera evidenziata. " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Vi sono 5 livelli di difficolta'. " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Anche la velocita' e' importante : il trascorrere del tempo " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "fa diminuire il punteggio. " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Quando arrivi al 5 livello puoi riposarti giocando per 300 sec. " + CHR$(13) + CHR$(10)
+MSGBOX ms$, 0, "  RADICI QUADRATE   Ver 2.00  "
+END SUB
+
+SUB Im1_Click ()
+cmdintestazione.CAPTION = " Non giocare con il mouse !!!!"
+'testorisposta.SETFOCUS
+END SUB
+
+SUB messaggio (Nmessaggio)
+   
+    imgMessaggio.visible = vero
+    imgMessaggio.CLS
+    SELECT CASE Nmessaggio
+    CASE 1
+    imgMessaggio.PRINT "                             "
+    imgMessaggio.PRINT "   ATTENZIONE !!    ERRORE   "
+    imgMessaggio.PRINT "                             "
+    imgMessaggio.PRINT "   Correggi con il tasto <-- "
+    imgMessaggio.PRINT "                             "
+    CASE 2
+    imgMessaggio.PRINT "                              "
+    imgMessaggio.PRINT "  ATTENZIONE !!     ERRORE    "
+    imgMessaggio.PRINT "  Si inizia con il simbolo di "
+    imgMessaggio.PRINT "  uguaglianza ( = )           "
+    imgMessaggio.PRINT "  Correggi con  il tasto   <--"
+
+    CASE 100
+    imgMessaggio.PRINT "  -----------------------------------  "
+    imgMessaggio.PRINT " Soft. Prof. C. Muscolino Palmanova UD "
+    imgMessaggio.PRINT "  -----------------------------------  "
+    END SELECT
+END SUB
+
+SUB protez ()
+A$ = "Soft prof. C. Muscolino - Palmanova "
+IF ASC(MID$(A$, 18, 1)) <> 99 THEN GOTO FINE
+IF ASC(MID$(A$, 19, 1)) <> 111 THEN GOTO FINE
+IF ASC(MID$(A$, 33, 1)) <> 111 THEN GOTO FINE
+IF ASC(MID$(A$, 36, 1)) <> 32 THEN GOTO FINE
+EXIT SUB
+FINE:
+CLS : LOCATE 10, 1: MSGBOX "COPIA MANOMESSA."
+END
+END SUB
+
+SUB st (n AS INTEGER)
+im1.CLS
+IF cntSuono.value = 0 THEN : np = n: GOTO senzasuono
+eti:
+IF n = np THEN GOTO senzasuono
+IF n > np THEN np = np + 1
+IF n < np THEN np = np - 1
+
+i$ = STR$(np)
+
+ln% = LEN(i$)
+FOR t% = 1 TO ln%
+  IF t% = 1 THEN SOUND 50, 1: SOUND 50, 0
+  c$ = MID$(i$, t%, 1)
+ X% = 16 - (ln% - t%) * 4
+ im1.currentY = 0
+    SELECT CASE c$
+  CASE "0"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "∫ ∫"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentX = X%: im1.PRINT " ª "
+       im1.currentX = X%: im1.PRINT " ∫ "
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "…Õº"
+       im1.currentX = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentX = X%: im1.PRINT " Õª"
+       im1.currentX = X%: im1.PRINT " Õπ"
+       im1.currentX = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentX = X%: im1.PRINT "… …"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "»Õª"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "ÃÕª"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "  ∫"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       
+  CASE "+"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒƒƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "A"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "– –"
+  CASE ":"
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+GOTO eti
+
+senzasuono:
+i$ = STR$(n)
+ln% = LEN(i$)
+FOR t% = 1 TO ln%
+  c$ = MID$(i$, t%, 1)
+ X% = 16 - (ln% - t%) * 4
+ im1.currentY = 0
+    SELECT CASE c$
+  CASE "0"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "∫ ∫"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentX = X%: im1.PRINT " ª "
+       im1.currentX = X%: im1.PRINT " ∫ "
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "…Õº"
+       im1.currentX = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentX = X%: im1.PRINT " Õª"
+       im1.currentX = X%: im1.PRINT " Õπ"
+       im1.currentX = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentX = X%: im1.PRINT "… …"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "»Õª"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "ÃÕª"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "  ∫"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+
+  CASE "+"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒƒƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "A"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "– –"
+  CASE ":"
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+
+END SUB
+
+SUB Testomessaggio_KeyPress (KeyAscii AS INTEGER)
+testomessaggio.visible = falso
+timer2.interval = 0
+testorisposta.SETFOCUS
+END SUB
+
+SUB testorisposta_Change ()
+testorisposta.text = LTRIM$(RTRIM$(testorisposta.text))
+WHILE i < LEN(testorisposta.text)
+i = i + 1
+  IF MID$(testorisposta.text, i, 1) = "," AND MID$(risposta$, i, 1) = "." THEN
+     GOTO jk
+  END IF
+IF MID$(testorisposta.text, i, 1) <> MID$(risposta$, i, 1) THEN
+      Nmessaggio = 1
+      cmdintestazione.visible = falso
+      CALL messaggio(Nmessaggio)
+      PUNTI = PUNTI - 25
+      st PUNTI
+      i$ = STR$(INT(PUNTI / (INT(TIMER) - TEMPOSTART) * 60))
+      ETIVEL.CAPTION = i$ + " punti al minuto "
+      EXIT SUB
+END IF
+jk:
+WEND
+ st PUNTI
+IF LEN(testorisposta.text) = LEN(risposta$) THEN
+     IF cntSuono.value = 1 THEN : SOUND 1000, 2: SOUND 500, 2: SOUND 800, 2
+     eserciziosvolto% = vero
+     esercizisvolti% = esercizisvolti% + 1
+     IF livello = 0 THEN PUNTI = PUNTI + 30
+     IF livello = 1 THEN PUNTI = PUNTI + 70
+     IF livello = 2 THEN PUNTI = PUNTI + 100
+     IF livello = 3 THEN PUNTI = PUNTI + 130
+     IF livello = 4 THEN PUNTI = PUNTI + 160
+     IF livello = 5 THEN PUNTI = PUNTI + 200
+     st PUNTI
+     i$ = STR$(INT(PUNTI / (INT(TIMER) - TEMPOSTART) * 60))
+     ETIVEL.CAPTION = i$ + " punti al minuto "
+     CALL cmdesercizio_click  'NUOVO
+     EXIT SUB
+  END IF
+st PUNTI
+cmdintestazione.visible = vero
+cmdintestazione.CAPTION = scuola$
+imgMessaggio.visible = falso
+END SUB
+
+ SUB timer1_timer ()
+ PUNTI = PUNTI - 5
+ st PUNTI
+i$ = STR$(INT(PUNTI / (INT(TIMER) - TEMPOSTART) * 60))
+ ETIVEL.CAPTION = i$ + " punti al minuto "
+END SUB
+
+
+SUB Timer2_Timer ()
+A$ = RIGHT$(A$, LEN(A$) - 1) + LEFT$(A$, 1)
+testomessaggio.text = LEFT$(A$, 38)
+END SUB
+
+SUB Timerpartenza_Timer ()
+Timerpartenza.interval = 0
+cmdesercizio_click
+END SUB

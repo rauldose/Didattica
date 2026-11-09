@@ -1,0 +1,62 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+
+<HTML>
+<HEAD>
+<TITLE>p4 modalità cliccare</TITLE>
+</HEAD>
+<BODY>
+<CENTER>
+<P><font face="COMIC SANS MS"><font color=#ff0000>Modality click.</font></font></P>
+</CENTER>
+<P><font face="COMIC SANS MS"><font color=#000080>This operational modality interests the exercises with text/ graphic. </font></font></P>
+<P><font face="COMIC SANS MS"><font color=#000080>In phase of execution, the pupil will should click on the video the correct solution. </font></font></P>
+<P><font face="COMIC SANS MS">
+<font color=#000080>The way of program has explained in the chapter </font></font></P>
+<P><A HREF="t9.htm"><font face="COMIC SANS MS">FAST PROGRAMMING</font></A></P>
+</BODY>
+</HTML><script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

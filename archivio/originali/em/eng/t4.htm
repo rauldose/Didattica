@@ -1,0 +1,190 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>p0 Programmazione</title>
+</head>
+
+<body>
+
+<p align="center"><font color="#FF0000" face="COMIC SANS MS">Programming</font><font
+color="#000080" face="COMIC SANS MS">. </font></p>
+
+<p align="left"><font color="#000080" face="COMIC SANS MS">With
+click on the 'programmazione' word the window appears that you
+invite to finger the password . </font></p>
+
+<p align="left"><font color="#000080" face="COMIC SANS MS">This
+is essential for read or change the exercises already written.
+For the teacher is possible overcome the password with an
+operation of identification. </font></p>
+
+<p align="left"><font color="#000080" face="COMIC SANS MS">For
+create a new exercise click on <img src="pn.gif" width="38"
+height="37"></font></p>
+
+<p align="left"><font color="#000080" face="COMIC SANS MS">and
+write the name of the new directory that wants to be created. He
+is not possible write the name of a directory already existing.
+Is possible do that only if in the existing directory is not
+present the in single file </font><font color="#000080"
+face="TIMES NEW ROMAN">'</font><font color="#000080"
+face="Comic Sans MS">.ese . ' Afterward will appear a screened
+where it is characterized in high on the menù the directory of
+work of the moment with all the run. In the made space is written
+the name of the exercise. The meaning of the numeric values (all
+ambulatory) is immediate. For a help click on the key? For
+eliminate the help click again the same key. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Clicking
+on them written Level,,,, they open the windows of purview where
+he finger the program exercise. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+size of the windows of text change clicking and dragging the red
+button. The width of the window, that, cans be different from
+level to level, he comes canned in phase of execution, from the
+width of the blackboard. Also the dimension of the text is
+variable and you can memorize her. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+buttons to click are <img src="aa.gif" width="73" height="38"> </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Rules
+of the programming</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+text that is written in the first lines up to the .esercizio</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">word
+or .consegna is reserved to the presentations. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+presentation (max. 255 car.) serves to describe briefly the
+exercises of that level. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">If in
+the text the name is written of an in single file .wav, for
+example prova.wav, when the presentation will happen will come
+executed the sound of the in single file. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">If in
+the text the name is written of an in single file .bmp, for
+example prova.bmp, when the presentation will happen will come
+presented the relative design. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Attention:
+write the name of the in single file in minuscule!! Obviously the
+name of the in single file won't appear on the blackboard. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Finished
+the draft of the presentation goes the cursor on the left hand
+and it finger .co (a point followed from the letters co). The
+computer will complete the '.CONSEGNA ' phrase. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+text after this phrase is that that he comes associate to all the
+exercises following, up to when an other is not written consigns.
+</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">You in
+this way avoid of finger always the same text in the varied
+exercises. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+text consigns finishes with the beginning of the</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">exercise.
+</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">The
+insertion of the delivery or of the presentation</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">is
+optional. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Programming
+of the exercises </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">Is
+written, to beginning line, .es. The computer will complete with
+.ESERCIZIO N° * and he goes accapo. </font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">He
+doesn't need to write the number because he will be made
+automatically from the computer, when he</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">will
+open the in single file (obviously must be first saved).</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">In the
+line where he resides the word .esercizio N° *, the name of an
+external program could be written from furnish like resource to
+the pupil.</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">For
+example:</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">.ESERCIZIO
+N° * calcolatrice cal.exe xxx</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">when
+the exercise will be performed, the calculating word will appear
+on the menù and if the pupil click will depart the</font></p>
+
+<p align="left"><font color="#000080" face="Comic Sans MS">program
+cal.exe, with the eventual parameters xxx. For begin sees the </font><a
+href="t5.htm"><font color="#000080" face="Comic Sans MS">first
+operational formality</font></a><font color="#000080"
+face="Comic Sans MS">.</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

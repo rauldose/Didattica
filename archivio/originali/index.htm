@@ -1,0 +1,238 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="description" content="Sito di Carmelo Muscolino">
+<meta name="keywords"
+content="Muscolino, MUSCOLINO, Muscolino, Carmelo, CARMELO, Delphi , Soft , Soft didattico , Scienze ,ARCHIMEDE, Archimede, idrostatica, Matematica, K12 ,Talete, Scuola ,Palmanova , Gonars, free, download">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Soft Didattico di Muscolino </title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#000000" text="#800000"
+link="#F36D4B" vlink="#FF00FF">
+
+<hr size="3" color="#FF8000">
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td valign="top"><font color="#800000" size="7"><strong>S<br>
+        O<br>
+        F<br>
+        T</strong></font><p><font color="#800000" size="5"><strong>DIDATTICO</strong></font></p>
+        </td>
+        <td><table border="0">
+            <tr>
+                <td align="right"><a href="em/em.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">Esercizi<br>
+                Multimediali</font></a></td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right"><a href="eg/eg.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">Esercizi
+                con_Gioco </font></a></td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right"><font color="#800000" size="3"
+                face="Comic Sans MS">__</font><a
+                href="matdos/matdos.htm"><font color="#800000"
+                size="3" face="Comic Sans MS">Vari <br>
+                matematica</font></a></td>
+            </tr>
+        </table>
+        </td>
+        <td align="center"><font color="#EDC049"><img
+        src="girasole.gif" width="270" height="254"></font></td>
+        <td valign="top"><table border="0">
+            <tr>
+                <td><a href="profedit/profedit.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">ProfEdit</font></a></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><a href="simulaz/simulazi.htm"><font
+                color="#800000" size="4">Simulazioni</font></a></td>
+            </tr>
+            <tr>
+                <td><a href="simulaz/simulazi.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">Archimede</font></a></td>
+            </tr>
+            <tr>
+                <td><a href="simulaz/simulazi.htm"><font
+                color="#800000" size="4">Talete</font></a></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><a href="segnala/segnala.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">Link
+                </font></a><a href="segnala/segnala.htm"><font
+                color="#800000" size="3" face="Comic Sans MS">Segnalazioni</font></a></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <td><font color="#804040" size="4">K12</font></td>
+        <td><img src="tbttrfly.gif" width="50" height="50"></td>
+        <td align="center"><img src="italia.gif"> <a
+        href="indexa.htm"><img src="america.gif" border="0"></a> <img
+        src="germania.gif"> <img src="francia.gif"></td>
+        <td valign="top"><br>
+        <a href="home.htm"><font size="2">Prof. Carmelo</font></a><font
+        size="2"><br>
+        </font><a href="home.htm"><font size="2">Muscolino</font></a></td>
+    </tr>
+    <tr>
+        <td valign="bottom" colspan="2"><font color="#804040"
+        size="3" face="Comic Sans MS">Difficoltà </font><font
+        color="#804040" size="4" face="Comic Sans MS">?</font><font
+        color="#804040" size="3" face="Comic Sans MS"><br>
+        Scegliete un'altro sito mirror :<br>
+        </font><a href="http://members.xoom.it/Muscolino/"
+        target="_top"><font color="#804040" size="3"
+        face="Comic Sans MS">http://members.xoom.it/Muscolino/</font></a><font
+        color="#804040" size="3" face="Comic Sans MS"><br>
+        </font><a href="http://iv3msu.supereva.it" target="_top"><font
+        color="#804040" size="3" face="Comic Sans MS">http://iv3msu.supereva.it</font></a><font
+        color="#804040" size="3" face="Comic Sans MS"><br>
+        </font><a href="http://soft.school.8m.com" target="_top"><font
+        color="#804040" size="3" face="Comic Sans MS">http://soft.school.8m.com</font></a><font
+        color="#804040" size="3" face="Comic Sans MS"><br>
+        </font></td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</center></div>
+
+<hr size="3" color="#FF8000">
+
+<table border="1" bgcolor="#C0C0C0">
+    <tr>
+        <td><font size="2">ATTENZIONE.<br>
+        Il Software è fornito COSI' COM'E' (AS IS), senza
+        garanzia di ogni tipo, inclusa la vendibilità e la
+        garanzia di soddisfare una qualche particolare esigenza.
+        L'intero rischio sulla qualità e sulle prestazioni del
+        software è assunto da voi. Se il software è difettoso,
+        voi e non l'autore vi assumerete il carico del costo di
+        ogni servizio e riparazione.</font><font size="1"><br>
+        L'AUTORE NON E' RESPONSABILE DI OGNI DANNO INDIRETTO,
+        SPECIALE, INCIDENTALE, CONSEQUENZIALE A QUALSIASI COSA O
+        PERSONA, INCLUDENDO, SENZA LIMITAZIONI, DANNI ALLA SALUTE,
+        INTERRUZIONE DI LAVORO, DANNI O MALFUNZIONAMENTI DEL
+        COMPUTER, E QUALSIASI ALTRO DANNO O PERDITA COMMERCIALE. <br>
+        </font></td>
+    </tr>
+</table>
+
+<p align="center"><font color="#800000">Copyright © 2000
+Muscolino All Rights Reserved</font>. </p>
+
+<p><font size="1"><script language="JavaScript">
+                <!-- 
+                var statusMsg = null;
+                var textMsg = null;
+                var veloce=60;
+                var startup=500;
+		function oneShotScroll() {
+			if (statusMsg.length>1) {
+				statusMsg=statusMsg.substring(1,statusMsg.length);
+			} else {
+				statusMsg=textMsg;
+			}
+			window.status=statusMsg;
+			timer=window.setTimeout("oneShotScroll()" ,veloce);
+		}
+		function scrolling(millisec, numOfSpaces) {
+			var t0  = "                                                      ";
+                        var t1  = "BENVENUTO !!!          ";
+			var t2  = "WELCOME !!!            ";
+			var t3  = "WILLKOMMEN !!!         ";
+			var t4  = "BIENVENU !!!           ";
+			textMsg=t1+t0+t2+t0+t3+t0+t4;
+			var spaces = " ";
+			for (c=0 ; c < numOfSpaces ; c++) {
+				spaces+=" ";
+			}
+			textMsg = spaces + textMsg;
+			statusMsg = textMsg;
+			var command="oneShotScroll()";
+			window.status=statusMsg;
+			timer=window.setTimeout(command ,veloce);
+		}
+		scrolling(100, 100);
+	// -->
+	</script></font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

@@ -1,0 +1,58 @@
+Esempio linguistico                        pass123
+5123123456789Esempio linguistico                        pass123
+<pl1>    200 <pl2>    400 <pl3>    600 <pl4>    800 <pl5>   1000 
+<sg1>     10 <sg2>     20 <sg3>     30 <sg4>     40 <sg5>     50 
+<p+1>     20 <p+2>     20 <p+3>     20 <p+4>     20 <p+5>     20 
+<p-1>      5 <p-2>      5 <p-3>      5 <p-4>      5 <p-5>      5 
+<ti1>     50 <ti2>     50 <ti3>     50 <ti4>     50 <ti5>     50 
+<pt1>      2 <pt2>      2 <pt3>      2 <pt4>      2 <pt5>      2 
+<ac1>  0 <ac2>  0 <ac3>  0 <ac4>  0 <ac5>  0 
+<oe1>  0 <oe2>  0 <oe3>  0 <oe4>  0 <oe5>  0 
+<tv1>     -- <tv2>     -- <tv3>     -- <tv4>     -- <tv5>     -- 
+
+
+
+
+
+
+
+
+<lv1>1229510
+
+   Esempio di esercizio con
+   audio
+   
+   per continuare cliccare qui
+<ese>
+  lince.wav  
+  Traduci e digita in Italiano
+
+  se vuoi riascoltare clicca
+  nel menù in audio
+\Lince\lince\LINCE
+<ese>
+  leone.wav
+  Traduci e digita in Italiano
+
+  se vuoi riascoltare clicca
+  nel menù in audio
+\Leone\leone\LEONE    
+
+<lv2>3427910
+
+   Esempio di esercizio con
+   audio e immagine
+
+<ese>
+  Digita 1
+lince.bmp
+lince.wav
+\1
+<ese>
+ Digita 1
+ leone.bmp 
+ leone.wav
+\1  
+<lv3>5629310
+<lv4>7829510
+<lv5>9 28910

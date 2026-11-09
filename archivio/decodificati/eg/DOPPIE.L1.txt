@@ -1,0 +1,56 @@
+#TITLE doppie
+#PWD 3636
+'1
+. scrivi la parola completa
+pen...ione\pensione
+influen...a\influenza
+len...a\lenza
+cal...ettoni\calzettoni
+inser...ione\inserzione
+pin...a\pinza
+sen...a\senza
+tenere...a\tenerezza
+le...ione\lezione
+pa...ia\pazzia
+a...ienda\azienda
+dire...ione\direzione
+eserci...io\esercizio
+al...are\alzare
+. trascrivi correttamente la parola. La parola puo' essere corretta.
+stassera\stasera
+anzittutto\anzitutto
+cosichè\cosicchè
+immondizia\immondizia
+accenddino\accendino
+rubbinetti\rubinetti
+ozzio\ozio
+soprabito\soprabito
+ribelle\ribelle
+debbole\debole
+orologgio\orologio
+nubile\nubile
+ocasione\occasione
+cuggino\cugino
+aggile\agile
+originale\originale
+probabbile\probabile
+diggerito\digerito
+. scrivi la parola completa
+sopra...utto\soprattutto
+sovra...aricare\sovraccaricare
+sovra...orre\sovrapporre
+contra...eso\contrappeso
+fra...isto\frammisto
+a...a...apanni\attaccapanni
+ro...ure\rotture
+impro...iso\improvviso
+sovra...o...lato\sovraffollato
+sopra..utto\soprattutto
+sovra..aricare\sovraccaricare
+sovra..orre\sovrapporre
+contra..eso\contrappeso
+fra..isto\frammisto
+a..a..apanni\attaccapanni
+ro..ure\rotture
+impro..iso\improvviso
+sovra..o..lato\sovraffollato

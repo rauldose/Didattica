@@ -1,0 +1,96 @@
+*
+L'alunno 
+L'alunna
+*
+.A ben
+.B positivamente
+.C normalmente
+.D discretamente
+.E abbastanza
+.F sufficientemente
+.G poco
+.H non molto
+.I non ben
+.L scarsamente
+* 
+socializzato
+socializzata
+*
+ha partecipato
+*
+attivamente
+con costanza
+con interesse
+in modo proficuo e attivo
+sufficientemente
+in modo alterno
+in modo discontinuo
+in modo settoriale
+superficialmente
+poco attivamente
+scarsamente
+poco
+faticosamente
+*  
+alla vita scolastica, impegnandosi
+*
+con costanza
+in modo responsabile
+in modo ordinato
+in modo sistematico
+con serietà
+discretamente
+sufficientemente
+in modo alterno
+in modo superficiale
+in modo discontinuo
+in modo settoriale
+poco attivamente
+scarsamente
+poco
+in modo disordinato
+in modo frettoloso
+in modo per lo pi— meccanico
+in modo mnemonico
+secondo le sue possibilità
+*
+nello studio e usando un metodo di lavoro
+*
+ordinato ed efficace.
+ordinato.
+efficace.
+autonomo e personale.
+autonomo.
+sicuro.
+preciso e ordinato.
+abbastanza autonomo.
+abbastanza ordinato.
+poco efficace.
+non sempre efficace.
+per lo più meccanico.
+per lo più mnemonico.
+meccanico e mnemonico.
+poco ordinato.
+impreciso.
+disordinato.
+disordinato e dispersivo.
+*
+Ha
+Non ha
+Ha pienamente
+Ha complessivamente
+Ha parzialmente
+* 
+raggiunto gli obiettivi
+in modo pieno e completo
+complessivamente
+essenziali
+in modo solo parziale
+prefissati  
+*
+in
+*
+tutte le discipline.
+in quasi tutte le discipline.
+buona parte delle discipline.
+una parte limitata di discipline. 

@@ -1,0 +1,48 @@
+#TITLE Demo 2 .espressioni
+#PWD 0000
+'0
+Programmazione tipo 2 , utile per l'espressioni. 
+E' riconosciuta dal comando  '2 
+
+Gli esercizi verranno proposti sempre in ordine casuale .
+Questo tipo di programmazione è caratterizzato dal fatto che 
+si possono inserire  una serie di risposte le quali di volta 
+in volta verranno trascritte sulla "lavagna".  
+
+ATTENZIONE: i vari quesiti sono separati da una riga vuota.
+
+In questo caso, è possibile cambiare la consegna per guidare l'alunno 
+nello svolgimento dell'esercizio.
+
+'2
+
+.Risolvi l'espressione scrivendo tutti i passaggi.
+
+[(7+2)/3+7]/2+2*4=
+\ =[9/3+7]/2+2*4=
+\ =[3+7]/2+8=
+\ =10/2+8=
+\ =5+8=
+\ =13
+
+
+[(7+2)/3+7]/2+2*4=
+Risolvi prima l'operazione (..)       \ =[9/3+7]/2+2*4=
+Ti suggerisco / *                     \ =[3+7]/2+8=
+Risolvi [  ]                          \ =10/2+8=
+In questo passaggio la /              \ =5+8=
+E per finire .....                    \ =13 
+
+.Coniuga il verbo 
+Coniugare il verbo AVERE
+(indicativo presente)
+Scrivi io ...\io ho
+\tu hai
+\egli ha
+\noi abbiamo
+\voi avete
+\essi hanno
+
+
+
+

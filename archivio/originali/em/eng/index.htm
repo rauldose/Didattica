@@ -1,0 +1,110 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Esercizi multimediali</title>
+</head>
+
+<body>
+
+<p align="center"><font color="#804040"><img src="em.gif"
+width="353" height="85"></font></p>
+
+<table border="0">
+    <tr>
+        <td><a href="t2.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">GENERALITY</font></a><font
+        color="#804040"> </font></td>
+        <td><font color="#804040"></font>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><a href="t3.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">HOW TO PERFORM</font></a></td>
+        <td><font color="#804040"></font>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><a href="t4.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">HOW TO PROGRAM</font></a></td>
+        <td><font color="#804040"></font>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><font color="#804040" size="4" face="COMIC SANS MS">MODALITY:</font></td>
+        <td><font color="#804040"></font>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><font color="#804040"></font>&nbsp;</td>
+        <td><a href="t5.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">FINGER</font></a></td>
+    </tr>
+    <tr>
+        <td><font color="#804040"></font>&nbsp;</td>
+        <td><a href="t6.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">CHOOS<u>E</u></font></a></td>
+    </tr>
+    <tr>
+        <td><font color="#804040"></font>&nbsp;</td>
+        <td><a href="t7.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">SELECTION</font></a><font
+        color="#804040"> </font></td>
+    </tr>
+    <tr>
+        <td><font color="#804040"></font>&nbsp;</td>
+        <td><a href="t8.htm"><font color="#804040" size="4"
+        face="COMIC SANS MS">CLICK</font></a></td>
+    </tr>
+</table>
+
+<p align="left"><a href="t9.htm"><font color="#804040" size="4"
+face="COMIC SANS MS">FAST PROGRAMMING</font></a><font
+color="#804040"> </font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

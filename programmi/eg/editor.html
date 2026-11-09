@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E.G. – Programmatore</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<link rel="stylesheet" href="eg.css">
+</head>
+<body class="dos eg">
+<nav class="topbar"><a href="../../index.html">← Programmi</a><a href="index.html">E.G. – Menu esercizi</a><span class="spacer"></span><span>Prof. Carmelo Muscolino</span></nav>
+<main class="dos-screen">
+  <div class="dos-title">E.G. – PROGRAMMATORE</div>
+  <div class="ed-corpo">
+    <div class="ed-riga">
+      <label for="ed-scegli">Esercitazione:</label>
+      <select id="ed-scegli" class="ed-sel"></select>
+      <button id="ed-nuova" class="dos-btn" type="button">Nuova</button>
+    </div>
+    <div class="ed-riga">
+      <label for="ed-titolo">Titolo (riga del menu):</label>
+      <input id="ed-titolo" class="dos-input ed-titolo" type="text" maxlength="60">
+    </div>
+    <div class="ed-tabwrap"><table class="ed-parametri" id="ed-parametri"></table></div>
+    <div class="ed-tabs" role="tablist" id="ed-tabs"></div>
+    <textarea id="ed-testo" class="ed-testo" spellcheck="false" aria-label="testo del livello"></textarea>
+    <div id="ed-stato" class="ed-stato" aria-live="polite"></div>
+    <div class="ed-riga">
+      <button id="ed-salva" class="dos-btn" type="button">Salva</button>
+      <button id="ed-prova" class="dos-btn" type="button">Prova</button>
+      <button id="ed-esporta" class="dos-btn" type="button">Esporta file</button>
+      <button id="ed-importa" class="dos-btn" type="button">Importa file…</button>
+      <button id="ed-elimina" class="dos-btn" type="button">Elimina</button>
+      <button id="ed-guida-btn" class="dos-btn" type="button">Guida</button>
+    </div>
+    <input id="ed-file" type="file" multiple hidden accept=".json,.l1,.l2,.l3,.l4,.l5,.dat,.L1,.L2,.L3,.L4,.L5,.DAT">
+    <pre id="ed-guida" class="ed-guida" hidden>REGOLE DI PROGRAMMAZIONE (dal programma originale)
+
+Ogni livello (max 5) e' un testo. Le righe di comando sono:
+  '0   le righe seguenti sono la PRESENTAZIONE del livello (lezione)
+  '1   domanda\risposta
+  '2   espressioni / risposte in successione trascritte sulla "lavagna"
+  '3   problemi: nome della grandezza (scelta) e valore, alternati
+  '4   testo da completare: i puntini ..... vengono sostituiti dalle risposte
+
+La riga che inizia con un punto (.) e' la CONSEGNA, scritta sotto la lavagna;
+se un esercizio non ha consegna si usa l'ultima inserita.
+Il testo prima del carattere \ e' proposto nella lavagna, il testo dopo e'
+la risposta che l'alunno deve digitare. Piu' risposte esatte: \2.5\2,5
+Scelta multipla: il carattere ! indica la risposta esatta: \!5\4\6
+Tipi 2, 3, 4: una riga vuota separa un esercizio dall'altro; a sinistra
+del \ si puo' scrivere una consegna momentanea (testo guida).
+
+I quesiti sono proposti seguendo l'ordine dei livelli, ma nell'ambito di
+ogni livello la scelta e' casuale. Le risposte digitate sono controllate
+lettera per lettera mentre l'alunno scrive.
+
+PARAMETRI: se "punti per superare" vale 0, il livello precedente e' l'ultimo.
+Se "secondi di gioco" e' maggiore di 0, superato il punteggio l'alunno
+puo' giocare (duello nei livelli intermedi, puzzle nell'ultimo).
+
+Vedi le esercitazioni "Demo 1..4" per esempi completi di ogni tipo.
+
+IMPORTA: si possono aprire i file originali di E.G. per DOS
+(NOME.L1 ... NOME.L5 e NOME.DAT, selezionandoli insieme) oppure un file
+.json esportato da questo programma. Le esercitazioni sono salvate nel
+browser di questo computer: usa "Esporta file" per conservarle o
+scambiarle con altre scuole.</pre>
+  </div>
+</main>
+<script src="../../js/common.js"></script>
+<script src="../../dati/eg/eg-dati.js"></script>
+<script src="eg-core.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

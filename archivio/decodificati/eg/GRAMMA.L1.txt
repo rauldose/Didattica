@@ -1,0 +1,102 @@
+#TITLE Esercizi vari di grammatica
+#PWD 0000
+'0
+Eccò una serie di esercizi
+di grammatica
+
+'1
+.Seleziona vero o falso
+scena \!Vero\falso
+sciena \!Falso\Vero
+asciensore\!Falso\Vero
+ascensore \!Vero\Falso
+convalescente \!Vero\Falso
+convalesciente\!Falso\Vero
+conoscienze\!Falso\Vero
+conoscenze \!Vero\Falso
+scienza \!Vero\Falso
+scenza\!Falso\Vero
+scendere \!Vero\Falso   
+sciendere\!Falso\Vero
+coscienziosamente\!Falso\Vero
+coscenziosamente \!Vero\Falso
+scenziato\!Falso\Vero
+scienziato \!Vero\Falso
+uscere \!Vero\Falso
+usiere\!Falso\Vero
+asceta \!Vero\Falso
+ascieta\!Falso\Vero
+scemo \!Vero\Falso
+sciemo\!Falso\Vero
+discepolo \!Vero\Falso
+disciepolo\!Falso\Vero
+foglie \!Vero\Falso
+miliaia\!Falso\Vero
+migliaia \!Vero\Falso
+consiliare\!Falso\Vero
+consigliare \!Vero\Falso
+trifoglio \!Vero\Falso
+spogliatoio \!Vero\Falso
+familia\!Falso\Vero
+famiglia \!Vero\Falso
+volioso\!Falso\Vero
+voglioso \!Vero\Falso
+caviliera\!Falso\Vero
+cavigliera \!Vero\Falso
+miglio \!Vero\Falso
+bersaliere\!Falso\Vero
+bersagliere \!Vero\Falso
+canalia\!Falso\Vero
+canaglia \!Vero\Falso
+cilio\!Falso\Vero
+ciglio \!Vero\Falso
+paliaccio\!Falso\Vero
+pagliaccio \!Vero\Falso
+guglia \!Vero\Falso
+valiare\!Falso\Vero
+vagliare \!Vero\Falso
+volia\!Falso\Vero
+voglia \!Vero\Falso
+bilia\!Falso\Vero
+biglia \!Vero\Falso
+soliola\!Falso\Vero
+sogliola \!Vero\Falso
+intrulio\!Falso\Vero
+intruglio \!Vero\Falso
+paliuzza\!Falso\Vero
+pagliuzza \!Vero\Falso
+Rimprovero \!Vero\Falso
+Rinpianto\!Falso\Vero
+rimpianto\!Vero\Falso
+Imbottigliare\!Vero\Falso
+Senplicità\!Falso\Vero
+semplicità\!Vero\Falso
+Tanponaqre\!Falso\Vero
+tamponare\!Vero\Falso
+Impaziente\!Vero\Falso
+Improvviso\!Vero\Falso
+Stanpare \!Falso\Vero
+stampare\!Vero\Falso
+Conbaciare\!Falso\Vero
+combaciare\!Vero\Falso
+Anplificare\!Falso\Vero
+amplificare\!Vero\Falso
+Anpio\!Falso\Vero
+ampio\!Vero\Falso
+Conpatriota\!Falso\Vero
+compatriota\!Vero\Falso
+Inportante\!Falso\Vero
+importante\!Vero\Falso
+Ambizioso\!Vero\Falso
+Ombrello\!Vero\Falso
+Impazzire\!Vero\Falso
+Inbecille\!Falso\Vero
+imbecille\!Vero\Falso
+banbino\!Falso\Vero
+bambino\!Vero\Falso
+inbroglio\!Falso\Vero
+imbroglio\!Vero\Falso
+inbucare\!Falso\Vero
+imbucare\!Vero\Falso
+inprudente\!Falso\Vero
+imprudente\!Vero\Falso

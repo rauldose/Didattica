@@ -1,0 +1,15 @@
+.geo-screen { background: var(--c8); }
+.geo-testo { color: var(--c10); white-space: pre-wrap; cursor: default; }
+.geo-passi { display: flex; flex-direction: column; gap: 0.3em; }
+.geo-riga { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6em; }
+.geo-eti { color: var(--c15); white-space: pre; }
+.geo-risp { width: 10em; }
+.geo-lista { max-width: 26em; }
+.geo-lista:focus { outline: 0.1em dashed var(--c14); }
+.geo-msg { bottom: 1em; right: 1.2em; }
+.geo-msg.basso { top: auto; bottom: 1em; left: 1.2em; right: auto; }
+.geo-msg.bravo { background: var(--c2); }
+.geo-opz { display: flex; justify-content: space-between; color: var(--c15); }
+.geo-link { background: none; border: 0; color: var(--c15); font-family: var(--mono); font-size: 1em; cursor: pointer; padding: 0; }
+.geo-link:hover { color: var(--c14); }
+.geo-calctot { color: var(--c14); }

@@ -1,0 +1,179 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>vari dos</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#FFFFFF">
+
+<table border="2" bordercolor="#808000">
+    <tr>
+        <td><a href="../index.htm"><font color="#800000"
+        face="Comic Sans MS"><img src="home.gif" border="0"
+        width="113" height="54"></font></a><font color="#800000"
+        face="Comic Sans MS"><br>
+        </font><font color="#FF0000" size="5"
+        face="Comic Sans MS">ESERCIZI VARI</font></td>
+        <td align="center"><font color="#800000" size="1"
+        face="Comic Sans MS">Linguaggio di programmazione :
+        Visual Basic per DOS<br>
+        Esigenze Hardware :sono stati adoperati con computer
+        monocromatici <br>
+        286 senza HD.<br>
+        Si possono installare nel dischetto insieme al sistema
+        operativo (DOS...)</font></td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">Espressioni</font><p><font
+        color="#0000FF" face="Comic Sans MS">Vedi c</font><a
+        href="espres.txt"><font color="#0000FF"
+        face="Comic Sans MS">odice sorgente</font></a></p>
+        </td>
+        <td align="center" valign="top"><font color="#800000"
+        face="Comic Sans MS"><img src="espres.gif" width="399"
+        height="234"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">Problemi<br>
+        Applicazione<br>
+        Teorema Pitagora<br>
+        </font><font color="#0000FF" face="Comic Sans MS">Vedi c</font><a
+        href="pitagora.txt"><font color="#0000FF"
+        face="Comic Sans MS">odice sorgente</font></a></td>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS"><img src="pit1.gif" width="401"
+        height="217"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">Calcolo di radici</font><p><font
+        color="#0000FF" face="Comic Sans MS">Vedi c</font><a
+        href="radice.txt"><font color="#0000FF"
+        face="Comic Sans MS">odice sorgente</font></a></p>
+        </td>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS"><img src="radice.gif" width="400"
+        height="221"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">Prodotti (la tabellina)</font><p><font
+        color="#0000FF" face="Comic Sans MS">Vedi c</font><a
+        href="tabel.txt"><font color="#0000FF"
+        face="Comic Sans MS">odice sorgente</font></a></p>
+        </td>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS"><img src="tabel.gif" width="401"
+        height="236"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">E quando si raggiunge il 5° livello
+        <br>
+        con un certo punteggio ...... si gioca!<br>
+        Il gioco ha una durata programmata.</font><p><font
+        color="#800000" size="1" face="Comic Sans MS">Il gioco
+        non è lavoro mio, si tratta di gorillas <br>
+        (autori XX sorgente disponibile con DOS??)</font></p>
+        <p><font color="#0000FF" face="Comic Sans MS">Vedi c</font><a
+        href="gorillas.txt"><font color="#0000FF"
+        face="Comic Sans MS">odice sorgente</font></a></p>
+        </td>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS"><img src="gioco.gif" width="404"
+        height="250"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="varidos.exe"><font
+        color="#0000FF" size="3" face="Comic Sans MS">DOWNLOAD</font></a><font
+        color="#800000" face="Comic Sans MS"> di tutti i soft.
+        precedentemente elencati (244 k)</font></td>
+        <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS">Geometria</font><p><font
+        color="#0000FF" face="Comic Sans MS">Vedi </font><a
+        href="geo.txt"><font color="#0000FF" face="Comic Sans MS">codice
+        sorgente</font></a></p>
+        </td>
+        <td align="center"><font color="#800000"
+        face="Comic Sans MS"><img src="geo.gif" width="408"
+        height="227"></font></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="geo.exe"><font
+        color="#0000FF" face="Comic Sans MS">DOWNLOAD</font></a><font
+        color="#800000" face="Comic Sans MS"><br>
+        del programma di Geometria ( 237 K)</font></td>
+        <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="center">&nbsp;</td>
+        <td align="center"><font color="#800000" size="1"
+        face="Comic Sans MS">Visual Basic per Dos è un prodotto</font><font
+        size="1" face="Comic Sans MS"> </font><font
+        color="#800000" size="1" face="Comic Sans MS">copyright
+        © Microsoft....... </font></td>
+    </tr>
+</table>
+
+<p align="center"><a
+href="http://members.xoom.it/Muscolino/home.htm"><font size="1"
+face="Comic Sans MS">muscolino</font></a><font size="1"
+face="Comic Sans MS"> copyright © 1998-2000. All rights reserved
+.</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

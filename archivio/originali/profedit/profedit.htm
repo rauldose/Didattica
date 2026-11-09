@@ -1,0 +1,153 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>profedit</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#C0C0C0">
+
+<dl>
+    <dd><table border="0" cellspacing="1" bordercolor="#800000">
+            <tr>
+                <td><a href="../index.htm"><font color="#800000"
+                size="2" face="Comic Sans MS"><img src="home.gif"
+                border="0" width="113" height="68"></font></a></td>
+                <td><font color="#800000" face="Comic Sans MS"></font>&nbsp;</td>
+                <td><font color="#800000" face="Comic Sans MS"></font>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="center"><font color="#800000" size="5"
+                face="Comic Sans MS">ProfEdit V2</font><dl>
+                    <dt><font color="#800000"
+                        face="Comic Sans MS"></font>&nbsp;</dt>
+                    <dt><a href="pf2aiuto.htm"><font
+                        color="#800000" size="4"
+                        face="Comic Sans MS"><img
+                        src="ITALIA.gif" border="0" width="32"
+                        height="32"></font><font color="#0000FF"
+                        size="4" face="Comic Sans MS">info</font></a></dt>
+                    <dt><a href="pf2help.htm"><font
+                        color="#800000" size="4"
+                        face="Comic Sans MS"><img
+                        src="AMERICA.gif" border="0" width="32"
+                        height="32"></font><font color="#0000FF"
+                        size="4" face="Comic Sans MS">info</font></a></dt>
+                </dl>
+                <p><a href="profe2.exe"><font color="#0000FF"
+                size="5" face="Comic Sans MS">Download</font></a></p>
+                <dl>
+                    <dt><font color="#800000" size="5"
+                        face="Comic Sans MS">( 617 KB )</font></dt>
+                    <dt><font color="#800000"
+                        face="Comic Sans MS"></font>&nbsp;</dt>
+                </dl>
+                </td>
+                <td valign="top"><font color="#800000"
+                face="Comic Sans MS"></font>&nbsp;</td>
+                <td><font color="#800000" face="Comic Sans MS"><img
+                src="prof2.gif" width="297" height="255"></font></td>
+            </tr>
+            <tr>
+                <td align="center"><font color="#800000" size="5"
+                face="Comic Sans MS">ProfEdit V.1</font><p><a
+                href="pf1aiuto.htm"><font color="#800000"
+                size="5" face="Comic Sans MS"><img
+                src="ITALIA.gif" border="0" width="32"
+                height="32"></font><font color="#0000FF" size="4"
+                face="Comic Sans MS">info</font></a></p>
+                <p><a href="prof.exe"><font color="#0000FF"
+                size="5" face="Comic Sans MS">Download</font></a></p>
+                <dl>
+                    <dt><font color="#800000" size="5"
+                        face="Comic Sans MS">( 237 KB)</font></dt>
+                </dl>
+                </td>
+                <td align="center"><font color="#800000"
+                face="Comic Sans MS"></font>&nbsp;</td>
+                <td><font color="#800000" face="Comic Sans MS"><img
+                src="prof1.gif" width="302" height="219"></font></td>
+            </tr>
+            <tr>
+                <td align="center"><hr>
+                </td>
+                <td><hr>
+                </td>
+                <td><hr>
+                </td>
+            </tr>
+            <tr>
+                <td align="center"><font color="#800000" size="5"
+                face="Comic Sans MS">ProfEdit V.0</font><font
+                color="#800000" size="4" face="Comic Sans MS"> </font><p><font
+                color="#800000" face="Comic Sans MS"></font>&nbsp;</p>
+                </td>
+                <td><font color="#800000" face="Comic Sans MS"></font>&nbsp;</td>
+                <td valign="bottom"><font color="#800000"
+                face="Comic Sans MS">Questa versione di soft è
+                stata realizzata <br>
+                per la vecchia scheda di valutazione<br>
+                Allego solo il </font><a href="profe0.txt"><font
+                color="#0000FF" face="Comic Sans MS">codice
+                sorgente</font></a><font color="#0000FF"
+                face="Comic Sans MS"> </font><font
+                color="#800000" face="Comic Sans MS"><br>
+                scritto in Visual Basic per Dos </font></td>
+            </tr>
+        </table>
+    </dd>
+</dl>
+
+<p><font color="#800000" size="2" face="Comic Sans MS">Ultima
+revisione 6/7/2000</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

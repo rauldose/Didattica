@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EM – Programmazione</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<link rel="stylesheet" href="em.css">
+</head>
+<body class="em">
+<nav class="topbar"><a href="../../index.html">← Programmi</a><a href="index.html">EM – Lettore</a><span class="spacer"></span><span>Prof. Carmelo Muscolino</span></nav>
+<main class="win-window ed">
+  <div class="win-titlebar"><span class="t">EM – Programmazione</span></div>
+  <div class="ed-corpo">
+    <div class="em-riga">
+      <label for="ed-scegli">Esercitazione:</label>
+      <select id="ed-scegli" class="win-field"></select>
+      <button id="ed-nuova" class="win-btn" type="button">Nuova</button>
+      <button id="ed-importa" class="win-btn" type="button">Importa file…</button>
+      <button id="ed-importa-dir" class="win-btn" type="button">Importa cartella…</button>
+    </div>
+    <div class="em-riga">
+      <label for="ed-titolo">Nome dell'esercitazione:</label>
+      <input id="ed-titolo" class="win-field" type="text" maxlength="60" style="flex:1;min-width:12em">
+    </div>
+    <div class="ed-scroll"><table id="ed-par" class="ed-par"></table></div>
+    <div class="ed-tabs" role="tablist" id="ed-tabs"></div>
+    <textarea id="ed-testo" class="win-field ed-testo" spellcheck="false" aria-label="programma del livello"></textarea>
+    <div id="ed-stato" class="ed-stato" aria-live="polite"></div>
+    <div class="em-riga">
+      <button id="ed-salva" class="win-btn" type="button">Salva</button>
+      <button id="ed-prova" class="win-btn" type="button">Prova</button>
+      <button id="ed-esporta" class="win-btn" type="button">Esporta file</button>
+      <button id="ed-elimina" class="win-btn" type="button">Elimina</button>
+      <button id="ed-guida-btn" class="win-btn" type="button">Guida</button>
+    </div>
+    <fieldset class="win-group">
+      <legend>Immagini e suoni</legend>
+      <div class="em-riga">
+        <button id="ed-media-agg" class="win-btn" type="button">Aggiungi file…</button>
+        <span style="font-size:13px">Scrivi il nome del file nel testo (in minuscolo) per usarlo: es. <code>prova.wav</code>, <code>disegno.bmp</code></span>
+      </div>
+      <div id="ed-media" class="ed-media"></div>
+    </fieldset>
+    <fieldset class="win-group" id="ed-zone-box" hidden>
+      <legend>Punti caldi (modalità cliccare)</legend>
+      <p style="margin:0 0 6px;font-size:13px">Trascina sul disegno per creare i quadrati. Il primo (azzurro) indica la risposta esatta, i rossi le risposte errate. Clic destro su un quadrato per eliminarlo. Se non metti quadrati rossi, l'alunno può cliccare in tutto il disegno.</p>
+      <div id="ed-zone"></div>
+      <div class="em-riga" style="margin-top:8px">
+        <button id="ed-zone-ins" class="win-btn" type="button">Inserisci nel testo</button>
+        <button id="ed-zone-canc" class="win-btn" type="button">Cancella quadrati</button>
+        <button id="ed-zone-chiudi" class="win-btn" type="button">Chiudi</button>
+        <code id="ed-zone-riga"></code>
+      </div>
+    </fieldset>
+    <pre id="ed-guida" class="ed-guida" hidden>REGOLE DELLA PROGRAMMAZIONE (dalla guida originale di EM)
+
+Il testo scritto prima di &lt;ese&gt; o &lt;con&gt; e' la PRESENTAZIONE del livello.
+Se nel testo si scrive il nome di un file .wav (es. prova.wav) verra' eseguito
+il suono; se si scrive il nome di un file .bmp verra' presentato il disegno.
+Scrivere il nome dei file in minuscolo.
+
+&lt;con&gt;  testo CONSEGNA, associato a tutti gli esercizi seguenti
+&lt;ese&gt;  inizia un ESERCIZIO. Sulla stessa riga si puo' indicare una risorsa:
+       &lt;ese&gt; calcolatrice cal.exe     (menu Risorse)
+       &lt;ese&gt; ESPERIMENTO mat.exe       (apre il laboratorio Talete)
+
+MODALITA' DIGITARE
+  (2+3)/2=
+  \2.5\2,5                 piu' risposte valide (fino a sei)
+  suggerimento\2.5\2,5     testo a sinistra di \ = suggerimento (gufo)
+  sugg.wav\2,5             suggerimento audio
+
+ESERCIZIO CON PIU' DOMANDE (max 7): le linee ____ vengono sostituite
+dalle soluzioni via via che l'alunno risponde.
+  La fotosintesi _________ avviene nelle _________.
+  \clorofilliana
+  \foglie
+
+MODALITA' SCEGLIERE (lista in ordine alfabetico, ! = esatta)
+  Il cane vola?
+  \!falso\vero
+
+MODALITA' SELEZIONARE (l'alunno seleziona sulla lavagna)
+  Quali dei seguenti numeri e' divisore di 10
+  5 3 7 9
+  \"5
+
+MODALITA' CLICCARE (punti caldi su un disegno)
+  Indica la corda
+  disegno1.bmp
+  \|113 65 117 18\            x y larghezza altezza (in pixel del disegno)
+  Il primo quadrato e' la risposta esatta, gli altri sono errati.
+  Usa il pulsante "Punti caldi" accanto a un'immagine per disegnarli.
+
+PARAMETRI (per ogni livello): punti per superare il livello (cumulativi),
+secondi di gioco, punti per esercizio esatto, punti persi per errore,
+tempo per rispondere, punti persi a tempo scaduto, ordine casuale (1) o
+sequenziale (0). In ordine casuale gli esercizi sbagliati vengono
+riproposti finche' non sono risolti.
+
+IMPORTA: seleziona la cartella di un'esercitazione originale di EM
+(il file .ESE con i suoi .bmp e .wav) oppure un file .json esportato.
+Le esercitazioni sono salvate nel browser di questo computer: usa
+"Esporta file" per conservarle o scambiarle con altre scuole
+(un unico file contiene testo, immagini e suoni).</pre>
+  </div>
+</main>
+<input id="ed-file" type="file" multiple hidden accept=".ese,.ESE,.json,.bmp,.BMP,.wav,.WAV,.png,.jpg,.gif">
+<input id="ed-dir" type="file" multiple hidden webkitdirectory>
+<input id="ed-media-file" type="file" multiple hidden accept=".bmp,.BMP,.wav,.WAV,.png,.jpg,.jpeg,.gif,.mp3,.ogg">
+<script src="../../js/common.js"></script>
+<script src="../../dati/em/em-dati.js"></script>
+<script src="em-core.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

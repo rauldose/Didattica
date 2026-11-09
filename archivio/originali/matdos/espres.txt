@@ -1,0 +1,487 @@
+DECLARE SUB nuovo3 ()
+DECLARE SUB NUOVO1 ()
+DECLARE SUB NUOVO2 ()
+DECLARE SUB Cmdesercizio_Click ()
+DECLARE SUB frase ()
+DECLARE SUB presentazione ()
+DECLARE SUB protez ()
+DECLARE SUB messaggio (Nmessaggio)
+DECLARE SUB NUOVO ()
+DECLARE SUB st (n AS STRING)
+DIM SHARED PUNTI AS INTEGER
+ CONST vero = -1
+ CONST falso = 0
+ CONST suonoallarme = "MBT255L16O6CO4GEDCBT255L16O6CO4GEDCBT255L16O6CO4GEDC"
+DIM SHARED index AS INTEGER
+DIM SHARED ESP$(10)
+DIM SHARED es AS INTEGER
+DIM SHARED a$      'FRASE protetta
+DIM SHARED scuola$ 'FRASE protetta
+DIM SHARED eserciziosvolto%
+DIM SHARED esercizisvolti%
+
+SUB Cmdesci_Click ()
+MSGBOX " CIAO!! A PRESTO."
+END
+END SUB
+
+SUB Cmdesercizio_Click ()
+inizio:
+timer1.interval = 10000
+cmdintestazione.CAPTION = scuola$
+IF eserciziosvolto% = falso THEN
+   ms$ = " Non hai finito l'esercizio!!!" + CHR$(10) + CHR$(13)
+   ms$ = ms$ + " Ti tolgo 60 punti. "
+   MSGBOX ms$
+   PUNTI = PUNTI - 60
+   st STR$(PUNTI)
+END IF
+IF PUNTI < 300 THEN CALL NUOVO
+IF PUNTI >= 300 AND PUNTI < 500 THEN
+            PLAY suonoallarme
+            ETILIVELLO.CAPTION = "LIVELLO 2"
+            CALL NUOVO1
+            END IF
+IF PUNTI >= 500 AND PUNTI <= 800 THEN
+           PLAY suonoallarme
+           ETILIVELLO.CAPTION = "LIVELLO 3"
+           CALL NUOVO2
+           END IF
+IF PUNTI >= 800 THEN
+           PLAY suonoallarme
+           timer1.interval = 0
+           i$ = "" + CHR$(13) + CHR$(10)
+           i$ = i$ + "COMPLIMENTI  !!!!" + CHR$(13) + CHR$(10)
+           i$ = i$ + CHR$(13) + CHR$(10)
+           i$ = i$ + "COSA VUOI FARE ADESSO ? " + CHR$(13) + CHR$(10)
+           i$ = i$ + CHR$(13) + CHR$(10)
+           i$ = i$ + " 1 per Uscire " + CHR$(13) + CHR$(10)
+           i$ = i$ + " 2 per Giocare " + CHR$(13) + CHR$(10)
+           i$ = i$ + " 3 per Ripetere gli esercizi" + CHR$(13) + CHR$(10)
+           a$ = INPUTBOX$(i$, "", "3")
+           a$ = LTRIM$(RTRIM$(a$))
+           IF a$ = "" OR a$ = "1" THEN END
+           Q$ = "msu.EXE " + STR$(300)
+           IF a$ = "2" THEN RUN Q$
+           IF a$ = "3" THEN : eserciziosvolto% = vero: PUNTI = 10: GOTO inizio
+
+           END IF
+END SUB
+
+SUB Cmdintestazione_Click ()
+cmdintestazione.CAPTION = " Non cliccarmi !!!!  BASTAAAA...."
+testo(index).SETFOCUS
+BEEP
+END SUB
+
+SUB EtiLIVELLO_Click ()
+cmdintestazione.CAPTION = " Non cliccare. Lavora !!!!"
+testo(index).SETFOCUS
+
+END SUB
+
+SUB EtiPUNTI_Click ()
+cmdintestazione.CAPTION = " Lavora. Pensa a guadagnarti i punti !!!!"
+testo(index).SETFOCUS
+
+END SUB
+
+SUB ETPD_CLICK ()
+cmdintestazione.CAPTION = a$
+FOR i% = 1 TO LEN(a$)
+af$ = af$ + MID$(a$, i%, 1)
+cmdintestazione.CAPTION = af$
+SOUND 2000, .5: SOUND 30000, .1
+NEXT
+testo(index).SETFOCUS
+END SUB
+
+SUB form_load ()
+CALL protez
+timer1.interval = 0
+PUNTI = 0
+st STR$(PUNTI)
+SCC$ = "z≠ùØ©¶õzßüû£õz°©®õ¨≠zÇØûÉz" 
+FOR i = 1 TO LEN(SCC$)
+scuola$ = scuola$ + CHR$(ASC(MID$(SCC$, i, 1)) - 90)
+NEXT
+cmdintestazione.CAPTION = scuola$
+eserciziosvolto% = vero
+
+SCREEN.ControlPanel(0) = 4  'colore lettera tasti di scelta
+SCREEN.ControlPanel(1) = 7
+SCREEN.ControlPanel(2) = 0
+SCREEN.ControlPanel(3) = vero
+SCREEN.ControlPanel(4) = 0
+SCREEN.ControlPanel(5) = 3
+SCREEN.ControlPanel(6) = 0
+SCREEN.ControlPanel(7) = 176  'motivo
+SCREEN.ControlPanel(8) = 15    'elementi disattivati
+SCREEN.ControlPanel(9) = 15   'sfondo menu'
+SCREEN.ControlPanel(10) = 0   'primo piano menu'
+SCREEN.ControlPanel(11) = 4   'menu selezionato sfondo
+SCREEN.ControlPanel(12) = 7   'primo piano menu selezionato
+SCREEN.ControlPanel(13) = 15  's.barra
+SCREEN.ControlPanel(14) = 0   'p.barra
+SCREEN.ControlPanel(15) = -1   'tridimensione
+SCREEN.ControlPanel(16) = 4   'sfondo barra titolo esempio msgbox
+SCREEN.ControlPanel(17) = 15  'primo piano barra con titoli
+
+ms$ = "Programma per migliorare la capacita' di calcolo e " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "la correttezza formale." + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Scrivi con le stesse regole che usi sul quaderno." + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "L'espressioni sono generate casualmente." + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Usa il mouse oppure il tasto alt+lettera evidenziata. " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Quando arrivi all'ultimo livello puoi giocare. " + CHR$(13) + CHR$(10)
+ms$ = ms$ + "" + CHR$(13) + CHR$(10)
+ms$ = ms$ + "Anche la velocita' e' importante : ogni 10 secondi ti toglie 5 punto." + CHR$(13) + CHR$(10)
+MSGBOX ms$, 0, "ESPRESSIONI"
+END SUB
+
+SUB Im1_Click ()
+cmdintestazione.CAPTION = " Non giocare con il mouse !!!!"
+testo(index).SETFOCUS
+END SUB
+
+SUB messaggio (Nmessaggio)
+   
+    imgMessaggio.visible = vero
+    imgMessaggio.CLS
+    SELECT CASE Nmessaggio
+    CASE 1
+    imgMessaggio.PRINT "                             "
+    imgMessaggio.PRINT "   ATTENZIONE !!    ERRORE   "
+    imgMessaggio.PRINT "                             "
+    imgMessaggio.PRINT "   Correggi con il tasto <-- "
+    imgMessaggio.PRINT "                             "
+    CASE 2
+    imgMessaggio.PRINT "                              "
+    imgMessaggio.PRINT "  ATTENZIONE !!     ERRORE    "
+    imgMessaggio.PRINT "  Si inizia con il simbolo di "
+    imgMessaggio.PRINT "  uguaglianza ( = )           "
+    imgMessaggio.PRINT "  Correggi con  il tasto   <--"
+
+    CASE 100
+    imgMessaggio.PRINT "  -----------------------------------  "
+    imgMessaggio.PRINT " Soft. Prof. C. Muscolino Palmanova UD "
+    imgMessaggio.PRINT "  -----------------------------------  "
+    END SELECT
+END SUB
+
+ SUB NUOVO ()
+eserciziosvolto% = falso
+RANDOMIZE TIMER
+es = INT(RND * 4) + 1
+SELECT CASE es
+CASE 1
+i$ = " a - b + c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+a = INT(RND * 100) + b
+c = INT(RND * 9) + 1
+ESP$(0) = " " + LTRIM$(STR$(a)) + "-" + LTRIM$(STR$(b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a - b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a - b + c))
+ESP$(3) = "END"
+'-------
+CASE 2
+i$ = " a + b - c "
+'------
+RANDOMIZE TIMER
+c = INT(RND * 9) + 1
+b = INT(RND * 9) + 1
+a = INT(RND * 100) + c
+ESP$(0) = " " + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a + b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a + b - c))
+ESP$(3) = "END"
+
+'-------
+CASE 3
+i$ = " a + b * c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+a = INT(RND * 10)
+c = INT(RND * 9) + 1
+ESP$(0) = " " + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b)) + "*" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b * c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a + b * c))
+ESP$(3) = "END"
+'-------
+CASE 4
+i$ = " a * b - c "
+'------
+RANDOMIZE TIMER
+c = INT(RND * 9) + 1
+b = INT(RND * 9) + 1
+a = INT(RND * 10) + INT(c / b)
+
+ESP$(0) = " " + LTRIM$(STR$(a)) + "*" + LTRIM$(STR$(b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a * b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a * b - c))
+ESP$(3) = "END"
+'-------
+END SELECT
+FOR i = 0 TO 6
+testo(i).TEXT = ""
+testo(i).enabled = vero
+testo(i).SETFOCUS
+NEXT
+testo(0).TEXT = ESP$(0)
+testo(1).SETFOCUS
+index = 1
+
+END SUB
+
+SUB NUOVO1 ()
+eserciziosvolto% = falso
+RANDOMIZE TIMER
+es = INT(RND * 3) + 1
+SELECT CASE es
+CASE 1
+i$ = " a - b * b + c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+a = INT(RND * 100) + b * b
+c = INT(RND * 9) + 1
+ESP$(0) = " " + LTRIM$(STR$(a)) + "-" + LTRIM$(STR$(b)) + CHR$(253) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a)) + "-" + LTRIM$(STR$(b * b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a - b * b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a - b * b + c))
+ESP$(4) = "END"
+'-------
+CASE 2
+i$ = " a + b * b - c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 12) + 5
+a = INT(RND * 10) + 5
+c = INT(RND * 9) + 1
+ESP$(0) = " " + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b)) + CHR$(253) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b * b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a + b * b)) + "-" + LTRIM$(STR$(c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a + b * b - c))
+ESP$(4) = "END"
+'-------
+CASE 3
+i$ = " a * a - b * b + c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+a = INT(RND * 10) + b
+c = INT(RND * 9) + 1
+ESP$(0) = " " + LTRIM$(STR$(a)) + CHR$(253) + "-" + LTRIM$(STR$(b)) + CHR$(253) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=" + LTRIM$(STR$(a * a)) + "-" + LTRIM$(STR$(b * b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a * a - b * b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a * a - b * b + c))
+ESP$(4) = "END"
+'-------
+END SELECT
+FOR i = 0 TO 6
+testo(i).TEXT = ""
+testo(i).enabled = vero
+testo(i).SETFOCUS
+NEXT
+testo(0).TEXT = ESP$(0)
+testo(1).SETFOCUS
+index = 1
+END SUB
+
+
+SUB NUOVO2 ()
+eserciziosvolto% = falso
+RANDOMIZE TIMER
+es = INT(RND * 3) + 1
+SELECT CASE es
+CASE 1
+i$ = " a - (b * b + c) "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+c = INT(RND * 9) + 1
+a = INT(RND * 100) + b * b + c
+
+ESP$(0) = " " + LTRIM$(STR$(a)) + "-(" + LTRIM$(STR$(b)) + CHR$(253) + "+" + LTRIM$(STR$(c)) + ")="
+ESP$(1) = "=" + LTRIM$(STR$(a)) + "-(" + LTRIM$(STR$(b * b)) + "+" + LTRIM$(STR$(c)) + ")="
+ESP$(2) = "=" + LTRIM$(STR$(a)) + "-" + LTRIM$(STR$(b * b + c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a - (b * b + c)))
+ESP$(4) = "END"
+'-------
+CASE 2
+i$ = " a + (b * b - c) "
+'------
+RANDOMIZE TIMER
+c = INT(RND * 9) + 1
+b = INT(RND * 12) + 5
+a = INT(RND * 10) + 5
+
+ESP$(0) = " " + LTRIM$(STR$(a)) + "+(" + LTRIM$(STR$(b)) + CHR$(253) + "+" + LTRIM$(STR$(c)) + ")="
+ESP$(1) = "=" + LTRIM$(STR$(a)) + "+(" + LTRIM$(STR$(b * b)) + "+" + LTRIM$(STR$(c)) + ")="
+ESP$(2) = "=" + LTRIM$(STR$(a)) + "+" + LTRIM$(STR$(b * b + c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a + (b * b + c)))
+ESP$(4) = "END"
+
+'-------
+CASE 3
+i$ = " (a * a - b * b) + c "
+'------
+RANDOMIZE TIMER
+b = INT(RND * 9) + 1
+a = INT(RND * 10) + b
+c = INT(RND * 9) + 1
+ESP$(0) = " (" + LTRIM$(STR$(a)) + CHR$(253) + "-" + LTRIM$(STR$(b)) + CHR$(253) + ")+" + LTRIM$(STR$(c)) + "="
+ESP$(1) = "=(" + LTRIM$(STR$(a * a)) + "-" + LTRIM$(STR$(b * b)) + ")+" + LTRIM$(STR$(c)) + "="
+ESP$(2) = "=" + LTRIM$(STR$(a * a - b * b)) + "+" + LTRIM$(STR$(c)) + "="
+ESP$(3) = "=" + LTRIM$(STR$(a * a - b * b + c))
+ESP$(4) = "END"
+'-------
+END SELECT
+FOR i = 0 TO 6
+testo(i).TEXT = ""
+testo(i).enabled = vero
+testo(i).SETFOCUS
+NEXT
+testo(0).TEXT = ESP$(0)
+testo(1).SETFOCUS
+index = 1
+
+END SUB
+
+SUB st (n AS STRING)
+im1.CLS
+ln% = LEN(n)
+FOR T% = 1 TO ln%
+  c$ = MID$(n, T%, 1)
+ X% = 16 - (ln% - T%) * 4
+ im1.currentY = 0
+    SELECT CASE c$
+  CASE "0"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "∫ ∫"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "1"
+       im1.currentX = X%: im1.PRINT " ª "
+       im1.currentX = X%: im1.PRINT " ∫ "
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "2"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "…Õº"
+       im1.currentX = X%: im1.PRINT "»ÕÕ"
+  CASE "3"
+       im1.currentX = X%: im1.PRINT " Õª"
+       im1.currentX = X%: im1.PRINT " Õπ"
+       im1.currentX = X%: im1.PRINT " Õº"
+  CASE "4"
+       im1.currentX = X%: im1.PRINT "… …"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "5"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "»Õª"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE "6"
+       im1.currentX = X%: im1.PRINT "…ÕÕ"
+       im1.currentX = X%: im1.PRINT "ÃÕª"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "7"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "  ∫"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "8"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "»Õº"
+  CASE "9"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "»Õπ"
+       im1.currentX = X%: im1.PRINT "ÕÕº"
+  CASE " "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "   "
+       
+  CASE "+"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒ≈ƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "-"
+       im1.currentX = X%: im1.PRINT "   "
+       im1.currentX = X%: im1.PRINT "ƒƒƒ"
+       im1.currentX = X%: im1.PRINT "   "
+  CASE "A"
+       im1.currentX = X%: im1.PRINT "…Õª"
+       im1.currentX = X%: im1.PRINT "ÃÕπ"
+       im1.currentX = X%: im1.PRINT "– –"
+  CASE ":"
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT " . "
+       im1.currentX = X%: im1.PRINT "   "
+
+   END SELECT
+NEXT
+END SUB
+
+SUB Testo_Change (index AS INTEGER)
+
+ IF index = 0 THEN EXIT SUB
+ testo(index).TEXT = LTRIM$(RTRIM$(testo(index).TEXT))
+WHILE i < LEN(testo(index).TEXT)
+i = i + 1
+IF MID$(testo(index).TEXT, i, 1) <> MID$(ESP$(index), i, 1) THEN
+      PUNTI = PUNTI - 5
+      st STR$(PUNTI)
+      IF MID$(ESP$(index), i, 1) = "=" THEN
+      Nmessaggio = 2
+      ELSE Nmessaggio = 1
+      END IF
+      cmdintestazione.visible = falso
+      CALL messaggio(Nmessaggio)
+      SOUND 2000, 5
+      EXIT SUB
+      END IF
+WEND
+ st STR$(PUNTI)
+IF LEN(testo(index).TEXT) = LEN(ESP$(index)) THEN
+  IF ESP$(index + 1) = "END" THEN
+     timer1.interval = 0
+     PLAY suonoallarme
+     eserciziosvolto% = vero
+     esercizisvolti% = esercizisvolti% + 1
+     m$ = " Bravo !! "
+     m$ = m$ + CHR$(13) + "Hai finito l'esercizio."
+     m$ = m$ + CHR$(13) + "Ti meriti 60 punti."
+     MSGBOX m$
+     PUNTI = PUNTI + 60
+     st STR$(PUNTI)
+     CALL Cmdesercizio_Click  'NUOVO
+     EXIT SUB
+  END IF
+
+index = index + 1
+testo(index).SETFOCUS
+PUNTI = PUNTI + 10
+st STR$(PUNTI)
+END IF
+
+cmdintestazione.visible = vero
+cmdintestazione.CAPTION = scuola$
+imgMessaggio.visible = falso
+END SUB
+
+ SUB timer1_timer ()
+ PUNTI = PUNTI - 5
+ st STR$(PUNTI)
+END SUB
+
+SUB Timerpartenza_Timer ()
+ Timerpartenza.interval = 0
+ Cmdesercizio_Click
+END SUB

@@ -1,0 +1,648 @@
+Apparato scheletrico
+;gratuito1gratuito1Apparato scheletrico
+<pl1>    200 <pl2>    400 <pl3>    600 <pl4>    800 <pl5>   1000 
+<sg1>      0 <sg2>      0 <sg3>      0 <sg4>      0 <sg5>    300 
+<p+1>    200 <p+2>     20 <p+3>     20 <p+4>     40 <p+5>     40 
+<p-1>      2 <p-2>     20 <p-3>     20 <p-4>     20 <p-5>     40 
+<ti1>      5 <ti2>      5 <ti3>      5 <ti4>     50 <ti5>     50 
+<pt1>     10 <pt2>     10 <pt3>     10 <pt4>     10 <pt5>     10 
+<ac1>  0 <ac2>  0 <ac3>  0 <ac4>  0 <ac5>  0 
+<oe1>  1 <oe2>  1 <oe3>  1 <oe4>  1 <oe5>  1 
+<tv1>      0 <tv2>      0 <tv3>      0 <tv4>      0 <tv5>      0 
+
+
+
+
+
+
+
+
+<lv1>gr29510
+
+ IL SISTEMA SCHELETRICO
+ 
+ OSSA DELLA TESTA
+
+
+<con> 
+OSSA DELLA TESTA.
+
+Indica il punto corrispondente al
+nome del seguente osso:
+
+<ese>
+OSSO FRONTALE testa.bmp
+\|7 1 66 29\
+<ese>
+TESTA.bmp OSSO SFENOIDE
+\|1 41 51 27\
+<ese>
+TESTA.bmp OSSO NASALE 
+\|285 15 36 31\
+<ese>
+TESTA.bmp OSSO MASCELLARE
+\|482 142 48 32\
+<ese>
+TESTA.bmp OSSO DELLA MANDIBOLA
+\|470 205 60 31\
+<ese>
+TESTA.bmp OSSO ZIGOMATICO
+\|283 193 56 31\
+<ese>
+TESTA.bmp OSSO TEMPORALE
+\|168 205 59 33\
+<ese>
+TESTA.bmp OSSO OCCIPITALE
+\|204 167 49 33\
+<ese>
+TESTA.bmp OSSO PARIETALE
+\|188 1 70 33\
+<ese>
+TESTA.bmp OSSO ZIGOMATICO
+\|285 193 56 31\
+
+
+<lv2>at27411
+
+
+  IL SISTEMA SCHELETRICO
+ 
+  OSSA DEGLI ARTI SUPERIORI
+
+
+
+<con> 
+OSSA ARTI SUPERIORI.
+
+Indica la zona colorata 
+corrispondente al nome 
+del seguente osso:
+
+<ese>
+braccio.bmp SCAPOLA
+\|230 87 36 31\
+<ese>
+braccio.bmp OMERO
+\|204 134 36 31\
+<ese>
+braccio.bmp  RADIO
+\|170 255 36 31\
+<ese>
+braccio.bmp ULNA
+\|182 209 36 31\
+<ese>
+braccio.bmp METACARPO
+\|13 255 36 31\
+<ese>
+braccio.bmp CARPO
+\|148 311 36 31\
+<ese>
+braccio.bmp FALANGI
+\|144 369 36 31\
+<lv3>ui27710
+
+
+
+
+   IL SISTEMA SCHELETRICO
+ 
+   OSSA ARTI INFERIORI 
+
+
+<con> 
+OSSA ARTI INFERIORI.
+
+Indica la zona colorata 
+corrispondente al nome del
+seguente osso:
+
+<ese>
+gamba.bmp ROTULA
+\|102 222 36 31\
+<ese>
+gamba.bmp TIBIA
+\|100 290 23 22\
+<ese>
+gamba.bmp TARSO
+\|83 353 21 22\
+<ese>
+gamba.bmp METATARSO
+\|103 366 19 18\
+<ese>
+gamba.bmp FALANGI
+\|122 372 19 19\
+<ese>
+gamba.bmp CALCAGNO
+\|16 368 25 22\
+<ese>
+gamba.bmp PERONE
+\|12 314 23 22\
+<ese>
+gamba.bmp FEMORE
+\|17 143 36 31\
+<lv4>to43510
+
+
+ SISTEMA  SCHELETRICO
+ 
+ DOMANDE GENERALI
+
+<con> 
+Scrivi la parola mancante nel seguente testo:
+
+<ese>
+TESTA
+Nell'uomo la testa ha una forma ovoidale 
+ed è formata da __  ossa unite saldamente tra loro 
+mediante suture, in modo da fornire la massima
+protezione al nostro organo più delicato,l' __________ . 
+\22\ventidue
+\encefalo
+<ese>
+La _________  si articola con le due ossa temporali 
+ed è l'unico osso della testa in grado di compiere 
+un'ampia gamma di movimenti.
+\mandibola
+<ese>
+L'osso ________  costituisce la nostra fronte e 
+l'arcata sopraccigliare.
+\frontale
+<ese>
+L'osso __________  costituisce la parte superiore 
+della bocca, su cui si impianta l'arcata dentaria e
+chiude le fossa nasali.
+\mascellare
+<ese>
+L'osso ______  costituisce l'impalcatura delle pareti
+e del dorso del naso.
+\nasale
+<ese>
+L'osso __________ costituisce la parte posteriore della
+testa.
+\occipitale
+<ese>
+L'osso _________  costituisce la parte superiore della 
+testa.
+\parietale
+<ese>
+L'osso  ______  costituisce le pareti laterali della 
+testa e le fosse orbitali.
+\sfenoide
+<ese>
+L'osso _________  costituisce la parte laterale della 
+testa e al suo interno trovano posto l'orecchio medio
+e quello interno.
+\temporale
+<ese>
+L'osso __________  forma un ponte fra la mascella e le
+ossa del cranio e partecipa alla costituzione della 
+parete laterale della cavità orbitale.
+\zigomatico
+<ese>
+Lo scheletro svolge una importante funzione 
+di ________ , dà appoggio alla testa,
+ forma la gabbia ________  su cui convergono gli 
+arti _________ , scarica il peso del capo sugli arti
+ inferiori grazie all'espansione del bacino.
+\sostegno
+\toracica
+\superiori
+<ese>
+La colonna __________  è l'elemento determinante di
+tutto il nostro sistema scheletrico visto che tutte
+le ossa direttamente o indirettamente sono a essa 
+collegate.E' formata da __  o 33  ________  è in 
+grado di garantire una gamma estremamente ampia di 
+movimenti.
+\vertebrale
+\32
+\vertebre
+<ese>
+Le ossa si suddividono in ossa ______ , come quelle 
+degli arti superiori e inferiori, ossa ______ ,
+come il cranio, e ossa _____ , come le vertebre.
+\lunghe
+\piatte
+\corte
+<ese>
+Colonna vertebrale: è un supporto resistente e 
+flessibile formato da 32 o 33 vertebre, che si 
+estende dalla nuca all'apice del coccige e 
+costituisce l'involucro protettore del
+ _______________ .
+\midollo spinale
+<ese>
+La gabbia ________  è costituita da 12 paia di _______ ,
+che distaccandosi dalla colonna vertebrale e 
+congiungendosi anteriormente formano una cavità 
+destinata a custodire cuore e _______ .
+\toracica
+\costole
+\polmoni
+<ese>
+La colonna vertebrale è composta di 32 o 33 
+vertebre,in cui si distinguono 7 vertebre _________ ,
+ 12 _______ , 5 _______ , 5 _______ , queste ultime 
+saldate insieme a formare l'osso sacro e 4 coccigee.
+\cervicali
+\dorsali
+\lombari
+\sacrali
+<ese>
+Le coste sono 24 ossa di forma allungata e arcuata 
+che si dipartono dalle vertebre dorsali 
+per unirsi anteriormente allo ______  mediante 
+una parte cartilaginea.
+\sterno
+<ese>
+Lo ______  è un osso piatto, situato nella parte 
+anteriore e mediana del torace, su cui si articolano
+le clavicole e le prime _____  costole.
+\sterno
+\sette\7
+<ese>
+Le vertebre _________  costituiscono la prima 
+parte della colonna vertebrale e sostengono la 
+_____ .
+\cervicali
+\testa
+<ese>
+Dalle vertebre _______  partono le costole che vanno 
+a formare la gabbia toracica.
+\dorsali
+<ese>
+L'arto superiore è collegato al tronco attraverso
+l'articolazione formata dalla _______  e dalla 
+_________ , che a sua volta si articola con lo 
+sterno.
+\scapola
+\clavicola
+<ese>
+L'_____ , che rappresenta lo scheletro del braccio,
+ è un osso lungo la cui parte superiore, o epifisi,
+ si allarga a sostenere l'articolazione con la 
+scapola.
+\omero
+<ese>
+L'____  e il _____ , che costituiscono lo scheletro 
+dell'avambraccio, sono legati tra loro da una 
+robusta membrana.
+\ulna
+\radio
+<ese>
+Il _____  è un complesso di 8 ossa che formano parte 
+dello scheletro del polso.
+\carpo
+<ese>
+La _________ è un osso del torace fatto a S che 
+articolandosi con la scapola sostiene il braccio.
+\clavicola
+<ese>
+Le _______  sono segmenti ossei che, articolati fra loro,
+ costituiscono le dita, due per il pollice e tre
+ per le altre dita.
+\falangi
+<ese>
+La mano è costituita da __  ossa e 19 elementi muscolari,
+ è l'organo che permette la presa.
+\!26\25\24\20\27\28\30\8
+<ese>
+Il gruppo di 5 ossa che costituiscono il palmo della
+mano e su cui si articolano le ossa delle dita 
+si chiama : _________ 
+\metacarpo
+<ese>
+L' _____  è un osso lungo che costituisce lo 
+scheletro del braccio e unendosi 
+rispettivamente con il radio e con l'ulna 
+forma l'articolazione del gomito.
+\omero
+<ese>
+L'osso lungo che articolandosi superiormente
+con l'omero e inferiormente con l'ulna forma 
+lo scheletro dell'avambraccio si chiama ??
+\radio
+<ese>
+La _______  è un osso triangolare che 
+articolandosi con la clavicola sostiene 
+il braccio.
+\scapola
+<ese>
+L'osso lungo che articolandosi con il radio 
+forma lo scheletro dell'avambraccio si chiama ??
+\ulna
+<ese>
+ARTI INFERIORI
+Gli arti inferiori sono collegati alla colonna 
+vertebrale dal ______ , formato dalle due ossa 
+dell'anca o _______ ,tra le quali si incastra 
+l'osso sacro.
+\bacino
+\iliache
+<ese>
+ARTI INFERIORI
+Sull'osso dell'anca si articola il ______ ,
+l'osso lungo che costituisce lo scheletro 
+della coscia e la cui parte terminale 
+si articola con la _____ .
+\femore
+\tibia
+<ese>
+_______ : segmenti ossei che, articolati
+fra loro, costituiscono le dita dei piedi,
+simili a quelle delle mani, ma molto più piccole.
+\Falangi\falangi
+<ese>
+Osso _____ : è costituito dalle ultime _  
+vertebre saldate fra loro.
+\sacro
+\!5\4\3\6\2
+<ese>
+L'osso lungo della gamba,situato 
+parallelamente e lateralmente alla tibia, 
+con cui si articola alle estremità 
+superiore e inferiore si chiama: ________.
+\Perone\perone
+<ese>
+La ______  è un osso a forma di disco 
+situato nella parte anteriore 
+dell'articolazione del ginocchio che 
+impedisce alla gamba di flettersi all'indietro.
+\rotula
+<ese>
+Tarso: gruppo di 7 ossa che costituiscono 
+la parte posteriore dello scheletro 
+del _____ , articolandosi parzialmente 
+con le ossa della gamba.
+\piede
+<ese>
+Tibia: costituisce con il ______  lo
+scheletro della gamba, articolandosi 
+superiormente con il ______  e 
+inferiormente con le ossa del tarso;
+è il più voluminoso e robusto osso del 
+nostro corpo.
+\perone
+\femore
+<ese>
+La ____  è la parte del corpo umano dove
+sono presenti il maggior numero di 
+elementi ossei, circa 26, e muscolari, 19,
+oltre a numerosissime terminazioni nervose,
+che la rendono estremamente sensibile; 
+\mano
+<ese>
+Lo scheletro della mano comprende un nucleo,
+il _____ , costituito da otto piccole ossa,
+che si suddividono in due file: 
+la prima si articola con il radio, 
+formando il _____  e la seconda con 
+le ossa metacarpali, cinque segmenti allungati.
+\carpo
+\polso
+<ese>
+Carpo: complesso di _  ossa che formano 
+parte dello scheletro del polso.
+\!8\5\7\6\10\9\4
+<ese>
+Falangi: segmenti ossei che, articolati 
+fra loro, costituiscono le ____ ,
+due per il pollice e ___  per le altre dita.
+\dita
+\tre\3
+<ese>
+_________ : gruppo di 5 ossa che costituiscono
+il palmo della mano e su cui si articolano 
+le ossa delle ____ .
+\Metacarpo\metacarpo
+\dita
+
+<lv5>1 47310
+
+  SISTEMA  SCHELETRICO
+ 
+  DOMANDE GENERALI
+
+<con> Scrivi la parola mancante nel seguente testo:
+
+
+<ese>
+Lo scheletro svolge una importante funzione 
+di ________ , dà appoggio alla testa,
+ forma la gabbia ________  su cui convergono gli 
+arti _________ , scarica il peso del capo sugli arti
+ inferiori grazie all'espansione del bacino.
+\sostegno
+\toracica
+\superiori
+<ese>
+La colonna __________  è l'elemento determinante di
+tutto il nostro sistema scheletrico visto che tutte
+le ossa direttamente o indirettamente sono a essa 
+collegate.E' formata da __  o 33  ________  è in 
+grado di garantire una gamma estremamente ampia di 
+movimenti.
+\vertebrale
+\32
+\vertebre
+<ese>
+Le ossa si suddividono in ossa ______ , come quelle 
+degli arti superiori e inferiori, ossa ______ ,
+come il cranio, e ossa _____ , come le vertebre.
+\lunghe
+\piatte
+\corte
+<ese>
+Colonna vertebrale: è un supporto resistente e 
+flessibile formato da 32 o 33 vertebre, che si 
+estende dalla nuca all'apice del coccige e 
+costituisce l'involucro protettore del
+ _______________ .
+\midollo spinale
+<ese>
+La gabbia ________  è costituita da 12 paia di _______ ,
+che distaccandosi dalla colonna vertebrale e 
+congiungendosi anteriormente formano una cavità 
+destinata a custodire cuore e _______ .
+\toracica
+\costole
+\polmoni
+<ese>
+La colonna vertebrale è composta di 32 o 33 
+vertebre,in cui si distinguono 7 vertebre _________ ,
+ 12 _______ , 5 _______ , 5 _______ , queste ultime 
+saldate insieme a formare l'osso sacro e 4 coccigee.
+\cervicali
+\dorsali
+\lombari
+\sacrali
+<ese>
+Le coste sono 24 ossa di forma allungata e arcuata 
+che si dipartono dalle vertebre dorsali 
+per unirsi anteriormente allo ______  mediante 
+una parte cartilaginea.
+\sterno
+<ese>
+Lo ______  è un osso piatto, situato nella parte 
+anteriore e mediana del torace, su cui si articolano
+le clavicole e le prime _____  costole.
+\sterno
+\sette\7
+<ese>
+Le vertebre _________  costituiscono la prima 
+parte della colonna vertebrale e sostengono la 
+_____ .
+\cervicali
+\testa
+<ese>
+Dalle vertebre _______  partono le costole che vanno 
+a formare la gabbia toracica.
+\dorsali
+<ese>
+L'arto superiore è collegato al tronco attraverso
+l'articolazione formata dalla _______  e dalla 
+_________ , che a sua volta si articola con lo 
+sterno.
+\scapola
+\clavicola
+<ese>
+L'_____ , che rappresenta lo scheletro del braccio,
+ è un osso lungo la cui parte superiore, o epifisi,
+ si allarga a sostenere l'articolazione con la 
+scapola.
+\omero
+<ese>
+
+L'____  e il _____ , che costituiscono lo scheletro 
+dell'avambraccio, sono legati tra loro da una 
+robusta membrana.
+\ulna
+\radio
+<ese>
+Il _____  è un complesso di 8 ossa che formano parte 
+dello scheletro del polso.
+\carpo
+<ese>
+La _________ è un osso del torace fatto a S che 
+articolandosi con la scapola sostiene il braccio.
+\clavicola
+<ese>
+Le _______  sono segmenti ossei che, articolati fra loro,
+ costituiscono le dita, due per il pollice e tre
+ per le altre dita.
+\falangi
+<ese>
+La mano è costituita da __  ossa e 19 elementi muscolari,
+ è l'organo che permette la presa.
+\!26\25\24\20\27\28\30\8
+<ese>
+Il gruppo di 5 ossa che costituiscono il palmo della
+mano e su cui si articolano le ossa delle dita 
+si chiama : _________ 
+\metacarpo
+<ese>
+L' _____  è un osso lungo che costituisce lo 
+scheletro del braccio e unendosi 
+rispettivamente con il radio e con l'ulna 
+forma l'articolazione del gomito.
+\omero
+<ese>
+L'osso lungo che articolandosi superiormente
+con l'omero e inferiormente con l'ulna forma 
+lo scheletro dell'avambraccio si chiama ??
+\radio
+<ese>
+La _______  è un osso triangolare che 
+articolandosi con la clavicola sostiene 
+il braccio.
+\scapola
+<ese>
+L'osso lungo che articolandosi con il radio 
+forma lo scheletro dell'avambraccio si chiama ??
+\ulna
+<ese>
+ARTI INFERIORI
+Gli arti inferiori sono collegati alla colonna 
+vertebrale dal ______ , formato dalle due ossa 
+dell'anca o _______ ,tra le quali si incastra 
+l'osso sacro.
+\bacino
+\iliache
+<ese>
+ARTI INFERIORI
+Sull'osso dell'anca si articola il ______ ,
+l'osso lungo che costituisce lo scheletro 
+della coscia e la cui parte terminale 
+si articola con la _____ .
+\femore
+\tibia
+<ese>
+_______ : segmenti ossei che, articolati
+fra loro, costituiscono le dita dei piedi,
+simili a quelle delle mani, ma molto più piccole.
+\Falangi\falangi
+<ese>
+Osso _____ : è costituito dalle ultime _  
+vertebre saldate fra loro.
+\sacro
+\!5\4\3\6\2
+<ese>
+L'osso lungo della gamba,situato 
+parallelamente e lateralmente alla tibia, 
+con cui si articola alle estremità 
+superiore e inferiore si chiama: ________.
+\Perone
+<ese>
+La ______  è un osso a forma di disco 
+situato nella parte anteriore 
+dell'articolazione del ginocchio che 
+impedisce alla gamba di flettersi all'indietro.
+\rotula
+<ese>
+Tarso: gruppo di 7 ossa che costituiscono 
+la parte posteriore dello scheletro 
+del _____ , articolandosi parzialmente 
+con le ossa della gamba.
+\piede
+<ese>
+Tibia: costituisce con il ______  lo
+scheletro della gamba, articolandosi 
+superiormente con il ______  e 
+inferiormente con le ossa del tarso;
+è il più voluminoso e robusto osso del 
+nostro corpo.
+\perone
+\femore
+<ese>
+La ____  è la parte del corpo umano dove
+sono presenti il maggior numero di 
+elementi ossei, circa 26, e muscolari, 19,
+oltre a numerosissime terminazioni nervose,
+che la rendono estremamente sensibile; 
+\mano
+<ese>
+Lo scheletro della mano comprende un nucleo,
+il _____ , costituito da otto piccole ossa,
+che si suddividono in due file: 
+la prima si articola con il radio, 
+formando il _____  e la seconda con 
+le ossa metacarpali, cinque segmenti allungati.
+\carpo
+\polso
+<ese>
+Carpo: complesso di _  ossa che formano 
+parte dello scheletro del polso.
+\!8\5\7\6\10\9\4
+<ese>
+Falangi: segmenti ossei che, articolati 
+fra loro, costituiscono le ____ ,
+due per il pollice e ___  per le altre dita.
+\dita
+\tre\3
+<ese>
+_________ : gruppo di 5 ossa che costituiscono
+il palmo della mano e su cui si articolano 
+le ossa delle ____ .
+\Metacarpo\metacarpo
+\dita
+

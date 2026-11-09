@@ -1,0 +1,44 @@
+Esempio 2 espressioni                      pass 123
+5123123456789Esempio 2 espressioni                      pass 123
+<pl1>    100 <pl2>    200 <pl3>    300 <pl4>    400 <pl5>    500 
+<sg1>     10 <sg2>     10 <sg3>     10 <sg4>     10 <sg5>     10 
+<p+1>     10 <p+2>     10 <p+3>     10 <p+4>     10 <p+5>     10 
+<p-1>      0 <p-2>      0 <p-3>      0 <p-4>      0 <p-5>      0 
+<ti1>     50 <ti2>     50 <ti3>     50 <ti4>     50 <ti5>     50 
+<pt1>      0 <pt2>      0 <pt3>      0 <pt4>      0 <pt5>      0 
+<ac1>  1 <ac2>  1 <ac3>  1 <ac4>  1 <ac5>  1 
+<oe1>  0 <oe2>  0 <oe3>  0 <oe4>  0 <oe5>  0 
+<tv1>     -- <tv2>     -- <tv3>     -- <tv4>     -- <tv5>     -- 
+
+
+
+
+
+
+
+
+<lv1>1229511
+<ese>
+Risolvi la seguente espressione:
+ 10-(2+3)=
+\=10-5=
+=10-5=
+\=5
+
+<ese>
+Risolvi la seguente espressione:
+ 10-(2+3)=
+=______=
+= __ 
+\10-5
+\5
+
+
+
+
+
+
+<lv2>3427910
+<lv3>5629310
+<lv4>7829510
+<lv5>9 28913

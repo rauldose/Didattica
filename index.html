@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soft Didattico – Prof. Carmelo Muscolino</title>
+<meta name="description" content="I programmi didattici del Prof. Carmelo Muscolino (Palmanova, Gonars), ricostruiti per i computer di oggi.">
+<link rel="stylesheet" href="css/didattica.css">
+<style>
+  :root { --bordeaux: #800000; --carta: #fffaf0; --inchiostro: #2b1d14; --accento: #f36d4b; }
+  body { background: var(--carta); color: var(--inchiostro); font: 17px/1.55 var(--ui); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header { background: var(--w-desk); color: #fff; padding: 40px 0 32px; }
+  header h1 { font-family: var(--comic); font-size: clamp(30px, 6vw, 52px); margin: 0 0 6px; letter-spacing: 0.04em; }
+  header p { margin: 0; max-width: 46em; color: #e6fffb; }
+  .soft { color: #ffe680; }
+  h2 { font-family: var(--comic); color: var(--bordeaux); font-size: 28px; margin: 40px 0 12px; }
+  .ricordo { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
+  .ricordo img { max-width: 100%; image-rendering: pixelated; }
+  .griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .scheda { background: #fff; border: 1px solid #e3d6c3; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; transition: transform .1s, box-shadow .1s; }
+  .scheda:hover, .scheda:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(80, 30, 0, .15); outline: none; }
+  .scheda h3 { margin: 0; color: var(--bordeaux); font-size: 19px; }
+  .scheda p { margin: 0; font-size: 15px; }
+  .scheda img { width: 100%; height: 150px; object-fit: cover; object-position: top left; border-radius: 6px; background: #000; image-rendering: pixelated; }
+  .tag { font-size: 12px; color: #7a6a58; }
+  .sotto { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sotto a { font-size: 14px; color: var(--bordeaux); }
+  footer { margin: 48px 0 0; padding: 24px 0 40px; border-top: 1px solid #e3d6c3; font-size: 14px; color: #6b5a48; }
+  footer a { color: var(--bordeaux); }
+  .opzioni { font-size: 14px; }
+  @media (max-width: 720px) { .ricordo { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1><span class="soft">S O F T</span> DIDATTICO</h1>
+    <p>I programmi del <strong>Prof. Carmelo Muscolino</strong>, insegnante di scienze matematiche all'Istituto Comprensivo di Gonars (UD), ricostruiti perché funzionino sui computer di oggi: basta un browser, anche senza internet.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="ricordo" aria-labelledby="t-ricordo">
+    <div>
+      <h2 id="t-ricordo">In ricordo</h2>
+      <p>Tra il 1995 e il 2000 il Prof. Muscolino scrisse, per i suoi alunni della Scuola Media di Gonars, una serie di programmi: esercizi di matematica in Visual Basic per DOS che giravano su computer 286 monocromatici senza disco fisso, programmi multimediali per Windows, simulazioni scientifiche in Delphi. Li regalava a tutti sul suo sito, con una regola: <em>"il gioco è un premio, ma prima si lavora"</em>.</p>
+      <p>Fuori dalla scuola era radioamatore (<strong>IV3MSU</strong>, ex IT9MSU): dalla Sicilia, con un ricetrasmettitore costruito da lui, fino a Palmanova.</p>
+      <p>Questi programmi sono stati recuperati dagli archivi del web e rifatti fedelmente partendo dai suoi codici sorgente, dai suoi file di esercizi e dalle sue guide. I testi, i messaggi e perfino le battute ("Non cliccarmi !!!! BASTAAAA....") sono i suoi.</p>
+    </div>
+    <img src="img/scimmia.gif" alt="Immagine dal sito originale del Prof. Muscolino" width="320" height="53">
+  </section>
+
+  <h2>Esercizi programmabili</h2>
+  <div class="griglia">
+    <a class="scheda" href="programmi/em/index.html">
+      <img src="img/em-schermata.gif" alt="">
+      <h3>EM – Esercizi Multimediali</h3>
+      <p>Esercitazioni a livelli con testi, immagini e suoni: digitare, scegliere, selezionare, cliccare sul disegno. Con l'editor per gli insegnanti.</p>
+      <span class="tag">Windows, 1998-2000 · 9 esercitazioni originali</span>
+    </a>
+    <a class="scheda" href="programmi/eg/index.html">
+      <img src="img/eg-schermata.gif" alt="">
+      <h3>E.G. – Esercizi e Giochi</h3>
+      <p>Soft programmabile per esercitazioni o test multidisciplinari, a cinque livelli, con il gioco come premio.</p>
+      <span class="tag">Visual Basic per DOS, 1997-98 · 16 esercitazioni originali</span>
+    </a>
+  </div>
+
+  <h2>Esercizi di matematica</h2>
+  <div class="griglia">
+    <a class="scheda" href="programmi/varidos/espressioni.html"><img src="img/espres-schermata.gif" alt=""><h3>Espressioni</h3><p>Risolvere espressioni scrivendo tutti i passaggi, "con le stesse regole che usi sul quaderno".</p><span class="tag">Vari DOS</span></a>
+    <a class="scheda" href="programmi/varidos/pitagora.html"><img src="img/pit-schermata.gif" alt=""><h3>Teorema di Pitagora</h3><p>Problemi con i dati generati a caso, cinque livelli di difficoltà.</p><span class="tag">Vari DOS</span></a>
+    <a class="scheda" href="programmi/geometria/index.html"><img src="img/geo-schermata.gif" alt=""><h3>Geometria piana</h3><p>Rettangoli, rombi e trapezi: scegli cosa calcolare, poi calcolalo. Dopo due errori arriva la formula.</p><span class="tag">Visual Basic per DOS · Versione 2.3</span></a>
+    <div class="scheda">
+      <h3>Altri esercizi</h3>
+      <p>Allenamento veloce con punteggio, livelli e tempo.</p>
+      <div class="sotto">
+        <a href="programmi/varidos/radici.html">Radici quadrate</a> ·
+        <a href="programmi/varidos/tabellina.html">Prodotti (la tabellina)</a> ·
+        <a href="programmi/varidos/operazioni.html">Le quattro operazioni</a>
+      </div>
+      <span class="tag">"Le quattro operazioni" è ricostruito dalla sua descrizione: il sorgente non fu pubblicato.</span>
+    </div>
+  </div>
+
+  <h2>Simulazioni</h2>
+  <div class="griglia">
+    <a class="scheda" href="programmi/archimede/index.html"><img src="img/archimede-busto.png" alt="" style="object-fit:contain;background:#008080"><h3>Archimede</h3><p>La spinta idrostatica: scegli solido, liquido e cavità, e sposta il solido con il mouse.</p><span class="tag">Delphi 1</span></a>
+    <a class="scheda" href="programmi/talete/index.html"><img src="img/talete-raggio1.png" alt="" style="object-fit:contain;background:#fff"><h3>Talete</h3><p>Un raggio di sole, due legni rossi e le loro ombre: scopri la similitudine.</p><span class="tag">Delphi 1</span></a>
+  </div>
+
+  <h2>Giochi (il premio)</h2>
+  <div class="griglia">
+    <a class="scheda" href="programmi/giochi/puzzle.html"><h3>Puzzle</h3><p>Il suo puzzle di numeri per due giocatori: vince chi riordina i numeri con meno mosse.</p></a>
+    <a class="scheda" href="programmi/giochi/duello.html"><h3>Duello</h3><p>Due cannoni, angolo e velocità: un gioco nuovo che prende il posto di quello lanciato dai programmi DOS originali.</p></a>
+  </div>
+
+  <h2>Archivio</h2>
+  <p>I file recuperati sono conservati senza modifiche: codici sorgente, programmi originali, guide e immagini del sito. Le esercitazioni originali sono anche disponibili in forma leggibile.</p>
+  <ul>
+    <li><a href="archivio/originali/index.htm">Il sito originale</a> e i file originali in <code>archivio/originali/</code> (sorgenti in <code>eg/eg.txt</code>, <code>matdos/*.txt</code>, <code>profedit/profe0.txt</code>)</li>
+    <li><a href="archivio/decodificati/">Esercitazioni decodificate</a></li>
+    <li><a href="archivio/LEGGIMI-recupero.txt">Note sul recupero</a> e <a href="docs/FORMATI.md">formati dei file</a></li>
+  </ul>
+  <p class="opzioni"><label><input type="checkbox" id="suono"> Suono attivo</label></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    Software originale © 1995-2000 Prof. Carmelo Muscolino, Palmanova (UD). Ricostruzione realizzata per conservarne la memoria e l'uso a scuola.
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+  var c = document.getElementById("suono");
+  c.checked = D.suono.attivo;
+  c.addEventListener("change", function () { D.suono.imposta(c.checked); });
+</script>
+</body>
+</html>

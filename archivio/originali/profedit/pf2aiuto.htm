@@ -1,0 +1,125 @@
+<script>
+function relink() {
+    for (var i = 0; i < document.links.length; i++) {
+        document.links[i].onclick = refresh;
+    }
+}
+
+myreg=new RegExp("web\.tiscali\.it","i");
+//myreg=new RegExp("vasdev\.is\.tiscali\.it","i");
+if (!myreg.test("'"+top.location+"'")) {
+    top.location=self.location;
+}
+
+
+var shortuserdir="muscolino";
+var bannercode="/banner-tiscali/banner.html";
+</script>
+<script>
+function rescan() {
+    for (var i=0;i<6;i++) {
+        setTimeout("relink()", 1000);
+    }
+    top.document.getElementsByTagName('frameset')[0].rows='72,*,0';
+}
+
+function refresh() {
+    top.frames[0].location='/banner-tiscali/banner.html';
+    top.frames[top.frames.length-1].location='/banner-tiscali/stats.html?userpage_'+shortuserdir;
+}
+
+if(window == window.top) {
+        var address=window.location;
+        var s='<html><head><title>'+'</title></head>'+
+        '<frameset rows="72,*,0" frameborder="0" border="0" framespacing="0" onload="refresh();">'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '<frame src="'+address+'?" marginwidth="0" marginheight="0" scrolling="auto" noresize>'+
+        '<frame src="" marginwidth="0" marginheight="0" scrolling="no" noresize>'+
+        '</frameset>'+
+        '</html>';
+
+        document.write(s);      
+}
+</script>
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>pf2aiuto</title>
+</head>
+
+<body background="sfondi15.jpg" bgcolor="#FFFFFF">
+
+<p align="center"><a href="profedit.htm"><font
+face="Comic Sans MS"><img src="s1.gif" border="0" width="25"
+height="24"></font></a></p>
+
+<p><font face="Comic Sans MS">ProfEdit ver. 2.00</font></p>
+
+<p><font face="Comic Sans MS">PERCHE' SERVE ?<br>
+Questo soft serve per comporre dei testi che utilizzano frasi
+ripetitive (per esempio giudizi per alunni).<br>
+<br>
+COME FUNZIONA ?<br>
+Permette di inviare all'editore preferito una frase scelta da un
+menù.<br>
+All'avvio si ha l'acquisizione delle frasi memorizzate nel file
+Frasario.dat.<br>
+In seguito il programma attiva l'editore e si predispone per
+presentare in forma di menù le <br>
+frasi memorizzate.Le frasi sono organizzate in blocchi. I vari
+blocchi si presentano in successione.<br>
+<br>
+QUANTE FRASI SI POSSONO INSERIRE?<br>
+La versione light lavora con 126 frasi (18 frasi x 7 blocchi).<br>
+Quella completa lavora con 450 frasi (18 frasi x 25 blocchi).<br>
+<br>
+COME SI IDENTIFICANO I BLOCCHI ?<br>
+Una riga vuota segna la fine di un blocco.<br>
+<br>
+COME SI CREA O MODIFICA UN FRASARIO?<br>
+Si possono leggere/modificare/salvare più frasari. Questi sono
+file testo (cliccare su <br>
+modifica frasario o utilizzare l'editore preferito).<br>
+<br>
+QUALI SONO LE REGOLE DI PROFEDIT?<br>
+La regola fondamentale è:<br>
+- una riga vuota separa i vari blocchi di frasi;<br>
+Le altre regole, utili ma non fondamentali, sono: <br>
+- una riga avente il primo carattere il . (punto) viene ignorata<br>
+serve per inserire eventuali commenti al frasario:<br>
+- una riga avente il primo carattere il * (simbolo del prodotto)
+sarà <br>
+presentata come titolo del blocco;<br>
+- una riga avente l'ultimo carattere il &lt; invia all'editore un
+accapo<br>
+( il simbolo sarà eliminato dalla frase);<br>
+- una riga avente il primo carattere &lt; sarà inserita dopo la
+cancellazione dei<br>
+primi 5 caratteri (funzione utile per identificare la riga con
+caratteri alfanumerici;<br>
+<br>
+COME SI SETTA IL FRASARIO CORRENTE? <br>
+Quando un frasario è richiamato (dalla pagina modifica frasario),
+cliccando su continua <br>
+si salva il contenuto in frasario.dat e diventa il frasario di
+uso corrente cioè quello <br>
+letto all'avvio del programma.<br>
+<br>
+QUALE EDITORE DIALOGA CON PROFEDIT ?<br>
+Si può usare qualsiasi editore. Per cambiare quello in uso
+cliccare su Cambia Editore <br>
+della pagina iniziale e aprire il soft desiderato.</font></p>
+
+<p align="center"><a href="profedit.htm"><font
+face="Comic Sans MS"><img src="s1.gif" border="0" width="25"
+height="24"></font></a><font face="Comic Sans MS"><br>
+</font></p>
+</body>
+</html>
+<script>
+setInterval("rescan()", 1000);
+top.document.title = top.frames[top.frames.length-2].document.title;
+</script>

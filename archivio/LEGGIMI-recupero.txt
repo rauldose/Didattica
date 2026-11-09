@@ -1,0 +1,74 @@
+Carmelo Muscolino - recovered educational software website
+Recovered 9 November 2026 from Internet Archive captures near 2004.
+
+Open START_HERE.html for the catalog, or browse/index.htm for the site.
+
+Programs: E.G., EM + example exercises, Archimede, Talete, Vari DOS,
+Geometria, ProfEdit v1 and v2. Published source listings, help pages,
+screenshots and other recovered internal site files are also included.
+
+originals/: unchanged recovered files.
+browse/: local browsing copies; obsolete framing/ad scripts removed from HTML.
+recovery-manifest.json: original archive URLs, byte counts, SHA-256 hashes,
+and a complete list of files that could not be recovered.
+
+E.G. exercise password: 1234.
+Original executables are preserved unchanged and have not been run.
+DOS software needs a suitable DOS environment; other programs target
+older Windows versions. Source listings are supplied as published and
+may not constitute complete buildable projects. Original copyright and
+authorship remain with the respective owners.
+
+This is all recoverable content discovered through the archived site
+links, not a guarantee that every historical site file survived.
+
+Unavailable files:
+america.gif: HTTP Error 404: Not Found
+eg/home.gif: HTTP Error 404: Not Found
+eg/sfondi15.jpg: HTTP Error 404: Not Found
+em/EM2.gif: HTTP Error 404: Not Found
+em/ITALIA.gif: HTTP Error 404: Not Found
+em/cl.gif: HTTP Error 404: Not Found
+em/em3.gif: HTTP Error 404: Not Found
+em/eng/aa.gif: HTTP Error 404: Not Found
+em/eng/cl.gif: HTTP Error 404: Not Found
+em/eng/descr6.gif: HTTP Error 404: Not Found
+em/eng/ese167~1.gif: HTTP Error 404: Not Found
+em/eng/lett167.gif: HTTP Error 404: Not Found
+em/eng/lett2.gif: HTTP Error 404: Not Found
+em/eng/pn.gif: HTTP Error 404: Not Found
+em/eng/prvel.gif: HTTP Error 404: Not Found
+em/home.gif: HTTP Error 404: Not Found
+em/lett2.gif: HTTP Error 404: Not Found
+em/pn.gif: HTTP Error 404: Not Found
+em/sfondi15.jpg: HTTP Error 404: Not Found
+francia.gif: HTTP Error 404: Not Found
+germania.gif: HTTP Error 404: Not Found
+girasole.gif: HTTP Error 404: Not Found
+italia.gif: HTTP Error 404: Not Found
+matdos/radice.gif: HTTP Error 404: Not Found
+matdos/sfondi15.jpg: HTTP Error 404: Not Found
+matdos/tabel.gif: HTTP Error 404: Not Found
+profedit/neobook.gif: HTTP Error 404: Not Found
+profedit/s1.gif: HTTP Error 404: Not Found
+profedit/sfondi15.jpg: HTTP Error 404: Not Found
+segnala/didattic.gif: HTTP Error 404: Not Found
+segnala/eva.gif: HTTP Error 404: Not Found
+segnala/gira.gif: HTTP Error 404: Not Found
+segnala/home.gif: HTTP Error 404: Not Found
+segnala/lagirand.gif: HTTP Error 404: Not Found
+segnala/liceo.gif: HTTP Error 404: Not Found
+segnala/nss_g.gif: HTTP Error 404: Not Found
+segnala/perotto.gif: HTTP Error 404: Not Found
+segnala/sfondi15.jpg: HTTP Error 404: Not Found
+segnala/terriscu.gif: HTTP Error 404: Not Found
+segnala/torino.gif: HTTP Error 404: Not Found
+segnala/virg.gif: HTTP Error 404: Not Found
+sfondi15.jpg: HTTP Error 404: Not Found
+simulaz/archimede.gif: HTTP Error 404: Not Found
+simulaz/home.gif: HTTP Error 404: Not Found
+simulaz/mano.gif: HTTP Error 404: Not Found
+simulaz/sfondi15.jpg: HTTP Error 404: Not Found
+simulaz/talete.gif: HTTP Error 404: Not Found
+softdida.gif: HTTP Error 404: Not Found
+tbttrfly.gif: HTTP Error 404: Not Found
