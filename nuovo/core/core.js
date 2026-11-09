@@ -75,17 +75,23 @@
   N.classe = function () { return N.profiloOspite().classe; };
   N.stelle = function () { return N.profiloOspite().stelle || 0; };
 
-  // Record a round: adds the stars won and keeps the best result per activity
-  N.registra = function (attivita, stelle, extra) {
+  // Record a round: adds the stars won and keeps the best result per activity.
+  // esito = { corrette, totali } (optional) is only passed on to the hook.
+  N.registra = function (attivita, stelle, extra, esito) {
     var p = N.profilo();
-    if (!p) return null;
-    p.stelle = (p.stelle || 0) + stelle;
-    var r = p.record[attivita] || { migliore: 0, volte: 0 };
-    r.migliore = Math.max(r.migliore, stelle); r.volte++; r.ultima = Date.now();
-    if (extra) Object.keys(extra).forEach(function (k) { r[k] = extra[k]; });
-    p.record[attivita] = r;
-    N.salvaProfilo(p);
-    N.aggiornaTestata();
+    if (p) {
+      p.stelle = (p.stelle || 0) + stelle;
+      var r = p.record[attivita] || { migliore: 0, volte: 0 };
+      r.migliore = Math.max(r.migliore, stelle); r.volte++; r.ultima = Date.now();
+      if (extra) Object.keys(extra).forEach(function (k) { r[k] = extra[k]; });
+      p.record[attivita] = r;
+      N.salvaProfilo(p);
+      N.aggiornaTestata();
+    }
+    // optional hook (defined by classe/sync.js when the class space is in use)
+    if (typeof window.N_DOPO_REGISTRA === "function") {
+      try { window.N_DOPO_REGISTRA(attivita, stelle, esito || null); } catch (e) { /* never break a game */ }
+    }
     return p;
   };
   N.migliore = function (attivita) { var r = N.profiloOspite().record[attivita]; return r ? r.migliore : 0; };
@@ -274,7 +280,7 @@
   N.fineRound = function (o) {
     var s = o.stelle != null ? o.stelle : N.stelleDa(o.corrette, o.totali);
     var prima = N.migliore(o.attivita);
-    var p = N.registra(o.attivita, s);
+    var p = N.registra(o.attivita, s, null, o.totali != null ? { corrette: o.corrette, totali: o.totali } : null);
     var frasi = ["Proviamo ancora: ce la farai!", "Buon inizio! Continua così.", "Molto bene!", "Perfetto! Sei un campione!"];
     var nodo = N.el("div", { class: "risultato" }, [
       N.el("div", { html: N.gufo(s >= 2 ? "felice" : "pensa") }).firstChild,

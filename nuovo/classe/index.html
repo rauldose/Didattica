@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<meta name="referrer" content="no-referrer">
+<title>La mia classe – Impara giocando</title>
+<link rel="icon" href="../icone/icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="classe.css">
+</head>
+<body>
+<main class="pagina" id="app"></main>
+<script src="../core/core.js"></script>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="sync.js"></script>
+<script src="classe.js"></script>
+<script>
+(function () {
+  "use strict";
+  var el = N.el, app = N.$("#app");
+  var MATERIE = { ita: ["📚", "t-ita", "Italiano"], mat: ["🔢", "t-mat", "Matematica"], sci: ["🔬", "t-sci", "Scienze"], altro: ["🍎", "t-classe", "Quiz"] };
+  var CACHE = "impara.classe.cache";
+
+  N.testata({ titolo: "La mia classe", indietro: "../index.html", tema: "t-classe" });
+  if (!API.attivo()) return CL.nonAttivo(app);
+  var s = API.sessione();
+  if (!s) return location.replace("accedi.html");
+  if (s.ruolo === "insegnante") return location.replace("insegnante.html");
+  var profilo = CL.collegaProfilo(s.utente);
+  N.aggiornaTestata();
+  var av = N.$(".avatar-mini"); if (av && profilo) av.textContent = profilo.avatar;
+
+  function leggiCache() { try { var c = JSON.parse(localStorage.getItem(CACHE)); return c && c.utente === s.utente.id ? c : null; } catch (e) { return null; } }
+  function scriviCache(c) { try { localStorage.setItem(CACHE, JSON.stringify(c)); } catch (e) { /* full */ } }
+
+  function carica() {
+    CL.carico(app, "Apro la tua classe…");
+    Promise.all([API.miaClasse(), API.mieiRisultati()]).then(function (r) {
+      var c = { utente: s.utente.id, classe: r[0], risultati: r[1] || [], quando: Date.now() };
+      scriviCache(c);
+      disegna(c, false);
+    }, function (e) {
+      if (e.status === 401) return location.replace("accedi.html");
+      var c = leggiCache();
+      if (c && e.offline) return disegna(c, true);
+      CL.errore(app, e, carica);
+    });
+  }
+
+  function migliori(risultati) {
+    var m = {};
+    risultati.forEach(function (r) { m[r.attivita] = Math.max(m[r.attivita] || 0, r.stelle | 0); });
+    return m;
+  }
+
+  function disegna(c, offline) {
+    var k = c.classe, best = migliori(c.risultati), totale = 0, titoli = {};
+    Object.keys(best).forEach(function (a) { totale += best[a]; });
+    (k.quiz || []).forEach(function (q) { titoli["quiz:" + q.id] = q.titolo; });
+    (k.app || []).forEach(function (a) { titoli["app:" + a.id] = a.titolo; });
+    var p = N.profilo();
+    app.innerHTML = "";
+    if (offline) app.appendChild(el("div", { class: "avviso-box", role: "status", text: "📡 Sei offline: vedi la tua classe com'era l'ultima volta. I tuoi risultati verranno inviati appena torna la connessione." }));
+    app.appendChild(el("section", { class: "saluto-cls" }, [
+      el("button", { class: "av", type: "button", "aria-label": "Cambia il tuo animale", text: p ? p.avatar : "🦉", onclick: scegliAvatar }),
+      el("div", { style: "min-width:0" }, [
+        el("h1", { text: "Ciao, " + (s.utente.nome || "amico") + "!" }),
+        el("p", { text: "Classe " + k.classe.nome + (k.insegnante && k.insegnante.nome ? " · con " + k.insegnante.nome : "") })
+      ])
+    ]));
+    app.appendChild(el("div", { class: "stelle-box" }, [
+      el("span", { class: "grande", "aria-hidden": "true", text: "⭐" }),
+      el("div", {}, [el("div", { style: "font-size:22px", id: "stelle-classe", text: totale + (totale === 1 ? " stella" : " stelle") }),
+        el("div", { class: "nota", style: "margin:0", text: "nelle attività della tua classe" })])
+    ]));
+    var attesa = window.CLASSE_SYNC ? CLASSE_SYNC.inCoda() : 0;
+    if (attesa) app.appendChild(el("p", { class: "nota", text: "⏳ " + (attesa === 1 ? "1 risultato aspetta" : attesa + " risultati aspettano") + " di essere inviato alla maestra." }));
+
+    app.appendChild(el("h2", { class: "sezione", text: "📝 I quiz della classe" }));
+    if (!k.quiz || !k.quiz.length) app.appendChild(el("p", { class: "vuoto", text: "Per ora non ci sono quiz. Torna più tardi!" }));
+    else {
+      var g = el("div", { class: "griglia larga" });
+      k.quiz.forEach(function (q) {
+        var m = MATERIE[q.materia] || MATERIE.altro, st = best["classe:quiz:" + q.id] || 0;
+        g.appendChild(el("a", { class: "scheda attivita-card " + m[1], href: "../quiz/gioca.html?classe=" + encodeURIComponent(q.id), "aria-label": q.titolo + ", " + st + " stelle su 3" }, [
+          el("div", { class: "fascia" }),
+          el("span", { class: "emoji", "aria-hidden": "true", text: m[0] }),
+          el("span", { class: "titolo", text: q.titolo }),
+          el("span", { class: "sotto", text: m[2] + (q.domande ? " · " + q.domande + (q.domande === 1 ? " domanda" : " domande") : "") }),
+          el("span", { class: "stelline", "aria-hidden": "true", text: API.stelline(st) })
+        ]));
+      });
+      app.appendChild(g);
+    }
+    app.appendChild(el("h2", { class: "sezione", text: "🎮 I mini-giochi" }));
+    if (!k.app || !k.app.length) app.appendChild(el("p", { class: "vuoto", text: "Ancora nessun mini-gioco." }));
+    else {
+      var g2 = el("div", { class: "griglia larga" });
+      k.app.forEach(function (a) {
+        var st = best["app:" + a.id] || 0;
+        g2.appendChild(el("a", { class: "scheda attivita-card t-gio", href: "app.html?id=" + encodeURIComponent(a.id), "aria-label": a.titolo + ", " + st + " stelle su 3" }, [
+          el("div", { class: "fascia" }),
+          el("span", { class: "emoji", "aria-hidden": "true", text: "🎲" }),
+          el("span", { class: "titolo", text: a.titolo }),
+          a.descrizione ? el("span", { class: "sotto", text: a.descrizione }) : null,
+          el("span", { class: "stelline", "aria-hidden": "true", text: API.stelline(st) })
+        ]));
+      });
+      app.appendChild(g2);
+    }
+
+    app.appendChild(el("h2", { class: "sezione", text: "🏅 I miei ultimi risultati" }));
+    var ultimi = c.risultati.slice().sort(function (a, b) { return String(b.creato).localeCompare(String(a.creato)); }).slice(0, 10);
+    if (!ultimi.length) app.appendChild(el("p", { class: "vuoto", text: "Gioca un quiz: qui vedrai le tue stelle!" }));
+    else app.appendChild(el("ul", { class: "ultimi" }, ultimi.map(function (r) {
+      return el("li", {}, [
+        el("span", { class: "n" }, [API.nomeAttivita(r.attivita, titoli), el("small", { text: API.data(r.creato) + (r.totali ? " · " + r.corrette + " giuste su " + r.totali : "") })]),
+        el("span", { class: "s", "aria-label": r.stelle + " stelle su 3", text: API.stelline(r.stelle) })
+      ]);
+    })));
+    app.appendChild(el("p", { class: "nota", text: "Anche le stelle che vinci nelle altre attività arrivano alla tua maestra." }));
+    app.appendChild(el("div", { class: "azioni", style: "margin-top:22px" }, [
+      el("a", { class: "btn", href: "../index.html", text: "🏠 Tutte le attività" }),
+      el("button", { class: "btn secondario", type: "button", text: "🚪 Esci", onclick: esci })
+    ]));
+  }
+
+  function scegliAvatar() {
+    var p = N.profilo(); if (!p) return;
+    var g = el("div", { class: "griglia", style: "grid-template-columns:repeat(4,1fr);gap:8px" });
+    N.AVATAR.forEach(function (a) {
+      g.appendChild(el("button", { type: "button", class: "btn secondario", style: "font-size:30px;padding:0", "aria-label": a, text: a, onclick: function () {
+        p.avatar = a; N.salvaProfilo(p); N.suono.tocco(); N.chiudiDialogo(true);
+        N.$(".saluto-cls .av").textContent = a; var m = N.$(".avatar-mini"); if (m) m.textContent = a;
+      } }));
+    });
+    N.dialogo({ titolo: "Scegli il tuo animale", nodo: g, pulsanti: [{ testo: "Chiudi", valore: null, secondario: true }] });
+  }
+
+  function esci() {
+    CL.conferma({ titolo: "Vuoi uscire?", testo: "Per rientrare ti serviranno di nuovo il nome utente e la parola segreta del cartellino.", si: "Sì, esci", no: "Resto qui" }).then(function (si) {
+      if (!si) return;
+      var svuota = window.CLASSE_SYNC ? CLASSE_SYNC.svuota() : Promise.resolve();
+      svuota.then(function () { return API.esci(); }).then(function () {
+        try { localStorage.removeItem(CACHE); } catch (e) { /* */ }
+        N.scrivi("attuale", null);                    // the next child on this device starts fresh
+        location.replace("../index.html");
+      });
+    });
+  }
+
+  carica();
+})();
+</script>
+</body>
+</html>

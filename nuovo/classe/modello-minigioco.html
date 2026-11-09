@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il giro d'Italia</title>
+<!--
+  MODELLO DI MINI-GIOCO per "Impara giocando – La mia classe".
+
+  Regole (tutto in questo unico file):
+  • niente Internet: non si possono caricare script, fogli di stile, font o
+    immagini da altri siti. Le immagini vanno dentro il file come "data:…";
+  • niente alert(), confirm() o finestre nuove: scrivi i messaggi nella pagina;
+  • alla fine manda il risultato alla pagina della classe con
+        parent.postMessage({ impara: "risultato", stelle: 0..3, corrette: n, totali: n }, "*");
+    e, se vuoi un pulsante per tornare alla classe,
+        parent.postMessage({ impara: "fine" }, "*");
+
+  Per fare il TUO gioco basta cambiare il TITOLO e le DOMANDE qui sotto.
+-->
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #fff8ec; color: #2d2240; font-size: 19px; display: flex; justify-content: center;
+  }
+  main { width: 100%; max-width: 560px; padding: 16px; }
+  h1 { font-size: 26px; margin: 8px 0 4px; text-align: center; }
+  .sotto { text-align: center; color: #6b6180; font-weight: 700; margin: 0 0 14px; }
+  .barra { height: 14px; background: #ffefd2; border-radius: 99px; overflow: hidden; }
+  .barra div { height: 100%; width: 0; background: #0e7f7a; border-radius: 99px; transition: width .3s; }
+  .info { display: flex; justify-content: space-between; font-weight: 800; color: #6b6180; font-size: 15px; margin: 6px 2px 0; }
+  .domanda { background: #fff; border-radius: 22px; padding: 22px 18px; margin: 14px 0; font-size: 24px; font-weight: 800;
+    text-align: center; box-shadow: 0 6px 0 rgba(45,34,64,.12); }
+  .domanda .emoji { display: block; font-size: 54px; margin-bottom: 6px; }
+  .scelte { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  button {
+    font: inherit; font-weight: 800; min-height: 64px; border-radius: 16px; border: 3px solid #eadfcc; background: #fff;
+    color: #2d2240; cursor: pointer; box-shadow: 0 3px 0 rgba(45,34,64,.14); padding: 8px 10px; touch-action: manipulation;
+  }
+  button:active { transform: translateY(2px); }
+  button:focus-visible { outline: 3px solid #2f86ff; outline-offset: 3px; }
+  button.giusta { border-color: #19a974; background: #d5f5e8; }
+  button.sbagliata { border-color: #e5484d; background: #ffe0e1; }
+  button.grande { width: 100%; background: #0e7f7a; color: #fff; border-color: #0e7f7a; margin-top: 12px; font-size: 21px; }
+  button.secondario { width: 100%; margin-top: 10px; }
+  .esito { min-height: 34px; text-align: center; font-weight: 800; font-size: 21px; margin-top: 12px; }
+  .fine { text-align: center; }
+  .stelle { font-size: 60px; letter-spacing: 6px; margin: 10px 0; }
+  .spenta { filter: grayscale(1) opacity(.3); }
+  @media (prefers-reduced-motion: no-preference) {
+    .salta { animation: salta .45s; }
+    @keyframes salta { 50% { transform: scale(1.08); } }
+  }
+</style>
+</head>
+<body>
+<main id="gioco" aria-live="polite"></main>
+<script>
+/* ======================= MODIFICA QUI ======================= */
+var TITOLO = "Il giro d'Italia";
+var SOTTOTITOLO = "Indovina il capoluogo di ogni regione!";
+// Ogni domanda: testo, un'emoji (facoltativa), le scelte e la posizione della risposta giusta (0 = la prima)
+var DOMANDE = [
+  { testo: "Qual è il capoluogo della Sicilia?", emoji: "🍋", scelte: ["Palermo", "Catania", "Messina", "Siracusa"], giusta: 0 },
+  { testo: "Qual è il capoluogo della Lombardia?", emoji: "🏙️", scelte: ["Bergamo", "Milano", "Brescia", "Como"], giusta: 1 },
+  { testo: "Qual è il capoluogo del Lazio?", emoji: "🏛️", scelte: ["Latina", "Viterbo", "Roma", "Rieti"], giusta: 2 },
+  { testo: "Qual è il capoluogo della Campania?", emoji: "🌋", scelte: ["Salerno", "Napoli", "Caserta", "Avellino"], giusta: 1 },
+  { testo: "Qual è il capoluogo del Piemonte?", emoji: "🏔️", scelte: ["Torino", "Asti", "Novara", "Cuneo"], giusta: 0 },
+  { testo: "Qual è il capoluogo della Toscana?", emoji: "🎨", scelte: ["Pisa", "Siena", "Lucca", "Firenze"], giusta: 3 },
+  { testo: "Qual è il capoluogo del Veneto?", emoji: "🚤", scelte: ["Verona", "Venezia", "Padova", "Treviso"], giusta: 1 },
+  { testo: "Qual è il capoluogo della Sardegna?", emoji: "🏖️", scelte: ["Sassari", "Olbia", "Cagliari", "Nuoro"], giusta: 2 }
+];
+/* ============================================================ */
+
+var gioco = document.getElementById("gioco");
+var ordine, i, corrette, bloccato;
+var LODI = ["Bravo!", "Esatto!", "Che centro!", "Perfetto!", "Super!"];
+
+function mescola(a) { a = a.slice(); for (var k = a.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)), t = a[k]; a[k] = a[j]; a[j] = t; } return a; }
+function stelleDa(c, t) { var p = t ? c / t : 0; return p >= 0.9 ? 3 : p >= 0.7 ? 2 : p >= 0.4 ? 1 : 0; }
+function crea(tag, testo, classe) { var e = document.createElement(tag); if (testo != null) e.textContent = testo; if (classe) e.className = classe; return e; }
+// Sends a message to the class page (only when the game runs inside it)
+function manda(msg) { if (window.parent !== window) window.parent.postMessage(msg, "*"); }
+
+function inizio() {
+  ordine = mescola(DOMANDE); i = 0; corrette = 0;
+  gioco.innerHTML = "";
+  gioco.appendChild(crea("h1", TITOLO));
+  gioco.appendChild(crea("p", SOTTOTITOLO, "sotto"));
+  var b = crea("button", "Inizia ▶", "grande");
+  b.onclick = domanda;
+  gioco.appendChild(b);
+  b.focus();
+}
+
+function domanda() {
+  var d = ordine[i];
+  bloccato = false;
+  gioco.innerHTML = "";
+  var barra = crea("div", null, "barra"), riemp = crea("div");
+  riemp.style.width = (i / ordine.length * 100) + "%";
+  barra.appendChild(riemp);
+  gioco.appendChild(barra);
+  var info = crea("div", null, "info");
+  info.appendChild(crea("span", "Domanda " + (i + 1) + " di " + ordine.length));
+  info.appendChild(crea("span", "✅ " + corrette));
+  gioco.appendChild(info);
+  var box = crea("div", null, "domanda");
+  if (d.emoji) box.appendChild(crea("span", d.emoji, "emoji"));
+  box.appendChild(document.createTextNode(d.testo));
+  gioco.appendChild(box);
+  var scelte = crea("div", null, "scelte");
+  var giusta = d.scelte[d.giusta];
+  mescola(d.scelte).forEach(function (s) {
+    var b = crea("button", s);
+    b.onclick = function () { rispondi(b, s === giusta, giusta); };
+    scelte.appendChild(b);
+  });
+  gioco.appendChild(scelte);
+  var esito = crea("p", "", "esito");
+  esito.id = "esito";
+  gioco.appendChild(esito);
+}
+
+function rispondi(b, ok, giusta) {
+  if (bloccato) return;
+  bloccato = true;
+  var esito = document.getElementById("esito");
+  if (ok) {
+    corrette++;
+    b.className = "giusta salta";
+    esito.textContent = "🎉 " + LODI[Math.floor(Math.random() * LODI.length)];
+  } else {
+    b.className = "sbagliata";
+    Array.prototype.forEach.call(document.querySelectorAll(".scelte button"), function (x) { if (x.textContent === giusta) x.className = "giusta"; });
+    esito.textContent = "🤔 Era «" + giusta + "»";
+  }
+  setTimeout(function () { i++; if (i < ordine.length) domanda(); else fine(); }, ok ? 900 : 1700);
+}
+
+function fine() {
+  var totali = ordine.length, stelle = stelleDa(corrette, totali);
+  // ⭐ the important line: the class page shows the stars and saves the result
+  manda({ impara: "risultato", stelle: stelle, corrette: corrette, totali: totali });
+
+  gioco.innerHTML = "";
+  var f = crea("div", null, "fine");
+  f.appendChild(crea("h1", "Fine del giro!"));
+  var st = crea("div", null, "stelle");
+  for (var k = 0; k < 3; k++) st.appendChild(crea("span", "⭐", k < stelle ? "" : "spenta"));
+  f.appendChild(st);
+  f.appendChild(crea("p", corrette + " risposte giuste su " + totali));
+  var ancora = crea("button", "Gioca ancora 🔁", "grande");
+  ancora.onclick = inizio;
+  f.appendChild(ancora);
+  if (window.parent !== window) {
+    var esci = crea("button", "Torna alla classe", "secondario");
+    esci.onclick = function () { manda({ impara: "fine" }); };
+    f.appendChild(esci);
+  }
+  gioco.appendChild(f);
+}
+
+inizio();
+</script>
+</body>
+</html>

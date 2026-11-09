@@ -3,6 +3,8 @@
  *   gioca.html?set=EG:VERBI&livello=2   one of his sets (E.G. or EM)
  *   gioca.html?mio=<quizId>             a teacher quiz saved on this device
  *   gioca.html#q=<data>                 a teacher quiz from a share link
+ *   gioca.html?classe=<quizId>          a quiz published online to the pupil's class
+ *                                       (needs ../classe/config.js + api.js; activity "classe:quiz:<id>")
  * Test switches: &test=1 (no delays), &tutte=1 (every question of the level).
  */
 (function () {
@@ -13,7 +15,7 @@
   var app = N.$("#app");
   var fonte = null, livIdx = 0, S = null, tast = null, schermo = "carico", presentate = {};
   var player = new Audio();
-  var indietro = "index.html";
+  var indietro = "index.html", ritorno = null;      // ritorno: fixed back link (class quizzes)
 
   var CONSEGNE = {
     scelta: "Scegli la risposta giusta.", vf: "È vero o falso?", scrivi: "Scrivi la risposta.",
@@ -29,6 +31,8 @@
         pronto(QZ.fonteMaestra(q));
       }).catch(function (e) { errore("Non riesco ad aprire questo quiz.", e && e.message); });
     }
+    var classe = N.parametro("classe");
+    if (classe) return quizClasse(classe);
     var mio = N.parametro("mio"), set = N.parametro("set");
     if (mio) {
       var q = QZ.trovaMaestra(mio);
@@ -38,9 +42,35 @@
     if (!f) return errore("Non trovo questi esercizi.", set ? "Esercitazione: " + set : "Scegli un quiz dall'elenco.");
     pronto(f);
   }
+  // a quiz of the online class space (classe/): loaded from the API, played like a teacher quiz
+  function quizClasse(id) {
+    var api = window.API, s = api && api.attivo() ? api.sessione() : null;
+    ritorno = s && s.ruolo === "insegnante" ? "../classe/insegnante.html#quiz" : "../classe/index.html";
+    if (!api || !api.attivo()) return errore("Non trovo questo quiz.", "La classe online non è attiva su questo sito.");
+    if (!s) { location.replace("../classe/accedi.html"); return; }
+    testata("Quiz della classe", null);
+    app.innerHTML = "";
+    app.appendChild(el("div", { class: "errore-box", role: "status" }, [N.gufoDice("Un momento: apro il quiz della classe…", "pensa")]));
+    return api.getQuiz(id).then(function (r) {
+      var q = QZ.valida(r && r.dati);
+      q.id = String(r.id || id);
+      if (r.titolo && !q.titolo) q.titolo = r.titolo;
+      var f = QZ.fonteMaestra(q);
+      f.id = "classe:" + q.id;
+      f.attivita = function () { return "classe:quiz:" + q.id; };
+      app.innerHTML = "";
+      pronto(f);
+    }).catch(function (e) {
+      if (e && e.status === 401) { location.replace("../classe/accedi.html"); return; }
+      app.innerHTML = "";
+      errore(e && e.status === 404 ? "Non trovo questo quiz." : "Non riesco ad aprire questo quiz.",
+        e && e.status === 404 ? "Forse la maestra lo ha tolto dalla classe." : (e && e.message));
+    });
+  }
   function testata(titolo, materia) {
     var m = (window.QUIZ_MATERIE[materia] || window.QUIZ_MATERIE.altro);
-    indietro = "index.html" + (materia && materia !== "altro" ? "?materia=" + materia : "");
+    indietro = ritorno || "index.html" + (materia && materia !== "altro" ? "?materia=" + materia : "");
+    if (N.$(".testata")) N.$(".testata").remove();
     N.testata({ titolo: titolo, indietro: indietro, tema: m.tema });
     document.title = titolo + " – Impara giocando";
   }
@@ -50,7 +80,7 @@
     app.innerHTML = "";
     app.appendChild(el("div", { class: "errore-box" }, [
       N.gufoDice(titolo + (dettaglio ? "\n" + dettaglio : ""), "pensa"),
-      el("p", { class: "riga centro" }, [el("a", { class: "btn", href: indietro, text: "Torna ai quiz" })])
+      el("p", { class: "riga centro" }, [el("a", { class: "btn", href: indietro, text: ritorno ? "Torna alla classe" : "Torna ai quiz" })])
     ]));
   }
   function pronto(f) {

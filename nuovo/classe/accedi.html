@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<meta name="referrer" content="no-referrer">
+<title>Entra nella classe – Impara giocando</title>
+<link rel="icon" href="../icone/icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="classe.css">
+</head>
+<body>
+<main class="pagina" id="app"></main>
+<script src="../core/core.js"></script>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="classe.js"></script>
+<script>
+(function () {
+  "use strict";
+  var el = N.el, app = N.$("#app");
+  N.testata({ titolo: "La mia classe", indietro: "../index.html", tema: "t-classe" });
+  if (!API.attivo()) return CL.nonAttivo(app);
+
+  function vaiAvanti(s) {
+    location.replace(s.ruolo === "insegnante" ? "insegnante.html" : "index.html");
+  }
+  var s0 = API.sessione();
+  if (s0) return vaiAvanti(s0);
+
+  var scheda = /insegnante/.test(location.hash) ? "ins" : "alu";
+
+  function disegna() {
+    app.innerHTML = "";
+    app.appendChild(el("section", { class: "accedi-testa" }, [
+      el("div", { html: N.gufo("felice") }).firstChild,
+      el("h1", { text: "Entra nella tua classe" })
+    ]));
+    var tab = el("div", { class: "schede-tab", role: "tablist", "aria-label": "Chi sei?" });
+    [["alu", "🧒", "Sono un alunno"], ["ins", "🧑‍🏫", "Sono un insegnante"]].forEach(function (t) {
+      tab.appendChild(el("button", {
+        type: "button", role: "tab", id: "tab-" + t[0], "aria-selected": String(scheda === t[0]), "aria-controls": "pannello",
+        tabindex: scheda === t[0] ? "0" : "-1",
+        onclick: function () { if (scheda !== t[0]) { scheda = t[0]; N.suono.tocco(); history.replaceState(null, "", t[0] === "ins" ? "#insegnante" : "#"); disegna(); N.$("#tab-" + t[0]).focus(); } }
+      }, [el("span", { class: "ico", "aria-hidden": "true", text: t[1] }), t[2]]));
+    });
+    tab.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); N.$("#tab-" + (scheda === "alu" ? "ins" : "alu")).click(); }
+    });
+    app.appendChild(tab);
+    var p = el("section", { class: "pannello", id: "pannello", role: "tabpanel", "aria-labelledby": "tab-" + scheda });
+    app.appendChild(p);
+    if (scheda === "alu") alunno(p); else insegnante(p, "entra");
+  }
+
+  function invio(form, bottone, err, azione) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var msg = azione.controlla();
+      if (msg) { err.textContent = msg; N.suono.ko(); return; }
+      err.textContent = ""; bottone.disabled = true;
+      var testo = bottone.textContent; bottone.textContent = "Un momento…";
+      azione.esegui().then(function (s) {
+        if (s.ruolo === "alunno") CL.collegaProfilo(s.utente);
+        N.suono.vittoria();
+        vaiAvanti(s);
+      }, function (e2) {
+        bottone.disabled = false; bottone.textContent = testo;
+        err.textContent = e2.message; N.suono.ko();
+      });
+    });
+  }
+
+  /* ---------------- pupil ---------------- */
+  function alunno(p) {
+    var u = el("input", { class: "campo", id: "utente", name: "username", autocomplete: "username", autocapitalize: "none", autocorrect: "off", spellcheck: "false", inputmode: "text", placeholder: "es. volpe-blu-27", required: true });
+    var pw = CL.campoPassword({ id: "password", autocomplete: "current-password" });
+    var err = el("p", { class: "errore-msg", role: "alert", "aria-live": "assertive" });
+    var b = el("button", { class: "btn blocco", type: "submit", text: "Entra! 🚀" });
+    var form = el("form", { class: "modulo alunno", novalidate: true }, [
+      el("h2", { text: "Ciao! 👋" }),
+      el("p", { class: "nota", style: "margin-top:0", text: "Scrivi il nome utente e la parola segreta che trovi sul tuo cartellino." }),
+      el("label", { for: "utente", text: "Il tuo nome utente" }), u,
+      el("label", { for: "password", text: "La tua parola segreta" }), pw.nodo,
+      err, b,
+      el("p", { class: "nota", style: "text-align:center", text: "Non hai il cartellino? Chiedilo alla tua maestra o al tuo maestro." })
+    ]);
+    p.appendChild(form);
+    invio(form, b, err, {
+      controlla: function () {
+        u.value = CL.normalizzaUtente(u.value);
+        if (!u.value) { u.focus(); return "Scrivi il tuo nome utente."; }
+        if (!pw.campo.value.trim()) { pw.campo.focus(); return "Scrivi la tua parola segreta."; }
+        return "";
+      },
+      esegui: function () {
+        // generated passwords are lowercase words: phones often capitalise the first letter
+        var v = pw.campo.value.trim();
+        return API.accedi(u.value, u.value.indexOf("@") >= 0 ? pw.campo.value : v.toLowerCase());
+      }
+    });
+    setTimeout(function () { u.focus(); }, 50);
+  }
+
+  /* ---------------- teacher ---------------- */
+  function insegnante(p, modo) {
+    var nuovo = modo === "crea";
+    var sw = el("div", { class: "interruttore-modo", role: "group", "aria-label": "Account" }, [
+      el("button", { type: "button", "aria-pressed": String(!nuovo), text: "Entra", onclick: function () { if (nuovo) { p.innerHTML = ""; insegnante(p, "entra"); } } }),
+      el("button", { type: "button", "aria-pressed": String(nuovo), text: "Crea un account", onclick: function () { if (!nuovo) { p.innerHTML = ""; insegnante(p, "crea"); } } })
+    ]);
+    var email = el("input", { class: "campo", id: "email", type: "email", name: "email", inputmode: "email", autocomplete: "email", autocapitalize: "none", spellcheck: "false", required: true });
+    var nome = nuovo ? el("input", { class: "campo", id: "nome", name: "nome", autocomplete: "name", maxlength: "60", required: true, placeholder: "es. Maestra Anna" }) : null;
+    var pw = CL.campoPassword({ id: "password", autocomplete: nuovo ? "new-password" : "current-password", minimo: nuovo ? 8 : null, descr: nuovo ? "pw-aiuto" : null });
+    var ok = nuovo ? el("input", { type: "checkbox", id: "privacy", required: true }) : null;
+    var err = el("p", { class: "errore-msg", role: "alert", "aria-live": "assertive" });
+    var b = el("button", { class: "btn blocco", type: "submit", text: nuovo ? "Crea l'account" : "Entra" });
+    b.style.background = "var(--ins)";
+    var form = el("form", { class: "modulo", novalidate: true }, [
+      el("h2", { text: nuovo ? "Nuovo account insegnante" : "Accesso insegnanti" }),
+      sw,
+      el("label", { for: "email", text: "Email" }), email,
+      nuovo ? el("label", { for: "nome", text: "Il tuo nome (lo vedranno gli alunni)" }) : null, nome,
+      el("label", { for: "password", text: "Password" }), pw.nodo,
+      nuovo ? el("p", { class: "nota", id: "pw-aiuto", text: "Almeno 8 caratteri." }) : null,
+      nuovo ? el("label", { class: "spunta", for: "privacy" }, [ok, el("span", {}, [
+        "Ho letto l'", el("a", { href: "privacy.html", text: "informativa sulla privacy" }), " e l'ho fatta adattare dalla mia scuola prima di inserire gli alunni."
+      ])]) : null,
+      err, b,
+      el("p", { class: "nota", style: "text-align:center" }, [
+        el("a", { href: "privacy.html", text: "Privacy" }), " · ", el("a", { href: "mini-giochi.html", text: "Come si scrive un mini-gioco" })
+      ])
+    ]);
+    p.appendChild(form);
+    invio(form, b, err, {
+      controlla: function () {
+        var e = email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { email.focus(); return "Scrivi un indirizzo email valido."; }
+        if (nuovo && !nome.value.trim()) { nome.focus(); return "Scrivi il tuo nome."; }
+        if (!pw.campo.value) { pw.campo.focus(); return "Scrivi la password."; }
+        if (nuovo && pw.campo.value.length < 8) { pw.campo.focus(); return "La password deve avere almeno 8 caratteri."; }
+        if (nuovo && !ok.checked) return "Prima leggi l'informativa sulla privacy e spunta la casella.";
+        return "";
+      },
+      esegui: function () {
+        return nuovo ? API.registraInsegnante(email.value.trim(), nome.value.trim(), pw.campo.value) : API.accedi(email.value.trim(), pw.campo.value);
+      }
+    });
+  }
+
+  disegna();
+})();
+</script>
+</body>
+</html>

@@ -48,6 +48,13 @@
   .profilo-riga .dati span { color: var(--testo-2); font-size: 14px; }
   .interruttore { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--carta); border-radius: 18px; padding: 12px 14px; box-shadow: var(--ombra-piccola); margin: 10px 0; font-weight: 800; }
   .interruttore input { width: 28px; height: 28px; }
+  .classe-online { display: flex; align-items: center; gap: 14px; margin-top: 18px; min-height: 84px; padding: 14px 16px; border-radius: 26px;
+    background: #0e7f7a; color: #fff; text-decoration: none; box-shadow: 0 6px 0 rgba(0,0,0,.15); }
+  .classe-online:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,.15); }
+  .classe-online .emoji { font-size: 42px; line-height: 1; flex: none; }
+  .classe-online .nome { font-size: 21px; font-weight: 900; display: block; }
+  .classe-online .info { font-size: 14px; font-weight: 700; opacity: .95; }
+  .classe-online::after { content: "›"; margin-left: auto; font-size: 34px; font-weight: 900; }
 </style>
 </head>
 <body>
@@ -59,6 +66,8 @@
 <main class="pagina" id="app"></main>
 
 <script src="core/core.js"></script>
+<script src="classe/config.js"></script>
+<script src="classe/sync.js"></script>
 <script>
 (function () {
   "use strict";
@@ -80,6 +89,21 @@
     "Nei laboratori puoi fare esperimenti come Archimede e Talete.",
     "Prova la sfida dei 60 secondi in Matematica!"
   ];
+
+  /* ---------- "La mia classe" (only when the class space is configured) ---------- */
+  function classeOnline() {
+    if (!window.CLASSE_SYNC || !CLASSE_SYNC.attivo()) return null;
+    var s = CLASSE_SYNC.sessione(), v;
+    if (s && s.ruolo === "insegnante") v = ["🧑‍🏫", "La mia classe online", "Pannello insegnante: classi, alunni, risultati", "classe/insegnante.html"];
+    else if (s) v = ["🏫", "La mia classe", "Ciao " + (s.utente && s.utente.nome || "") + "! Apri i quiz della tua classe", "classe/index.html"];
+    else v = ["🏫", "La mia classe", "Hai il cartellino della classe? Entra qui", "classe/accedi.html"];
+    var a = el("a", { class: "classe-online", href: v[3], id: "classe-online" }, [
+      el("span", { class: "emoji", text: v[0], "aria-hidden": "true" }),
+      el("span", null, [el("span", { class: "nome", text: v[1] }), el("span", { class: "info", text: v[2] })])
+    ]);
+    a.dataset.sessione = s ? s.ruolo : "";
+    return a;
+  }
 
   function aggiornaTestata() {
     N.aggiornaTestata();
@@ -124,7 +148,8 @@
         } }),
         daProfili ? null : el("p", { style: "text-align:center" }, [el("button", { class: "btn secondario piccolo", type: "button", text: "Gioca come ospite", onclick: function () {
           N.scrivi("ospite", true); mostra();
-        } })])
+        } })]),
+        daProfili ? null : classeOnline()
       ])
     ]));
   }
@@ -150,7 +175,10 @@
       ])
     ]));
     app.appendChild(el("div", { class: "fumetto", style: "margin:4px 0 0", text: "💡 " + N.scegli(CONSIGLI) }));
+    var cls = classeOnline();
+    if (cls && cls.dataset.sessione) app.appendChild(cls);
     app.appendChild(tiles);
+    if (cls && !cls.dataset.sessione) app.appendChild(cls);
     app.appendChild(el("h2", { class: "sezione", text: "Sfide veloci" }));
     app.appendChild(el("nav", { class: "scorciatoie", "aria-label": "Sfide veloci" }, [
       el("a", { href: "matematica/gioca.html?a=tabelline", text: "✖️ Tabelline" }),

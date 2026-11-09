@@ -6,6 +6,42 @@
 
   N.$("#intro").appendChild(N.gufoDice("Qui scrivi tu gli esercizi per la tua classe!", "felice"));
 
+  /* ---------------- class space online (only when configured) ---------------- */
+  var online = window.API && API.attivo();
+  function insegnanteOnline() { return online && API.insegnante(); }
+  if (online) {
+    var io = insegnanteOnline();
+    N.$("#intro").appendChild(el("a", { class: "link-classe", href: io ? "../classe/insegnante.html" : "../classe/accedi.html#insegnante" }, [
+      el("span", { style: "font-size:28px", "aria-hidden": "true", text: "🏫" }),
+      el("span", {}, [io ? "La mia classe online" : "Entra nella classe online",
+        el("small", { text: io ? "Classi, alunni, risultati e mini-giochi" : "Per pubblicare i quiz nelle tue classi e vedere i risultati" })])
+    ]));
+  }
+  function pubblicaOnline(q) {
+    var quiz = INS.trova(q.id) || q;
+    if (INS.contaProblemi(INS.normalizza(quiz))) {
+      return N.dialogo({ titolo: "Quiz da completare", testo: "Alcune domande sono incomplete: gli alunni non le vedranno. Completale con «Modifica», poi pubblica.",
+        pulsanti: [{ testo: "Pubblica lo stesso", valore: true }, { testo: "Annulla", valore: false, secondario: true }] })
+        .then(function (si) { if (si) invia(quiz); });
+    }
+    invia(quiz);
+  }
+  function invia(quiz) {
+    N.esito("info", "Carico il quiz…", 1000);
+    API.caricaQuizLocale(INS.pulito(quiz)).then(function (r) {
+      N.suono.ok();
+      disegna();
+      N.dialogo({ titolo: r.nuovo ? "Quiz online! ☁️" : "Quiz aggiornato! 🔄",
+        testo: r.nuovo ? "«" + quiz.titolo + "» è sul server. Ora scegli in quali classi pubblicarlo: «La mia classe online» → la classe → «Pubblicati»."
+          : "Gli alunni vedranno la nuova versione di «" + quiz.titolo + "».",
+        pulsanti: [{ testo: "Vai alle classi", valore: true }, { testo: "OK", valore: false, secondario: true }] })
+        .then(function (v) { if (v) location.href = "../classe/insegnante.html#classi"; });
+    }, function (e) {
+      if (e.status === 401) { disegna(); return N.dialogo({ titolo: "Devi entrare di nuovo", testo: "La sessione è scaduta: entra di nuovo nella classe online." }); }
+      N.dialogo({ titolo: "Non riesco a pubblicare", testo: e.message });
+    });
+  }
+
   function disegna() {
     var l = INS.lista(), box = N.$("#lista");
     box.innerHTML = "";
@@ -35,11 +71,13 @@
           pr ? el("div", { class: "avviso", text: "⚠️ " + (pr === 1 ? "1 domanda da completare" : pr + " domande da completare") }) : null
         ])
       ]),
-      el("div", { class: "barra-azioni" }, [
+      el("div", { class: "barra-azioni" + (insegnanteOnline() ? " sei" : "") }, [
         el("a", { class: "azione principale", href: INS.urlGioca(q.id), "aria-label": "Gioca " + (q.titolo || "") }, [el("span", { class: "ico", text: "▶️" }), "Gioca"]),
         el("a", { class: "azione", href: "modifica.html?id=" + encodeURIComponent(q.id), "aria-label": "Modifica " + (q.titolo || "") }, [el("span", { class: "ico", text: "✏️" }), "Modifica"]),
         el("button", { class: "azione", type: "button", "aria-label": "Condividi " + (q.titolo || ""), onclick: function () { INS.condividi(INS.trova(q.id) || q); } }, [el("span", { class: "ico", text: "📤" }), "Condividi"]),
         el("button", { class: "azione", type: "button", "aria-label": "Duplica " + (q.titolo || ""), onclick: function () { duplica(q); } }, [el("span", { class: "ico", text: "📑" }), "Duplica"]),
+        insegnanteOnline() ? el("button", { class: "azione online", type: "button", "aria-label": (API.idOnline(q.id) ? "Aggiorna online " : "Pubblica online ") + (q.titolo || ""), onclick: function () { pubblicaOnline(q); } },
+          [el("span", { class: "ico", text: API.idOnline(q.id) ? "🔄" : "☁️" }), API.idOnline(q.id) ? "Aggiorna online" : "Pubblica online"]) : null,
         el("button", { class: "azione pericolo", type: "button", "aria-label": "Elimina " + (q.titolo || ""), onclick: function () { elimina(q); } }, [el("span", { class: "ico", text: "🗑️" }), "Elimina"])
       ])
     ]);

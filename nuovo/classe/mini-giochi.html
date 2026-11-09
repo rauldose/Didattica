@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Come si scrive un mini-gioco – Impara giocando</title>
+<link rel="icon" href="../icone/icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="classe.css">
+</head>
+<body>
+<main class="pagina">
+  <div id="gufo" style="margin-top:14px"></div>
+
+  <div class="azioni">
+    <a class="btn" href="modello-minigioco.html" download="modello-minigioco.html">⬇️ Scarica il modello</a>
+    <a class="btn secondario" href="#prova">👀 Provalo qui sotto</a>
+  </div>
+
+  <article class="testo-lungo">
+    <h2>Che cos'è</h2>
+    <p>Un mini-gioco è <b>un unico file HTML</b> (una pagina web) che pubblichi nella tua classe. Gli alunni lo aprono da «La mia classe»; quando finiscono, il gioco manda le <b>stelle</b> (da 0 a 3) e tu le vedi nei risultati.</p>
+
+    <h2>In 5 passi</h2>
+    <ol>
+      <li><b>Scarica il modello</b> (il pulsante qui sopra): è un quiz «Il giro d'Italia» già funzionante.</li>
+      <li>Aprilo con un editor di testo e cambia <code>TITOLO</code> e l'elenco <code>DOMANDE</code> (la parte «MODIFICA QUI»).</li>
+      <li>Provalo aprendo il file con il browser del computer.</li>
+      <li>Nel pannello «La mia classe online» → <b>Mini-giochi</b> → <b>Nuovo mini-gioco</b>: scegli il file, guarda l'<b>Anteprima</b> e salva.</li>
+      <li>In <b>Classi</b> → la tua classe → <b>Pubblicati</b>, accendi l'interruttore del gioco.</li>
+    </ol>
+
+    <h2>Le regole della «scatola chiusa»</h2>
+    <p>Per proteggere gli alunni, il gioco gira isolato dal resto del sito:</p>
+    <ul>
+      <li><b>Niente Internet</b>: non si possono caricare script, fogli di stile, font, immagini o video da altri siti, e il gioco non può mandare dati a nessuno. Le immagini e i suoni vanno <b>dentro il file</b>, come indirizzi <code>data:…</code>.</li>
+      <li><b>Niente</b> <code>alert()</code>, <code>confirm()</code>, <code>prompt()</code>, finestre nuove o moduli da inviare: scrivi i messaggi nella pagina.</li>
+      <li><b>Niente memoria del browser</b> (<code>localStorage</code>, cookie): il gioco non vede i dati del sito né le password.</li>
+      <li>Il file può pesare al massimo <b>1 MB</b>.</li>
+    </ul>
+
+    <h2>Come si mandano le stelle</h2>
+    <p>Alla fine del gioco basta una riga:</p>
+<pre class="codice"><code>parent.postMessage({ impara: "risultato", stelle: 2, corrette: 7, totali: 8 }, "*");</code></pre>
+    <ul>
+      <li><code>stelle</code>: un numero intero da 0 a 3 (obbligatorio). Il modello usa la regola del sito: almeno il 90% giuste = 3 stelle, il 70% = 2, il 40% = 1.</li>
+      <li><code>corrette</code> e <code>totali</code>: numeri interi, facoltativi (ma se ci sono, ci devono essere tutti e due).</li>
+    </ul>
+    <p>La pagina della classe mostra la schermata con le stelle, salva il risultato e offre «Gioca ancora» o «Esci». Per un pulsante «Torna alla classe» dentro il gioco:</p>
+<pre class="codice"><code>parent.postMessage({ impara: "fine" }, "*");</code></pre>
+
+    <h2>Consigli</h2>
+    <ul>
+      <li>Giri brevi (8–10 domande), pulsanti grandi (almeno 56 pixel), testo grande e frasi corte.</li>
+      <li>Pensa al telefono in verticale: deve stare tutto in una colonna larga circa 360 pixel.</li>
+      <li>Dai sempre un riscontro subito: «Bravo!», «Riprova!», e mostra la risposta giusta.</li>
+      <li>Ti fai aiutare da un collega o da un assistente di intelligenza artificiale? Dagli questa richiesta:</li>
+    </ul>
+<pre class="codice" id="richiesta"><code>Scrivi un mini-gioco educativo in UN SOLO file HTML, in italiano, per bambini di 9 anni,
+adatto al telefono (pulsanti grandi). Argomento: …
+Regole: niente risorse esterne (niente CDN, font o immagini da Internet; le immagini come data: URL),
+niente alert/confirm/prompt, niente localStorage, niente moduli.
+Alla fine esegui: parent.postMessage({ impara: "risultato", stelle, corrette, totali }, "*")
+con stelle da 0 a 3 (≥90% giuste = 3, ≥70% = 2, ≥40% = 1), e aggiungi un pulsante
+"Torna alla classe" che esegue parent.postMessage({ impara: "fine" }, "*").</code></pre>
+    <p class="riga"><button class="btn secondario piccolo" type="button" id="copia">📋 Copia la richiesta</button></p>
+
+    <h2 id="prova">Prova il modello</h2>
+    <p class="nota">Il modello gira qui sotto, nella stessa «scatola chiusa» che vedranno gli alunni.</p>
+    <div class="anteprima-box"><iframe sandbox="allow-scripts" src="modello-minigioco.html" title="Il modello di mini-gioco" referrerpolicy="no-referrer"></iframe></div>
+    <p class="nota" id="stato" role="status" aria-live="polite">Quando finisci il giro, qui vedrai il messaggio che il gioco manda.</p>
+  </article>
+</main>
+<script src="../core/core.js"></script>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script>
+(function () {
+  "use strict";
+  var ins = API.attivo() && API.insegnante();
+  N.testata({ titolo: "Come si scrive un mini-gioco", indietro: ins ? "insegnante.html#app" : (API.attivo() ? "accedi.html#insegnante" : "../index.html"), tema: "t-classe" });
+  N.$("#gufo").appendChild(N.gufoDice("Un mini-gioco è una pagina web tutta tua: un file, poche regole, tante stelle!", "felice"));
+  var ifr = N.$(".anteprima-box iframe"), stato = N.$("#stato");
+  window.addEventListener("message", function (e) {
+    if (e.source !== ifr.contentWindow) return;
+    var d = e.data;
+    if (!d || typeof d !== "object") return;
+    if (d.impara === "fine") stato.textContent = "✅ Il gioco ha mandato: { impara: \"fine\" } → si torna alla classe.";
+    else if (d.impara === "risultato") stato.textContent = "✅ Il gioco ha mandato: { impara: \"risultato\", stelle: " + d.stelle + ", corrette: " + d.corrette + ", totali: " + d.totali + " }";
+  });
+  N.$("#copia").addEventListener("click", function () {
+    var t = N.$("#richiesta").textContent;
+    var fatto = function () { N.esito("si", "Richiesta copiata!"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fatto, function () { N.esito("info", "Seleziona il testo e copialo a mano."); });
+    else N.esito("info", "Seleziona il testo e copialo a mano.");
+  });
+})();
+</script>
+</body>
+</html>

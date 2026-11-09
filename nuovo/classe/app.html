@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<meta name="referrer" content="no-referrer">
+<title>Mini-gioco – Impara giocando</title>
+<link rel="icon" href="../icone/icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="classe.css">
+</head>
+<body>
+<main class="pagina" id="app"></main>
+<script src="../core/core.js"></script>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="sync.js"></script>
+<script src="classe.js"></script>
+<script>
+/*
+ * Mini-app runtime (docs/classe-api.md, "Mini-app runtime").
+ * The teacher's HTML is untrusted: it runs in <iframe sandbox="allow-scripts">
+ * (never allow-same-origin) from srcdoc, with a CSP meta injected at the top
+ * that blocks every network request. The app can only send us messages:
+ *   { impara: "risultato", stelle: 0..3, corrette, totali }  → stars screen,
+ *        saved for the pupil with POST /api/risultati (attivita "app:<id>")
+ *        through N.fineRound → N.registra → N_DOPO_REGISTRA (sync.js, which
+ *        also queues it when offline);
+ *   { impara: "fine" }                                       → back to the class.
+ * Messages are accepted only from this iframe's contentWindow, with an
+ * opaque origin, and with the exact shape above.
+ */
+(function () {
+  "use strict";
+  var el = N.el, app = N.$("#app");
+  var s = API.sessione(), aid = N.parametro("id", "");
+  var ritorno = s && s.ruolo === "insegnante" ? "insegnante.html#app" : "index.html";
+  N.testata({ titolo: "Mini-gioco", indietro: ritorno, tema: "t-classe" });
+  if (!API.attivo()) return CL.nonAttivo(app);
+  if (!s) return location.replace("accedi.html");
+  if (!/^[A-Za-z0-9_-]{1,64}$/.test(aid)) return CL.errore(app, new Error("Non trovo questo mini-gioco."));
+
+  var cornice = null, iframe = null, dati = null, inFine = false, ultimo = 0;
+
+  function misura() {
+    var h = N.$(".testata");
+    document.documentElement.style.setProperty("--alto-testata", (h ? h.getBoundingClientRect().height : 66) + "px");
+  }
+  function avvia() {
+    if (cornice) cornice.remove();
+    iframe = document.createElement("iframe");
+    iframe.setAttribute("sandbox", "allow-scripts");               // ONLY scripts: opaque origin, no storage, no popups, no navigation
+    iframe.setAttribute("referrerpolicy", "no-referrer");
+    iframe.setAttribute("title", dati.titolo || "Mini-gioco");
+    iframe.setAttribute("allow", "");
+    iframe.srcdoc = API.srcdocApp(dati.html);
+    cornice = el("div", { class: "cornice" }, [iframe]);
+    document.body.appendChild(cornice);
+    misura();
+    inFine = false;
+    setTimeout(function () { try { iframe.focus(); } catch (e) { /* */ } }, 100);
+  }
+  function esci() { location.href = ritorno; }
+
+  window.addEventListener("message", function (e) {
+    var m = API.messaggioApp(e, iframe);
+    if (!m) return;
+    if (m.tipo === "fine") { if (!inFine) esci(); return; }
+    var ora = Date.now();
+    if (inFine || ora - ultimo < 1500) return;                     // one result at a time
+    ultimo = ora; inFine = true;
+    N.fineRound({
+      attivita: "app:" + dati.id, stelle: m.stelle, corrette: m.corrette, totali: m.totali, titolo: dati.titolo,
+      onAncora: avvia, onEsci: esci
+    });
+  });
+  window.addEventListener("resize", misura);
+
+  CL.carico(app, "Preparo il mini-gioco…");
+  API.getApp(aid).then(function (r) {
+    if (!r || typeof r.html !== "string") throw new Error("Questo mini-gioco è vuoto.");
+    dati = r;
+    N.$(".testata h1").textContent = r.titolo || "Mini-gioco";
+    document.title = (r.titolo || "Mini-gioco") + " – Impara giocando";
+    app.innerHTML = "";
+    document.body.classList.add("app-runtime");
+    avvia();
+  }, function (e) {
+    if (e.status === 401) return location.replace("accedi.html");
+    CL.errore(app, e.status === 404 ? new Error("Questo mini-gioco non c'è più, oppure non è per la tua classe.") : e, function () { location.reload(); });
+  });
+})();
+</script>
+</body>
+</html>

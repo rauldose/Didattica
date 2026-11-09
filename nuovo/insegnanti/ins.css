@@ -22,6 +22,10 @@
 .azione:active { transform: translateY(2px); }
 .azione.principale { background: var(--colore); color: #fff; }
 .azione.pericolo { background: var(--ko-chiaro); }
+.barra-azioni.sei { grid-template-columns: repeat(3, 1fr); }
+.azione.online { background: #d3f2ef; }
+.link-classe { display: flex; align-items: center; gap: 10px; background: var(--carta); border-radius: 18px; padding: 10px 14px; box-shadow: var(--ombra-piccola); text-decoration: none; color: var(--testo); font-weight: 800; min-height: 56px; margin: 6px 0 0; }
+.link-classe small { display: block; font-weight: 600; color: var(--testo-2); }
 
 .come { margin-top: 26px; min-height: 0; cursor: default; }
 .come:hover, .come:active { transform: none; box-shadow: var(--ombra); }
