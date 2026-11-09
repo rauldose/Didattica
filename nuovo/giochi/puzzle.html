@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Puzzle di numeri – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="giochi.css">
+<style>
+  .campi { display: flex; gap: 16px; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-top: 4px; }
+  .lato {
+    --gc: #2f86ff; --gcc: #dbeaff;
+    display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px; border-radius: var(--r);
+    background: var(--carta); box-shadow: var(--ombra); transition: transform .4s;
+  }
+  .lato.g2 { --gc: #8a4dff; --gcc: #ece2ff; }
+  .lato.girato { transform: rotate(180deg); }
+  .lato .nome { font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .lato .nome::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--gc); }
+  .tabellone {
+    --n: 3; --t: 92px; position: relative; width: calc(var(--t) * var(--n) + 12px); height: calc(var(--t) * var(--n) + 12px);
+    background: var(--gcc); border-radius: 18px; padding: 6px; touch-action: manipulation; user-select: none;
+  }
+  .tabellone.fatto { outline: 4px solid var(--ok); }
+  .tessera {
+    position: absolute; left: 6px; top: 6px; width: var(--t); height: var(--t); padding: 3px; border: 0; background: none;
+    cursor: pointer; transition: transform .12s ease-out; touch-action: manipulation;
+  }
+  .tessera span {
+    display: grid; place-items: center; width: 100%; height: 100%; border-radius: 14px; background: var(--gc); color: #fff;
+    font-weight: 900; font-size: calc(var(--t) * .46); box-shadow: inset 0 -5px 0 rgba(0,0,0,.18); font-variant-numeric: tabular-nums;
+  }
+  .tessera.posto span { background: color-mix(in srgb, var(--gc) 70%, #19a974); }
+  .tessera:active span { transform: scale(.94); }
+  .tessera.muro span { animation: scossa .3s; }
+  .stato-lato { font-weight: 800; color: var(--testo-2); text-align: center; min-height: 2.6em; font-size: 16px; }
+  .stato-lato.vinto { color: var(--ok); font-size: 20px; }
+  .stato-lato.perso { color: var(--ko); }
+  .testa-lato { display: flex; align-items: center; justify-content: space-between; gap: 10px; align-self: stretch; min-height: 44px; }
+  .testa-lato .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .testa-lato .gira { width: 44px; height: 44px; min-height: 44px; padding: 0; font-size: 20px; flex: none; }
+  .due .testa-lato .stato-lato { min-height: 0; font-size: 15px; flex: none; text-align: right; }
+  .due .testa-lato .stato-lato.vinto { font-size: 16px; }
+  .due .regola { display: none; }
+  .campi.pila { flex-direction: column; align-items: center; flex-wrap: nowrap; }
+  .due .lato { gap: 4px; padding: 8px 10px; }
+  .due .stato-lato { min-height: 1.4em; font-size: 15px; }
+  .due .campi { gap: 10px; }
+  .tabellone.fermo .tessera { transition: none; }
+  .regola { text-align: center; color: var(--testo-2); font-weight: 700; margin: 6px 0; font-size: 16px; }
+  @media (orientation: landscape) and (max-height: 520px) { .testata { display: none; } .credito { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .tessera, .lato { transition: none; } }
+</style>
+</head>
+<body>
+<main class="pagina" id="main">
+  <div id="barra"></div>
+  <section id="prep" class="preparazione" aria-label="Scegli come giocare"></section>
+  <section id="gioco" hidden aria-label="Puzzle">
+    <p class="regola" id="regola"></p>
+    <div class="campi" id="campi"></div>
+    <div class="riga centro" style="margin-top:14px">
+      <button class="btn" type="button" id="nuovo">🔀 Nuova partita</button>
+      <button class="btn secondario" type="button" id="cambia">⚙️ Cambia</button>
+    </div>
+  </section>
+  <p class="credito">Puzzle di numeri per due giocatori — idea del Prof. Muscolino</p>
+</main>
+<script src="../core/core.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Puzzle di numeri", indietro: function () { GI.esci(); }, tema: "t-gio" });
+  if (!GI.porta("puzzle", N.$("#main"))) return;
+  N.$("#barra").appendChild(GI.barra("puzzle"));
+
+  var opz = { n: 3, giocatori: 1 };
+  var nomi = [GI.nomeG1(), "Giocatore 2"];
+  var boards = [], partitaFinita = false;
+
+  /* ---------------- setup ---------------- */
+  function preparazione() {
+    var prep = N.$("#prep");
+    prep.hidden = false; N.$("#gioco").hidden = true; prep.innerHTML = "";
+    prep.appendChild(N.gufoDice("Rimetti in ordine i numeri: tocca una tessera vicina al buco per spostarla.", ""));
+    prep.appendChild(GI.pillole("Grandezza", [{ valore: 3, testo: "3 × 3" }, { valore: 4, testo: "4 × 4" }], opz.n, function (v) { opz.n = v; }));
+    prep.appendChild(GI.pillole("Giocatori", [{ valore: 1, testo: "👤 Da solo" }, { valore: 2, testo: "👥 In due" }], opz.giocatori, function (v) { opz.giocatori = v; }));
+    prep.appendChild(N.el("p", { class: "consegna", text: "In due: avete lo stesso miscuglio. Vince chi finisce con meno mosse (le mosse restano segrete!)." }));
+    prep.appendChild(N.el("button", { class: "btn blocco", type: "button", id: "inizia", text: "Inizia ▶", onclick: inizia }));
+  }
+
+  /* ---------------- board logic ---------------- */
+  // pos[p] = tile at position p (row-major), hole = n*n-1; goal: 0,1,2,... with the hole last (his rule)
+  function adiacenti(n, p, q) { return Math.abs(p % n - q % n) + Math.abs(Math.floor(p / n) - Math.floor(q / n)) === 1; }
+  function muovi(b, t) {
+    var p = b.pos.indexOf(t), h = b.pos.indexOf(b.buco);
+    if (!adiacenti(b.n, p, h)) return false;
+    b.pos[h] = t; b.pos[p] = b.buco; return true;
+  }
+  function aPosto(b) { var c = 0; for (var i = 0; i < b.buco; i++) if (b.pos[i] === i) c++; return c; }
+
+  // a random walk of the hole from the solved board: always solvable; the same list for both players
+  function miscuglio(n) {
+    var buco = n * n - 1, pos, passi = n === 3 ? 160 : 400;
+    do {
+      pos = []; for (var i = 0; i <= buco; i++) pos.push(i);
+      var h = buco, prima = -1;
+      for (var k = 0; k < passi; k++) {
+        var vicini = [];
+        for (var q = 0; q <= buco; q++) if (adiacenti(n, h, q) && q !== prima) vicini.push(q);
+        var q2 = N.scegli(vicini);
+        pos[h] = pos[q2]; pos[q2] = buco; prima = h; h = q2;
+      }
+      var b = { pos: pos, buco: buco };
+    } while (aPosto(b) > (n === 3 ? 2 : 4));
+    return pos;
+  }
+
+  function inizia() {
+    if (GI.finito) return;
+    N.suono.tocco();
+    GI.avviaTempo();
+    N.$("#prep").hidden = true; N.$("#gioco").hidden = false;
+    nuova();
+  }
+
+  function misuraTessera() {
+    var W = Math.min(document.documentElement.clientWidth, 860) - 32, H = window.innerHeight;
+    var due = opz.giocatori === 2, n = opz.n;
+    var affiancati = due && W >= 2 * (n * 64 + 32) + 16;
+    var largo = (affiancati ? (W - 16) / 2 : W) - 20 - 12;
+    var t = Math.floor(largo / n);
+    var sopra = N.$("#campi").getBoundingClientRect().top + window.scrollY;
+    // two boards one above the other on a phone: both must fit in the screen
+    N.$("#campi").classList.toggle("pila", due && !affiancati);
+    var alto = due && !affiancati ? (H - sopra - 10 - 2 * 68) / 2 : H - sopra - (due ? 68 : 92 + 70);
+    t = Math.min(t, Math.floor((alto - 12) / n), n === 3 ? 110 : 90);
+    return Math.max(44, t);
+  }
+
+  function nuova() {
+    var pos = miscuglio(opz.n);
+    partitaFinita = false;
+    var campi = N.$("#campi"); campi.innerHTML = "";
+    boards = [];
+    for (var k = 0; k < opz.giocatori; k++) boards.push(creaBoard(k, pos.slice()));
+    N.$("#gioco").classList.toggle("due", opz.giocatori === 2);
+    boards.forEach(function (b) { b.tab.classList.add("fermo"); });
+    adatta();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { boards.forEach(function (b) { b.tab.classList.remove("fermo"); }); }); });
+    N.$("#regola").textContent = opz.giocatori === 1
+      ? "Metti in fila i numeri da 0 a " + (opz.n * opz.n - 2) + ", il buco va in fondo."
+      : "Giocate insieme! Vince chi finisce con meno mosse.";
+    aggiorna();
+  }
+
+  function creaBoard(k, pos) {
+    var n = opz.n, b = { k: k, n: n, buco: n * n - 1, pos: pos, mosse: 0, fatto: false, tiles: [] };
+    var tab = N.el("div", { class: "tabellone", role: "group", "aria-label": opz.giocatori === 2 ? "Puzzle di " + nomi[k] : "Puzzle", style: "--n:" + n });
+    for (var t = 0; t < b.buco; t++) {
+      var el = N.el("button", { type: "button", class: "tessera", "aria-label": "Numero " + t }, [N.el("span", { text: String(t) })]);
+      el.addEventListener("click", (function (t) { return function () { mossa(b, t); }; })(t));
+      tab.appendChild(el); b.tiles.push(el);
+    }
+    b.tab = tab;
+    b.stato = N.el("div", { class: "stato-lato", "aria-live": "polite" });
+    var figli = [];
+    if (opz.giocatori === 2) {
+      figli.push(N.el("div", { class: "testa-lato" }, [
+        N.el("div", { class: "nome", text: nomi[k] }), b.stato,
+        k === 0 ? N.el("button", { class: "btn secondario gira", type: "button", text: "↻", title: "Gira", "aria-label": "Gira il campo di " + nomi[k] + " verso chi sta di fronte",
+          onclick: function () { b.lato.classList.toggle("girato"); } }) : null
+      ]));
+      figli.push(tab);
+    } else figli.push(tab, b.stato);
+    b.lato = N.el("div", { class: "lato g" + (k + 1) }, figli);
+    N.$("#campi").appendChild(b.lato);
+    return b;
+  }
+
+  function disegna(b) {
+    b.pos.forEach(function (t, p) {
+      if (t === b.buco) return;
+      var el = b.tiles[t];
+      el.style.transform = "translate(calc(var(--t) * " + (p % b.n) + "), calc(var(--t) * " + Math.floor(p / b.n) + "))";
+      el.classList.toggle("posto", t === p);
+    });
+    b.tab.classList.toggle("fatto", b.fatto);
+  }
+
+  function adatta() {
+    var t = misuraTessera();
+    boards.forEach(function (b) { b.tab.style.setProperty("--t", t + "px"); disegna(b); });
+  }
+
+  function aggiorna() {
+    boards.forEach(function (b) {
+      b.stato.className = "stato-lato";
+      if (opz.giocatori === 1) {
+        var r = GI.record("puzzle:" + opz.n, null);
+        b.stato.textContent = "Mosse: " + b.mosse + "  ·  Record: " + (r == null ? "–" : r) + "\nNumeri a posto: " + aPosto(b) + " su " + b.buco;
+        b.stato.style.whiteSpace = "pre-line";
+      } else {
+        b.stato.style.whiteSpace = "pre-line";
+        b.stato.textContent = b.fatto ? "Fatto! ⏳" : aPosto(b) + "/" + b.buco + " a posto";
+      }
+    });
+  }
+
+  function mossa(b, t) {
+    if (b.fatto || partitaFinita || GI.finito) return;
+    if (!muovi(b, t)) { N.suono.ko(); var el = b.tiles[t]; el.classList.remove("muro"); void el.offsetWidth; el.classList.add("muro"); return; }
+    N.suono.tocco();
+    b.mosse++;
+    if (aPosto(b) === b.buco) b.fatto = true;
+    disegna(b);
+    aggiorna();
+    if (opz.giocatori === 1) { if (b.fatto) vintoSolo(b); return; }
+    var altro = boards[1 - b.k];
+    if (b.fatto && altro.fatto) return fineDue();
+    if (b.fatto) N.esito("info", nomi[b.k] + " ha finito!", 1600);
+    // the other one has already used more moves than the finished player: the result is decided
+    if (altro.fatto && !b.fatto && b.mosse >= altro.mosse) return fineDue();
+  }
+
+  function vintoSolo(b) {
+    partitaFinita = true;
+    var rec = GI.migliora("puzzle:" + opz.n, b.mosse, true);
+    N.suono.vittoria(); N.coriandoli();
+    N.dialogo({ titolo: "Bravo! 🎉", chiudibile: false, nodo: N.el("div", { class: "risultato" }, [
+      N.el("div", { html: N.gufo("felice") }).firstChild,
+      N.el("p", { style: "font-size:22px;font-weight:800", text: "Puzzle risolto in " + b.mosse + " mosse." }),
+      rec ? N.el("p", { style: "font-weight:800;color:var(--ok)", text: "Nuovo record! 🏅" }) : N.el("p", { text: "Il tuo record: " + GI.record("puzzle:" + opz.n) + " mosse" })
+    ]), pulsanti: [{ testo: "Ancora", valore: "a" }, { testo: "Cambia", valore: "c", secondario: true }] })
+      .then(function (v) { if (v === "a") nuova(); else preparazione(); aggiorna(); });
+  }
+
+  function fineDue() {
+    partitaFinita = true;
+    var m = boards.map(function (b) { return b.fatto ? b.mosse : Infinity; });
+    var v = m[0] === m[1] ? -1 : m[0] < m[1] ? 0 : 1;
+    boards.forEach(function (b, k) {
+      b.stato.className = "stato-lato " + (v < 0 ? "" : v === k ? "vinto" : "perso");
+      b.stato.textContent = (v < 0 ? "Pari · " : v === k ? "🏆 Vinto · " : "Perso · ") + b.mosse + " mosse";
+    });
+    N.suono.vittoria(); N.coriandoli();
+    var testo = v < 0 ? "Pareggio! Stesso numero di mosse: " + m[0] + "." :
+      "Vince " + nomi[v] + " con " + boards[v].mosse + " mosse" + (boards[1 - v].fatto ? " contro " + boards[1 - v].mosse + "." : ": l'altro ne aveva già fatte di più.");
+    setTimeout(function () {
+      if (GI.finito) return;
+      N.dialogo({ titolo: v < 0 ? "Pareggio! 🤝" : "Vince " + nomi[v] + "! 🏆", testo: testo,
+        pulsanti: [{ testo: "Rivincita", valore: "a" }, { testo: "Guarda i campi", valore: null, secondario: true }] })
+        .then(function (x) { if (x === "a") nuova(); });
+    }, 900);
+  }
+
+  N.$("#nuovo").addEventListener("click", function () { if (!GI.finito) { N.suono.tocco(); nuova(); } });
+  N.$("#cambia").addEventListener("click", preparazione);
+  window.addEventListener("resize", function () { if (boards.length) adatta(); });
+  preparazione();
+  window.puzzle = { boards: function () { return boards; }, mossa: mossa, opz: opz, muovi: muovi };   // hooks for tests
+})();
+</script>
+</body>
+</html>

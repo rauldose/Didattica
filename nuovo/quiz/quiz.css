@@ -1,0 +1,101 @@
+/* Impara giocando – quiz (catalogue + player). Uses the tokens of ../core/stile.css */
+
+/* ---------- catalogue ---------- */
+.schede-tab { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 4px; scrollbar-width: none; }
+.schede-tab::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; min-height: 48px; padding: 0 16px; border-radius: 999px; border: 3px solid var(--bordo); background: var(--carta);
+  font-weight: 800; font-size: 16px; cursor: pointer; box-shadow: var(--ombra-piccola); color: var(--testo);
+}
+.tab[aria-selected="true"] { background: var(--colore); border-color: var(--colore); color: #fff; }
+.benvenuto { margin: 12px 0 4px; }
+.benvenuto .fumetto { font-size: 17px; }
+.scheda .riga-eta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: auto; }
+.scheda .per-te { background: var(--stella); }
+.vuoto { background: var(--carta); border-radius: var(--r); padding: 16px; box-shadow: var(--ombra-piccola); color: var(--testo-2); }
+.vuoto p { margin: 0; }
+
+/* ---------- player: start screen ---------- */
+.intro { display: flex; align-items: center; gap: 14px; margin: 16px 0 6px; }
+.intro .emoji { font-size: 52px; line-height: 1; }
+.intro h2 { margin: 0; font-size: 24px; line-height: 1.15; }
+.intro p { margin: 4px 0 0; color: var(--testo-2); font-size: 16px; }
+.livelli { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 10px; margin: 8px 0 4px; }
+.livello {
+  min-height: 64px; border-radius: 18px; border: 3px solid var(--bordo); background: var(--carta); box-shadow: var(--ombra-piccola);
+  font-size: 24px; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  line-height: 1.1; color: var(--testo); touch-action: manipulation;
+}
+.livello small { font-size: 11px; letter-spacing: 1px; }
+.livello[aria-pressed="true"] { background: var(--colore); border-color: var(--colore); color: #fff; }
+.presentazione { margin: 16px 0; }
+.presentazione .fumetto { white-space: pre-wrap; font-size: 17px; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.presentazione .btn { margin-top: 8px; }
+
+/* ---------- player: question ---------- */
+.barra-gioco { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.barra-gioco .avanzamento { flex: 1; margin: 0; }
+.chip-livello {
+  min-height: 44px; padding: 0 12px; border-radius: 999px; border: 0; background: var(--colore-chiaro); font-weight: 800;
+  font-size: 15px; cursor: pointer; color: var(--testo); flex: none;
+}
+.lavagna { font-size: 21px; line-height: 1.45; }
+.lavagna.grande { white-space: pre-wrap; }
+.lavagna .buco {
+  display: inline-block; min-width: 2.2em; border-bottom: 3px solid var(--colore); color: transparent; line-height: 1;
+  background: var(--colore-chiaro); border-radius: 6px 6px 0 0; margin: 0 2px; font-size: .8em; vertical-align: baseline;
+}
+.lavagna .buco.attuale { animation: pulsa 1.2s infinite; }
+.lavagna .riempito { color: var(--ok); font-weight: 800; }
+.lavagna sup { font-size: .62em; line-height: 0; }
+.lavagna .parola {
+  font: inherit; border: 2px dashed var(--bordo); background: var(--sfondo); border-radius: 10px; padding: 2px 6px; margin: 2px 0;
+  cursor: pointer; min-height: 40px; color: var(--testo); touch-action: manipulation;
+}
+.lavagna .parola.giusta { border-color: var(--ok); background: var(--ok-chiaro); border-style: solid; }
+.lavagna .parola.sbagliata { border-color: var(--ko); background: var(--ko-chiaro); }
+.media { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 12px; white-space: normal; }
+.media img { max-width: 100%; border-radius: 12px; }
+.tocca-box { position: relative; display: inline-block; line-height: 0; cursor: crosshair; touch-action: manipulation; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 3px var(--colore); }
+.tocca-box img { display: block; width: 100%; height: auto; border-radius: 0; user-select: none; -webkit-user-drag: none; }
+.tocca-box .zona { position: absolute; border: 0; padding: 0; background: transparent; border-radius: 8px; cursor: crosshair; }
+.tocca-box .zona.vista { background: rgba(25, 169, 116, .35); outline: 3px solid var(--ok); }
+.tocca-box .segno {
+  position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; pointer-events: none;
+  background: var(--ko); box-shadow: 0 0 0 4px rgba(255, 255, 255, .8); animation: entra .2s;
+}
+.tocca-box .segno.ok { background: var(--ok); }
+.ascolta { margin-top: 10px; }
+.consegna { font-size: 17px; }
+.campo-riga { display: flex; gap: 10px; }
+.campo-riga .campo { flex: 1; min-width: 0; }
+.risposta { min-height: 64px; font-size: 26px; overflow-wrap: anywhere; text-align: center; }
+.risposta sup { font-size: .6em; }
+.tasti-op { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; justify-content: center; }
+.tasti-op button {
+  min-width: 56px; min-height: 56px; border-radius: 16px; border: 0; background: var(--colore-chiaro); box-shadow: var(--ombra-piccola);
+  font-size: 24px; font-weight: 800; cursor: pointer; color: var(--testo); touch-action: manipulation;
+}
+.tasti-op button[data-k=" "] { min-width: 110px; font-size: 16px; }
+.tasti-op button:active { transform: translateY(2px); box-shadow: none; }
+.scelte.vf { grid-template-columns: 1fr 1fr; }
+.scelta:disabled { cursor: default; }
+.scelta.giusta { animation: salta .35s; }
+.scuoti { animation: scossa .35s; }
+.aiuto-riga { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 16px; }
+.aiuto-riga .btn { gap: 6px; }
+.suggerimento { margin-top: 14px; }
+.suggerimento .fumetto { white-space: pre-wrap; }
+.soluzione {
+  margin-top: 14px; padding: 14px; border-radius: var(--r); background: var(--ok-chiaro); border: 3px solid var(--ok);
+}
+.soluzione .fumetto { background: var(--carta); }
+.soluzione strong { font-size: 22px; display: block; margin-top: 4px; overflow-wrap: anywhere; }
+.errore-box { margin-top: 24px; }
+
+@keyframes pulsa { 50% { background: var(--colore); } }
+@media (min-width: 700px) {
+  .lavagna { font-size: 23px; }
+  .campo-riga, .scelte, .risposta, .tasti-op { max-width: 560px; margin-left: auto; margin-right: auto; }
+}
+#app { padding-bottom: 110px; }      /* room above the feedback banner */

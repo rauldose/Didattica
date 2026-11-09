@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Le ombre di Talete – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<main class="pagina">
+  <section class="missione-box" id="missione" aria-live="polite"></section>
+
+  <div class="lab-layout">
+    <div class="colonna-scena">
+      <div class="scena-box bordo-pieno">
+        <canvas id="cv" tabindex="0" role="img"
+          aria-label="Un raggio di sole e due bastoni rossi, a e c, con le loro ombre b e d. Trascina le maniglie gialle con il dito. Da tastiera: tasti 1, 2, 3 per il sole, A o C per scegliere il bastone, frecce per spostarlo."></canvas>
+        <div class="suggerimento-dito in-alto" id="dito">👆 Trascina le maniglie gialle</div>
+      </div>
+      <div class="misure" aria-live="polite">
+        <div class="misura" style="--c:#e5484d"><b>a</b><span id="ma">0 cm</span></div>
+        <div class="misura" style="--c:#2d2240"><b>b</b><span id="mb">0 cm</span></div>
+        <div class="misura" style="--c:#e5484d"><b>c</b><span id="mc">0 cm</span></div>
+        <div class="misura" style="--c:#2d2240"><b>d</b><span id="md">0 cm</span></div>
+      </div>
+      <p class="dettagli">I bastoni <b>a</b> e <b>c</b> sono rossi; <b>b</b> e <b>d</b> sono le loro ombre.</p>
+      <div class="muovi" style="margin-top:10px">
+        <button type="button" class="btn secondario" id="sx" aria-label="Sposta a sinistra">◀</button>
+        <div class="segmenti" role="group" aria-label="Bastone da spostare">
+          <button type="button" class="btn piccolo" id="selA" aria-pressed="true" aria-label="Sposta il bastone a">bastone <b style="font-size:22px">a</b></button>
+          <button type="button" class="btn piccolo secondario" id="selC" aria-pressed="false" aria-label="Sposta il bastone c">bastone <b style="font-size:22px">c</b></button>
+        </div>
+        <button type="button" class="btn secondario" id="dx" aria-label="Sposta a destra">▶</button>
+      </div>
+    </div>
+
+    <div class="colonna-controlli">
+      <section class="blocco-controlli">
+        <h3>Scegli il sole</h3>
+        <div class="chips" id="soli" role="group" aria-label="Sole" style="grid-template-columns:repeat(3,1fr)"></div>
+      </section>
+
+      <section class="blocco-controlli" id="regola">
+        <h3>🕵️ Scopri la regola</h3>
+        <div id="regolaCorpo"></div>
+      </section>
+
+      <h2 class="sezione">🎯 Missioni</h2>
+      <div id="lista"></div>
+      <p class="originale">Dal programma «Laboratorio di matematica» del Prof. Carmelo Muscolino.
+        <a href="../../programmi/talete/index.html">Prova la versione originale</a></p>
+    </div>
+  </div>
+</main>
+
+<script src="../core/core.js"></script>
+<script src="lab.js"></script>
+<script src="talete.js"></script>
+</body>
+</html>

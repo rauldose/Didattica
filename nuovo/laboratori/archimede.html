@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>La spinta di Archimede – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<main class="pagina">
+  <section class="missione-box" id="missione" aria-live="polite"></section>
+
+  <div class="lab-layout">
+    <div class="colonna-scena">
+      <div class="scena-box">
+        <canvas id="cv" tabindex="0" role="img"
+          aria-label="Un vaso con il liquido e un solido appeso a una bilancia a molla. Trascina il solido su e giù con il dito; da tastiera usa le frecce su e giù."></canvas>
+        <div class="suggerimento-dito" id="dito">👆 Trascina il solido su e giù</div>
+        <div class="letture lato sx">
+          <div class="lettura" style="--c:#f5c400"><span class="l">⬇️ Peso</span><span class="v" id="vPeso">0 g</span></div>
+          <div class="lettura" style="--c:#12c2d8"><span class="l">⬆️ Spinta</span><span class="v" id="vSpinta">0 g</span></div>
+        </div>
+        <div class="letture lato dx">
+          <div class="lettura" style="--c:#ff7a2f"><span class="l">⚖️ Bilancia</span><span class="v" id="vBil">0 g</span></div>
+          <div class="lettura" style="--c:#3aa6ff"><span class="l">💧 Spostato</span><span class="v" id="vVol">0 cm³</span></div>
+        </div>
+      </div>
+      <p class="stato" id="stato" aria-live="polite"></p>
+      <p class="dettagli" id="dettagli"></p>
+      <div class="riga centro" style="margin-top:12px">
+        <button type="button" class="btn" id="lascia">🫳 Lascia andare</button>
+        <button type="button" class="btn secondario" id="su" aria-label="Solleva il solido" style="width:56px;padding:0">⬆</button>
+        <button type="button" class="btn secondario" id="giu" aria-label="Abbassa il solido" style="width:56px;padding:0">⬇</button>
+      </div>
+    </div>
+
+    <div class="colonna-controlli">
+      <section class="blocco-controlli">
+        <h3>Scegli il solido <small>(il numero: quanti grammi pesa 1 cm³)</small></h3>
+        <div class="chips" id="solidi" role="group" aria-label="Solidi"></div>
+      </section>
+      <section class="blocco-controlli">
+        <h3>Scegli il liquido</h3>
+        <div class="chips" id="liquidi" role="group" aria-label="Liquidi"></div>
+      </section>
+      <section class="blocco-controlli">
+        <h3>Buco nascosto nel solido <small>(cavità vuota)</small></h3>
+        <div class="cavita">
+          <button type="button" class="btn secondario tondo" id="cavMeno" aria-label="Buco più piccolo">−</button>
+          <input type="range" id="cavita" min="0" max="79" step="1" value="0" aria-label="Volume del buco in centimetri cubi">
+          <button type="button" class="btn secondario tondo" id="cavPiu" aria-label="Buco più grande">+</button>
+        </div>
+        <p class="dettagli" style="margin-top:4px">Volume del solido: 100 cm³ · buco: <output id="cavVal">0 cm³</output></p>
+      </section>
+      <div id="gufo"></div>
+      <h2 class="sezione">🎯 Missioni</h2>
+      <div id="lista"></div>
+
+      <h2 class="sezione">🏛️ Che cos'è la spinta di Archimede?</h2>
+      <section class="blocco-controlli">
+        <div class="arch-card">
+          <img src="../../img/archimede-busto.png" width="152" height="228" alt="Busto di Archimede">
+          <div class="testo" id="testoArch"></div>
+        </div>
+        <div id="segreto"></div>
+      </section>
+      <p class="originale">Dal programma del Prof. Carmelo Muscolino.
+        <a href="../../programmi/archimede/index.html">Prova la versione originale</a></p>
+    </div>
+  </div>
+</main>
+
+<script src="../core/core.js"></script>
+<script src="lab.js"></script>
+<script src="archimede.js"></script>
+</body>
+</html>

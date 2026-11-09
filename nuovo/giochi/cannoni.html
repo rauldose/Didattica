@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Duello di cannoni – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="giochi.css">
+<style>
+  .pagina { padding-bottom: 12px; }
+  .alto { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  #barra { flex: 1 1 100%; }
+  .alto .barra-gioco { margin: 8px 0 4px; }
+  .alto .giocatori { flex: 1 1 100%; margin: 0 0 6px; }
+  .giocatore.g2 { --gc: #ff7a2f; }
+  .giocatore .nome { font-size: 16px; }
+  .arena { display: flex; justify-content: center; }
+  #tela {
+    display: block; border-radius: 18px; box-shadow: var(--ombra); touch-action: none; user-select: none; -webkit-user-select: none;
+    background: #8fd3ff; cursor: crosshair; max-width: 100%;
+  }
+  .avviso { text-align: center; font-weight: 800; min-height: 1.5em; margin: 8px 0 4px; font-size: 18px; }
+  .comandi { display: flex; justify-content: center; align-items: center; gap: 8px 14px; flex-wrap: wrap; }
+  .regola-val { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; }
+  .regola-val .val { min-width: 3.2em; text-align: center; font-variant-numeric: tabular-nums; }
+  .pm { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--carta); box-shadow: var(--ombra-piccola); font-size: 22px; font-weight: 900; cursor: pointer; touch-action: manipulation; }
+  .pm:active { transform: translateY(2px); box-shadow: none; }
+  #fuoco { background: #e5484d; }
+  .aiuto { text-align: center; color: var(--testo-2); font-size: 15px; font-weight: 700; margin: 6px 0 0; }
+  /* phone held sideways: hide the shared header, keep everything on one screen */
+  @media (orientation: landscape) and (max-height: 520px) {
+    .testata { display: none; }
+    .pagina { max-width: none; padding: 0 12px 6px; }
+    .alto { flex-wrap: nowrap; }
+    #barra, .alto .giocatori { flex: 1 1 auto; }
+    .alto .barra-gioco, .alto .giocatori { margin: 6px 0 4px; }
+    .alto .giocatori { order: -1; }
+    .giocatore { padding: 4px 10px; }
+    .orologio { min-height: 40px; }
+    .avviso { margin: 4px 0 2px; font-size: 16px; min-height: 1.3em; }
+    .aiuto { display: none; }
+    .comandi .pm { width: 40px; height: 40px; }
+    .comandi .btn { min-height: 44px; }
+    .credito { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="pagina" id="main">
+  <div class="alto" id="alto">
+    <div id="barra"></div>
+    <div class="giocatori" id="giocatori"></div>
+  </div>
+  <div class="arena" id="campo"><canvas id="tela" aria-label="Campo di battaglia: trascina dal tuo cannone per mirare, lascia per sparare"></canvas></div>
+  <p class="avviso" id="avviso" role="status" aria-live="polite"></p>
+  <div class="comandi" id="comandi">
+    <span class="regola-val">Angolo
+      <button class="pm" type="button" data-c="ang" data-d="-1" aria-label="Abbassa il cannone">−</button>
+      <span class="val" id="v-ang">45°</span>
+      <button class="pm" type="button" data-c="ang" data-d="1" aria-label="Alza il cannone">+</button>
+    </span>
+    <span class="regola-val">Forza
+      <button class="pm" type="button" data-c="pot" data-d="-1" aria-label="Meno forza">−</button>
+      <span class="val" id="v-pot">50</span>
+      <button class="pm" type="button" data-c="pot" data-d="1" aria-label="Più forza">+</button>
+    </span>
+    <button class="btn" type="button" id="fuoco">Fuoco! 💥</button>
+  </div>
+  <p class="aiuto">Trascina dal tuo cannone: la direzione è l'angolo, la lunghezza è la forza. Lascia per sparare! Vince chi fa 3 centri.</p>
+  <p class="credito" style="text-align:center">Un duello per due giocatori, dai giochi del Prof. Muscolino</p>
+</main>
+<script src="../core/core.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Duello di cannoni", indietro: function () { GI.esci(); }, tema: "t-gio" });
+  if (!GI.porta("cannoni", N.$("#main"))) return;
+  N.$("#barra").appendChild(GI.barra("cannoni"));
+
+  var VINCE = 3;                 // points to win a match
+  var GRAV = 14, VEL = 1.15, SPEED = 4.2;
+  var AIUTI = 3;                 // shots with the trajectory preview, per player and match
+  var COL = ["#2f86ff", "#ff7a2f"], COL_SCURO = ["#1757b8", "#c4521a"];
+  var nomi = [GI.nomeG1(), "Giocatore 2"];
+
+  var tela = N.$("#tela"), cx = tela.getContext("2d");
+  var W = 800, H = 460, scala = 1, dpr = 1;
+  var suolo = null, colline = null, cannoni = [{ x: 0 }, { x: 0 }];
+  var vento = 0, nuvole = [], sole = { x: 100, y: 70 };
+  var mira = [{ ang: 45, pot: 55 }, { ang: 45, pot: 55 }];
+  var punti = [0, 0], tiri = [0, 0], tiriCampo = [0, 0];
+  var turno = 0, stato = "mira";      // mira | volo | boom | fine
+  var colpo = null, boom = null, scintille = [], scie = [[], []], trascina = null, ultimo = 0;
+
+  /* ---------------- landscape ---------------- */
+  function nuovoCampo() {
+    var verticale = innerHeight > innerWidth * 1.1;
+    W = verticale ? 500 : 800; H = verticale ? 500 : 460;
+    suolo = new Float32Array(W); colline = new Float32Array(W);
+    var base = H * (0.62 + Math.random() * 0.08);
+    var onde = [0, 1, 2].map(function (k) { return { a: [26, 12, 5][k] * (0.5 + Math.random()), f: (k + 1) * (0.006 + Math.random() * 0.006) * 800 / W, p: Math.random() * 6.3 }; });
+    cannoni[0].x = N.rand(Math.round(W * 0.07), Math.round(W * 0.16));
+    cannoni[1].x = W - N.rand(Math.round(W * 0.07), Math.round(W * 0.16));
+    var collina = 30 + Math.random() * 40, centro = (Math.random() - 0.25) * 110, larg = W / 11;
+    for (var x = 0; x < W; x++) {
+      var y = base;
+      onde.forEach(function (o) { y += o.a * Math.sin(x * o.f + o.p); });
+      cannoni.forEach(function (c) { y -= collina * Math.exp(-Math.pow((x - c.x) / (larg * 1.2), 2)); });
+      y -= centro * Math.exp(-Math.pow((x - W / 2) / (larg * 1.4), 2));
+      suolo[x] = Math.max(H * 0.3, Math.min(H - 30, y));
+      colline[x] = base - 70 - 30 * Math.sin(x * 0.011 + 1) - 18 * Math.sin(x * 0.027);
+    }
+    cannoni.forEach(function (c) {      // flat pad under each cannon
+      var y0 = suolo[c.x];
+      for (var dx = -30; dx <= 30; dx++) {
+        var xx = c.x + dx; if (xx < 0 || xx >= W) continue;
+        var k = Math.abs(dx) <= 16 ? 1 : 1 - (Math.abs(dx) - 16) / 14;
+        suolo[xx] = y0 * k + suolo[xx] * (1 - k);
+      }
+    });
+    vento = N.rand(-30, 30) / 10;
+    sole = { x: Math.random() < 0.5 ? W * 0.25 : W * 0.72, y: 62 };
+    nuvole = [0, 1, 2, 3].map(function () { return { x: Math.random() * W, y: N.rand(40, 120), s: 0.7 + Math.random() * 0.6 }; });
+    scie = [[], []]; tiriCampo = [0, 0];
+    adatta();
+  }
+
+  function yCannone(c) { return Math.min(suolo[Math.max(0, c.x - 4)], suolo[c.x], suolo[Math.min(W - 1, c.x + 4)]); }
+  function perno(k) { var c = cannoni[k]; return { x: c.x, y: yCannone(c) - 16 }; }
+  function bocca(k) {
+    var p = perno(k), a = mira[k].ang * Math.PI / 180, d = k === 0 ? 1 : -1;
+    return { x: p.x + d * 30 * Math.cos(a), y: p.y - 30 * Math.sin(a), dx: d * Math.cos(a), dy: -Math.sin(a) };
+  }
+  function cratere(x0, y0, r) {
+    for (var x = Math.max(0, Math.floor(x0 - r)); x <= Math.min(W - 1, Math.ceil(x0 + r)); x++) {
+      var fondo = y0 + Math.sqrt(Math.max(0, r * r - (x - x0) * (x - x0)));
+      if (fondo > suolo[x]) suolo[x] = Math.min(H - 4, fondo);
+    }
+  }
+
+  /* ---------------- physics ---------------- */
+  function passo(o, h, conVento) {
+    o.vx += (conVento ? vento : 0) * h; o.vy += GRAV * h;
+    o.x += o.vx * h; o.y += o.vy * h; o.t += h;
+  }
+  function partenza(k) {
+    var m = bocca(k), v = mira[k].pot * VEL * Math.sqrt(W / 800);
+    return { x: m.x, y: m.y, vx: m.dx * v, vy: m.dy * v, t: 0, k: k, scia: [] };
+  }
+  // dotted preview (without wind, first part of the flight only)
+  function anteprima(k) {
+    var o = partenza(k), punti = [], n = 0;
+    while (n < 400 && o.y < H && o.x > -10 && o.x < W + 10) {
+      passo(o, 0.05, false); n++;
+      var col = Math.floor(o.x);
+      if (col >= 0 && col < W && o.y >= suolo[col]) break;
+      if (n % 3 === 0) punti.push({ x: o.x, y: o.y });
+    }
+    return punti.slice(0, Math.max(4, Math.ceil(punti.length * 0.55)));
+  }
+
+  /* ---------------- drawing ---------------- */
+  function disegna(ora) {
+    cx.setTransform(dpr * scala, 0, 0, dpr * scala, 0, 0);
+    var g = cx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#5ec4ff"); g.addColorStop(0.7, "#c9f0ff"); g.addColorStop(1, "#fff6dc");
+    cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+    disegnaSole(ora);
+    nuvole.forEach(disegnaNuvola);
+    // far hills
+    cx.fillStyle = "#a6e3a1"; cx.beginPath(); cx.moveTo(0, H);
+    for (var x = 0; x < W; x += 4) cx.lineTo(x, colline[x]);
+    cx.lineTo(W, H); cx.fill();
+    // terrain
+    var gt = cx.createLinearGradient(0, H * 0.3, 0, H);
+    gt.addColorStop(0, "#c98a4b"); gt.addColorStop(1, "#8a5a2e");
+    cx.fillStyle = gt; cx.beginPath(); cx.moveTo(0, H);
+    for (x = 0; x < W; x++) cx.lineTo(x, suolo[x]);
+    cx.lineTo(W, H); cx.fill();
+    cx.strokeStyle = "#3fbf4a"; cx.lineWidth = 9; cx.lineJoin = "round"; cx.beginPath();
+    for (x = 0; x < W; x += 2) { if (x === 0) cx.moveTo(x, suolo[x] + 3); else cx.lineTo(x, suolo[x] + 3); }
+    cx.stroke();
+    cx.strokeStyle = "#7be37f"; cx.lineWidth = 3; cx.beginPath();
+    for (x = 0; x < W; x += 2) { if (x === 0) cx.moveTo(x, suolo[x]); else cx.lineTo(x, suolo[x]); }
+    cx.stroke();
+    cx.fillStyle = "rgba(255,255,255,.18)";
+    for (x = 13; x < W; x += 37) { var yy = suolo[x] + 22 + (x * 7) % 40; if (yy < H - 4) { cx.beginPath(); cx.arc(x, yy, 3, 0, 7); cx.fill(); } }
+
+    // last trajectories
+    scie.forEach(function (s, k) {
+      cx.fillStyle = COL[k]; cx.globalAlpha = 0.35;
+      for (var i = 0; i < s.length; i += 4) { cx.beginPath(); cx.arc(s[i].x, s[i].y, 2, 0, 7); cx.fill(); }
+      cx.globalAlpha = 1;
+    });
+
+    [0, 1].forEach(function (k) { disegnaCannone(k, ora); });
+    disegnaVento();
+
+    if (stato === "mira") {
+      if (tiri[turno] < AIUTI) {
+        cx.fillStyle = "#ffffff"; cx.strokeStyle = COL_SCURO[turno]; cx.lineWidth = 1.5;
+        anteprima(turno).forEach(function (p, i, a) {
+          cx.globalAlpha = 1 - i / a.length * 0.8;
+          cx.beginPath(); cx.arc(p.x, p.y, 4, 0, 7); cx.fill(); cx.stroke();
+        });
+        cx.globalAlpha = 1;
+      }
+      if (trascina) disegnaFreccia();
+    }
+
+    if (colpo) {
+      cx.fillStyle = "rgba(255,255,255,.8)";
+      for (var i = 0; i < colpo.scia.length; i += 2) { cx.beginPath(); cx.arc(colpo.scia[i].x, colpo.scia[i].y, 1.8, 0, 7); cx.fill(); }
+      if (colpo.y >= 0) {
+        cx.fillStyle = "#2d2240"; cx.beginPath(); cx.arc(colpo.x, colpo.y, 6, 0, 7); cx.fill();
+        cx.fillStyle = "#fff"; cx.beginPath(); cx.arc(colpo.x - 2, colpo.y - 2, 2, 0, 7); cx.fill();
+      } else {
+        cx.fillStyle = "#2d2240"; cx.beginPath(); cx.moveTo(colpo.x, 3); cx.lineTo(colpo.x - 8, 15); cx.lineTo(colpo.x + 8, 15); cx.fill();
+      }
+    }
+    if (boom) {
+      var t = boom.t, r = boom.r * Math.min(1, t * 5);
+      ["#ff4f4f", "#ff9f1a", "#ffe34d", "#ffffff"].forEach(function (c, i) {
+        var rr = r * (1 - i * 0.22); if (rr <= 0) return;
+        cx.globalAlpha = Math.max(0, 1 - t * 1.3); cx.fillStyle = c;
+        cx.beginPath();
+        for (var a = 0; a <= 16; a++) {             // star-shaped cartoon blast
+          var ang = a / 16 * Math.PI * 2, rad = rr * (a % 2 ? 0.72 : 1);
+          cx.lineTo(boom.x + rad * Math.cos(ang), boom.y + rad * Math.sin(ang));
+        }
+        cx.fill();
+      });
+      cx.globalAlpha = 1;
+      if (boom.testo) {
+        cx.font = "900 " + 34 + "px system-ui, sans-serif"; cx.textAlign = "center"; cx.lineWidth = 6;
+        cx.strokeStyle = "#2d2240"; cx.fillStyle = "#ffe34d";
+        var ty = Math.max(40, boom.y - 50 - t * 20);
+        cx.strokeText(boom.testo, Math.max(90, Math.min(W - 90, boom.x)), ty); cx.fillText(boom.testo, Math.max(90, Math.min(W - 90, boom.x)), ty);
+      }
+    }
+    scintille.forEach(function (s) { cx.globalAlpha = Math.max(0, s.v); cx.fillStyle = s.c; cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 7); cx.fill(); });
+    cx.globalAlpha = 1;
+  }
+
+  function disegnaSole(ora) {
+    var s = sole, rot = (ora || 0) / 6000;
+    cx.fillStyle = "#ffd23f";
+    for (var r = 0; r < 10; r++) {
+      var a = rot + r * Math.PI / 5;
+      cx.beginPath(); cx.moveTo(s.x + 30 * Math.cos(a - 0.15), s.y + 30 * Math.sin(a - 0.15));
+      cx.lineTo(s.x + 44 * Math.cos(a), s.y + 44 * Math.sin(a)); cx.lineTo(s.x + 30 * Math.cos(a + 0.15), s.y + 30 * Math.sin(a + 0.15)); cx.fill();
+    }
+    cx.fillStyle = "#ffe066"; cx.beginPath(); cx.arc(s.x, s.y, 28, 0, 7); cx.fill();
+    cx.fillStyle = "#2d2240";
+    cx.beginPath(); cx.arc(s.x - 9, s.y - 4, 3, 0, 7); cx.arc(s.x + 9, s.y - 4, 3, 0, 7); cx.fill();
+    cx.strokeStyle = "#2d2240"; cx.lineWidth = 2.5; cx.beginPath(); cx.arc(s.x, s.y + 3, 10, 0.2, Math.PI - 0.2); cx.stroke();
+    cx.fillStyle = "rgba(255,120,120,.45)"; cx.beginPath(); cx.arc(s.x - 16, s.y + 6, 4, 0, 7); cx.arc(s.x + 16, s.y + 6, 4, 0, 7); cx.fill();
+  }
+  function disegnaNuvola(n) {
+    cx.fillStyle = "#ffffff";
+    [[-22, 4, 16], [0, -6, 21], [22, 4, 15], [8, 8, 16]].forEach(function (p) {
+      cx.beginPath(); cx.arc(n.x + p[0] * n.s, n.y + p[1] * n.s, p[2] * n.s, 0, 7); cx.fill();
+    });
+  }
+  function disegnaVento() {
+    var bx = W / 2, by = 26;
+    cx.fillStyle = "rgba(255,255,255,.85)"; arrotondato(bx - 70, by - 18, 140, 40, 14); cx.fill();
+    cx.fillStyle = "#2d2240"; cx.font = "800 13px system-ui, sans-serif"; cx.textAlign = "center"; cx.textBaseline = "middle";
+    cx.fillText(vento === 0 ? "VENTO: calma" : "VENTO " + N.numero(Math.abs(vento).toFixed(1)), bx, by - 6);
+    if (vento !== 0) {
+      var len = 10 + Math.abs(vento) * 16, d = vento > 0 ? 1 : -1, y0 = by + 10;
+      cx.strokeStyle = "#2f86ff"; cx.fillStyle = "#2f86ff"; cx.lineWidth = 4; cx.lineCap = "round";
+      cx.beginPath(); cx.moveTo(bx - d * len / 2, y0); cx.lineTo(bx + d * len / 2, y0); cx.stroke();
+      cx.beginPath(); cx.moveTo(bx + d * (len / 2 + 9), y0); cx.lineTo(bx + d * len / 2, y0 - 7); cx.lineTo(bx + d * len / 2, y0 + 7); cx.fill();
+      cx.lineCap = "butt";
+    }
+    cx.textBaseline = "alphabetic";
+  }
+  function arrotondato(x, y, w, h, r) {
+    cx.beginPath(); cx.moveTo(x + r, y); cx.arcTo(x + w, y, x + w, y + h, r); cx.arcTo(x + w, y + h, x, y + h, r);
+    cx.arcTo(x, y + h, x, y, r); cx.arcTo(x, y, x + w, y, r); cx.closePath();
+  }
+  function disegnaCannone(k, ora) {
+    var c = cannoni[k], gy = yCannone(c), p = perno(k), a = mira[k].ang * Math.PI / 180, d = k === 0 ? 1 : -1;
+    // barrel
+    cx.save(); cx.translate(p.x, p.y); cx.rotate(d === 1 ? -a : Math.PI + a);
+    cx.fillStyle = "#2d2240"; arrotondato(-4, -9, 38, 18, 8); cx.fill();
+    cx.fillStyle = COL[k]; arrotondato(-2, -7, 34, 14, 6); cx.fill();
+    cx.fillStyle = "rgba(255,255,255,.45)"; cx.fillRect(4, -5, 24, 3);
+    cx.fillStyle = "#2d2240"; cx.fillRect(28, -9, 6, 18);
+    cx.restore();
+    // body
+    cx.fillStyle = "#2d2240"; cx.beginPath(); cx.arc(p.x, p.y + 2, 17, Math.PI, 0); cx.lineTo(p.x + 17, gy - 6); cx.lineTo(p.x - 17, gy - 6); cx.fill();
+    cx.fillStyle = COL[k]; cx.beginPath(); cx.arc(p.x, p.y + 2, 14, Math.PI, 0); cx.lineTo(p.x + 14, gy - 8); cx.lineTo(p.x - 14, gy - 8); cx.fill();
+    cx.fillStyle = "#fff"; cx.beginPath(); cx.arc(p.x - 4 * d, p.y - 2, 4, 0, 7); cx.fill();
+    cx.fillStyle = "#2d2240"; cx.beginPath(); cx.arc(p.x - 3 * d, p.y - 2, 2, 0, 7); cx.fill();
+    // wheels
+    [-10, 10].forEach(function (dx) {
+      cx.fillStyle = "#2d2240"; cx.beginPath(); cx.arc(c.x + dx, gy - 7, 8, 0, 7); cx.fill();
+      cx.fillStyle = "#ffd23f"; cx.beginPath(); cx.arc(c.x + dx, gy - 7, 3, 0, 7); cx.fill();
+    });
+    // name and turn marker
+    cx.font = "800 " + (W < 700 ? 18 : 15) + "px system-ui, sans-serif"; cx.textAlign = "center";
+    var tw = cx.measureText(nomi[k].slice(0, 12)).width / 2 + 6, nx = Math.max(tw, Math.min(W - tw, c.x));
+    cx.lineWidth = 4; cx.strokeStyle = "#fff"; cx.strokeText(nomi[k].slice(0, 12), nx, gy - 48);
+    cx.fillStyle = COL_SCURO[k]; cx.fillText(nomi[k].slice(0, 12), nx, gy - 48);
+    if (stato === "mira" && turno === k) {
+      var b = Math.sin((ora || 0) / 180) * 4;
+      cx.fillStyle = COL[k]; cx.strokeStyle = "#fff"; cx.lineWidth = 2;
+      cx.beginPath(); cx.moveTo(c.x, gy - 60 + b); cx.lineTo(c.x - 9, gy - 74 + b); cx.lineTo(c.x + 9, gy - 74 + b); cx.closePath(); cx.fill(); cx.stroke();
+    }
+  }
+  function disegnaFreccia() {
+    var p = perno(turno), f = trascina, k = turno;
+    cx.setLineDash([10, 8]); cx.strokeStyle = COL_SCURO[k]; cx.lineWidth = 4; cx.lineCap = "round";
+    cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(f.x, f.y); cx.stroke(); cx.setLineDash([]);
+    cx.fillStyle = COL[k]; cx.strokeStyle = "#fff"; cx.lineWidth = 3;
+    cx.beginPath(); cx.arc(f.x, f.y, 14, 0, 7); cx.fill(); cx.stroke();
+    var tx = Math.max(70, Math.min(W - 70, f.x)), ty = Math.max(30, f.y - 30);
+    cx.fillStyle = "rgba(255,255,255,.9)"; arrotondato(tx - 64, ty - 18, 128, 30, 12); cx.fill();
+    cx.fillStyle = "#2d2240"; cx.font = "800 15px system-ui, sans-serif"; cx.textAlign = "center"; cx.textBaseline = "middle";
+    cx.fillText(mira[k].ang + "°  ·  forza " + mira[k].pot, tx, ty - 3); cx.textBaseline = "alphabetic";
+    cx.lineCap = "butt";
+  }
+
+  /* ---------------- aiming ---------------- */
+  function limita(c, v) { v = Math.round(v); return c === "ang" ? Math.max(0, Math.min(90, v)) : Math.max(5, Math.min(100, v)); }
+  function mondo(e) {
+    var r = tela.getBoundingClientRect();
+    return { x: (e.clientX - r.left) / r.width * W, y: (e.clientY - r.top) / r.height * H };
+  }
+  function miraVerso(pt) {
+    var p = perno(turno), dx = (pt.x - p.x) * (turno === 0 ? 1 : -1), dy = p.y - pt.y;
+    var ang = Math.atan2(dy, dx) * 180 / Math.PI;
+    if (ang < 0) ang = dx >= 0 ? 0 : 90;
+    var lmax = W * 0.36, len = Math.hypot(dx, dy);
+    mira[turno].ang = limita("ang", ang);
+    mira[turno].pot = limita("pot", len / lmax * 100);
+    mostraValori();
+  }
+  tela.addEventListener("pointerdown", function (e) {
+    if (stato !== "mira" || GI.finito) return;
+    e.preventDefault();
+    tela.setPointerCapture && tela.setPointerCapture(e.pointerId);
+    trascina = mondo(e); trascina.id = e.pointerId; trascina.mosso = 0;
+    miraVerso(trascina);
+  });
+  tela.addEventListener("pointermove", function (e) {
+    if (!trascina || e.pointerId !== trascina.id) return;
+    var pt = mondo(e);
+    trascina.mosso += Math.hypot(pt.x - trascina.x, pt.y - trascina.y);
+    trascina.x = pt.x; trascina.y = pt.y;
+    miraVerso(pt);
+  });
+  function lascia(e) {
+    if (!trascina || e.pointerId !== trascina.id) return;
+    var p = perno(turno), lungo = Math.hypot(trascina.x - p.x, trascina.y - p.y), mosso = trascina.mosso;
+    trascina = null;
+    if (e.type === "pointerup" && (mosso > 12 || lungo > 40)) fuoco();
+  }
+  tela.addEventListener("pointerup", lascia);
+  tela.addEventListener("pointercancel", lascia);
+
+  function mostraValori() {
+    N.$("#v-ang").textContent = mira[turno].ang + "°";
+    N.$("#v-pot").textContent = String(mira[turno].pot);
+    var on = stato === "mira" && !GI.finito;
+    N.$$("#comandi button").forEach(function (b) { b.disabled = !on; });
+  }
+  N.$$(".pm").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (stato !== "mira") return;
+      var c = b.getAttribute("data-c"); mira[turno][c] = limita(c, mira[turno][c] + (+b.getAttribute("data-d")));
+      N.suono.tocco(); mostraValori();
+    });
+  });
+  N.$("#fuoco").addEventListener("click", fuoco);
+  document.addEventListener("keydown", function (e) {
+    if (N.$(".velo") || stato !== "mira" || e.ctrlKey || e.metaKey || e.altKey) return;
+    var s = e.shiftKey ? 5 : 1, m = mira[turno];
+    if (e.key === "ArrowUp") m.ang = limita("ang", m.ang + s);
+    else if (e.key === "ArrowDown") m.ang = limita("ang", m.ang - s);
+    else if (e.key === "ArrowRight") m.pot = limita("pot", m.pot + s);
+    else if (e.key === "ArrowLeft") m.pot = limita("pot", m.pot - s);
+    else if (e.key === "Enter" || e.key === " ") { if (document.activeElement && document.activeElement.tagName === "BUTTON" && document.activeElement.id !== "fuoco") return; fuoco(); }
+    else return;
+    e.preventDefault(); mostraValori();
+  });
+
+  /* ---------------- turns ---------------- */
+  function avviso(t) { N.$("#avviso").textContent = t; }
+  function disegnaGiocatori() {
+    var g = N.$("#giocatori"); g.innerHTML = "";
+    [0, 1].forEach(function (k) {
+      g.appendChild(N.el("div", { class: "giocatore g" + (k + 1) + (turno === k && stato !== "fine" ? " turno" : "") }, [
+        N.el("span", { class: "pallino" }), N.el("span", { class: "nome", text: nomi[k] }),
+        N.el("span", { class: "punti", "aria-label": punti[k] + " punti", text: String(punti[k]) })
+      ]));
+    });
+  }
+  function iniziaTurno(k, testo) {
+    turno = k; stato = "mira";
+    disegnaGiocatori(); mostraValori();
+    var aiuto = tiri[k] < AIUTI ? " (aiuto mira: ancora " + (AIUTI - tiri[k]) + ")" : "";
+    avviso((testo ? testo + " " : "") + "Tocca a " + nomi[k] + "!" + aiuto);
+  }
+
+  function fuoco() {
+    if (stato !== "mira" || GI.finito) return;
+    trascina = null;
+    colpo = partenza(turno);
+    tiri[turno]++; tiriCampo[turno]++;
+    stato = "volo"; mostraValori(); avviso("");
+    N.suono.ko(); N.vibra(25);
+  }
+
+  function avanza(dt) {
+    var n = Math.ceil(dt / 0.01), h = dt / n;
+    for (var i = 0; i < n && colpo; i++) {
+      passo(colpo, h, true);
+      var l = colpo.scia[colpo.scia.length - 1];
+      if (!l || Math.abs(l.x - colpo.x) + Math.abs(l.y - colpo.y) > 3) colpo.scia.push({ x: colpo.x, y: colpo.y });
+      controlla();
+    }
+  }
+  function vicino(k, x, y, r) { var p = perno(k); return Math.hypot(x - p.x, y - (p.y + 4)) < r; }
+  function controlla() {
+    var x = colpo.x, y = colpo.y, k;
+    for (k = 0; k < 2; k++) if ((k !== colpo.k || colpo.t > 0.5) && vicino(k, x, y, 20)) return esplodi(k, x, y);
+    if (x < -10 || x > W + 10 || y > H) return esplodi(-1, x, y, true);
+    var col = Math.floor(x);
+    if (col >= 0 && col < W && y >= suolo[col]) {
+      for (k = 0; k < 2; k++) if ((k !== colpo.k || colpo.t > 0.5) && vicino(k, x, y, 30)) return esplodi(k, x, y);
+      return esplodi(-1, x, y);
+    }
+  }
+
+  function scoppio(x, y, n, colori) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) n = Math.min(n, 8);
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * Math.PI * 2, v = 40 + Math.random() * 140;
+      scintille.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 60, r: 2 + Math.random() * 4, v: 1, c: N.scegli(colori) });
+    }
+  }
+
+  function esplodi(bersaglio, x, y, fuori) {
+    var k = colpo.k;
+    scie[k] = colpo.scia; colpo = null;
+    if (bersaglio < 0) {
+      if (fuori) { iniziaTurno(1 - k, "Fuori campo!"); return; }
+      cratere(x, y, 16);
+      boom = { x: x, y: y, r: 22, t: 0, dopo: function () { iniziaTurno(1 - k, N.scegli(["Mancato!", "Acqua!", "Quasi!", "Riprova!"])); } };
+      scoppio(x, y, 14, ["#c98a4b", "#8a5a2e", "#3fbf4a"]);
+      stato = "boom"; N.suono.ko();
+      return;
+    }
+    var vincitore = bersaglio === k ? 1 - k : k;
+    punti[vincitore]++;
+    var rapido = bersaglio !== k ? tiriCampo[k] : null;
+    var rec = rapido != null && GI.migliora("cannoni:colpo", rapido, true);
+    var p = perno(bersaglio);
+    cratere(p.x, yCannone(cannoni[bersaglio]), 28);
+    boom = { x: p.x, y: p.y, r: 60, t: 0, lunga: true, testo: bersaglio === k ? "Ops!" : N.scegli(["Che centro!", "Bum!", "Colpito!"]) };
+    scoppio(p.x, p.y, 40, ["#ff4f4f", "#ffe34d", "#ff9f1a", COL[bersaglio]]);
+    stato = "boom"; disegnaGiocatori();
+    N.suono.vittoria(); N.vibra([40, 30, 80]);
+    var frase = bersaglio === k ? "Ahi! " + nomi[k] + " ha colpito il suo cannone: punto a " + nomi[vincitore] + "."
+      : "Che centro! Punto a " + nomi[k] + (rec ? " · record: " + rapido + (rapido === 1 ? " tiro! 🏅" : " tiri! 🏅") : ".");
+    avviso(frase);
+    boom.dopo = function () {
+      if (punti[vincitore] >= VINCE) return fineMatch(vincitore);
+      nuovoCampo();
+      iniziaTurno(bersaglio, "Nuovo campo di battaglia!");
+    };
+  }
+
+  function fineMatch(v) {
+    stato = "fine"; disegnaGiocatori(); mostraValori();
+    var vinte = GI.record("cannoni:partite", 0) + 1; GI.salvaRecord("cannoni:partite", vinte);
+    N.coriandoli(); N.suono.vittoria();
+    N.dialogo({ titolo: "Vince " + nomi[v] + "! 🏆", chiudibile: false, nodo: N.el("div", { class: "risultato" }, [
+      N.el("div", { html: N.gufo("felice") }).firstChild,
+      N.el("p", { style: "font-size:24px;font-weight:800", text: nomi[0] + " " + punti[0] + " – " + punti[1] + " " + nomi[1] })
+    ]), pulsanti: [{ testo: "Rivincita", valore: "a" }, { testo: "Esci", valore: "e", secondario: true }] })
+      .then(function (x) { if (x === "a") nuovaPartita(1 - v); else GI.esci(); });
+  }
+
+  function nuovaPartita(chi) {
+    if (GI.finito) return;
+    punti = [0, 0]; tiri = [0, 0]; mira = [{ ang: 45, pot: 55 }, { ang: 45, pot: 55 }];
+    nuovoCampo();
+    iniziaTurno(chi || 0, "Via!");
+  }
+
+  /* ---------------- loop & sizing ---------------- */
+  function ciclo(ora) {
+    var dt = Math.min(0.05, (ora - (ultimo || ora)) / 1000); ultimo = ora;
+    nuvole.forEach(function (n) { n.x += vento * 5 * dt; if (n.x > W + 60) n.x = -60; else if (n.x < -60) n.x = W + 60; });
+    if (stato === "volo" && colpo) avanza(dt * SPEED);
+    scintille.forEach(function (s) { s.vy += 260 * dt; s.x += s.vx * dt; s.y += s.vy * dt; s.v -= dt * 0.9; });
+    scintille = scintille.filter(function (s) { return s.v > 0; });
+    if (boom) {
+      boom.t += dt;
+      if (boom.t > (boom.lunga ? 1.7 : 0.7)) { var f = boom.dopo; boom = null; if (f) f(); }
+    }
+    disegna(ora);
+    requestAnimationFrame(ciclo);
+  }
+
+  function adatta() {
+    var box = N.$("#campo"), w = box.clientWidth;
+    var sopra = box.getBoundingClientRect().top + window.scrollY;
+    var sotto = N.$("#avviso").offsetHeight + N.$("#comandi").offsetHeight + N.$(".aiuto").offsetHeight + 46;
+    var h = Math.max(160, innerHeight - sopra - sotto);
+    scala = Math.min(w / W, h / H);
+    if (innerHeight > innerWidth) scala = w / W;     // portrait: use the full width, the page may scroll a little
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    tela.style.width = Math.floor(W * scala) + "px"; tela.style.height = Math.floor(H * scala) + "px";
+    tela.width = Math.floor(W * scala * dpr); tela.height = Math.floor(H * scala * dpr);
+  }
+  window.addEventListener("resize", function () { if (suolo) adatta(); });
+
+  GI.alTermine(function () { stato = "fine"; trascina = null; mostraValori(); });
+  GI.avviaTempo();
+  nuovaPartita(0);
+  requestAnimationFrame(ciclo);
+
+  // hooks for tests
+  window.cannoni = {
+    stato: function () { return { stato: stato, turno: turno, punti: punti.slice(), mira: mira[turno], W: W, H: H, tiri: tiri.slice() }; },
+    perno: perno, imposta: function (a, p) { mira[turno].ang = a; mira[turno].pot = p; mostraValori(); }, fuoco: fuoco
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+/* Impara giocando – stili comuni ai giochi-premio */
+.barra-gioco {
+  display: flex; align-items: center; gap: 10px; justify-content: space-between;
+  margin: 12px 0 8px;
+}
+.orologio {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 14px 4px 10px;
+  background: var(--carta); border-radius: 999px; box-shadow: var(--ombra-piccola); font-weight: 800; font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.orologio .ico { font-size: 22px; }
+.orologio .barretta { width: 70px; height: 10px; border-radius: 999px; background: var(--sfondo-2); overflow: hidden; }
+.orologio .barretta span { display: block; height: 100%; background: var(--sci); border-radius: 999px; transition: width .25s linear; }
+.orologio.poco { color: var(--ko); }
+.orologio.poco .barretta span { background: var(--ko); }
+.orologio.poco .ico { animation: dondola 1s infinite; }
+@keyframes dondola { 50% { transform: rotate(18deg); } }
+.barra-gioco .esci { flex: none; }
+
+.lucchetto { text-align: center; padding: 24px 0; }
+.lucchetto .grande-emoji { font-size: 72px; }
+.lucchetto h2 { margin: 6px 0; }
+.lucchetto .mancano { font-size: 26px; font-weight: 800; color: var(--gio); margin: 4px 0 18px; }
+.lucchetto .gufo-box { justify-content: center; text-align: left; }
+
+/* setup screens */
+.preparazione { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
+.preparazione .gufo-box { margin-bottom: 4px; }
+.scelta-opzione .consegna { margin-bottom: 6px; }
+.pillole { display: flex; flex-wrap: wrap; gap: 8px; }
+.pillola {
+  min-height: var(--tocco); padding: 0 18px; border-radius: 999px; border: 3px solid var(--bordo); background: var(--carta);
+  font-weight: 800; font-size: 18px; cursor: pointer; box-shadow: var(--ombra-piccola); touch-action: manipulation; flex: 1 1 auto;
+}
+.pillola[aria-pressed="true"] { border-color: var(--colore); background: var(--colore-chiaro); }
+.pillola:active { transform: translateY(2px); }
+.credito { font-size: 14px; color: var(--testo-2); font-style: italic; margin: 2px 2px 0; }
+
+/* scoreboard for one or two players */
+.giocatori { display: flex; gap: 10px; margin: 6px 0 10px; }
+.giocatore {
+  flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; padding: 8px 12px; border-radius: 16px;
+  background: var(--carta); box-shadow: var(--ombra-piccola); border: 3px solid transparent; font-weight: 800;
+}
+.giocatore .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.giocatore .punti { font-size: 24px; font-variant-numeric: tabular-nums; }
+.giocatore.g1 { --gc: #2f86ff; }
+.giocatore.g2 { --gc: #8a4dff; }
+.giocatore .pallino { width: 14px; height: 14px; border-radius: 50%; background: var(--gc); flex: none; }
+.giocatore.turno { border-color: var(--gc); background: color-mix(in srgb, var(--gc) 12%, white); }
+.fine-tempo .gufo-box { justify-content: center; }

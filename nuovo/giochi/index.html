@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Giochi – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="giochi.css">
+<style>
+  .intro { margin: 16px 0 6px; }
+  .scheda.gioco { min-height: 170px; padding-top: 22px; }
+  .scheda.gioco .emoji { font-size: 48px; }
+  .scheda.gioco .stato { margin-top: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 800; }
+  .scheda.gioco .vai { color: var(--gio); font-size: 18px; }
+  .scheda.gioco .lock { font-size: 18px; }
+  .scheda.bloccata { opacity: 1; background: #fbf6ee; }
+  .scheda.bloccata .emoji { filter: grayscale(1); opacity: .55; }
+  .scheda.bloccata .fascia { background: var(--bordo); }
+  .verso { height: 10px; background: var(--sfondo-2); border-radius: 999px; overflow: hidden; width: 100%; }
+  .verso > span { display: block; height: 100%; background: var(--stella); border-radius: 999px; }
+  button.scheda { font: inherit; width: 100%; }
+  .come { background: var(--carta); border-radius: var(--r); box-shadow: var(--ombra); padding: 16px 18px; margin-top: 22px; }
+  .come h2 { margin: 0 0 8px; font-size: 20px; }
+  .come ul { margin: 0 0 12px; padding-left: 22px; }
+  .come li { margin: 4px 0; }
+  .totale { font-size: 20px; font-weight: 800; }
+</style>
+</head>
+<body>
+<main class="pagina" id="main">
+  <div class="intro" id="intro"></div>
+  <h2 class="sezione">🎮 I giochi</h2>
+  <div class="griglia larga" id="lista"></div>
+  <section class="come" aria-labelledby="come-t">
+    <h2 id="come-t">⭐ Come si guadagnano le stelle?</h2>
+    <ul>
+      <li>Fai gli esercizi: ogni giro di domande vale fino a <b>3 ⭐</b>.</li>
+      <li>Più risposte giuste dai, più stelle prendi.</li>
+      <li>Le stelle aprono i giochi e ti danno <b>più tempo</b> per giocare.</li>
+    </ul>
+    <p class="totale" id="totale"></p>
+    <p id="tempo-info"></p>
+    <div class="riga">
+      <a class="btn" href="../index.html">Vai agli esercizi 📚</a>
+    </div>
+  </section>
+</main>
+<script src="../core/core.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Giochi", indietro: "../index.html", tema: "t-gio" });
+
+  var stelle = N.stelle(), p = N.profilo();
+  var aperti = GI.GIOCHI.filter(function (g) { return N.sbloccato(g.soglia); }).length;
+  N.$("#intro").appendChild(N.gufoDice(
+    aperti ? "Prima si lavora, poi si gioca! Hai " + stelle + " ⭐: scegli un gioco." :
+      "Prima si lavora, poi si gioca! Guadagna stelle con gli esercizi per aprire i giochi.",
+    aperti ? "felice" : ""));
+
+  function riassunto(id) {
+    if (id === "memoria") { var m = GI.record("memoria:vetrina", null); return m ? "Record: " + m : ""; }
+    if (id === "puzzle") { var a = GI.record("puzzle:3", null), b = GI.record("puzzle:4", null);
+      return a || b ? "Record: " + [a ? a + " mosse (3×3)" : "", b ? b + " mosse (4×4)" : ""].filter(Boolean).join(" · ") : ""; }
+    if (id === "cannoni") { var c = GI.record("cannoni:colpo", null); return c ? "Centro più rapido: " + c + (c === 1 ? " tiro" : " tiri") : ""; }
+    return "";
+  }
+
+  GI.GIOCHI.forEach(function (g) {
+    var ok = N.sbloccato(g.soglia), manca = GI.mancano(g.soglia), rec = ok ? riassunto(g.id) : "";
+    var figli = [
+      N.el("span", { class: "fascia" }),
+      N.el("span", { class: "emoji", "aria-hidden": "true", text: g.emoji }),
+      N.el("span", { class: "titolo", text: g.nome }),
+      N.el("span", { class: "sotto", text: g.sotto }),
+      rec ? N.el("span", { class: "etichetta", text: "🏅 " + rec }) : null,
+      ok ? N.el("span", { class: "stato" }, [N.el("span", { class: "vai", text: "Gioca! ▶" })])
+         : N.el("span", { class: "stato" }, [
+             N.el("span", { class: "lock", text: "🔒 Ti mancano " + manca + " ⭐" }),
+             N.el("span", { class: "verso", "aria-hidden": "true" }, [N.el("span", { style: "width:" + Math.round(100 * Math.min(stelle, g.soglia) / g.soglia) + "%" })])
+           ])
+    ];
+    var card = ok
+      ? N.el("a", { class: "scheda gioco", href: g.href, "aria-label": g.nome + ": gioca" }, figli)
+      : N.el("button", { class: "scheda gioco bloccata", type: "button", "aria-label": g.nome + ": chiuso, ti mancano " + manca + " stelle", onclick: function () {
+          N.suono.tocco();
+          N.dialogo({ titolo: "🔒 " + g.nome, nodo: N.gufoDice("Si apre con " + g.soglia + " ⭐. Ti mancano " + manca + " ⭐: fai qualche esercizio!", "pensa"),
+            pulsanti: [{ testo: "Vai agli esercizi 📚", valore: "s" }, { testo: "Più tardi", valore: null, secondario: true }] })
+            .then(function (v) { if (v) location.href = "../index.html"; });
+        } }, figli);
+    N.$("#lista").appendChild(card);
+  });
+
+  N.$("#totale").textContent = "Hai " + stelle + " ⭐ in tutto.";
+  var sec = N.tempoGioco();
+  N.$("#tempo-info").textContent = "Ogni partita dura " + (sec % 60 ? Math.floor(sec / 60) + " min e " + (sec % 60) + " s" : (sec / 60) + (sec === 60 ? " minuto" : " minuti")) +
+    ". Con 3 stelle in più guadagni 10 secondi (fino a 5 minuti)." + (p ? "" : " Crea il tuo profilo nella pagina principale per tenere le stelle.");
+})();
+</script>
+</body>
+</html>

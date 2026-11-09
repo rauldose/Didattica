@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Matematica – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="mat.css">
+</head>
+<body>
+<main class="pagina" id="pagina">
+  <div class="saluto" id="saluto"></div>
+  <h2 class="sezione" id="tit-consigliate">👍 <span id="per-classe">Per la tua classe</span></h2>
+  <div class="mat-griglia" id="consigliate"></div>
+  <h2 class="sezione" id="tit-altre">🎒 Altre attività</h2>
+  <div class="mat-griglia" id="altre"></div>
+</main>
+<script src="../core/core.js"></script>
+<script src="attivita.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Matematica", tema: "t-mat" });
+  var p = N.profilo(), classe = N.classe();
+  var frasi = ["Prima si lavora, poi si gioca!", "Scegli un esercizio e guadagna le stelle.", "Lavora con calma e con ordine."];
+  N.$("#saluto").appendChild(N.gufoDice((p ? "Ciao " + p.nome + "! " : "Ciao! ") + N.scegli(frasi), "felice"));
+  N.$("#per-classe").textContent = "Per la " + N.CLASSI[classe];
+
+  function scheda(a, perTe) {
+    var best = N.migliore("mat:" + a.id);
+    return N.el("a", {
+      class: "scheda att" + (perTe ? " consigliata" : ""), href: "gioca.html?a=" + a.id, style: "--c:" + a.colore,
+      "aria-label": a.titolo + ". " + a.sotto + ". Stelle: " + best + " su 3"
+    }, [
+      N.el("span", { class: "fascia" }),
+      N.el("span", { class: "emoji", "aria-hidden": "true", text: a.emoji }),
+      N.el("span", { class: "titolo", text: a.titolo }),
+      N.el("span", { class: "sotto", text: a.sotto }),
+      N.el("span", { class: "info" }, [
+        N.el("span", { class: "stelline", "aria-hidden": "true" }, [0, 1, 2].map(function (i) { return N.el("span", { class: i < best ? "on" : "", text: "⭐" }); })),
+        perTe ? N.el("span", { class: "etichetta per-te", text: "Per te!" }) : null,
+        N.el("span", { class: "etichetta", text: MAT.testoClassi(a.classi) })
+      ])
+    ]);
+  }
+  var cons = N.$("#consigliate"), altre = N.$("#altre"), nAltre = 0;
+  MAT.ATTIVITA.forEach(function (a) {
+    var perTe = MAT.consigliata(a, classe);
+    (perTe ? cons : altre).appendChild(scheda(a, perTe));
+    if (!perTe) nAltre++;
+  });
+  if (!nAltre) { N.$("#tit-altre").hidden = true; }
+})();
+</script>
+</body>
+</html>

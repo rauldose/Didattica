@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Memoria – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="giochi.css">
+<style>
+  .tavolo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 4px auto 16px; max-width: 560px; user-select: none; }
+  .tavolo.c5 { max-width: 640px; }
+  .tavolo.c5 .carta { aspect-ratio: 4 / 5; }
+  @media (min-width: 560px) { .tavolo.c5 { grid-template-columns: repeat(5, 1fr); } }
+  .carta {
+    position: relative; aspect-ratio: 3 / 4; border: 0; padding: 0; background: none; cursor: pointer;
+    perspective: 600px; touch-action: manipulation; min-height: 64px;
+  }
+  .carta .dentro { position: absolute; inset: 0; transition: transform .35s; transform-style: preserve-3d; }
+  .carta.su .dentro { transform: rotateY(180deg); }
+  .carta .faccia {
+    position: absolute; inset: 0; border-radius: 14px; display: grid; place-items: center; backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; box-shadow: var(--ombra-piccola); padding: 4px; overflow: hidden;
+  }
+  .carta .dorso {
+    background-color: var(--gio);
+    background-image: radial-gradient(circle at 30% 25%, #ff7aa8 0 18%, transparent 19%),
+                      repeating-linear-gradient(45deg, rgba(255,255,255,.16) 0 8px, transparent 8px 16px);
+    color: #fff; font-size: 30px; font-weight: 900; border: 3px solid #fff;
+  }
+  .carta .fronte {
+    transform: rotateY(180deg); background: var(--carta); border: 3px solid var(--bordo);
+    font-weight: 800; font-size: clamp(14px, 4.3vw, 22px); line-height: 1.1; text-align: center; overflow-wrap: anywhere;
+  }
+  .carta .fronte.emo { font-size: clamp(32px, 11vw, 52px); }
+  .carta .fronte.num { font-size: clamp(17px, 5.4vw, 28px); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .carta.presa .fronte { border-color: var(--pc, var(--ok)); background: var(--pcc, var(--ok-chiaro)); }
+  .carta.presa.p0 { --pc: #2f86ff; --pcc: #dbeaff; }
+  .carta.presa.p1 { --pc: #8a4dff; --pcc: #ece2ff; }
+  .carta.presa .dentro { animation: coppia .4s; }
+  .carta.no .fronte { border-color: var(--ko); }
+  @keyframes coppia { 50% { transform: rotateY(180deg) scale(1.08); } }
+  .info-partita { text-align: center; font-weight: 800; color: var(--testo-2); margin: 0 0 8px; min-height: 1.4em; }
+  .solo .giocatore.g2 { display: none; }
+  @media (prefers-reduced-motion: reduce) { .carta .dentro { transition: none; } }
+</style>
+</head>
+<body>
+<main class="pagina" id="main">
+  <div id="barra"></div>
+  <section id="prep" class="preparazione" aria-label="Scegli come giocare"></section>
+  <section id="gioco" hidden aria-label="Tavolo da gioco">
+    <div class="giocatori" id="giocatori"></div>
+    <p class="info-partita" id="info" aria-live="polite"></p>
+    <div class="tavolo" id="tavolo"></div>
+    <div class="riga centro"><button class="btn secondario piccolo" type="button" id="cambia">⚙️ Cambia gioco</button></div>
+  </section>
+</main>
+<script src="../core/core.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Memoria", indietro: function () { GI.esci(); }, tema: "t-gio" });
+  if (!GI.porta("memoria", N.$("#main"))) return;
+  N.$("#barra").appendChild(GI.barra("memoria"));
+
+  /* ---------------- decks ---------------- */
+  // Italian singular <-> plural, a few from his PLURAL exercise (plus some easier ones)
+  var PLURALI = [
+    ["uovo", "uova"], ["uomo", "uomini"], ["dito", "dita"], ["bue", "buoi"], ["tigre", "tigri"], ["banco", "banchi"],
+    ["medico", "medici"], ["armadio", "armadi"], ["braccio", "braccia"], ["moglie", "mogli"], ["valigia", "valigie"],
+    ["camicia", "camicie"], ["fascia", "fasce"], ["striscia", "strisce"], ["farmacia", "farmacie"], ["obbligo", "obblighi"],
+    ["chirurgo", "chirurghi"], ["valico", "valichi"], ["astrologo", "astrologi"], ["superficie", "superfici"],
+    ["capoclasse", "capiclasse"], ["ciliegia", "ciliegie"], ["scoppio", "scoppi"], ["ala", "ali"]
+  ];
+  var FACILI = 11;   // the first ones are the easiest
+  var EMOJI = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🐔", "🐧", "🐢", "🐙", "🦋", "🐞", "🍎", "🍌", "🍓", "⚽"];
+
+  // multiplication / division facts by level 1..5, with distinct answers
+  function fatti(liv, n) {
+    var tav = [[2, 5], [2, 10], [3, 10], [4, 10], [6, 12]][liv - 1], tutti = [];
+    for (var a = tav[0]; a <= tav[1]; a++) for (var b = 2; b <= (liv === 1 ? 5 : 10); b++) {
+      if (liv >= 4 && Math.random() < 0.4) tutti.push({ q: (a * b) + ":" + a, r: String(b) });
+      else tutti.push({ q: a + "×" + b, r: String(a * b) });
+    }
+    if (liv === 5) for (var k = 11; k <= 15; k++) tutti.push({ q: k + "²", r: String(k * k) });
+    var visti = {}, scelti = [];
+    N.mescola(tutti).forEach(function (f) { if (scelti.length < n && !visti[f.r]) { visti[f.r] = 1; scelti.push(f); } });
+    return scelti;
+  }
+
+  function mazzo(tipo, n, liv) {
+    if (tipo === "emoji") return N.mescola(EMOJI).slice(0, n).map(function (e) { return { a: e, b: e, cl: "emo" }; });
+    if (tipo === "plurali") {
+      var pool = liv <= 2 ? PLURALI.slice(0, FACILI + 3) : PLURALI;
+      return N.mescola(pool).slice(0, n).map(function (p) { return { a: p[0], b: p[1], cl: "" }; });
+    }
+    return fatti(liv, n).map(function (f) { return { a: f.q, b: f.r, cl: "num" }; });
+  }
+
+  /* ---------------- setup ---------------- */
+  var classe = N.classe(), liv = N.difficolta(classe);
+  var opz = {
+    tipo: N.leggi("giochi.memoria.tipo", classe === 0 ? "emoji" : "tabelline"),
+    coppie: classe <= 1 ? 6 : classe <= 3 ? 8 : 10,
+    giocatori: 1
+  };
+  var nomi = [GI.nomeG1(), "Giocatore 2"];
+
+  function preparazione() {
+    var prep = N.$("#prep");
+    prep.hidden = false; N.$("#gioco").hidden = true;
+    prep.innerHTML = "";
+    prep.appendChild(N.gufoDice("Gira due carte: se vanno insieme, sono tue!", ""));
+    prep.appendChild(GI.pillole("Che carte?", [
+      { valore: "tabelline", testo: "✖️ Tabelline" }, { valore: "plurali", testo: "📖 Plurali" }, { valore: "emoji", testo: "🐶 Animali" }
+    ], opz.tipo, function (v) { opz.tipo = v; N.scrivi("giochi.memoria.tipo", v); }));
+    prep.appendChild(GI.pillole("Quante coppie?", [
+      { valore: 6, testo: "6 facile" }, { valore: 8, testo: "8 medio" }, { valore: 10, testo: "10 difficile" }
+    ], opz.coppie, function (v) { opz.coppie = v; }));
+    prep.appendChild(GI.pillole("Giocatori", [
+      { valore: 1, testo: "👤 Da solo" }, { valore: 2, testo: "👥 In due" }
+    ], opz.giocatori, function (v) { opz.giocatori = v; }));
+    prep.appendChild(N.el("button", { class: "btn blocco", type: "button", id: "inizia", text: "Inizia ▶", onclick: nuovaPartita }));
+  }
+
+  /* ---------------- game ---------------- */
+  var carte = [], su = [], blocca = false, turno = 0, punti = [0, 0], tentativi = [0, 0], prese = 0, inizio = 0;
+
+  function nuovaPartita() {
+    if (GI.finito) return;
+    N.suono.tocco();
+    GI.avviaTempo();
+    N.$("#prep").hidden = true; N.$("#gioco").hidden = false;
+    N.$("#gioco").classList.toggle("solo", opz.giocatori === 1);
+    var m = mazzo(opz.tipo, opz.coppie, liv);
+    carte = [];
+    m.forEach(function (c, i) {
+      carte.push({ coppia: i, testo: c.a, cl: c.cl });
+      carte.push({ coppia: i, testo: c.b, cl: c.cl });
+    });
+    carte = N.mescola(carte);
+    su = []; blocca = false; turno = 0; punti = [0, 0]; tentativi = [0, 0]; prese = 0; inizio = Date.now();
+    var t = N.$("#tavolo");
+    t.innerHTML = ""; t.className = "tavolo" + (opz.coppie === 10 ? " c5" : "");
+    carte.forEach(function (c, i) {
+      var b = N.el("button", { type: "button", class: "carta", "aria-label": "Carta " + (i + 1) + ", coperta", "data-i": i }, [
+        N.el("span", { class: "dentro" }, [
+          N.el("span", { class: "faccia dorso", "aria-hidden": "true", text: "?" }),
+          N.el("span", { class: "faccia fronte " + c.cl, "aria-hidden": "true", text: c.testo })
+        ])
+      ]);
+      b.addEventListener("click", function () { gira(i); });
+      c.el = b;
+      t.appendChild(b);
+    });
+    disegnaGiocatori();
+    info(opz.giocatori === 2 ? "Inizia " + nomi[0] + "!" : "Trova tutte le coppie con meno tentativi possibile.");
+  }
+
+  function disegnaGiocatori() {
+    var g = N.$("#giocatori"); g.innerHTML = "";
+    [0, 1].forEach(function (k) {
+      g.appendChild(N.el("div", { class: "giocatore g" + (k + 1) + (opz.giocatori === 2 && turno === k ? " turno" : "") }, [
+        N.el("span", { class: "pallino" }),
+        N.el("span", { class: "nome", text: opz.giocatori === 1 ? "Tentativi" : nomi[k] }),
+        N.el("span", { class: "punti", "aria-label": opz.giocatori === 1 ? tentativi[0] + " tentativi" : punti[k] + " coppie", text: String(opz.giocatori === 1 ? tentativi[0] : punti[k]) })
+      ]));
+    });
+    if (opz.giocatori === 1) {
+      var r = GI.record(chiaveRecord(), null);
+      g.appendChild(N.el("div", { class: "giocatore" }, [N.el("span", { class: "nome", text: "🏅 Record" }), N.el("span", { class: "punti", text: r == null ? "–" : String(r) })]));
+    }
+  }
+  function chiaveRecord() { return "memoria:" + opz.tipo + ":" + opz.coppie; }
+  function info(t) { N.$("#info").textContent = t; }
+
+  function gira(i) {
+    var c = carte[i];
+    if (blocca || GI.finito || c.presa != null || su.indexOf(i) >= 0) return;
+    N.suono.tocco();
+    c.el.classList.add("su");
+    c.el.setAttribute("aria-label", "Carta " + (i + 1) + ": " + c.testo);
+    su.push(i);
+    if (su.length < 2) return;
+    tentativi[turno]++;
+    var a = carte[su[0]], b = carte[su[1]];
+    if (a.coppia === b.coppia) {
+      [a, b].forEach(function (x) { x.presa = turno; x.el.classList.add("presa", "p" + (opz.giocatori === 2 ? turno : 0)); x.el.setAttribute("aria-label", x.el.getAttribute("aria-label") + " (presa)"); });
+      punti[turno]++; prese++; su = [];
+      N.giusto(opz.giocatori === 2 ? N.scegli(N.LODI) + " Gioca ancora " + nomi[turno] : N.scegli(N.LODI));
+      disegnaGiocatori();
+      if (prese === carte.length / 2) setTimeout(fine, 700);
+      return;
+    }
+    blocca = true;
+    N.vibra(20);
+    [a, b].forEach(function (x) { x.el.classList.add("no"); });
+    setTimeout(function () {
+      [a, b].forEach(function (x, j) { x.el.classList.remove("su", "no"); x.el.setAttribute("aria-label", "Carta " + (carte.indexOf(x) + 1) + ", coperta"); });
+      su = []; blocca = false;
+      if (opz.giocatori === 2) { turno = 1 - turno; info("Tocca a " + nomi[turno]); }
+      disegnaGiocatori();
+    }, 1100);
+  }
+
+  function fine() {
+    if (GI.finito) return;
+    var nodo, titolo;
+    if (opz.giocatori === 1) {
+      var t = tentativi[0], rec = GI.migliora(chiaveRecord(), t, true);
+      if (rec) GI.salvaRecord("memoria:vetrina", t + " tentativi con " + opz.coppie + " coppie");
+      titolo = "Tutte le coppie! 🎉";
+      nodo = N.el("div", { class: "risultato" }, [
+        N.el("div", { html: N.gufo("felice") }).firstChild,
+        N.el("p", { style: "font-size:22px;font-weight:800", text: "Ci hai messo " + t + " tentativi." }),
+        N.el("p", { text: "Il minimo possibile è " + opz.coppie + "." }),
+        rec ? N.el("p", { style: "font-weight:800;color:var(--ok)", text: "Nuovo record! 🏅" }) : N.el("p", { text: "Il tuo record: " + GI.record(chiaveRecord()) + " tentativi" })
+      ]);
+    } else {
+      var v = punti[0] === punti[1] ? -1 : punti[0] > punti[1] ? 0 : 1;
+      titolo = v < 0 ? "Pareggio! 🤝" : "Vince " + nomi[v] + "! 🏆";
+      nodo = N.el("div", { class: "risultato" }, [
+        N.el("div", { html: N.gufo("felice") }).firstChild,
+        N.el("p", { style: "font-size:22px;font-weight:800", text: nomi[0] + " " + punti[0] + " – " + punti[1] + " " + nomi[1] })
+      ]);
+    }
+    N.suono.vittoria(); N.coriandoli();
+    N.dialogo({ titolo: titolo, nodo: nodo, chiudibile: false,
+      pulsanti: [{ testo: "Gioca ancora", valore: "ancora" }, { testo: "Cambia gioco", valore: "cambia", secondario: true }] })
+      .then(function (v) { if (v === "ancora") nuovaPartita(); else preparazione(); });
+  }
+
+  N.$("#cambia").addEventListener("click", preparazione);
+  preparazione();
+  window.memoria = { carte: function () { return carte; }, gira: gira, opz: opz };   // hooks for tests
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Laboratori – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<main class="pagina">
+  <div id="saluto" style="margin-top:14px"></div>
+  <h2 class="sezione">🔬 Scegli un laboratorio</h2>
+  <div class="griglia larga" id="schede"></div>
+  <p class="originale" style="margin-top:22px">Le simulazioni nascono dai programmi del Prof. Carmelo Muscolino:
+    <a href="../../programmi/archimede/index.html">Spinta di Archimede</a> e
+    <a href="../../programmi/talete/index.html">Laboratorio di matematica (Talete)</a>.</p>
+</main>
+
+<script src="../core/core.js"></script>
+<script src="lab.js"></script>
+<script>
+(function () {
+  "use strict";
+  N.testata({ titolo: "Laboratori", tema: "t-lab" });
+  var LABS = [
+    { id: "archimede", url: "archimede.html", emoji: "🛁", titolo: "La spinta di Archimede", sotto: "Immergi i solidi nei liquidi: chi galleggia e chi va a fondo?" },
+    { id: "talete", url: "talete.html", emoji: "☀️", titolo: "Le ombre di Talete", sotto: "Sposta i bastoni al sole e scopri la regola delle ombre." }
+  ];
+  var tot = 0, fatteTot = 0;
+  LABS.forEach(function (l) {
+    var ids = LAB.MISSIONI[l.id], fatte = 0, stelle = 0;
+    ids.forEach(function (m) { var s = LAB.stelleDi("lab:" + l.id + ":" + m); if (s) fatte++; stelle += s; });
+    tot += ids.length; fatteTot += fatte;
+    N.$("#schede").appendChild(N.el("a", { class: "scheda lab-card", href: l.url, "aria-label": l.titolo + ": " + fatte + " missioni su " + ids.length }, [
+      N.el("span", { class: "fascia" }),
+      N.el("span", { class: "emoji", text: l.emoji }),
+      N.el("span", { class: "titolo", text: l.titolo }),
+      N.el("span", { class: "sotto", text: l.sotto }),
+      N.el("span", { class: "punteggio-riga" }, [N.el("span", { text: "🎯 Missioni " + fatte + "/" + ids.length }), N.el("span", { text: "⭐ " + stelle })]),
+      N.el("span", { class: "avanzamento" }, [N.el("span", { style: "display:block;height:100%;border-radius:999px;background:var(--colore);width:" + (100 * fatte / ids.length) + "%" })])
+    ]));
+  });
+  var p = N.profilo();
+  N.$("#saluto").appendChild(N.gufoDice(
+    fatteTot === tot ? "Hai completato tutte le missioni! Sei un vero scienziato! 🏆" :
+    (p ? "Ciao " + p.nome + "! " : "") + "Nei laboratori si fanno esperimenti. Completa le missioni e vinci le stelle!" +
+    (p ? "" : " (Crea il tuo profilo nella pagina principale per tenerle.)"), fatteTot === tot ? "felice" : ""));
+})();
+</script>
+</body>
+</html>

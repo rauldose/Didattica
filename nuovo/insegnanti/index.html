@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Per gli insegnanti – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="ins.css">
+</head>
+<body>
+<main class="pagina" id="pagina">
+  <div class="intro" id="intro"></div>
+  <div class="azioni-top">
+    <a class="btn" href="modifica.html" id="btn-nuovo">➕ Nuovo quiz</a>
+    <button class="btn secondario" type="button" id="btn-importa">📥 Importa</button>
+  </div>
+  <h2 class="sezione">📝 I miei quiz</h2>
+  <div id="lista" class="lista-quiz" aria-live="polite"></div>
+  <p class="memoria" id="memoria"></p>
+
+  <section class="scheda come" aria-labelledby="come-t">
+    <div class="fascia"></div>
+    <h2 id="come-t" style="margin:4px 0 0;font-size:20px">💡 Come funziona</h2>
+    <ol>
+      <li><b>Crea</b> un quiz: scrivi le domande, aggiungi una foto se vuoi.</li>
+      <li>Quattro tipi: <b>scelta multipla</b>, <b>vero o falso</b>, <b>risposta scritta</b>, <b>tocca l'immagine</b>.</li>
+      <li><b>Prova</b> il quiz come lo vedranno i bambini.</li>
+      <li><b>Condividi</b>: manda il link (o il file, se ci sono foto) ai genitori o sulla LIM.</li>
+      <li>Hai i vecchi esercizi di <b>E.G.</b> (.L1…L5, .DAT) o <b>EM</b> (.ESE e immagini)? Con <b>Importa</b> diventano quiz.</li>
+    </ol>
+    <p class="nota">I quiz restano salvati in questo dispositivo. Per spostarli su un altro, usa “Condividi” → “Scarica file” e poi “Importa”.</p>
+  </section>
+</main>
+<input type="file" id="file-import" class="file-nascosto" multiple accept=".json,.L1,.L2,.L3,.L4,.L5,.DAT,.ESE,.l1,.l2,.l3,.l4,.l5,.dat,.ese,.bmp,.png,.jpg,.jpeg,.gif,.wav,application/json,image/*" tabindex="-1" aria-hidden="true">
+<input type="file" id="cartella-import" class="file-nascosto" multiple webkitdirectory tabindex="-1" aria-hidden="true">
+<script src="../core/core.js"></script>
+<script src="ins-core.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

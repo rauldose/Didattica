@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Modifica quiz – Impara giocando</title>
+<link rel="stylesheet" href="../core/stile.css">
+<link rel="stylesheet" href="ins.css">
+</head>
+<body>
+<main class="pagina" id="pagina">
+  <section class="dati-quiz" aria-label="Dati del quiz">
+    <div>
+      <label class="etic" for="titolo">Titolo del quiz</label>
+      <input class="campo" id="titolo" type="text" maxlength="80" placeholder="Es. Le parti della cellula" autocomplete="off">
+    </div>
+    <div>
+      <span class="etic" id="materia-l">Materia</span>
+      <div class="gruppo-materia" id="materia" role="radiogroup" aria-labelledby="materia-l"></div>
+    </div>
+    <div>
+      <span class="etic">Per le classi</span>
+      <div class="due">
+        <label><span class="mini-etic">dalla</span><select class="campo" id="classe-da" aria-label="Dalla classe"></select></label>
+        <label><span class="mini-etic">alla</span><select class="campo" id="classe-a" aria-label="Alla classe"></select></label>
+      </div>
+    </div>
+    <div>
+      <label class="etic" for="autore">Autore</label>
+      <input class="campo" id="autore" type="text" maxlength="60" placeholder="Es. Maestra Anna, 4ª B" autocomplete="name">
+    </div>
+  </section>
+
+  <h2 class="sezione" id="domande-t">❓ Domande <span class="etichetta" id="conta">0</span></h2>
+  <div id="domande" aria-labelledby="domande-t"></div>
+  <button class="btn blocco" type="button" id="aggiungi">➕ Aggiungi domanda</button>
+  <p class="stato" id="stato" role="status" aria-live="polite"></p>
+
+  <div class="barra-fondo">
+    <button class="btn secondario" type="button" id="condividi">📤 Condividi</button>
+    <a class="btn" id="prova" href="#" target="_blank" rel="noopener">▶️ Prova</a>
+  </div>
+</main>
+<script src="../core/core.js"></script>
+<script src="ins-core.js"></script>
+<script src="modifica.js"></script>
+</body>
+</html>

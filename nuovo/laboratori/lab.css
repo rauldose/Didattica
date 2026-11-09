@@ -1,0 +1,128 @@
+/* Laboratori (Archimede, Talete): stili in più rispetto a ../core/stile.css */
+
+/* mission card at the top */
+.missione-box {
+  background: var(--carta); border-radius: var(--r); box-shadow: var(--ombra); padding: 14px 16px; margin: 14px 0;
+  border-left: 8px solid var(--colore); scroll-margin-top: 76px;
+}
+.missione-box .num { font-size: 13px; font-weight: 800; color: var(--colore); text-transform: uppercase; letter-spacing: .5px; }
+.missione-box h2 { font-size: 21px; margin: 2px 0 6px; line-height: 1.25; }
+.missione-box p { margin: 6px 0; }
+.missione-box .aiuto { color: var(--testo-2); font-size: 16px; font-weight: 700; }
+.missione-box.fatta { border-left-color: var(--ok); }
+.missione-box .scelte { margin-top: 10px; }
+.riga-risposta { display: flex; align-items: center; gap: 10px; }
+.riga-risposta .risposta { flex: 1; margin: 8px 0; }
+.riga-risposta .unita { font-size: 22px; font-weight: 800; }
+.scossa { animation: scossa .35s; }
+
+/* mission checklist */
+.missioni { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.missione {
+  width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 8px 12px; text-align: left;
+  background: var(--carta); border: 3px solid transparent; border-radius: var(--r-piccolo); box-shadow: var(--ombra-piccola);
+  cursor: pointer; touch-action: manipulation;
+}
+.missione.attiva { border-color: var(--colore); }
+.missione .spunta {
+  flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 800;
+  background: var(--colore-chiaro); color: var(--testo); font-size: 18px;
+}
+.missione.fatta .spunta { background: var(--ok); color: #fff; font-size: 22px; }
+.missione .m-testo { display: flex; flex-direction: column; min-width: 0; }
+.missione .m-titolo { font-weight: 800; font-size: 17px; line-height: 1.25; }
+.missione .m-stelle { font-size: 14px; letter-spacing: 1px; }
+
+/* emoji chips (solids, liquids, suns) */
+.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+.chip {
+  min-height: 64px; padding: 6px 4px; border-radius: var(--r-piccolo); border: 3px solid var(--bordo); background: var(--carta);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; cursor: pointer;
+  box-shadow: var(--ombra-piccola); touch-action: manipulation; line-height: 1.1;
+}
+.chip .e { font-size: 28px; line-height: 1.1; }
+.chip .n { font-size: 13px; font-weight: 800; }
+.chip .d { font-size: 12px; color: var(--testo-2); font-weight: 700; }
+.chip[aria-pressed="true"] { border-color: var(--colore); background: var(--colore-chiaro); }
+.chip:active { transform: translateY(2px); }
+
+.blocco-controlli { background: var(--carta); border-radius: var(--r); box-shadow: var(--ombra); padding: 12px 14px; margin: 14px 0; }
+.blocco-controlli h3 { margin: 0 0 8px; font-size: 18px; }
+.blocco-controlli h3 small { font-weight: 700; color: var(--testo-2); font-size: 13px; }
+
+/* readout tiles */
+.letture { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 4px; }
+.lettura { background: var(--carta); border-radius: var(--r-piccolo); box-shadow: var(--ombra-piccola); padding: 8px; text-align: center; border-top: 6px solid var(--c, var(--colore)); }
+.lettura .l { font-size: 13px; font-weight: 800; color: var(--testo-2); display: block; }
+.lettura .v { font-size: 22px; font-weight: 800; white-space: nowrap; }
+.letture.lato { position: absolute; top: 8px; margin: 0; grid-template-columns: 1fr; width: calc(50% - 46px); max-width: 150px; gap: 6px; pointer-events: none; }
+.letture.lato.sx { left: 8px; } .letture.lato.dx { right: 8px; }
+.letture.lato .lettura { padding: 4px 6px; background: rgba(255,255,255,.92); }
+.letture.lato .l { font-size: 12px; }
+.letture.lato .v { font-size: clamp(16px, 4.6vw, 22px); }
+.stato { font-weight: 800; font-size: 18px; text-align: center; min-height: 2.6em; margin: 6px 0; display: flex; align-items: center; justify-content: center; }
+.dettagli { font-size: 15px; color: var(--testo-2); font-weight: 700; text-align: center; margin: 0; }
+
+.scena-box { position: relative; background: linear-gradient(#dff3ff, #f4fbff 70%); border-radius: var(--r); box-shadow: var(--ombra); overflow: hidden; }
+.scena-box canvas { display: block; width: 100%; touch-action: none; outline: none; }
+.scena-box canvas:focus-visible { outline: 3px solid var(--lab); outline-offset: -3px; }
+.suggerimento-dito {
+  position: absolute; left: 50%; bottom: 14%; transform: translateX(-50%); background: rgba(45, 34, 64, .82); color: #fff;
+  padding: 6px 12px; border-radius: 999px; font-weight: 800; font-size: 15px; pointer-events: none; white-space: nowrap;
+}
+
+.cavita { display: flex; align-items: center; gap: 10px; }
+.cavita input[type=range] { flex: 1; min-width: 0; height: 44px; accent-color: var(--colore); }
+.cavita .tondo { width: 56px; min-height: 56px; padding: 0; font-size: 26px; flex: none; }
+.cavita output { font-weight: 800; min-width: 4.2em; text-align: center; }
+
+/* Archimedes card */
+.arch-card { display: flex; gap: 14px; align-items: flex-start; }
+.arch-card img { width: 96px; height: auto; border-radius: 14px; flex: none; box-shadow: var(--ombra-piccola); }
+.arch-card .testo { white-space: pre-wrap; font-size: 16px; }
+.svelato { margin-top: 12px; background: var(--ok-chiaro); border-radius: var(--r-piccolo); padding: 12px 14px; font-weight: 800; }
+.chiuso { margin-top: 12px; background: var(--sfondo-2); border-radius: var(--r-piccolo); padding: 12px 14px; font-weight: 700; color: var(--testo-2); }
+
+/* Talete */
+.misure { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+.misura { background: var(--carta); border-radius: var(--r-piccolo); box-shadow: var(--ombra-piccola); text-align: center; padding: 6px 4px; border-top: 6px solid var(--c); }
+.misura b { font-size: 24px; display: block; line-height: 1.1; }
+.misura span { font-size: 17px; font-weight: 800; white-space: nowrap; }
+.muovi { display: grid; grid-template-columns: 64px 1fr 64px; gap: 8px; align-items: center; }
+.muovi .btn { padding: 0; font-size: 26px; }
+.muovi .segmenti .btn { padding: 0 4px; font-size: 15px; min-height: 56px; white-space: nowrap; }
+.segmenti { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.rapporti { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin: 10px 0; }
+.frazione { background: var(--carta); border-radius: var(--r-piccolo); box-shadow: var(--ombra-piccola); padding: 8px; text-align: center; font-weight: 800; }
+.frazione .f { display: inline-grid; font-size: 22px; line-height: 1.15; }
+.frazione .f span:first-child { border-bottom: 3px solid currentColor; padding: 0 6px; }
+.frazione .r { display: block; font-size: 26px; color: var(--colore); }
+.segno { font-size: 40px; font-weight: 800; width: 48px; text-align: center; color: var(--ko); }
+.segno.uguale { color: var(--ok); }
+.soli-check { font-size: 26px; letter-spacing: 4px; }
+.storia svg { width: 100%; height: auto; display: block; border-radius: var(--r-piccolo); background: linear-gradient(#ffe9b8, #fff6dc); }
+
+/* index cards */
+.lab-card { min-height: 180px; padding: 22px 18px 18px; }
+.lab-card .emoji { font-size: 56px; }
+.lab-card .titolo { font-size: 24px; }
+.lab-card .sotto { font-size: 16px; }
+.originale { font-size: 15px; color: var(--testo-2); font-weight: 700; }
+
+@media (max-width: 599px) {
+  .scena-box.bordo-pieno { margin: 0 -16px; border-radius: 0; }
+}
+.suggerimento-dito.in-alto { bottom: auto; top: 8px; left: auto; right: 8px; transform: none; }
+
+/* landscape phones / tablets: scene beside the controls */
+@media (min-width: 720px), (orientation: landscape) and (min-width: 560px) {
+  .lab-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0 18px; align-items: start; }
+  .lab-layout .colonna-scena { position: sticky; top: 74px; }
+}
+/* short landscape phones: readouts under the scene, compact mission card */
+@media (orientation: landscape) and (max-height: 520px) {
+  .letture.lato { position: static; width: auto; max-width: none; grid-template-columns: 1fr 1fr; margin: 6px 8px; }
+  .lab-layout .colonna-scena { position: static; }
+  .missione-box { padding: 8px 14px; margin: 8px 0; }
+  .missione-box h2 { font-size: 18px; }
+}

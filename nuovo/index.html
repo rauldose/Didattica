@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>Impara giocando</title>
+<meta name="description" content="Matematica, italiano, scienze e laboratori per ragazzi da 8 a 13 anni, ispirati ai programmi del Prof. Carmelo Muscolino.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone/icona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icone/icona-192.png">
+<link rel="stylesheet" href="core/stile.css">
+<style>
+  .home-testata { display: flex; align-items: center; gap: 10px; padding: calc(12px + env(safe-area-inset-top)) 16px 4px; max-width: 860px; margin: 0 auto; }
+  .home-testata .marchio { flex: 1; font-weight: 900; font-size: 22px; letter-spacing: .2px; }
+  .marchio span { color: var(--mat); }
+  .saluto { display: flex; align-items: center; gap: 12px; margin: 10px 0 4px; }
+  .saluto .gufo { width: 92px; height: 92px; }
+  .saluto h2 { margin: 0; font-size: 26px; line-height: 1.15; }
+  .saluto p { margin: 4px 0 0; color: var(--testo-2); font-weight: 700; }
+  .materie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 18px; }
+  @media (min-width: 640px) { .materie { grid-template-columns: repeat(3, 1fr); } }
+  .materia { min-height: 150px; background: var(--colore); color: #fff; border-radius: 26px; padding: 16px; text-decoration: none;
+    display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 rgba(0,0,0,.15); position: relative; overflow: hidden; }
+  .materia:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,.15); }
+  .materia .emoji { font-size: 46px; line-height: 1; }
+  .materia .nome { font-size: 21px; font-weight: 900; }
+  .materia .info { font-size: 14px; font-weight: 700; opacity: .92; }
+  .materia::after { content: ""; position: absolute; right: -30px; top: -30px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255,255,255,.14); }
+  .scorciatoie { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 10px; scrollbar-width: none; }
+  .scorciatoie::-webkit-scrollbar { display: none; }
+  .scorciatoie a { flex: none; background: var(--carta); border-radius: 999px; padding: 10px 16px; box-shadow: var(--ombra-piccola); text-decoration: none; color: var(--testo); font-weight: 800; white-space: nowrap; }
+  .benvenuto { text-align: center; padding-top: 18px; }
+  .benvenuto .gufo { width: 120px; height: 120px; }
+  .avatar-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 8px; margin: 10px 0 16px; }
+  .avatar-griglia button { font-size: 32px; height: 60px; border-radius: 16px; border: 3px solid transparent; background: var(--carta); box-shadow: var(--ombra-piccola); cursor: pointer; }
+  .avatar-griglia button[aria-pressed="true"] { border-color: var(--mat); background: var(--mat-chiaro); }
+  .chip-griglia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 18px; }
+  .chip-griglia button { min-height: 52px; border-radius: 14px; border: 3px solid transparent; background: var(--carta); box-shadow: var(--ombra-piccola); font-weight: 800; font-size: 15px; cursor: pointer; }
+  .chip-griglia button[aria-pressed="true"] { border-color: var(--lab); background: var(--lab-chiaro); }
+  .modulo { text-align: left; max-width: 520px; margin: 0 auto; }
+  .modulo label { font-weight: 800; display: block; margin-top: 8px; }
+  .profili { display: flex; flex-direction: column; gap: 10px; }
+  .profilo-riga { display: flex; align-items: center; gap: 12px; background: var(--carta); border-radius: 18px; padding: 10px 12px; box-shadow: var(--ombra-piccola); }
+  .profilo-riga .av { font-size: 34px; }
+  .profilo-riga .dati { flex: 1; min-width: 0; }
+  .profilo-riga .dati b { display: block; }
+  .profilo-riga .dati span { color: var(--testo-2); font-size: 14px; }
+  .ricordo { margin-top: 34px; padding: 16px; border-radius: 20px; background: var(--sfondo-2); font-size: 15px; color: var(--testo-2); }
+  .ricordo a { color: var(--testo); font-weight: 800; }
+  .interruttore { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--carta); border-radius: 18px; padding: 12px 14px; box-shadow: var(--ombra-piccola); margin: 10px 0; font-weight: 800; }
+  .interruttore input { width: 28px; height: 28px; }
+</style>
+</head>
+<body>
+<header class="home-testata">
+  <div class="marchio">Impara <span>giocando</span></div>
+  <a class="contastelle" href="#profilo" aria-label="Le mie stelle"><span class="ico">⭐</span><span class="n-stelle">0</span></a>
+  <a class="avatar-mini" href="#profilo" id="mio-avatar" aria-label="Il mio profilo"></a>
+</header>
+<main class="pagina" id="app"></main>
+
+<script src="core/core.js"></script>
+<script>
+(function () {
+  "use strict";
+  var app = N.$("#app"), el = N.el;
+
+  var MATERIE = [
+    { id: "mat", nome: "Matematica", emoji: "🔢", href: "matematica/index.html", info: "Tabelline, operazioni, espressioni, geometria", tema: "t-mat" },
+    { id: "ita", nome: "Italiano", emoji: "📚", href: "quiz/index.html?materia=ita", info: "Verbi, doppie, plurali, caccia all'errore", tema: "t-ita" },
+    { id: "sci", nome: "Scienze", emoji: "🔬", href: "quiz/index.html?materia=sci", info: "La cellula, i batteri, lo scheletro", tema: "t-sci" },
+    { id: "lab", nome: "Laboratori", emoji: "🧪", href: "laboratori/index.html", info: "Archimede e Talete: esperimenti e missioni", tema: "t-lab" },
+    { id: "gio", nome: "Giochi", emoji: "🎮", href: "giochi/index.html", info: "Prima si lavora, poi si gioca!", tema: "t-gio" },
+    { id: "ins", nome: "Insegnanti", emoji: "🧑‍🏫", href: "insegnanti/index.html", info: "Crea e condividi i tuoi quiz", tema: "t-ins" }
+  ];
+  var CONSIGLI = [
+    "Ogni giro sono 10 domande: con tante risposte giuste vinci fino a 3 stelle.",
+    "Con le stelle si sbloccano i giochi. Prima si lavora, poi si gioca!",
+    "Sbagliare non è un problema: si impara anche dagli errori.",
+    "Lavora con calma e con ordine, come diceva il Prof. Muscolino.",
+    "Nei laboratori puoi fare esperimenti come Archimede e Talete.",
+    "Prova la sfida dei 60 secondi in Matematica!"
+  ];
+
+  function aggiornaTestata() {
+    N.aggiornaTestata();
+    var p = N.profilo();
+    N.$("#mio-avatar").textContent = p ? p.avatar : "🙂";
+  }
+
+  /* ---------- welcome / new profile ---------- */
+  function benvenuto(daProfili) {
+    var scelta = { avatar: N.scegli(N.AVATAR), classe: null };
+    var nome = el("input", { class: "campo", id: "nome", maxlength: "20", autocomplete: "off", placeholder: "Il tuo nome", "aria-label": "Il tuo nome" });
+    var av = el("div", { class: "avatar-griglia", role: "group", "aria-label": "Scegli il tuo animale" });
+    N.AVATAR.forEach(function (a) {
+      av.appendChild(el("button", { type: "button", text: a, "aria-pressed": String(a === scelta.avatar), "aria-label": a, onclick: function () {
+        scelta.avatar = a; N.$$("button", av).forEach(function (b) { b.setAttribute("aria-pressed", String(b.textContent === a)); }); N.suono.tocco();
+      } }));
+    });
+    var cl = el("div", { class: "chip-griglia", role: "group", "aria-label": "Che classe fai?" });
+    N.CLASSI.forEach(function (c, i) {
+      cl.appendChild(el("button", { type: "button", text: c, "aria-pressed": "false", onclick: function () {
+        scelta.classe = i; N.$$("button", cl).forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); }); N.suono.tocco();
+      } }));
+    });
+    var errore = el("p", { class: "consegna", style: "color:var(--ko)", role: "alert" });
+    app.innerHTML = "";
+    app.appendChild(el("section", { class: "benvenuto" }, [
+      el("div", { html: N.gufo("felice") }).firstChild,
+      el("h1", { text: daProfili ? "Nuovo giocatore" : "Ciao! Io sono Gufetto 🦉", style: "margin:6px 0" }),
+      el("p", { class: "consegna", text: "Ti aiuterò a imparare giocando con la matematica, l'italiano e le scienze." }),
+      el("div", { class: "modulo" }, [
+        el("label", { for: "nome", text: "Come ti chiami?" }), nome,
+        el("label", { text: "Scegli il tuo animale" }), av,
+        el("label", { text: "Che classe fai?" }), cl,
+        errore,
+        el("button", { class: "btn blocco", type: "button", text: "Iniziamo! 🚀", onclick: function () {
+          var n = nome.value.trim();
+          if (!n) { errore.textContent = "Scrivi il tuo nome."; nome.focus(); return; }
+          if (scelta.classe == null) { errore.textContent = "Scegli la tua classe."; return; }
+          N.nuovoProfilo(n, scelta.avatar, scelta.classe);
+          N.suono.vittoria(); N.coriandoli();
+          location.hash = ""; mostra();
+        } }),
+        daProfili ? null : el("p", { style: "text-align:center" }, [el("button", { class: "btn secondario piccolo", type: "button", text: "Gioca come ospite", onclick: function () {
+          N.scrivi("ospite", true); mostra();
+        } })])
+      ])
+    ]));
+  }
+
+  /* ---------- hub ---------- */
+  function hub() {
+    var p = N.profiloOspite();
+    var tiles = el("div", { class: "materie" });
+    MATERIE.forEach(function (m) {
+      var info = m.info;
+      if (m.id === "gio" && N.stelle() < 3) info = "Ti mancano " + (3 - N.stelle()) + " ⭐ per il primo gioco";
+      tiles.appendChild(el("a", { class: "materia " + m.tema, href: m.href }, [
+        el("span", { class: "emoji", text: m.emoji, "aria-hidden": "true" }),
+        el("span", null, [el("span", { class: "nome", text: m.nome }), el("br"), el("span", { class: "info", text: info })])
+      ]));
+    });
+    app.innerHTML = "";
+    app.appendChild(el("section", { class: "saluto" }, [
+      el("div", { html: N.gufo("felice") }).firstChild,
+      el("div", null, [
+        el("h2", { text: N.profilo() ? "Ciao, " + p.nome + "! " + p.avatar : "Ciao! 👋" }),
+        el("p", { text: N.profilo() ? N.CLASSI[p.classe] + " · " + N.stelle() + " stelle" : "Stai giocando come ospite: le stelle non vengono salvate." })
+      ])
+    ]));
+    app.appendChild(el("div", { class: "fumetto", style: "margin:4px 0 0", text: "💡 " + N.scegli(CONSIGLI) }));
+    app.appendChild(tiles);
+    app.appendChild(el("h2", { class: "sezione", text: "Sfide veloci" }));
+    app.appendChild(el("nav", { class: "scorciatoie", "aria-label": "Sfide veloci" }, [
+      el("a", { href: "matematica/gioca.html?a=tabelline", text: "✖️ Tabelline" }),
+      el("a", { href: "matematica/gioca.html?a=tempo", text: "⏱️ 60 secondi" }),
+      el("a", { href: "quiz/gioca.html?set=EG:ERRORI", text: "🔎 Caccia all'errore" }),
+      el("a", { href: "quiz/gioca.html?set=EM:schele", text: "🦴 Lo scheletro" }),
+      el("a", { href: "laboratori/archimede.html", text: "🛁 Archimede" })
+    ]));
+    if (!N.profilo()) app.appendChild(el("p", null, [el("a", { class: "btn piccolo", href: "#profilo", text: "Crea il tuo profilo per raccogliere le stelle" })]));
+    app.appendChild(ricordo());
+  }
+
+  function ricordo() {
+    return el("aside", { class: "ricordo" }, [
+      el("strong", { text: "In ricordo del Prof. Carmelo Muscolino. " }),
+      document.createTextNode("Questi giochi sono nati dai programmi che scrisse per i suoi alunni della Scuola Media di Gonars tra il 1995 e il 2000. "),
+      el("a", { href: "../index.html", text: "Vedi i programmi originali" }), document.createTextNode(".")
+    ]);
+  }
+
+  /* ---------- profile page ---------- */
+  function profilo() {
+    var p = N.profilo();
+    app.innerHTML = "";
+    app.appendChild(el("p", null, [el("a", { class: "indietro", href: "#", "aria-label": "Indietro", text: "←" })]));
+    app.appendChild(el("h1", { text: "Il mio profilo" }));
+    if (p) {
+      var giocate = Object.keys(p.record || {}).length;
+      var cl = el("select", { class: "campo", "aria-label": "Classe" });
+      N.CLASSI.forEach(function (c, i) { cl.appendChild(el("option", { value: String(i), text: c, selected: i === p.classe })); });
+      cl.addEventListener("change", function () { p.classe = parseInt(cl.value, 10); N.salvaProfilo(p); N.esito("info", "Classe aggiornata"); });
+      app.appendChild(el("div", { class: "profilo-riga" }, [
+        el("span", { class: "av", text: p.avatar }),
+        el("div", { class: "dati" }, [el("b", { text: p.nome }), el("span", { text: p.stelle + " stelle · " + giocate + " attività provate" })])
+      ]));
+      app.appendChild(el("label", { text: "La mia classe", style: "font-weight:800;display:block;margin-top:14px" }));
+      app.appendChild(cl);
+    } else {
+      app.appendChild(el("p", { text: "Nessun profilo attivo: stai giocando come ospite." }));
+    }
+    var suono = el("input", { type: "checkbox", id: "suono" }); suono.checked = N.suonoAttivo();
+    suono.addEventListener("change", function () { N.impostaSuono(suono.checked); N.suono.ok(); });
+    app.appendChild(el("label", { class: "interruttore", for: "suono" }, [el("span", { text: "🔊 Suoni" }), suono]));
+
+    app.appendChild(el("h2", { class: "sezione", text: "Chi gioca?" }));
+    var lista = el("div", { class: "profili" });
+    N.profili().forEach(function (q) {
+      lista.appendChild(el("div", { class: "profilo-riga" }, [
+        el("span", { class: "av", text: q.avatar }),
+        el("div", { class: "dati" }, [el("b", { text: q.nome + (p && q.id === p.id ? " (tu)" : "") }), el("span", { text: N.CLASSI[q.classe] + " · " + (q.stelle || 0) + " ⭐" })]),
+        p && q.id === p.id ? null : el("button", { class: "btn piccolo", type: "button", text: "Gioca", onclick: function () { N.usaProfilo(q.id); location.hash = ""; mostra(); } }),
+        el("button", { class: "btn secondario piccolo", type: "button", text: "🗑", "aria-label": "Elimina " + q.nome, onclick: function () {
+          N.dialogo({ titolo: "Eliminare " + q.nome + "?", testo: "Le sue stelle andranno perse.", pulsanti: [{ testo: "Elimina", valore: true }, { testo: "Annulla", valore: false, secondario: true }] })
+            .then(function (si) { if (si) { N.eliminaProfilo(q.id); profilo(); aggiornaTestata(); } });
+        } })
+      ]));
+    });
+    app.appendChild(lista);
+    app.appendChild(el("p", null, [el("button", { class: "btn", type: "button", text: "➕ Nuovo giocatore", onclick: function () { benvenuto(true); } })]));
+    app.appendChild(el("p", { class: "consegna", text: "I profili e le stelle restano solo su questo dispositivo." }));
+    app.appendChild(ricordo());
+  }
+
+  function mostra() {
+    aggiornaTestata();
+    window.scrollTo(0, 0);
+    if (location.hash === "#profilo") return profilo();
+    if (!N.profilo() && !N.profili().length && !N.leggi("ospite", false)) return benvenuto(false);
+    hub();
+  }
+  window.addEventListener("hashchange", mostra);
+  mostra();
+})();
+</script>
+</body>
+</html>
