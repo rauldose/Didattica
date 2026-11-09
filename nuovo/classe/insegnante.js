@@ -1,6 +1,6 @@
 /*
  * Impara giocando – "La mia classe online": teacher dashboard (phone first).
- * Routes (hash):  #classi  ·  #classe/<id>[/alunni|pubblicati|risultati]  ·  #quiz  ·  #app  ·  #account
+ * Routes (hash):  #classi  ·  #classe/<id>[/alunni|pubblicati|risultati]  ·  #quiz  ·  #app  ·  #app/nuovo  ·  #app/<id>  ·  #account
  */
 (function () {
   "use strict";
@@ -131,7 +131,7 @@
       lista.appendChild(el("div", { class: "riga-el" }, [
         el("span", { class: "ico", "aria-hidden": "true", text: "🧒" }),
         el("div", { class: "dati" }, [el("b", { text: a.nome }), el("span", { text: a.username }),
-          el("small", { text: "⭐ " + (a.stelle || 0) + " · " + plur(a.attivita || 0, "attività", "attività") + " · " + (a.ultimo ? "ultima: " + API.data(a.ultimo) : "mai entrato") })]),
+          el("small", { text: "⭐ " + (a.stelle || 0) + " · " + plur(a.attivita || 0, "attività", "attività") + " · " + (a.ultimo ? "ultima: " + API.data(a.ultimo) : "nessun risultato") })]),
         el("button", { class: "btn-ico", type: "button", "aria-label": "Azioni per " + a.nome, text: "⋯", onclick: function () { azioniAlunno(c, a); } })
       ]));
     });
@@ -438,7 +438,7 @@
       app.appendChild(h1("🎲 I miei mini-giochi"));
       app.appendChild(el("p", { class: "nota" }, ["Un mini-gioco è un file HTML che scrivi tu (o che ti fai aiutare a scrivere). ",
         el("a", { href: "mini-giochi.html", text: "Come si scrive un mini-gioco" }), " · ", el("a", { href: "modello-minigioco.html", download: "modello-minigioco.html", text: "Scarica il modello" })]));
-      app.appendChild(el("div", { class: "azioni" }, [el("button", { class: "btn", type: "button", text: "➕ Nuovo mini-gioco", onclick: function () { editorApp(null); } })]));
+      app.appendChild(el("div", { class: "azioni" }, [el("a", { class: "btn", href: "#app/nuovo", text: "➕ Nuovo mini-gioco" })]));
       var lista = el("div", { class: "lista" });
       if (!l.length) lista.appendChild(el("p", { class: "vuoto", text: "Nessun mini-gioco caricato." }));
       l.forEach(function (a) {
@@ -447,18 +447,22 @@
           el("div", { class: "dati" }, [el("b", { text: a.titolo }), a.descrizione ? el("span", { text: a.descrizione }) : null,
             el("small", { text: kB(a.dimensione || 0) + " · " + API.data(a.aggiornato) + " · " + ((a.classi || []).length ? "in " + plur(a.classi.length, "classe", "classi") : "non pubblicato") })]),
           el("a", { class: "btn-ico", href: "app.html?id=" + encodeURIComponent(a.id), "aria-label": "Prova «" + a.titolo + "»", text: "▶️", style: "display:grid;place-items:center;text-decoration:none" }),
-          el("button", { class: "btn-ico", type: "button", "aria-label": "Modifica «" + a.titolo + "»", text: "✏️", onclick: function () { API.getApp(a.id).then(editorApp, problema); } }),
+          el("button", { class: "btn-ico", type: "button", "aria-label": "Modifica «" + a.titolo + "»", text: "✏️", onclick: function () { location.hash = "#app/" + encodeURIComponent(a.id); } }),
           el("button", { class: "btn-ico pericolo", type: "button", "aria-label": "Elimina «" + a.titolo + "»", text: "🗑", onclick: function () { eliminaApp(a); } })
         ]));
       });
       app.appendChild(lista);
     }, "Carico i tuoi mini-giochi…");
   }
+  function paginaEditorApp(aid) {
+    menuNav("app");
+    if (aid === "nuovo") { ++giro; return editorApp(null); }
+    carica(API.getApp(aid), editorApp, "Apro il mini-gioco…");
+  }
   function editorApp(a) {
-    ++giro;
     var html = a ? a.html : "";
     app.innerHTML = "";
-    app.appendChild(el("p", { style: "margin:12px 0 0" }, [el("a", { href: "#app", text: "← I miei mini-giochi", onclick: function (e) { e.preventDefault(); router(); } })]));
+    app.appendChild(el("p", { style: "margin:12px 0 0" }, [el("a", { href: "#app", text: "← I miei mini-giochi" })]));
     app.appendChild(h1(a ? "✏️ Modifica mini-gioco" : "➕ Nuovo mini-gioco"));
     var titolo = el("input", { class: "campo", id: "app-titolo", maxlength: "80", required: true, placeholder: "es. Le capitali d'Europa" });
     var descr = el("input", { class: "campo", id: "app-descr", maxlength: "200", placeholder: "Una frase per gli alunni (facoltativa)" });
@@ -514,7 +518,7 @@
       salva.disabled = true; err.textContent = "";
       (a ? API.aggiornaApp(a.id, dati) : API.creaApp(dati)).then(function () {
         N.suono.ok(); N.esito("si", a ? "Mini-gioco aggiornato!" : "Mini-gioco salvato!");
-        router();
+        location.hash = "#app";
       }, function (e2) { salva.disabled = false; if (e2.status === 401) return problema(e2); err.textContent = e2.message; });
     });
     app.appendChild(form);
@@ -612,6 +616,7 @@
     if ((m = /^classe\/([^/]+)(?:\/(\w+))?$/.exec(h))) return paginaClasse(m[1], m[2]);
     if (h === "quiz") return paginaQuiz();
     if (h === "app") return paginaApp();
+    if ((m = /^app\/(.+)$/.exec(h))) return paginaEditorApp(m[1]);
     if (h === "account") return paginaAccount();
     return paginaClassi();
   }

@@ -63,9 +63,10 @@ textarea.codice { font-family: ui-monospace, Menlo, Consolas, monospace; font-si
 .ultimi li small { display: block; color: var(--testo-2); font-weight: 600; }
 
 /* ---------- teacher dashboard ---------- */
-.nav-ins { display: flex; gap: 8px; overflow-x: auto; padding: 12px 2px 6px; scrollbar-width: none; }
-.nav-ins::-webkit-scrollbar { display: none; }
-.nav-ins a { flex: none; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border-radius: 999px; background: var(--carta); box-shadow: var(--ombra-piccola); color: var(--testo); text-decoration: none; font-weight: 800; font-size: 16px; }
+.nav-ins { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 12px 0 6px; }
+.nav-ins a { min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 4px 2px; border-radius: 16px; background: var(--carta); box-shadow: var(--ombra-piccola); color: var(--testo); text-decoration: none; font-weight: 800; font-size: 13.5px; line-height: 1.1; text-align: center; }
+.nav-ins a span { font-size: 20px; }
+@media (min-width: 640px) { .nav-ins a { flex-direction: row; gap: 8px; font-size: 16px; } }
 .nav-ins a[aria-current="page"] { background: var(--cls); color: #fff; }
 .riga-el { display: flex; align-items: center; gap: 12px; background: var(--carta); border-radius: 18px; padding: 12px 14px; box-shadow: var(--ombra-piccola); min-height: 64px; }
 .riga-el .ico { font-size: 30px; flex: none; }
@@ -122,16 +123,17 @@ table.tab button.link { border: 0; background: none; color: var(--cls); font-wei
 @media (min-width: 640px) { .foglio { grid-template-columns: 1fr 1fr; } }
 .tessera {
   background: #fff; border: 2px dashed #9a8fb0; border-radius: 14px; padding: 10px 12px; display: grid;
-  grid-template-columns: 64px 1fr; grid-template-rows: auto 1fr; column-gap: 10px; color: #2d2240; overflow: hidden;
+  grid-template-columns: 48px 1fr; grid-template-rows: auto 1fr auto; column-gap: 10px; color: #2d2240; overflow: hidden;
+  align-content: start;
 }
-.tessera .gufo { width: 64px; height: 64px; grid-row: 1 / span 2; align-self: center; }
-.tessera .t-testa { font-weight: 900; font-size: 15px; line-height: 1.15; }
+.tessera .gufo { width: 48px; height: 48px; align-self: center; }
+.tessera .t-testa { font-weight: 900; font-size: 16px; line-height: 1.15; align-self: center; }
 .tessera .t-testa small { display: block; font-weight: 700; color: #6b6180; font-size: 11px; }
-.tessera dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 1px 8px; align-items: baseline; }
+.tessera dl { grid-column: 1 / -1; margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: baseline; }
 .tessera dt { font-size: 11px; font-weight: 800; color: #6b6180; text-transform: uppercase; letter-spacing: .3px; }
 .tessera dd { margin: 0; font-weight: 800; overflow-wrap: anywhere; }
 .tessera dd.nome { font-size: 18px; }
-.tessera dd.cred { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; }
+.tessera dd.cred { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; white-space: nowrap; letter-spacing: -.2px; }
 .tessera dd.sito { font-size: 10.5px; font-weight: 700; word-break: break-all; }
 .tessera .t-nota { grid-column: 1 / -1; font-size: 10.5px; color: #6b6180; margin-top: 4px; }
 
@@ -143,14 +145,20 @@ table.tab button.link { border: 0; background: none; color: var(--cls); font-wei
   .stampa-barra { display: none !important; }
   .fogli { display: block; padding: 0; }
   .foglio {
-    width: 190mm; height: 276mm; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr);
-    gap: 3mm; break-after: page; page-break-after: always; margin: 0;
+    width: 190mm; height: 272mm; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 3mm; overflow: hidden; break-after: page; page-break-after: always; margin: 0;
   }
   .foglio:last-child { break-after: auto; page-break-after: auto; }
-  .tessera { border-radius: 4mm; padding: 4mm; grid-template-columns: 20mm 1fr; break-inside: avoid; }
-  .tessera .gufo { width: 20mm; height: 20mm; }
+  .tessera { border-radius: 4mm; padding: 3.5mm 5mm; grid-template-columns: 14mm 1fr; break-inside: avoid; min-height: 0; }
+  .tessera .gufo { width: 14mm; height: 14mm; }
+  .tessera .t-testa { font-size: 13pt; }
+  .tessera .t-testa small { font-size: 9pt; }
+  .tessera dl { margin-top: 2mm; gap: .8mm 3mm; }
+  .tessera dt { font-size: 7.5pt; }
   .tessera dd.nome { font-size: 15pt; }
   .tessera dd.cred { font-size: 14pt; }
+  .tessera dd.sito { font-size: 8pt; }
+  .tessera .t-nota { font-size: 7.5pt; margin: 1.5mm 0 0; line-height: 1.25; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 

@@ -109,7 +109,7 @@
         if (msg) { err.textContent = msg; return; }
         if (!o.esegui) { chiudi(true); fine(val); return; }
         ok.disabled = true; err.textContent = "";
-        Promise.resolve(o.esegui(val)).then(function (r) { chiudi(true); fine(r === undefined ? val : r); }, function (e2) {
+        Promise.resolve(o.esegui(val)).then(function (r) { chiudi(true); fine(r == null ? val : r); }, function (e2) {
           ok.disabled = false; err.textContent = e2 && e2.message || "Errore.";
         });
       });
