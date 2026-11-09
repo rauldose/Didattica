@@ -249,8 +249,12 @@
   D.dialogo = dialogo;
 
   /* ---------------- reward game overlay ---------------- */
-  // tipo: "duello" (intermediate levels) or "puzzle" (last level)
+  // tipo: "duello"/"gorillas" (intermediate levels) or "puzzle" (last level)
   D.gioco = function (tipo, secondi) {
+    // His DOS programs rewarded pupils with his build of Gorillas: when the
+    // site is served over http(s) it runs in the js-dos emulator, otherwise
+    // (file://, where WebAssembly cannot load) the new Duello is used.
+    if (tipo === "duello" && /^https?:$/.test(location.protocol)) tipo = "gorillas";
     return new Promise(function (resolve) {
       var ov = D.el("div", { class: "game-overlay" });
       var fr = D.el("iframe", {

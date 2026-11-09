@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gorillas – il gioco originale</title>
+<link rel="stylesheet" href="../../css/didattica.css">
+<link rel="stylesheet" href="jsdos/js-dos.css">
+<style>
+  html, body { height: 100%; }
+  body.dos { display: flex; flex-direction: column; }
+  .gor-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6em 1.2em; padding: 0.4em 1em; background: var(--c8); color: var(--c14); font-family: var(--mono); }
+  .gor-barra .spacer { flex: 1; }
+  .gor-barra .nota { color: var(--c7); font-size: 0.85em; }
+  #dos { flex: 1; min-height: 300px; position: relative; background: #000; }
+  .gor-avviso { max-width: 40em; margin: 2em auto; padding: 1.2em 1.5em; background: var(--c7); color: var(--c0); font-family: var(--mono); white-space: pre-wrap; }
+</style>
+</head>
+<body class="dos">
+<div class="gor-barra">
+  <strong>GORILLAS</strong>
+  <span id="tempo"></span>
+  <span class="nota">Programma originale del Prof. Muscolino (MSU.EXE), nell'emulatore DOS. Clicca sul gioco per usare la tastiera.</span>
+  <span class="spacer"></span>
+  <button id="duello" class="dos-btn" type="button">Gioca a Duello</button>
+  <button id="esci" class="dos-btn" type="button"><u>E</u>sci</button>
+</div>
+<div id="dos"></div>
+<script src="../../js/common.js"></script>
+<script src="giochi.js"></script>
+<script>
+(function () {
+  "use strict";
+  G.topbar("Gorillas");
+  var tempo = D.$("#tempo");
+
+  D.$("#esci").addEventListener("click", G.esci);
+  // switch to the modern game keeping the remaining seconds
+  D.$("#duello").addEventListener("click", function () {
+    location.replace("duello.html?sec=" + G.sec + (G.embed ? "&embed=1" : ""));
+  });
+
+  // WebAssembly cannot be loaded from file://: the site must be served over http(s)
+  if (!/^https?:$/.test(location.protocol)) {
+    D.$("#dos").appendChild(D.el("div", { class: "gor-avviso", text:
+      "Gorillas gira dentro un emulatore DOS, che il browser non permette di avviare\n" +
+      "aprendo i file direttamente dal disco.\n\n" +
+      "Funziona quando il sito è pubblicato (per esempio su GitHub Pages) oppure\n" +
+      "avviato con un piccolo server, per esempio:\n\n    python3 -m http.server\n\n" +
+      "e poi aprendo http://localhost:8000\n\nNel frattempo si può giocare a Duello." }));
+    D.$("#duello").focus();
+    return;
+  }
+
+  // Keyboard.lock() is not allowed inside an iframe (the reward overlay)
+  if (window.top !== window && navigator.keyboard && navigator.keyboard.lock) {
+    navigator.keyboard.lock = function () { return Promise.resolve(); };
+  }
+
+  // loaded as a module so its top-level names (it declares a global "D")
+  // do not overwrite our own library
+  var s = document.createElement("script");
+  s.type = "module";
+  s.src = "jsdos/js-dos.js";
+  s.onload = avvia;
+  s.onerror = function () { D.msg("Impossibile caricare l'emulatore DOS."); };
+  document.head.appendChild(s);
+
+  function avvia() {
+    // His programs launched the game as "msu.exe <seconds>". The emulated
+    // clock can run fast while the emulator warms up, so the game gets a
+    // small cushion and the real-time countdown of this page ends the play.
+    var secondi = G.sec + 30;
+    fetch("../../dati/gorillas/MSU.EXE").then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
+      var conf = [
+        "[sdl]", "autolock=false", "",
+        "[cpu]", "core=auto", "cputype=auto", "cycles=3000", "",
+        "[autoexec]", "echo off", "mount c .", "c:", "cls",
+        "MSU.EXE " + secondi
+      ].join("\n");
+      window.Dos(D.$("#dos"), {
+        pathPrefix: "jsdos/emulators/",
+        dosboxConf: conf,
+        initFs: [{ path: "MSU.EXE", contents: new Uint8Array(buf) }],
+        autoStart: true,
+        kiosk: true,
+        noCloud: true,
+        workerThread: false,
+        theme: "dark",
+        lang: "it"
+      });
+      G.avviaTempo(tempo);
+    }).catch(function (e) { D.msg("Errore: " + e.message); });
+  }
+  window.addEventListener("keydown", function (e) {
+    if (e.altKey && (e.key === "e" || e.key === "E")) { e.preventDefault(); G.esci(); }
+  });
+})();
+</script>
+</body>
+</html>

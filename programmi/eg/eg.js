@@ -42,7 +42,7 @@
     var v = voci[sel];
     if (v.tipo === "esci") { location.href = "../../index.html"; return; }
     if (v.tipo === "info") {
-      D.msg("Soft programmabile per esercitazioni o test multidisciplinari.\nGli esercizi sono strutturati in livelli (Max 5 ).\nPer ogni livello si possono programmare :\n- i punti acquisiti per svolgimento corretto;\n- i punti persi per errore;\n- i punti necessari per superare il livello;\n- i punti da perdere al passare del tempo;\n- la cadenza del tempo in secondi;\n- l'eventuale tempo da dedicare al gioco; \nI giochi disponibili sono due (duello e puzzle). Entrambi sono\nstudiati per permettere il gioco di due alunni.\nIl duello e' disponibile  nei livelli intermedi mentre puzzle 'gira'\nnell'ultimo livello.\nGli esercizi all'interno di un livello sono proposti \ncasualmente.\n\nAutore: prof. Carmelo Muscolino \nPalmanova Udine", "INFORMAZIONI");
+      D.msg("Soft programmabile per esercitazioni o test multidisciplinari.\nGli esercizi sono strutturati in livelli (Max 5 ).\nPer ogni livello si possono programmare :\n- i punti acquisiti per svolgimento corretto;\n- i punti persi per errore;\n- i punti necessari per superare il livello;\n- i punti da perdere al passare del tempo;\n- la cadenza del tempo in secondi;\n- l'eventuale tempo da dedicare al gioco; \nI giochi disponibili sono due (gorillas e puzzle). Entrambi sono\nstudiati per permettere il gioco di due alunni.\nGorillas e' disponibile  nei livelli intermedi mentre puzzle 'gira'\nnell'ultimo livello.\nGli esercizi all'interno di un livello sono proposti \ncasualmente.\n\nAutore: prof. Carmelo Muscolino \nPalmanova Udine", "INFORMAZIONI");
       return;
     }
     avvia(v.es);
@@ -159,7 +159,7 @@
     var passo = Promise.resolve(true);
     if (p.tg[l] > 0 && S.punti > p.sl[l]) {
       D.play(D.ALLARME);
-      var ultimo = S.livello === S.max, nome = ultimo ? "Puzzle" : "Duello";
+      var ultimo = S.livello === S.max, nome = ultimo ? "Puzzle" : "Gorillas";
       passo = D.conferma("\nBENISSIMO !\n\nVuoi riposarti giocando con " + nome + " ?\n\nSe non giochi conservo il tempo-gioco. \n\nAdesso sono disponibili " + S.sec + " sec. di gioco. ", " INFORMAZIONE: ")
         .then(function (si) {
           if (!si) return true;

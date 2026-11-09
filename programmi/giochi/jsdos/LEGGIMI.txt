@@ -1,0 +1,4 @@
+js-dos 8.3.20 (DOSBox compiled to WebAssembly) - https://js-dos.com
+Licence: GPL-2.0. Source code: https://github.com/caiiiycuk/js-dos
+Unmodified copy of the files from the npm package "js-dos@8.3.20" (dist/),
+used only to run Prof. Muscolino's original build of Gorillas (dati/gorillas/MSU.EXE).
