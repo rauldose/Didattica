@@ -25,10 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepara il sito (tutti i file del repository tranne .github)
+      - name: Prepara il sito (tutti i file del repository tranne .github e server)
         run: |
           mkdir _site
-          git ls-files | grep -v '^\.github/' | tar -cf - -T - | tar -xf - -C _site
+          git ls-files | grep -v -e '^\.github/' -e '^server/' | tar -cf - -T - | tar -xf - -C _site
           touch _site/.nojekyll
           find _site -type f | wc -l
           du -sh _site
