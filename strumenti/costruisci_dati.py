@@ -161,6 +161,8 @@ def applica_correzioni(eg, em, path):
             es = per_dir[nome]
             righe = es["testo"].split("\n")
         trovate = [i for i, r in enumerate(righe) if r.rstrip() == c["prima"].rstrip()]
+        if not trovate and any(r.rstrip() == c["dopo"].rstrip() for r in righe):
+            continue  # identical line already corrected (it occurs more than once)
         if not trovate:
             raise SystemExit("Correzione non applicabile (%s, riga %s): %r" % (c["set"], c.get("riga"), c["prima"]))
         for i in trovate:
@@ -179,8 +181,12 @@ def scrivi_elenco(corr, path, eg):
            "degli errori in quanto sono quelli prodotti dai ragazzi\" e chiedeva aiuto per sistemarli.",
            "Queste sono le correzioni applicate alle versioni giocabili (`dati/`). I file originali",
            "restano invariati in `archivio/` e le correzioni sono in `strumenti/correzioni.json`.", ""]
-    corrente = None
-    for c in corr:
+    corrente, visti = None, set()
+    for c in sorted(corr, key=lambda c: (c["set"], c.get("livello") or 0, c.get("riga") or 0)):
+        chiave = (c["set"], c.get("livello"), c["prima"].strip(), c["dopo"].strip())
+        if chiave in visti:
+            continue
+        visti.add(chiave)
         tipo, nome = c["set"].split(":", 1)
         intest = ("E.G. – %s" % titoli.get(nome, nome)) if tipo == "EG" else ("EM – %s" % nome)
         if c.get("livello"):

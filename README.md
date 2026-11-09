@@ -21,7 +21,7 @@ Prof. Carmelo Muscolino taught mathematics and science at the middle school of G
 | **Duello** | — | A new two-player game, used instead of Gorillas when the site is opened straight from disk |
 | ProfEdit | VB-DOS / Windows | Not ported; the originals are kept in the archive |
 
-The original data are all included: 16 E.G. exercise sets, 9 EM sets with their pictures and sounds, and the Archimede and Talete material. User-facing text is in Italian, as he wrote it.
+The original data are all included: 16 E.G. exercise sets, 9 EM sets with their pictures and sounds, and the Archimede and Talete material. As he asked on his site, the mistakes in the pupil-made sets have been corrected (284 line changes, listed in `docs/CORREZIONI.md`; the originals are unchanged in `archivio/`). User-facing text is in Italian, as he wrote it.
 
 ## Repository layout
 

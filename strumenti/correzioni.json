@@ -1,0 +1,2274 @@
+[
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 40,
+  "prima": "Il bambino si nascose in un scattolone.\\uno ",
+  "dopo": "Il bambino si nascose in un scatolone.\\uno ",
+  "motivo": "La frase conteneva un secondo errore non voluto: 'scattolone' -> 'scatolone' (l'errore da trovare è 'un')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 40,
+  "prima": "Il bambino si nascose in un scattolone.\\uno ",
+  "dopo": "Il bambino si nascose in un scatolone.\\uno ",
+  "motivo": "La frase conteneva un secondo errore non voluto: 'scattolone' -> 'scatolone' (l'errore da trovare è 'un')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 40,
+  "prima": "Il bambino si nascose in un scattolone.\\uno ",
+  "dopo": "Il bambino si nascose in un scatolone.\\uno ",
+  "motivo": "La frase conteneva un secondo errore non voluto: 'scattolone' -> 'scatolone' (l'errore da trovare è 'un')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 40,
+  "prima": "Il bambino si nascose in un scattolone.\\uno ",
+  "dopo": "Il bambino si nascose in un scatolone.\\uno ",
+  "motivo": "La frase conteneva un secondo errore non voluto: 'scattolone' -> 'scatolone' (l'errore da trovare è 'un')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 40,
+  "prima": "Il bambino si nascose in un scattolone.\\uno ",
+  "dopo": "Il bambino si nascose in un scatolone.\\uno ",
+  "motivo": "La frase conteneva un secondo errore non voluto: 'scattolone' -> 'scatolone' (l'errore da trovare è 'un')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 115,
+  "prima": "Perchè non ai prestato il libro al tuo amico?\\hai ",
+  "dopo": "Perché non ai prestato il libro al tuo amico?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 115,
+  "prima": "Perchè non ai prestato il libro al tuo amico?\\hai ",
+  "dopo": "Perché non ai prestato il libro al tuo amico?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 115,
+  "prima": "Perchè non ai prestato il libro al tuo amico?\\hai ",
+  "dopo": "Perché non ai prestato il libro al tuo amico?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 115,
+  "prima": "Perchè non ai prestato il libro al tuo amico?\\hai ",
+  "dopo": "Perché non ai prestato il libro al tuo amico?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 115,
+  "prima": "Perchè non ai prestato il libro al tuo amico?\\hai ",
+  "dopo": "Perché non ai prestato il libro al tuo amico?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 150,
+  "prima": "Perchè non ai usato i pastelli per questo disegno?\\hai ",
+  "dopo": "Perché non ai usato i pastelli per questo disegno?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 150,
+  "prima": "Perchè non ai usato i pastelli per questo disegno?\\hai ",
+  "dopo": "Perché non ai usato i pastelli per questo disegno?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 150,
+  "prima": "Perchè non ai usato i pastelli per questo disegno?\\hai ",
+  "dopo": "Perché non ai usato i pastelli per questo disegno?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 150,
+  "prima": "Perchè non ai usato i pastelli per questo disegno?\\hai ",
+  "dopo": "Perché non ai usato i pastelli per questo disegno?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 150,
+  "prima": "Perchè non ai usato i pastelli per questo disegno?\\hai ",
+  "dopo": "Perché non ai usato i pastelli per questo disegno?\\hai ",
+  "motivo": "Secondo errore non voluto: 'Perchè' va scritto 'Perché' (l'errore da trovare è 'ai')."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 49,
+  "prima": "Ecco a voi il strabiliante mago di Istambul!\\lo ",
+  "dopo": "Ecco a voi il strabiliante mago di Istanbul!\\lo ",
+  "motivo": "'Istambul' è grafia antiquata e può sembrare un secondo errore; forma corrente 'Istanbul'."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 49,
+  "prima": "Ecco a voi il strabiliante mago di Istambul!\\lo ",
+  "dopo": "Ecco a voi il strabiliante mago di Istanbul!\\lo ",
+  "motivo": "'Istambul' è grafia antiquata e può sembrare un secondo errore; forma corrente 'Istanbul'."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 49,
+  "prima": "Ecco a voi il strabiliante mago di Istambul!\\lo ",
+  "dopo": "Ecco a voi il strabiliante mago di Istanbul!\\lo ",
+  "motivo": "'Istambul' è grafia antiquata e può sembrare un secondo errore; forma corrente 'Istanbul'."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 49,
+  "prima": "Ecco a voi il strabiliante mago di Istambul!\\lo ",
+  "dopo": "Ecco a voi il strabiliante mago di Istanbul!\\lo ",
+  "motivo": "'Istambul' è grafia antiquata e può sembrare un secondo errore; forma corrente 'Istanbul'."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 49,
+  "prima": "Ecco a voi il strabiliante mago di Istambul!\\lo ",
+  "dopo": "Ecco a voi il strabiliante mago di Istanbul!\\lo ",
+  "motivo": "'Istambul' è grafia antiquata e può sembrare un secondo errore; forma corrente 'Istanbul'."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 103,
+  "prima": "Ha,che sollievo\\Ah ",
+  "dopo": "Ha, che sollievo\\Ah ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 103,
+  "prima": "Ha,che sollievo\\Ah ",
+  "dopo": "Ha, che sollievo\\Ah ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 103,
+  "prima": "Ha,che sollievo\\Ah ",
+  "dopo": "Ha, che sollievo\\Ah ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 103,
+  "prima": "Ha,che sollievo\\Ah ",
+  "dopo": "Ha, che sollievo\\Ah ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 103,
+  "prima": "Ha,che sollievo\\Ah ",
+  "dopo": "Ha, che sollievo\\Ah ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 112,
+  "prima": "Durante l'hanno,non hai tratto giovamento dalle lezioni.\\anno ",
+  "dopo": "Durante l'hanno, non hai tratto giovamento dalle lezioni.\\anno ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 112,
+  "prima": "Durante l'hanno,non hai tratto giovamento dalle lezioni.\\anno ",
+  "dopo": "Durante l'hanno, non hai tratto giovamento dalle lezioni.\\anno ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 112,
+  "prima": "Durante l'hanno,non hai tratto giovamento dalle lezioni.\\anno ",
+  "dopo": "Durante l'hanno, non hai tratto giovamento dalle lezioni.\\anno ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 112,
+  "prima": "Durante l'hanno,non hai tratto giovamento dalle lezioni.\\anno ",
+  "dopo": "Durante l'hanno, non hai tratto giovamento dalle lezioni.\\anno ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 112,
+  "prima": "Durante l'hanno,non hai tratto giovamento dalle lezioni.\\anno ",
+  "dopo": "Durante l'hanno, non hai tratto giovamento dalle lezioni.\\anno ",
+  "motivo": "Manca lo spazio dopo la virgola."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 131,
+  "prima": "Mio fratello si è diplomato l' hanno scorso.\\anno ",
+  "dopo": "Mio fratello si è diplomato l'hanno scorso.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 131,
+  "prima": "Mio fratello si è diplomato l' hanno scorso.\\anno ",
+  "dopo": "Mio fratello si è diplomato l'hanno scorso.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 131,
+  "prima": "Mio fratello si è diplomato l' hanno scorso.\\anno ",
+  "dopo": "Mio fratello si è diplomato l'hanno scorso.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 131,
+  "prima": "Mio fratello si è diplomato l' hanno scorso.\\anno ",
+  "dopo": "Mio fratello si è diplomato l'hanno scorso.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 131,
+  "prima": "Mio fratello si è diplomato l' hanno scorso.\\anno ",
+  "dopo": "Mio fratello si è diplomato l'hanno scorso.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 140,
+  "prima": "Ci rivedremo al mare l' hanno prossimo.\\anno ",
+  "dopo": "Ci rivedremo al mare l'hanno prossimo.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 140,
+  "prima": "Ci rivedremo al mare l' hanno prossimo.\\anno ",
+  "dopo": "Ci rivedremo al mare l'hanno prossimo.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 140,
+  "prima": "Ci rivedremo al mare l' hanno prossimo.\\anno ",
+  "dopo": "Ci rivedremo al mare l'hanno prossimo.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 140,
+  "prima": "Ci rivedremo al mare l' hanno prossimo.\\anno ",
+  "dopo": "Ci rivedremo al mare l'hanno prossimo.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 140,
+  "prima": "Ci rivedremo al mare l' hanno prossimo.\\anno ",
+  "dopo": "Ci rivedremo al mare l'hanno prossimo.\\anno ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 144,
+  "prima": "Quante volte te l' oh detto?\\ho ",
+  "dopo": "Quante volte te l'oh detto?\\ho ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 144,
+  "prima": "Quante volte te l' oh detto?\\ho ",
+  "dopo": "Quante volte te l'oh detto?\\ho ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 144,
+  "prima": "Quante volte te l' oh detto?\\ho ",
+  "dopo": "Quante volte te l'oh detto?\\ho ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 144,
+  "prima": "Quante volte te l' oh detto?\\ho ",
+  "dopo": "Quante volte te l'oh detto?\\ho ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 144,
+  "prima": "Quante volte te l' oh detto?\\ho ",
+  "dopo": "Quante volte te l'oh detto?\\ho ",
+  "motivo": "Spazio superfluo dopo l'apostrofo (non è l'errore dell'esercizio)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 180,
+  "prima": "Il suo incarico era di annaffiare ogni serra i fiori .\\sera ",
+  "dopo": "Il suo incarico era di annaffiare ogni serra i fiori.\\sera ",
+  "motivo": "Spazio superfluo prima del punto."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 2,
+  "riga": 180,
+  "prima": "Il suo incarico era di annaffiare ogni serra i fiori .\\sera ",
+  "dopo": "Il suo incarico era di annaffiare ogni serra i fiori.\\sera ",
+  "motivo": "Spazio superfluo prima del punto."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 3,
+  "riga": 180,
+  "prima": "Il suo incarico era di annaffiare ogni serra i fiori .\\sera ",
+  "dopo": "Il suo incarico era di annaffiare ogni serra i fiori.\\sera ",
+  "motivo": "Spazio superfluo prima del punto."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 4,
+  "riga": 180,
+  "prima": "Il suo incarico era di annaffiare ogni serra i fiori .\\sera ",
+  "dopo": "Il suo incarico era di annaffiare ogni serra i fiori.\\sera ",
+  "motivo": "Spazio superfluo prima del punto."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 5,
+  "riga": 180,
+  "prima": "Il suo incarico era di annaffiare ogni serra i fiori .\\sera ",
+  "dopo": "Il suo incarico era di annaffiare ogni serra i fiori.\\sera ",
+  "motivo": "Spazio superfluo prima del punto."
+ },
+ {
+  "set": "EG:DOPPIE",
+  "livello": 1,
+  "riga": 20,
+  "prima": "cosichè\\cosicchè",
+  "dopo": "cosichè\\cosicché\\cosicchè",
+  "motivo": "La grafia corretta è 'cosicché' (accento acuto, come perché); si mantiene 'cosicchè' come alternativa tollerata."
+ },
+ {
+  "set": "EG:DOPPIE",
+  "livello": 2,
+  "riga": 20,
+  "prima": "cosichè\\cosicchè",
+  "dopo": "cosichè\\cosicché\\cosicchè",
+  "motivo": "La grafia corretta è 'cosicché' (accento acuto, come perché); si mantiene 'cosicchè' come alternativa tollerata."
+ },
+ {
+  "set": "EG:DOPPIE",
+  "livello": 3,
+  "riga": 20,
+  "prima": "cosichè\\cosicchè",
+  "dopo": "cosichè\\cosicché\\cosicchè",
+  "motivo": "La grafia corretta è 'cosicché' (accento acuto, come perché); si mantiene 'cosicchè' come alternativa tollerata."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 1,
+  "riga": 8,
+  "prima": "ciliegia \\ ciliegie",
+  "dopo": "ciliegia \\ ciliegie\\ciliege",
+  "motivo": "Anche 'ciliege' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 2,
+  "riga": 8,
+  "prima": "ciliegia \\ ciliegie",
+  "dopo": "ciliegia \\ ciliegie\\ciliege",
+  "motivo": "Anche 'ciliege' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 3,
+  "riga": 8,
+  "prima": "ciliegia \\ ciliegie",
+  "dopo": "ciliegia \\ ciliegie\\ciliege",
+  "motivo": "Anche 'ciliege' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 4,
+  "riga": 8,
+  "prima": "ciliegia \\ ciliegie",
+  "dopo": "ciliegia \\ ciliegie\\ciliege",
+  "motivo": "Anche 'ciliege' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 5,
+  "riga": 8,
+  "prima": "ciliegia \\ ciliegie",
+  "dopo": "ciliegia \\ ciliegie\\ciliege",
+  "motivo": "Anche 'ciliege' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 1,
+  "riga": 19,
+  "prima": "valigia  \\ valigie ",
+  "dopo": "valigia  \\ valigie\\valige",
+  "motivo": "Anche 'valige' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 2,
+  "riga": 19,
+  "prima": "valigia  \\ valigie ",
+  "dopo": "valigia  \\ valigie\\valige",
+  "motivo": "Anche 'valige' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 3,
+  "riga": 19,
+  "prima": "valigia  \\ valigie ",
+  "dopo": "valigia  \\ valigie\\valige",
+  "motivo": "Anche 'valige' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 4,
+  "riga": 19,
+  "prima": "valigia  \\ valigie ",
+  "dopo": "valigia  \\ valigie\\valige",
+  "motivo": "Anche 'valige' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 5,
+  "riga": 19,
+  "prima": "valigia  \\ valigie ",
+  "dopo": "valigia  \\ valigie\\valige",
+  "motivo": "Anche 'valige' è plurale ammesso dai dizionari."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 1,
+  "riga": 17,
+  "prima": "altoforno  \\ altiforni",
+  "dopo": "altoforno  \\ altiforni\\altoforni",
+  "motivo": "Anche 'altoforni' è plurale ammesso (Treccani: altiforni o altoforni)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 2,
+  "riga": 17,
+  "prima": "altoforno  \\ altiforni",
+  "dopo": "altoforno  \\ altiforni\\altoforni",
+  "motivo": "Anche 'altoforni' è plurale ammesso (Treccani: altiforni o altoforni)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 3,
+  "riga": 17,
+  "prima": "altoforno  \\ altiforni",
+  "dopo": "altoforno  \\ altiforni\\altoforni",
+  "motivo": "Anche 'altoforni' è plurale ammesso (Treccani: altiforni o altoforni)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 4,
+  "riga": 17,
+  "prima": "altoforno  \\ altiforni",
+  "dopo": "altoforno  \\ altiforni\\altoforni",
+  "motivo": "Anche 'altoforni' è plurale ammesso (Treccani: altiforni o altoforni)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 5,
+  "riga": 17,
+  "prima": "altoforno  \\ altiforni",
+  "dopo": "altoforno  \\ altiforni\\altoforni",
+  "motivo": "Anche 'altoforni' è plurale ammesso (Treccani: altiforni o altoforni)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 1,
+  "riga": 21,
+  "prima": "chirurgo  \\ chirurghi ",
+  "dopo": "chirurgo  \\ chirurghi\\chirurgi",
+  "motivo": "Anche 'chirurgi' è plurale ammesso (chirurghi o chirurgi)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 2,
+  "riga": 21,
+  "prima": "chirurgo  \\ chirurghi ",
+  "dopo": "chirurgo  \\ chirurghi\\chirurgi",
+  "motivo": "Anche 'chirurgi' è plurale ammesso (chirurghi o chirurgi)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 3,
+  "riga": 21,
+  "prima": "chirurgo  \\ chirurghi ",
+  "dopo": "chirurgo  \\ chirurghi\\chirurgi",
+  "motivo": "Anche 'chirurgi' è plurale ammesso (chirurghi o chirurgi)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 4,
+  "riga": 21,
+  "prima": "chirurgo  \\ chirurghi ",
+  "dopo": "chirurgo  \\ chirurghi\\chirurgi",
+  "motivo": "Anche 'chirurgi' è plurale ammesso (chirurghi o chirurgi)."
+ },
+ {
+  "set": "EG:PLURAL",
+  "livello": 5,
+  "riga": 21,
+  "prima": "chirurgo  \\ chirurghi ",
+  "dopo": "chirurgo  \\ chirurghi\\chirurgi",
+  "motivo": "Anche 'chirurgi' è plurale ammesso (chirurghi o chirurgi)."
+ },
+ {
+  "set": "EG:ERRORI",
+  "livello": 1,
+  "riga": 42,
+  "prima": "# Guarda bene!! Una parola è errata . Digita correttamente.",
+  "dopo": ".Guarda bene!! Una parola è errata. Digita correttamente.",
+  "motivo": "La consegna iniziava con # invece del punto: veniva mostrata come testo della domanda successiva."
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 1,
+  "riga": 8,
+  "prima": ".Dimmi se l'equaglianza è vera o falsa",
+  "dopo": ".Dimmi se l'uguaglianza è vera o falsa",
+  "motivo": "Refuso: 'equaglianza' -> 'uguaglianza'"
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 1,
+  "riga": 14,
+  "prima": ".Dimmi il numero che soddisfa l'uquaglianza.Se non c'è scrivi impossibile",
+  "dopo": ".Dimmi il numero che soddisfa l'uguaglianza. Se non c'è scrivi impossibile",
+  "motivo": "Refuso: 'uquaglianza' -> 'uguaglianza' (e spazio dopo il punto)"
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 1,
+  "riga": 26,
+  "prima": "..^3=64",
+  "dopo": "..^3=64\\4",
+  "motivo": "Manca la risposta (nessun '\\'): l'esercizio non è rispondibile; 4^3=64"
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 2,
+  "riga": 8,
+  "prima": ".Dimmi se l'equaglianza è vera o falsa",
+  "dopo": ".Dimmi se l'uguaglianza è vera o falsa",
+  "motivo": "Refuso: 'equaglianza' -> 'uguaglianza'"
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 2,
+  "riga": 14,
+  "prima": ".Dimmi il numero che soddisfa l'uquaglianza.Se non c'è scrivi impossibile",
+  "dopo": ".Dimmi il numero che soddisfa l'uguaglianza. Se non c'è scrivi impossibile",
+  "motivo": "Refuso: 'uquaglianza' -> 'uguaglianza' (e spazio dopo il punto)"
+ },
+ {
+  "set": "EG:POTENZE1",
+  "livello": 2,
+  "riga": 26,
+  "prima": "..^3=64",
+  "dopo": "..^3=64\\4",
+  "motivo": "Manca la risposta (nessun '\\'): l'esercizio non è rispondibile; 4^3=64"
+ },
+ {
+  "set": "EG:MUDI",
+  "livello": 1,
+  "riga": 3,
+  "prima": "Un numero è ....... per un'altro quando la divisione tra il primo ed il",
+  "dopo": "Un numero è ....... per un altro quando la divisione tra il primo ed il",
+  "motivo": "Errore grammaticale: 'un altro' (maschile) va senza apostrofo"
+ },
+ {
+  "set": "EG:MUDI",
+  "livello": 1,
+  "riga": 6,
+  "prima": "Un numero è divisibile per un'altro quando la ...... tra il primo ed il",
+  "dopo": "Un numero è divisibile per un altro quando la ...... tra il primo ed il",
+  "motivo": "Errore grammaticale: 'un altro' (maschile) va senza apostrofo"
+ },
+ {
+  "set": "EG:MUDI",
+  "livello": 1,
+  "riga": 9,
+  "prima": "Un numero è divisibile per un'altro quando la divisione tra il primo ed il",
+  "dopo": "Un numero è divisibile per un altro quando la divisione tra il primo ed il",
+  "motivo": "Errore grammaticale: 'un altro' (maschile) va senza apostrofo"
+ },
+ {
+  "set": "EG:MUDI",
+  "livello": 1,
+  "riga": 12,
+  "prima": "Un numero è divisibile per un'altro quando la divisione tra il primo ed il",
+  "dopo": "Un numero è divisibile per un altro quando la divisione tra il primo ed il",
+  "motivo": "Errore grammaticale: 'un altro' (maschile) va senza apostrofo"
+ },
+ {
+  "set": "EG:MUDI",
+  "livello": 1,
+  "riga": 15,
+  "prima": "Un numero è divisibile per un'altro quando la divisione tra il primo ed il",
+  "dopo": "Un numero è divisibile per un altro quando la divisione tra il primo ed il",
+  "motivo": "Errore grammaticale: 'un altro' (maschile) va senza apostrofo"
+ },
+ {
+  "set": "EG:OPERAZ",
+  "livello": 2,
+  "riga": 2,
+  "prima": "  IN QUESTO LIVELLO DEVI ESEGURE DELLE SOMME ",
+  "dopo": "  IN QUESTO LIVELLO DEVI ESEGUIRE DELLE SOMME ",
+  "motivo": "Refuso: 'ESEGURE' -> 'ESEGUIRE'"
+ },
+ {
+  "set": "EG:OPERAZ",
+  "livello": 5,
+  "riga": 3,
+  "prima": "   Le divivioni sono con una o due cifre decimali",
+  "dopo": "   Le divisioni sono con una o due cifre decimali",
+  "motivo": "Refuso: 'divivioni' -> 'divisioni'"
+ },
+ {
+  "set": "EG:TOT",
+  "livello": 3,
+  "riga": 11,
+  "prima": "\\70",
+  "dopo": "\\=70\\70",
+  "motivo": "Unico passaggio senza '=' iniziale: chi segue lo schema degli altri passaggi scrive '=70' e verrebbe rifiutato; accettate entrambe le forme"
+ },
+ {
+  "set": "EG:TOT",
+  "livello": 3,
+  "riga": 65,
+  "prima": "      [[(5-2+7*2)*2-13+10*2]-21]\\(5+3*7-6)=",
+  "dopo": "      [[(5-2+7*2)*2-13+10*2]-21]/(5+3*7-6)=",
+  "motivo": "Nel testo dell'espressione c'è '\\' al posto del diviso '/': il '\\' viene letto come separatore di risposta e rompe l'esercizio (i passaggi successivi usano '/')"
+ },
+ {
+  "set": "EG:TOT",
+  "livello": 3,
+  "riga": 72,
+  "prima": "      \\20/20=",
+  "dopo": "      \\=20/20=\\20/20=",
+  "motivo": "Passaggio senza '=' iniziale, diversamente da tutti gli altri; accettate entrambe le forme"
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 4,
+  "prima": "Le alghe  verdi-azzurre sono organismi..... \\ unicellulari.",
+  "dopo": "Le alghe  verdi-azzurre sono organismi..... \\ unicellulari.\\unicellulari",
+  "motivo": "Risposta con punto finale inglobato: \"unicellulari\" digitato senza punto veniva rifiutato; aggiunta la forma senza punto."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 16,
+  "prima": "chiamate .......\\ saprofiti",
+  "dopo": "chiamati .......\\ saprofiti",
+  "motivo": "Concordanza: \"i batteri ... sono chiamati\"."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 15,
+  "prima": "I batteri che si nutrono di sostanze organiche sono",
+  "dopo": "I batteri che si nutrono di sostanze organiche in decomposizione sono",
+  "motivo": "Anche i parassiti si nutrono di sostanze organiche: i saprofiti si nutrono di materia organica morta/in decomposizione, altrimenti la definizione non individua la risposta."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 21,
+  "prima": "Il regno monere è formato da organismi ....... \\unicellulari",
+  "dopo": "Il regno monere è formato da organismi ....... \\unicellulari\\procarioti",
+  "motivo": "Anche \"procarioti\" completa correttamente la frase (vedi livello successivo: \"unicellulari e procarioti\")."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 23,
+  "prima": "Le alghe verdi-azzurre sono .......\\autotrofi",
+  "dopo": "Le alghe verdi-azzurre sono .......\\autotrofi\\unicellulari\\procarioti",
+  "motivo": "La frase ammette anche \"unicellulari\"/\"procarioti\" (le alghe verdi-azzurre lo sono); aggiunte come alternative."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 81,
+  "prima": "I batteri sono a forma di: ............., ............ o ...........,  ",
+  "dopo": "I batteri sono a forma di: ............., ............ ,  ",
+  "motivo": "Ci sono 5 gruppi di puntini ma solo 4 risposte (bastoncelli, elica o spirale, virgola, sfera): eliminato un gruppo di puntini per far corrispondere testo e risposte."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 92,
+  "prima": "I batteri si riproducono nell'arco di ........... ore",
+  "dopo": "I batteri, in condizioni favorevoli, si riproducono ogni ........... minuti",
+  "motivo": "Errore scientifico: in condizioni favorevoli i batteri si dividono circa ogni 20-30 minuti, non ogni dodici ore."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 93,
+  "prima": "\\dodici",
+  "dopo": "\\venti\\20\\trenta\\30",
+  "motivo": "Risposta adeguata alla frase corretta (20-30 minuti)."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 184,
+  "prima": "verdi-azzurrre sono...........",
+  "dopo": "verdi-azzurre sono...........",
+  "motivo": "Refuso: \"azzurrre\"."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 185,
+  "prima": "\\sono organismi unicellulari",
+  "dopo": "\\unicellulari",
+  "motivo": "La risposta \"sono organismi unicellulari\" ripeteva il \"sono\" già presente nel testo (\"sono sono organismi...\"); lasciata solo la parola mancante."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 212,
+  "prima": ". consegna ----------",
+  "dopo": ".Scrivi il nome della parte della cellula descritta.",
+  "motivo": "La consegna era un segnaposto non compilato (\". consegna ----------\") che veniva mostrato all'alunno."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 214,
+  "prima": "al resto dell'organismo \\ apparato del Golgi",
+  "dopo": "al resto dell'organismo \\ apparato del Golgi\\apparato di Golgi\\complesso del Golgi\\complesso di Golgi\\Golgi",
+  "motivo": "Aggiunte le denominazioni equivalenti dell'apparato di Golgi."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 1,
+  "riga": 240,
+  "prima": "clorofilliana",
+  "dopo": "\\clorofilliana",
+  "motivo": "Mancava il carattere \\ : 'clorofilliana' era trattata come una nuova domanda senza risposta invece che come seconda risposta."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 4,
+  "prima": "Le alghe  verdi-azzurre sono organismi..... \\ unicellulari.",
+  "dopo": "Le alghe  verdi-azzurre sono organismi..... \\ unicellulari.\\unicellulari",
+  "motivo": "Risposta con punto finale inglobato: \"unicellulari\" digitato senza punto veniva rifiutato; aggiunta la forma senza punto."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 16,
+  "prima": "chiamate \\ saprofiti",
+  "dopo": "chiamati .......\\ saprofiti",
+  "motivo": "Concordanza (\"chiamati\") e mancavano i puntini dello spazio da completare (come nel livello 1)."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 15,
+  "prima": "I batteri che si nutrono di sostanze organiche sono",
+  "dopo": "I batteri che si nutrono di sostanze organiche in decomposizione sono",
+  "motivo": "Anche i parassiti si nutrono di sostanze organiche: i saprofiti si nutrono di materia organica morta/in decomposizione, altrimenti la definizione non individua la risposta."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 21,
+  "prima": "Il regno monere è formato da organismi ....... \\unicellulari",
+  "dopo": "Il regno monere è formato da organismi ....... \\unicellulari\\procarioti",
+  "motivo": "Anche \"procarioti\" completa correttamente la frase (vedi livello successivo: \"unicellulari e procarioti\")."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 23,
+  "prima": "Le alghe verdi-azzurre sono .......\\autotrofi",
+  "dopo": "Le alghe verdi-azzurre sono .......\\autotrofi\\unicellulari\\procarioti",
+  "motivo": "La frase ammette anche \"unicellulari\"/\"procarioti\" (le alghe verdi-azzurre lo sono); aggiunte come alternative."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 81,
+  "prima": "I batteri sono a forma di: ............., ............ o ...........,  ",
+  "dopo": "I batteri sono a forma di: ............., ............ ,  ",
+  "motivo": "Ci sono 5 gruppi di puntini ma solo 4 risposte (bastoncelli, elica o spirale, virgola, sfera): eliminato un gruppo di puntini per far corrispondere testo e risposte."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 92,
+  "prima": "I batteri si riproducono nell'arco di ........... ore",
+  "dopo": "I batteri, in condizioni favorevoli, si riproducono ogni ........... minuti",
+  "motivo": "Errore scientifico: in condizioni favorevoli i batteri si dividono circa ogni 20-30 minuti, non ogni dodici ore."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 93,
+  "prima": "\\dodici",
+  "dopo": "\\venti\\20\\trenta\\30",
+  "motivo": "Risposta adeguata alla frase corretta (20-30 minuti)."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 184,
+  "prima": "verdi-azzurrre sono...........",
+  "dopo": "verdi-azzurre sono...........",
+  "motivo": "Refuso: \"azzurrre\"."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 185,
+  "prima": "\\sono organismi unicellulari",
+  "dopo": "\\unicellulari",
+  "motivo": "La risposta \"sono organismi unicellulari\" ripeteva il \"sono\" già presente nel testo (\"sono sono organismi...\"); lasciata solo la parola mancante."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 212,
+  "prima": ". consegna ----------",
+  "dopo": ".Scrivi il nome della parte della cellula descritta.",
+  "motivo": "La consegna era un segnaposto non compilato (\". consegna ----------\") che veniva mostrato all'alunno."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 214,
+  "prima": "al resto dell'organismo \\ apparato del Golgi",
+  "dopo": "al resto dell'organismo \\ apparato del Golgi\\apparato di Golgi\\complesso del Golgi\\complesso di Golgi\\Golgi",
+  "motivo": "Aggiunte le denominazioni equivalenti dell'apparato di Golgi."
+ },
+ {
+  "set": "EG:BATTERI",
+  "livello": 2,
+  "riga": 240,
+  "prima": "clorofilliana",
+  "dopo": "\\clorofilliana",
+  "motivo": "Mancava il carattere \\ : 'clorofilliana' era trattata come una nuova domanda senza risposta invece che come seconda risposta."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 1,
+  "riga": 7,
+  "prima": "pigmento verde responsabile dell fotosintesi clorofilliana. \\ cloroplasti",
+  "dopo": "pigmento verde responsabile della fotosintesi clorofilliana. \\ cloroplasti",
+  "motivo": "Refuso: \"dell fotosintesi\"."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 1,
+  "riga": 12,
+  "prima": "funzione delle piante: la ............. \\ fotosintesi clorofilliana",
+  "dopo": "funzione delle piante: la ............. \\ fotosintesi clorofilliana\\fotosintesi",
+  "motivo": "Accettata anche la risposta \"fotosintesi\" (un solo gruppo di puntini)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 1,
+  "riga": 13,
+  "prima": "La ..... è la più piccola particella di un essere vivente.\\cellula",
+  "dopo": "La ..... è la più piccola unità di un essere vivente.\\cellula",
+  "motivo": "La cellula è la più piccola unità vivente, non la più piccola \"particella\" (molecole e atomi sono più piccoli)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 1,
+  "riga": 20,
+  "prima": "assumono forme e dimensioni opportune alla loro specifica attività.\\ vivente",
+  "dopo": "assumono forme e dimensioni opportune alla loro specifica attività.\\ vivente\\pluricellulare",
+  "motivo": "Anche \"pluricellulare\" completa correttamente la frase (organismo pluricellulare)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 1,
+  "riga": 29,
+  "prima": "In una cellula vegetale,oltre alle strutture esaminate nella cellula ",
+  "dopo": "In una cellula vegetale, oltre alle strutture esaminate nella cellula ",
+  "motivo": "Spazio mancante dopo la virgola."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 2,
+  "riga": 7,
+  "prima": "pigmento verde responsabile dell fotosintesi clorofilliana. \\ cloroplasti",
+  "dopo": "pigmento verde responsabile della fotosintesi clorofilliana. \\ cloroplasti",
+  "motivo": "Refuso: \"dell fotosintesi\"."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 2,
+  "riga": 12,
+  "prima": "funzione delle piante: la ............. \\ fotosintesi clorofilliana",
+  "dopo": "funzione delle piante: la ............. \\ fotosintesi clorofilliana\\fotosintesi",
+  "motivo": "Accettata anche la risposta \"fotosintesi\" (un solo gruppo di puntini)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 2,
+  "riga": 13,
+  "prima": "La ..... è la più piccola particella di un essere vivente.\\cellula",
+  "dopo": "La ..... è la più piccola unità di un essere vivente.\\cellula",
+  "motivo": "La cellula è la più piccola unità vivente, non la più piccola \"particella\" (molecole e atomi sono più piccoli)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 2,
+  "riga": 20,
+  "prima": "assumono forme e dimensioni opportune alla loro specifica attività.\\ vivente",
+  "dopo": "assumono forme e dimensioni opportune alla loro specifica attività.\\ vivente\\pluricellulare",
+  "motivo": "Anche \"pluricellulare\" completa correttamente la frase (organismo pluricellulare)."
+ },
+ {
+  "set": "EG:CELLULA",
+  "livello": 2,
+  "riga": 29,
+  "prima": "In una cellula vegetale,oltre alle strutture esaminate nella cellula ",
+  "dopo": "In una cellula vegetale, oltre alle strutture esaminate nella cellula ",
+  "motivo": "Spazio mancante dopo la virgola."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 173,
+  "prima": "chiude le fossa nasali.",
+  "dopo": "chiude le fosse nasali.",
+  "motivo": "Refuso: \"le fossa nasali\"."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 214,
+  "prima": "collegate.E' formata da __  o 33  ________  è in ",
+  "dopo": "collegate. E' formata da __  o 33  ________  ed è in ",
+  "motivo": "Spazio mancante dopo il punto e manca \"ed\" (\"33 vertebre ed è in grado...\")."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 442,
+  "prima": "collegate.E' formata da __  o 33  ________  è in ",
+  "dopo": "collegate. E' formata da __  o 33  ________  ed è in ",
+  "motivo": "Spazio mancante dopo il punto e manca \"ed\" (\"33 vertebre ed è in grado...\")."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 218,
+  "prima": "\\32",
+  "dopo": "\\32\\trentadue",
+  "motivo": "Accettato anche il numero in lettere (come per \"22\\ventidue\")."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 446,
+  "prima": "\\32",
+  "dopo": "\\32\\trentadue",
+  "motivo": "Accettato anche il numero in lettere (come per \"22\\ventidue\")."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 240,
+  "prima": "\\costole",
+  "dopo": "\\costole\\coste",
+  "motivo": "\"coste\" è sinonimo usato anche nel set stesso."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 468,
+  "prima": "\\costole",
+  "dopo": "\\costole\\coste",
+  "motivo": "\"coste\" è sinonimo usato anche nel set stesso."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 248,
+  "prima": "\\dorsali",
+  "dopo": "\\dorsali\\toraciche",
+  "motivo": "Le vertebre dorsali si chiamano anche toraciche; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 476,
+  "prima": "\\dorsali",
+  "dopo": "\\dorsali\\toraciche",
+  "motivo": "Le vertebre dorsali si chiamano anche toraciche; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 272,
+  "prima": "\\dorsali",
+  "dopo": "\\dorsali\\toraciche",
+  "motivo": "Le vertebre dorsali si chiamano anche toraciche; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 500,
+  "prima": "\\dorsali",
+  "dopo": "\\dorsali\\toraciche",
+  "motivo": "Le vertebre dorsali si chiamano anche toraciche; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 308,
+  "prima": "\\!26\\25\\24\\20\\27\\28\\30\\8",
+  "dopo": "\\!27\\25\\24\\20\\26\\28\\30\\8",
+  "motivo": "Errore: le ossa della mano sono 27 (8 carpali, 5 metacarpali, 14 falangi); 26 sono quelle del piede."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 537,
+  "prima": "\\!26\\25\\24\\20\\27\\28\\30\\8",
+  "dopo": "\\!27\\25\\24\\20\\26\\28\\30\\8",
+  "motivo": "Errore: le ossa della mano sono 27 (8 carpali, 5 metacarpali, 14 falangi); 26 sono quelle del piede."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 390,
+  "prima": "elementi ossei, circa 26, e muscolari, 19,",
+  "dopo": "elementi ossei, circa 27, e muscolari, 19,",
+  "motivo": "Le ossa della mano sono 27 (8+5+14)."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 619,
+  "prima": "elementi ossei, circa 26, e muscolari, 19,",
+  "dopo": "elementi ossei, circa 27, e muscolari, 19,",
+  "motivo": "Le ossa della mano sono 27 (8+5+14)."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 341,
+  "prima": "\\iliache",
+  "dopo": "\\iliache\\coxali",
+  "motivo": "Le ossa dell'anca si chiamano anche coxali; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 570,
+  "prima": "\\iliache",
+  "dopo": "\\iliache\\coxali",
+  "motivo": "Le ossa dell'anca si chiamano anche coxali; aggiunta l'alternativa."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 356,
+  "prima": "Osso _____ : è costituito dalle ultime _  ",
+  "dopo": "Osso _____ : è costituito da _  ",
+  "motivo": "Le \"ultime\" vertebre sono le coccigee (4, presente tra le scelte): l'osso sacro è formato dalle 5 vertebre sacrali, che non sono le ultime."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 585,
+  "prima": "Osso _____ : è costituito dalle ultime _  ",
+  "dopo": "Osso _____ : è costituito da _  ",
+  "motivo": "Le \"ultime\" vertebre sono le coccigee (4, presente tra le scelte): l'osso sacro è formato dalle 5 vertebre sacrali, che non sono le ultime."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 383,
+  "prima": "è il più voluminoso e robusto osso del ",
+  "dopo": "è il più voluminoso e robusto osso della",
+  "motivo": "Errore: l'osso più voluminoso e robusto del corpo è il femore; la tibia lo è della gamba."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 612,
+  "prima": "è il più voluminoso e robusto osso del ",
+  "dopo": "è il più voluminoso e robusto osso della",
+  "motivo": "Errore: l'osso più voluminoso e robusto del corpo è il femore; la tibia lo è della gamba."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 384,
+  "prima": "nostro corpo.",
+  "dopo": "gamba.",
+  "motivo": "Vedi riga precedente."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 613,
+  "prima": "nostro corpo.",
+  "dopo": "gamba.",
+  "motivo": "Vedi riga precedente."
+ },
+ {
+  "set": "EM:schele",
+  "livello": null,
+  "riga": 594,
+  "prima": "\\Perone",
+  "dopo": "\\Perone\\perone",
+  "motivo": "Al livello 5 era accettato solo \"Perone\" maiuscolo (al livello 4 entrambe le forme)."
+ },
+ {
+  "set": "EG:A4DEMO",
+  "livello": 1,
+  "riga": 27,
+  "prima": ".Scegli la parola appropiata",
+  "dopo": ".Scegli la parola appropriata",
+  "motivo": "Refuso: \"appropiata\"."
+ },
+ {
+  "set": "EM:esempio1",
+  "livello": null,
+  "riga": 48,
+  "prima": "Quali di questi numeri è pari?",
+  "dopo": "Quale di questi numeri è pari?",
+  "motivo": "Concordanza: \"Quale ... è pari?\"."
+ },
+ {
+  "set": "EM:esempio1",
+  "livello": null,
+  "riga": 58,
+  "prima": "Quali di questi numeri è pari?",
+  "dopo": "Quale di questi numeri è pari?",
+  "motivo": "Concordanza: \"Quale ... è pari?\"."
+ },
+ {
+  "set": "EM:esempio3",
+  "livello": null,
+  "riga": 38,
+  "prima": "\\27 cmq.",
+  "dopo": "\\27 cmq.\\27 cmq\\27",
+  "motivo": "Accettate anche \"27 cmq\" senza punto e \"27\" (la domanda specifica già l'unità), come per la risposta precedente."
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 3,
+  "prima": ".Scrivi il verbo secondo le indicazioni dati entro le parentesi.",
+  "dopo": ".Scrivi il verbo secondo le indicazioni date entro le parentesi.",
+  "motivo": "refuso nella consegna: \"indicazioni date\" (concordanza femminile)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 3,
+  "prima": ".Scrivi il verbo secondo le indicazioni dati entro le parentesi.",
+  "dopo": ".Scrivi il verbo secondo le indicazioni date entro le parentesi.",
+  "motivo": "refuso nella consegna: \"indicazioni date\" (concordanza femminile)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 3,
+  "prima": ".Scrivi il verbo secondo le indicazioni dati entro le parentesi.",
+  "dopo": ".Scrivi il verbo secondo le indicazioni date entro le parentesi.",
+  "motivo": "refuso nella consegna: \"indicazioni date\" (concordanza femminile)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 3,
+  "prima": ".Scrivi il verbo secondo le indicazioni dati entro le parentesi.",
+  "dopo": ".Scrivi il verbo secondo le indicazioni date entro le parentesi.",
+  "motivo": "refuso nella consegna: \"indicazioni date\" (concordanza femminile)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 4,
+  "prima": "Luca non venne al cinema con noi perchè (ritenere = ind. pass. rem.)",
+  "dopo": "Luca non venne al cinema con noi perché (ritenere = ind. pass. rem.)",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 5,
+  "prima": "Luca non venne al cinema con noi perchè (ritenere = ind. pass. rem.)",
+  "dopo": "Luca non venne al cinema con noi perché (ritenere = ind. pass. rem.)",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 5,
+  "prima": "Luca non venne al cinema con noi perchè (ritenere = ind. pass. rem.)",
+  "dopo": "Luca non venne al cinema con noi perché (ritenere = ind. pass. rem.)",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 10,
+  "prima": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda ",
+  "dopo": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda\\si segga",
+  "motivo": "\"si segga\" è forma corretta e altrettanto diffusa del cong. pres. di sedersi"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 11,
+  "prima": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda ",
+  "dopo": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda\\si segga",
+  "motivo": "\"si segga\" è forma corretta e altrettanto diffusa del cong. pres. di sedersi"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 11,
+  "prima": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda ",
+  "dopo": "Prego signora, (sedersi= cong. pres.) qui al mio posto.\\si sieda\\si segga",
+  "motivo": "\"si segga\" è forma corretta e altrettanto diffusa del cong. pres. di sedersi"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 12,
+  "prima": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà ",
+  "dopo": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà\\si protrarra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 13,
+  "prima": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà ",
+  "dopo": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà\\si protrarra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 13,
+  "prima": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà ",
+  "dopo": "Lo spettacolo (protrarsi = ind. fut.) fino alle 23.\\si protrarrà\\si protrarra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 22,
+  "prima": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi ",
+  "dopo": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi\\sappi",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 23,
+  "prima": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi ",
+  "dopo": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi\\sappi",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 23,
+  "prima": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi ",
+  "dopo": "(Sapere =imperativo) che io non costringo nessuno a restare.\\Sappi\\sappi",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 23,
+  "prima": "Questa spilla ( valere = cond. pres.) cento mila lire ma gliela ",
+  "dopo": "Questa spilla ( valere = cond. pres.) centomila lire ma gliela",
+  "motivo": "ortografia: \"centomila\" si scrive unito"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 24,
+  "prima": "Questa spilla ( valere = cond. pres.) cento mila lire ma gliela ",
+  "dopo": "Questa spilla ( valere = cond. pres.) centomila lire ma gliela",
+  "motivo": "ortografia: \"centomila\" si scrive unito"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 24,
+  "prima": "Questa spilla ( valere = cond. pres.) cento mila lire ma gliela ",
+  "dopo": "Questa spilla ( valere = cond. pres.) centomila lire ma gliela",
+  "motivo": "ortografia: \"centomila\" si scrive unito"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 25,
+  "prima": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi ",
+  "dopo": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi\\seppe\\sapemmo\\seppero\\sapesti\\sapeste",
+  "motivo": "il soggetto non è indicato: qualsiasi persona del pass. rem. di sapere è corretta"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 26,
+  "prima": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi ",
+  "dopo": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi\\seppe\\sapemmo\\seppero\\sapesti\\sapeste",
+  "motivo": "il soggetto non è indicato: qualsiasi persona del pass. rem. di sapere è corretta"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 26,
+  "prima": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi ",
+  "dopo": "Di lui non (sapere = pass. rem.) più nulla per parecchi anni.\\seppi\\seppe\\sapemmo\\seppero\\sapesti\\sapeste",
+  "motivo": "il soggetto non è indicato: qualsiasi persona del pass. rem. di sapere è corretta"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 33,
+  "prima": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse ",
+  "dopo": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse\\concedette",
+  "motivo": "\"concedette\" è variante corretta del pass. rem. di concedere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 34,
+  "prima": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse ",
+  "dopo": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse\\concedette",
+  "motivo": "\"concedette\" è variante corretta del pass. rem. di concedere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 34,
+  "prima": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse ",
+  "dopo": "Il giudice (concedere = ind.pass.rem.) la libertà provvisoria all'imputato.\\concesse\\concedette",
+  "motivo": "\"concedette\" è variante corretta del pass. rem. di concedere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 44,
+  "prima": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia ",
+  "dopo": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia\\apparisca",
+  "motivo": "\"apparisca\" è variante corretta del cong. pres. di apparire"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 45,
+  "prima": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia ",
+  "dopo": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia\\apparisca",
+  "motivo": "\"apparisca\" è variante corretta del cong. pres. di apparire"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 45,
+  "prima": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia ",
+  "dopo": "Credo che il protagonista non (apparire = cong.pres.) in questa scena.\\appaia\\apparisca",
+  "motivo": "\"apparisca\" è variante corretta del cong. pres. di apparire"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 46,
+  "prima": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà ",
+  "dopo": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà\\accadra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 47,
+  "prima": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà ",
+  "dopo": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà\\accadra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 47,
+  "prima": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà ",
+  "dopo": "Noi non sappiamo che cosa ( accadere = ind.fut. ) domani.\\accadrà\\accadra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 54,
+  "prima": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto ",
+  "dopo": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto\\e' rimasto",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 55,
+  "prima": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto ",
+  "dopo": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto\\e' rimasto",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 55,
+  "prima": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto ",
+  "dopo": "Chi ( rimanere = ind.pass.pross.) assente, deve portare la giustificazione.\\è rimasto\\e' rimasto",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 57,
+  "prima": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde ",
+  "dopo": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde\\accadde",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 58,
+  "prima": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde ",
+  "dopo": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde\\accadde",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 58,
+  "prima": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde ",
+  "dopo": "(Accadere = ind.pass.rem.) ciò che tutti temevano.\\Accadde\\accadde",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 60,
+  "prima": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà ",
+  "dopo": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà\\cerchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 61,
+  "prima": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà ",
+  "dopo": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà\\cerchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 61,
+  "prima": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà ",
+  "dopo": "Franco (cercare= ind. fut.) di parlare con te domani.\\cercherà\\cerchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 65,
+  "prima": "dopo  quelli italiani.\\comincerà ",
+  "dopo": "dopo  quelli italiani.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 66,
+  "prima": "dopo  quelli italiani.\\comincerà ",
+  "dopo": "dopo  quelli italiani.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 66,
+  "prima": "dopo  quelli italiani.\\comincerà ",
+  "dopo": "dopo  quelli italiani.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 71,
+  "prima": "Non so perchè Antonio (collocare= cong. pres.) sempre il vocabolario ",
+  "dopo": "Non so perché Antonio (collocare= cong. pres.) sempre il vocabolario",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 72,
+  "prima": "Non so perchè Antonio (collocare= cong. pres.) sempre il vocabolario ",
+  "dopo": "Non so perché Antonio (collocare= cong. pres.) sempre il vocabolario",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 72,
+  "prima": "Non so perchè Antonio (collocare= cong. pres.) sempre il vocabolario ",
+  "dopo": "Non so perché Antonio (collocare= cong. pres.) sempre il vocabolario",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 84,
+  "prima": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi ",
+  "dopo": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi\\sareste perse",
+  "motivo": "\"voi\" può essere femminile: anche \"sareste perse\" è corretto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 85,
+  "prima": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi ",
+  "dopo": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi\\sareste perse",
+  "motivo": "\"voi\" può essere femminile: anche \"sareste perse\" è corretto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 85,
+  "prima": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi ",
+  "dopo": "Non vi (perdere=cond.pass.), se aveste portato con voi la pianta della città.\\sareste persi\\sareste perse",
+  "motivo": "\"voi\" può essere femminile: anche \"sareste perse\" è corretto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 97,
+  "prima": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò",
+  "dopo": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò\\taglio'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 98,
+  "prima": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò",
+  "dopo": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò\\taglio'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 98,
+  "prima": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò",
+  "dopo": "Il ladruncolo (tagliare = ind.pass.rem.) la corda e sparì.\\tagliò\\taglio'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 98,
+  "prima": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà ",
+  "dopo": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà\\proroghera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 99,
+  "prima": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà ",
+  "dopo": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà\\proroghera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 99,
+  "prima": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà ",
+  "dopo": "Il tribunale (prorogare = ind.fut.) gli sfratti di un mese.\\prorogherà\\proroghera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 101,
+  "prima": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà ",
+  "dopo": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà\\attacchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 102,
+  "prima": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà ",
+  "dopo": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà\\attacchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 102,
+  "prima": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà ",
+  "dopo": "E' ormai certo che il nemico (attaccare = ind.fut.) all'alba.\\attaccherà\\attacchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 103,
+  "prima": "sulla tapez-zeria.\\puliscono ",
+  "dopo": "sulla tappezzeria.\\puliscono",
+  "motivo": "ortografia: \"tappezzeria\" (doppia p, senza trattino di andata a capo)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 104,
+  "prima": "sulla tapez-zeria.\\puliscono ",
+  "dopo": "sulla tappezzeria.\\puliscono",
+  "motivo": "ortografia: \"tappezzeria\" (doppia p, senza trattino di andata a capo)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 104,
+  "prima": "sulla tapez-zeria.\\puliscono ",
+  "dopo": "sulla tappezzeria.\\puliscono",
+  "motivo": "ortografia: \"tappezzeria\" (doppia p, senza trattino di andata a capo)"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 112,
+  "prima": "di informatica.\\comincerà ",
+  "dopo": "di informatica.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 113,
+  "prima": "di informatica.\\comincerà ",
+  "dopo": "di informatica.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 113,
+  "prima": "di informatica.\\comincerà ",
+  "dopo": "di informatica.\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 1,
+  "riga": 114,
+  "prima": "(giocare = ind.fut.) in serie B.\\giocherà",
+  "dopo": "(giocare = ind.fut.) in serie B.\\giocherà\\giochera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 2,
+  "riga": 115,
+  "prima": "(giocare = ind.fut.) in serie B.\\giocherà",
+  "dopo": "(giocare = ind.fut.) in serie B.\\giocherà\\giochera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 3,
+  "riga": 115,
+  "prima": "(giocare = ind.fut.) in serie B.\\giocherà",
+  "dopo": "(giocare = ind.fut.) in serie B.\\giocherà\\giochera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 4,
+  "prima": "apparire (3°pers.sing.,ind.pass.rem.)\\apparve",
+  "dopo": "apparire (3°pers.sing.,ind.pass.rem.)\\apparve\\apparì\\apparse",
+  "motivo": "\"apparì\" e \"apparse\" sono varianti corrette del pass. rem. di apparire"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 4,
+  "prima": "apparire (3°pers.sing.,ind.pass.rem.)\\apparve",
+  "dopo": "apparire (3°pers.sing.,ind.pass.rem.)\\apparve\\apparì\\apparse",
+  "motivo": "\"apparì\" e \"apparse\" sono varianti corrette del pass. rem. di apparire"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 25,
+  "prima": "assolvere (3°pers.pl.,ind.pass.rem.)\\assolsero ",
+  "dopo": "assolvere (3°pers.pl.,ind.pass.rem.)\\assolsero\\assolvettero",
+  "motivo": "\"assolvettero\" è variante corretta del pass. rem. di assolvere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 25,
+  "prima": "assolvere (3°pers.pl.,ind.pass.rem.)\\assolsero ",
+  "dopo": "assolvere (3°pers.pl.,ind.pass.rem.)\\assolsero\\assolvettero",
+  "motivo": "\"assolvettero\" è variante corretta del pass. rem. di assolvere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 38,
+  "prima": "Temere (3°pers.pl.,ind.pass rem.).\\temettero",
+  "dopo": "Temere (3°pers.pl.,ind.pass rem.).\\temettero\\temerono",
+  "motivo": "\"temerono\" è forma corretta (anzi la più comune) del pass. rem. di temere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 38,
+  "prima": "Temere (3°pers.pl.,ind.pass rem.).\\temettero",
+  "dopo": "Temere (3°pers.pl.,ind.pass rem.).\\temettero\\temerono",
+  "motivo": "\"temerono\" è forma corretta (anzi la più comune) del pass. rem. di temere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 40,
+  "prima": "Vendere (3°pers.sing.,ind.pass.rem.).\\vendette ",
+  "dopo": "Vendere (3°pers.sing.,ind.pass.rem.).\\vendette\\vendé\\vende'",
+  "motivo": "\"vendé\" è variante corretta del pass. rem. di vendere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 40,
+  "prima": "Vendere (3°pers.sing.,ind.pass.rem.).\\vendette ",
+  "dopo": "Vendere (3°pers.sing.,ind.pass.rem.).\\vendette\\vendé\\vende'",
+  "motivo": "\"vendé\" è variante corretta del pass. rem. di vendere"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 42,
+  "prima": "Asciugare (3°pers.sing.,ind.fut.sempl.).\\asciugherà ",
+  "dopo": "Asciugare (3°pers.sing.,ind.fut.sempl.).\\asciugherà\\asciughera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 42,
+  "prima": "Asciugare (3°pers.sing.,ind.fut.sempl.).\\asciugherà ",
+  "dopo": "Asciugare (3°pers.sing.,ind.fut.sempl.).\\asciugherà\\asciughera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 4,
+  "riga": 53,
+  "prima": "arrivare (1°pers.pl.,cond.pass)\\saremmo arrivati ",
+  "dopo": "arrivare (1°pers.pl.,cond.pass)\\saremmo arrivati\\saremmo arrivate",
+  "motivo": "\"noi\" può essere femminile: anche \"saremmo arrivate\" è corretto"
+ },
+ {
+  "set": "EG:VERBI",
+  "livello": 5,
+  "riga": 53,
+  "prima": "arrivare (1°pers.pl.,cond.pass)\\saremmo arrivati ",
+  "dopo": "arrivare (1°pers.pl.,cond.pass)\\saremmo arrivati\\saremmo arrivate",
+  "motivo": "\"noi\" può essere femminile: anche \"saremmo arrivate\" è corretto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 40,
+  "prima": "Luca non venne al cinema con noi perchè ________ opportuno continuare a studiare.",
+  "dopo": "Luca non venne al cinema con noi perché ________ opportuno continuare a studiare.",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 211,
+  "prima": "Non capisco perchè Antonio  ________ (collocare= cong. pres.) sempre il vocabolario su uno scaffale così alto.",
+  "dopo": "Non capisco perché Antonio  ________ (collocare= cong. pres.) sempre il vocabolario su uno scaffale così alto.",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 259,
+  "prima": "Perchè ___________ (negare = ind. pres.-2^pers.sing.) di aver visto Anna ieri?",
+  "dopo": "Perché ___________ (negare = ind. pres.-2^pers.sing.) di aver visto Anna ieri?",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 295,
+  "prima": "Perchè non ________ (cercare = ind.pres.-1^pers.plur.) di aiutarci gli uni con gli altri?",
+  "dopo": "Perché non ________ (cercare = ind.pres.-1^pers.plur.) di aiutarci gli uni con gli altri?",
+  "motivo": "ortografia: perché vuole l'accento acuto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 58,
+  "prima": "\\si sieda ",
+  "dopo": "\\si sieda\\si segga",
+  "motivo": "\"si segga\" è forma corretta e altrettanto diffusa del cong. pres. di sedersi"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 64,
+  "prima": "\\si protrarrà ",
+  "dopo": "\\si protrarrà\\si protrarra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 78,
+  "prima": "Vutte le luci ______________ (spegnersi = pass. rem.) improvvisamente e il quartiere rimase al buio.",
+  "dopo": "Tutte le luci ______________ (spegnersi = pass. rem.) improvvisamente e il quartiere rimase al buio.",
+  "motivo": "refuso: \"Tutte le luci\""
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 91,
+  "prima": "\\Sappi ",
+  "dopo": "\\Sappi\\sappi",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 93,
+  "prima": "Questa spilla ____________ ( valere = cond. pres.) cento mila lire ma gliela posso dare per ottanta.",
+  "dopo": "Questa spilla ____________ ( valere = cond. pres.) centomila lire ma gliela posso dare per ottanta.",
+  "motivo": "ortografia: \"centomila\" si scrive unito"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 97,
+  "prima": "\\seppi ",
+  "dopo": "\\seppi\\seppe\\sapemmo\\seppero\\sapesti\\sapeste",
+  "motivo": "il soggetto non è indicato: qualsiasi persona del pass. rem. di sapere è corretta"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 99,
+  "prima": "Sono convinto che egli ti _____________ dovere = cong.pres.) chiedere scusa.",
+  "dopo": "Sono convinto che egli ti _____________ (dovere = cong.pres.) chiedere scusa.",
+  "motivo": "manca la parentesi aperta"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 102,
+  "prima": "Il nonno........... (scegliere = ind.pass.rem.) con cura un sigaro avana.",
+  "dopo": "Il nonno _____________ (scegliere = ind.pass.rem.) con cura un sigaro avana.",
+  "motivo": "puntini al posto della linea di sottolineatura: lo spazio della risposta non viene riempito"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 118,
+  "prima": "\\concesse ",
+  "dopo": "\\concesse\\concedette",
+  "motivo": "\"concedette\" è variante corretta del pass. rem. di concedere"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 139,
+  "prima": "\\appaia ",
+  "dopo": "\\appaia\\apparisca",
+  "motivo": "\"apparisca\" è variante corretta del cong. pres. di apparire"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 145,
+  "prima": "\\accadrà ",
+  "dopo": "\\accadrà\\accadra'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 165,
+  "prima": "L'insegnante ci ______________ leggere = ind.pass.rem.) un brano molto interessante.",
+  "dopo": "L'insegnante ci ______________ (leggere = ind.pass.rem.) un brano molto interessante.",
+  "motivo": "manca la parentesi aperta"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 169,
+  "prima": "\\è rimasto ",
+  "dopo": "\\è rimasto\\e' rimasto",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 177,
+  "prima": "_______________________ = ind.pass.rem.) ciò che tutti temevano.",
+  "dopo": "_______________________ (Accadere = ind.pass.rem.) ciò che tutti temevano.",
+  "motivo": "manca il verbo da coniugare: senza \"(Accadere\" l'esercizio è irrisolvibile"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 178,
+  "prima": "\\Accadde ",
+  "dopo": "\\Accadde\\accadde",
+  "motivo": "accettata anche la minuscola"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 180,
+  "prima": "Noi ________________ godere = cond.pres.) un bel panorama se non ci fosse questa foschia.",
+  "dopo": "Noi ________________ (godere = cond.pres.) un bel panorama se non ci fosse questa foschia.",
+  "motivo": "manca la parentesi aperta"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 187,
+  "prima": "Franco ____________________ ( cercare ind. fut.) di parlare con te domani.",
+  "dopo": "Franco ____________________ ( cercare = ind. fut.) di parlare con te domani.",
+  "motivo": "manca il segno \"=\" come negli altri esercizi"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 188,
+  "prima": "\\cercherò ",
+  "dopo": "\\cercherà\\cerchera'",
+  "motivo": "risposta sbagliata: il soggetto è Franco (3ª sing.), quindi \"cercherà\", non \"cercherò\""
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 196,
+  "prima": "Mario   ________ (cominciare= ind. fut.) a fare la raccolta di francobolli stranieri,dopo  quelli italiani.",
+  "dopo": "Mario   ________ (cominciare= ind. fut.) a fare la raccolta di francobolli stranieri, dopo  quelli italiani.",
+  "motivo": "manca lo spazio dopo la virgola"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 197,
+  "prima": "\\comincerà ",
+  "dopo": "\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 202,
+  "prima": "Al tuo posto andrei dalla professoressa e la (pregare= cond.pres.) di aiutarmi.",
+  "dopo": "Al tuo posto andrei dalla professoressa e la ________ (pregare= cond.pres.) di aiutarmi.",
+  "motivo": "manca la linea di sottolineatura dove va la risposta"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 233,
+  "prima": "\\sareste persi ",
+  "dopo": "\\sareste persi\\sareste perse",
+  "motivo": "\"voi\" può essere femminile: anche \"sareste perse\" è corretto"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 238,
+  "prima": "Se i miei genitori mi capissero , ____________ (raccontare=cond.pres.) loro le mie paure.",
+  "dopo": "Se i miei genitori mi capissero, ____________ (raccontare=cond.pres.) loro le mie paure.",
+  "motivo": "spazio di troppo prima della virgola"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 263,
+  "prima": "\\tagliò",
+  "dopo": "\\tagliò\\taglio'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 266,
+  "prima": "\\prorogherà ",
+  "dopo": "\\prorogherà\\proroghera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 275,
+  "prima": "\\attaccherà ",
+  "dopo": "\\attaccherà\\attacchera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 277,
+  "prima": "Ci sono nuovi prodotti che ___________ (pulire = ind.pres.) bene queste macchie sulla tapezzeria.",
+  "dopo": "Ci sono nuovi prodotti che ___________ (pulire = ind.pres.) bene queste macchie sulla tappezzeria.",
+  "motivo": "ortografia: \"tappezzeria\" (doppia p)"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 283,
+  "prima": "Ho paura che, con questa pioggia torrenziale, si __________ (allagare = cong.pres.)la cantina.",
+  "dopo": "Ho paura che, con questa pioggia torrenziale, si __________ (allagare = cong.pres.) la cantina.",
+  "motivo": "manca lo spazio dopo la parentesi"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 299,
+  "prima": "\\comincerà ",
+  "dopo": "\\comincerà\\comincera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EM:verbi",
+  "livello": null,
+  "riga": 302,
+  "prima": "\\giocherà ",
+  "dopo": "\\giocherà\\giochera'",
+  "motivo": "aggiunta la forma con apostrofo al posto dell'accento (convenzione già usata nel set: E')"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 2,
+  "prima": "Eccò una serie di esercizi",
+  "dopo": "Ecco una serie di esercizi",
+  "motivo": "refuso: \"Ecco\" non ha accento"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 19,
+  "prima": "coscienziosamente\\!Falso\\Vero",
+  "dopo": "coscienziosamente\\!Vero\\Falso",
+  "motivo": "\"coscienziosamente\" è scritto correttamente: la risposta giusta è Vero"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 20,
+  "prima": "coscenziosamente \\!Vero\\Falso",
+  "dopo": "coscenziosamente \\!Falso\\Vero",
+  "motivo": "\"coscenziosamente\" è sbagliato (si scrive coscienziosamente): la risposta giusta è Falso"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 23,
+  "prima": "uscere \\!Vero\\Falso",
+  "dopo": "usciere \\!Vero\\Falso",
+  "motivo": "la parola segnata come giusta era scritta male (\"uscere\"): la forma corretta è \"usciere\""
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 34,
+  "prima": "consiliare\\!Falso\\Vero",
+  "dopo": "consiliare\\!Vero\\Falso",
+  "motivo": "\"consiliare\" esiste (es. aula consiliare, \"del consiglio\"): non si può segnare come sbagliata"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 1,
+  "riga": 72,
+  "prima": "Tanponaqre\\!Falso\\Vero",
+  "dopo": "Tanponare\\!Falso\\Vero",
+  "motivo": "refuso estraneo all'esercizio (q in più): l'errore voluto è solo n/m"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 58,
+  "prima": "suoi\\su-oi",
+  "dopo": "suoi\\suoi",
+  "motivo": "\"suoi\" contiene un trittongo e forma una sola sillaba: non si divide"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 59,
+  "prima": "guaito\\guai-to",
+  "dopo": "guaito\\gua-i-to",
+  "motivo": "in \"guaìto\" la i è accentata: c'è iato, si divide gua-i-to"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 61,
+  "prima": "inveire\\in-vei-re",
+  "dopo": "inveire\\in-ve-i-re",
+  "motivo": "in \"inveìre\" la i è accentata: c'è iato, si divide in-ve-i-re"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 64,
+  "prima": "legnaiuolo\\le-gna-uo-lo",
+  "dopo": "legnaiuolo\\le-gna-iuo-lo",
+  "motivo": "nella divisione manca la i: le-gna-iuo-lo"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 65,
+  "prima": "veemente\\vee-men-te",
+  "dopo": "veemente\\ve-e-men-te",
+  "motivo": "due vocali uguali formano iato: ve-e-men-te"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 2,
+  "riga": 66,
+  "prima": "poeta\\poe-ta",
+  "dopo": "poeta\\po-e-ta",
+  "motivo": "o ed e (vocali forti) formano iato: po-e-ta"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 3,
+  "riga": 2,
+  "prima": ".Se la parola è sbagliata scrivila correttamente altrimente la trascrivi.",
+  "dopo": ".Se la parola è sbagliata scrivila correttamente altrimenti la trascrivi.",
+  "motivo": "refuso nella consegna: \"altrimenti\""
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 3,
+  "riga": 4,
+  "prima": "Campagnia\\Campania",
+  "dopo": "Campagnia\\Campania\\Campagna\\campagna",
+  "motivo": "\"Campagnia\" può essere anche la grafia errata di \"campagna\": anche questa correzione è valida"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 3,
+  "riga": 9,
+  "prima": "convegnieza\\convenieza",
+  "dopo": "convegnieza\\convenienza",
+  "motivo": "risposta sbagliata: la parola corretta è \"convenienza\""
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 3,
+  "riga": 22,
+  "prima": "cosichè\\cosicchè",
+  "dopo": "cosichè\\cosicché\\cosicche'",
+  "motivo": "la grafia corretta è \"cosicché\" con accento acuto; aggiunta anche la forma con apostrofo"
+ },
+ {
+  "set": "EG:GRAMMA",
+  "livello": 4,
+  "riga": 20,
+  "prima": "estra...arsi\\estragnarsi",
+  "dopo": "estra...arsi\\estraniarsi",
+  "motivo": "risposta sbagliata: la parola corretta è \"estraniarsi\""
+ }
+]
