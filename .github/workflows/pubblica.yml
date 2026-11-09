@@ -1,0 +1,43 @@
+# Publishes the whole collection on GitHub Pages (home page at the root).
+# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+name: Pubblica su GitHub Pages
+
+on:
+  push:
+    branches: [main, claude/focused-keller-mvg9h3]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepara il sito (tutti i file del repository tranne .github)
+        run: |
+          mkdir _site
+          git ls-files | grep -v '^\.github/' | tar -cf - -T - | tar -xf - -C _site
+          touch _site/.nojekyll
+          find _site -type f | wc -l
+          du -sh _site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

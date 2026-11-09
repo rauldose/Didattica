@@ -50,3 +50,13 @@ read this old RAR version). Do not run them.
 The form layouts, texts and bitmaps were read from the binary `TPF0`
 resources inside the executables. That is where the material lists and
 densities, the Archimedes portrait and the help texts come from.
+
+## Gorillas (`MSU.EXE`)
+
+His build of Gorillas takes the seconds of play on the command line
+(`MSU.EXE 240`) and counts them down while the players aim. The test that
+should run once per second (`IF VAL(RIGHT$(TIME$, 2)) <> tmem%`) is compiled
+as a floating-point compare that never reports "equal" under DOSBox, so the
+counter dropped on every pass of the input loop. `strumenti/patch_gorillas.py`
+replaces only that test with an integer check on the BIOS tick counter. The
+unmodified file is inside `archivio/originali/em/em.exe`.

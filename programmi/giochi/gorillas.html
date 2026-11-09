@@ -34,10 +34,28 @@
   G.topbar("Gorillas");
   var tempo = D.$("#tempo");
 
-  D.$("#esci").addEventListener("click", G.esci);
+  var inizio = Date.now(), finito = false, dos = null;
+  // seconds not yet used (his counter only runs during play, so this is an estimate)
+  function rimasti() { return Math.max(0, G.sec - Math.round((Date.now() - inizio) / 1000)); }
+  function fine(testo, resto) {
+    if (finito) return;
+    finito = true;
+    clearTimeout(sicurezza);
+    try { if (dos && dos.stop) dos.stop(); } catch (e) { /* already stopped */ }
+    D.$("#dos").innerHTML = "";
+    (testo ? D.msg(testo) : Promise.resolve()).then(function () { D.fineGioco(resto); });
+  }
+  D.$("#esci").addEventListener("click", function () { fine(null, rimasti()); });
+  tempo.textContent = " Tempo di gioco: " + G.sec + " secondi (contatore SECONDI nel gioco)";
+  // safety net: his counter only runs while a player is aiming, so allow some extra time
+  var sicurezza = setTimeout(function () {
+    fine("Il tempo del gioco è finito.\nProseguire con lo studio.", 0);
+  }, (G.sec + 120) * 1000);
+
   // switch to the modern game keeping the remaining seconds
   D.$("#duello").addEventListener("click", function () {
-    location.replace("duello.html?sec=" + G.sec + (G.embed ? "&embed=1" : ""));
+    finito = true;
+    location.replace("duello.html?sec=" + rimasti() + (G.embed ? "&embed=1" : ""));
   });
 
   // WebAssembly cannot be loaded from file://: the site must be served over http(s)
@@ -67,33 +85,53 @@
   document.head.appendChild(s);
 
   function avvia() {
-    // His programs launched the game as "msu.exe <seconds>". The emulated
-    // clock can run fast while the emulator warms up, so the game gets a
-    // small cushion and the real-time countdown of this page ends the play.
-    var secondi = G.sec + 30;
+    // His programs launched the game as "msu.exe <seconds>"; MSU.EXE counts
+    // the seconds itself (with a small fix, see strumenti/patch_gorillas.py).
+    // When the time is over it shows "ADESSO RIPRENDIAMO LO STUDIO!!!", waits
+    // for a key and RUNs his exercise program GEOMAT.EXE (OPERAZ.EXE after a
+    // full match): here those are tiny stubs that just exit, then "exit"
+    // closes DOSBox and the page goes back to the exercises.
+    var secondi = Math.max(1, G.sec);
+    var ESCI = new Uint8Array([0xB8, 0x00, 0x4C, 0xCD, 0x21]);   // mov ax,4C00h; int 21h
     fetch("../../dati/gorillas/MSU.EXE").then(function (r) { return r.arrayBuffer(); }).then(function (buf) {
       var conf = [
         "[sdl]", "autolock=false", "",
         "[cpu]", "core=auto", "cputype=auto", "cycles=3000", "",
         "[autoexec]", "echo off", "mount c .", "c:", "cls",
-        "MSU.EXE " + secondi
+        "MSU.EXE " + secondi,
+        "exit"
       ].join("\n");
-      window.Dos(D.$("#dos"), {
+      dos = window.Dos(D.$("#dos"), {
         pathPrefix: "jsdos/emulators/",
         dosboxConf: conf,
-        initFs: [{ path: "MSU.EXE", contents: new Uint8Array(buf) }],
+        initFs: [
+          { path: "MSU.EXE", contents: new Uint8Array(buf) },
+          { path: "GEOMAT.EXE", contents: ESCI },
+          { path: "OPERAZ.EXE", contents: ESCI }
+        ],
         autoStart: true,
         kiosk: true,
         noCloud: true,
         workerThread: false,
         theme: "dark",
-        lang: "it"
+        lang: "it",
+        onEvent: function (evento, ci) {
+          // when his program ends, DOSBox exits ("exit" in autoexec): go back to the exercises
+          if (evento === "ci-ready" && ci) {
+            var controllo = setInterval(function () {
+              if (finito) { clearInterval(controllo); return; }
+              if (ci.exited) {
+                clearInterval(controllo);
+                fine("Il tempo del gioco è finito.\nProseguire con lo studio.", 0);
+              }
+            }, 500);
+          }
+        }
       });
-      G.avviaTempo(tempo);
     }).catch(function (e) { D.msg("Errore: " + e.message); });
   }
   window.addEventListener("keydown", function (e) {
-    if (e.altKey && (e.key === "e" || e.key === "E")) { e.preventDefault(); G.esci(); }
+    if (e.altKey && (e.key === "e" || e.key === "E")) { e.preventDefault(); fine(null, rimasti()); }
   });
 })();
 </script>

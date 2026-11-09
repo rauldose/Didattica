@@ -2,7 +2,9 @@
 
 Prof. Carmelo Muscolino taught mathematics and science at the middle school of Gonars, near Palmanova (Udine, Italy). Between 1995 and 2000 he wrote educational programs for his pupils and gave them away on his website. This repository brings them back so they run on today's computers.
 
-**How to use it:** open `index.html` in any modern browser. Nothing needs to be installed, and it works offline. It can also be published as a static site, for example on GitHub Pages. Only Gorillas, which runs in a DOS emulator, needs the site to be served (GitHub Pages, or `python3 -m http.server` and then http://localhost:8000).
+**Online:** https://rauldose.github.io/Didattica/ (published automatically by `.github/workflows/pubblica.yml` on every push).
+
+**How to use it offline:** open `index.html` in any modern browser. Nothing needs to be installed, and it works offline. It can also be published as a static site, for example on GitHub Pages. Only Gorillas, which runs in a DOS emulator, needs the site to be served (GitHub Pages, or `python3 -m http.server` and then http://localhost:8000).
 
 ## Programs
 
@@ -15,7 +17,7 @@ Prof. Carmelo Muscolino taught mathematics and science at the middle school of G
 | **Geometria piana** | Visual Basic for DOS, source published | Faithful port (version 2.3) |
 | **Archimede, Talete** | Delphi 1, no source | Rebuilt from the screen layouts and data recovered from the executables |
 | **Puzzle** | his two-player game | Faithful port |
-| **Gorillas** | his build of Microsoft's QBasic game (`MSU.EXE`), launched by his DOS programs | The original executable, run unchanged in the [js-dos](https://js-dos.com) emulator (GPL-2.0, bundled in `programmi/giochi/jsdos/`). Needs the site to be served over http(s) |
+| **Gorillas** | his build of Microsoft's QBasic game (`MSU.EXE`), launched by his DOS programs | His executable, run in the [js-dos](https://js-dos.com) emulator (GPL-2.0, bundled in `programmi/giochi/jsdos/`). One small patch fixes its seconds counter, which ran out in a few seconds under emulation (`strumenti/patch_gorillas.py`). Needs the site to be served over http(s) |
 | **Duello** | — | A new two-player game, used instead of Gorillas when the site is opened straight from disk |
 | ProfEdit | VB-DOS / Windows | Not ported; the originals are kept in the archive |
 
