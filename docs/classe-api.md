@@ -20,14 +20,18 @@ GitHub Pages; this API runs on a **Cloudflare Worker** with a **D1** database
   base64url); the server stores only SHA-256(token). Sessions last 30 days
   (teachers) / 180 days (pupils); `POST /api/esci` revokes.
 - Passwords: PBKDF2-SHA256, 16-byte random salt, iterations from env
-  `PBKDF2_ITERATIONS` (default 100000), stored as
+  `PBKDF2_ITERATIONS` (default 100000, which is also the maximum the Workers
+  runtime accepts; minimum 1000), stored as
   `pbkdf2$<iter>$<salt b64>$<hash b64>`. Constant-time comparison.
 - Login rate limit: max 10 failed attempts per username per 15 minutes and
   30 per IP (`CF-Connecting-IP`) per 15 minutes → 429.
 - CORS: allowed origins from env `ALLOWED_ORIGINS` (comma separated, e.g.
   `https://rauldose.github.io,http://localhost:8000`); `OPTIONS` preflight;
   allow headers `Authorization, Content-Type`; methods GET POST PUT DELETE.
-- Limits: quiz JSON ≤ 2 MB; mini-app HTML ≤ 1 MB; ≤ 60 pupils per request.
+- Limits: quiz JSON ≤ 1.9 MB (1 900 000 bytes: a D1 row cannot exceed
+  2 000 000 bytes, so "2 MB" cannot be stored); mini-app HTML ≤ 1 MB
+  (1 048 576 bytes); ≤ 60 pupils per request. Too large → 413. See
+  "Implementation notes" for the other limits.
 - IDs: short random base36 strings (`q…`, `a…`, `c…`, `u…`), 10+ chars.
 
 ## Data model (D1)
@@ -97,6 +101,52 @@ teacher deletes everything they own.
 
 ### Health
 `GET /api/salute` → `{ok:true, versione}`.
+
+## Implementation notes (server/)
+Clarifications of points the tables above leave open:
+- **Dates** (`creato`, `aggiornato`, `ultimo`) are ISO 8601 UTC strings,
+  e.g. `2026-11-09T10:15:00.000Z`.
+- **Status codes**: 400 invalid input (Italian message names the field);
+  401 missing/invalid/expired token or wrong login (always the same message,
+  whether or not the user exists); 403 wrong role (pupil on a teacher
+  endpoint or vice versa), wrong current password in `PUT /api/io/password`
+  / `DELETE /api/io`, or request from an `Origin` not in `ALLOWED_ORIGINS`;
+  404 unknown path or resource not owned / not published to the pupil's
+  class; 405 known path, wrong method; 409 email already registered;
+  413 body or field too large, or storage quota exceeded; 429 rate limit.
+  Requests without an `Origin` header (curl, server-to-server) are allowed.
+- `POST /api/risultati` → `201 {ok:true}`.
+- `PUT /api/io/password` keeps the current session and revokes all the
+  user's other sessions.
+- `GET /api/classi/:id`: `alunni[].stelle` = total stars of all results,
+  `attivita` = number of results, `ultimo` = date of the newest result or
+  `null`. Pupils sorted by name.
+- `GET /api/classe`: `materia` is `dati.materia` (`"altro"` if missing),
+  `domande` = `dati.domande.length`. Newest publications first.
+- `POST /api/quiz` / `PUT`: `dati` must be an object with a `domande` array;
+  `titolo` is taken from `dati.titolo` (≤ 200 chars, default
+  `"Quiz senza titolo"`).
+- `POST /api/app`: `titolo` 1–100 chars, `descrizione` optional ≤ 500,
+  `html` non-empty string. `dimensione` in `GET /api/app` = HTML size in bytes.
+- `POST /api/classi/:id/pubblica` is idempotent; `DELETE …/pubblica/…` too.
+- Text fields are trimmed; names: teacher ≤ 80, class ≤ 60, pupil ≤ 40,
+  `attivita` ≤ 120 chars; control characters are refused. `anno`, `stelle`,
+  `corrette`, `totali` must be JSON integers (`corrette ≤ totali`).
+- Extra limits (abuse protection): 100 classes per teacher, 100 pupils per
+  class, 100 MB of quizzes + mini-apps per teacher (413), newest 20 000
+  results kept per pupil, 20 registrations per IP per 15 min, 10 wrong
+  current-password checks per user per 15 min (429). Non-quiz/app request
+  bodies ≤ 64 KB.
+- IDs: `u…` for both teachers and pupils (12 random base36 chars after the
+  prefix). Usernames: masculine animal + adjective + two digits 2–9
+  (`gufo-verde-27`); passwords: three nouns + one digit 2–9.
+- `GET /api/io/esporta` → `{formato:"impara-classe-esportazione", versione:1,
+  esportato, insegnante:{id,email,nome,creato}, classi:[{id,nome,anno,creato,
+  alunni:[{id,username,nome,creato}], pubblicati:[{tipo,id,creato}]}],
+  quiz:[{id,titolo,dati,aggiornato}], app:[{id,titolo,descrizione,html,aggiornato}],
+  risultati:[{alunno_id,classe_id,attivita,stelle,corrette,totali,creato}]}`.
+- Every response has `Cache-Control: no-store`, `X-Content-Type-Options:
+  nosniff`, `Content-Security-Policy: default-src 'none'; frame-ancestors 'none'`.
 
 ## Mini-app runtime (client side)
 `nuovo/classe/app.html?id=<id>` fetches the app and renders it in

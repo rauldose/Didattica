@@ -8,7 +8,7 @@
     "dev": "wrangler dev --local --port 8787 --persist-to .wrangler/state",
     "db:local": "wrangler d1 migrations apply didattica-classe --local --persist-to .wrangler/state",
     "db:remote": "wrangler d1 migrations apply didattica-classe --remote",
-    "test": "node --test test/",
+    "test": "node --test --test-reporter=spec test/api.test.mjs",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {

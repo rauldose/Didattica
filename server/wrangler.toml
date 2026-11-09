@@ -1,0 +1,16 @@
+# Cloudflare Worker: API della "classe online" di Impara giocando.
+# Contratto: ../docs/classe-api.md
+name = "didattica-classe"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "didattica-classe"
+database_id = "REPLACE_WITH_D1_ID"
+migrations_dir = "migrations"
+
+[vars]
+ALLOWED_ORIGINS = "https://rauldose.github.io,http://localhost:8000,http://127.0.0.1:8000"
+PBKDF2_ITERATIONS = "100000"
